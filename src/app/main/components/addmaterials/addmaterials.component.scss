@@ -1,0 +1,1343 @@
+/* Tabs */  
+
+.page-content {
+	max-width: 95%; 
+	margin: 5px 15px; 
+	background: #ffffff;
+}
+a {
+	color: #21D4FD; 
+	transition: all 0.3s;
+}
+
+.tabbed {
+	overflow-x: hidden; 
+	padding-bottom: 10px;
+	
+}
+
+.tabbed [type="radio"] {
+	display: none;
+}
+
+.tabs {
+	display: flex;
+	align-items: stretch;
+	list-style: none;
+    width: 93.5%; /*changed*/ 
+    margin-left: 48px; /*changed*/
+	border-bottom: 3.5px solid #000000;
+}
+
+.tabs:hover {
+	display: flex;
+	align-items: stretch;
+	list-style: none;
+    width: 93.5%; /*changed*/
+	color: #31A463;
+}
+
+.tab {
+    margin-top: 5px;
+    width: 35%; /*changed*/
+}
+.tab > label {
+    color: #000000;
+	display: block;
+    font-size: 17px; 
+    font-weight: bold;
+    line-height: 15px;
+    padding: 15px 10px;
+    text-align: center;
+	background: #ffffff;
+	font-weight: bold;
+	cursor: pointer;	
+	transition: all 0.3s;
+
+}
+.tab:hover label {
+	background-color: #31A463; 
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+}
+
+.tab-content {
+	display: none;
+	color: #777;
+}
+
+/* For the Form bg  */ 
+
+.bookcontainer {
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
+    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
+    box-shadow: 0 0 3px 3px #EEEEEE;
+    height: 840px;
+    width: 1135px;
+    padding-bottom: 200px;
+    margin-top: 50px;
+    margin-left: 48px;
+}
+.periocontainer {
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
+    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
+    box-shadow: 0 0 3px 3px #EEEEEE;
+    height: 855px;
+    width: 1135px;
+    padding-bottom: 200px;
+    margin-top: 50px;
+    margin-left: 48px;
+}
+.articontainer {
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
+    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
+    box-shadow: 0 0 3px 3px #EEEEEE;
+    height: 755px;
+    width: 1135px;
+    padding-bottom: 200px;
+    margin-top: 50px;
+    margin-left: 48px;
+}
+
+/*Form*/
+
+.tab-content {
+    width: 500px; 
+}
+
+.entryarea {
+    position: relative;
+    height: 200px;
+    line-height: 25px;
+}
+
+/* Input in the left side */ 
+.entryarea input {
+    font-family: poppins;
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 65px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+.entryarea2 input {
+    font-family: poppins;
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 160px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+
+.entryarea3 input {
+    font-family: poppins;
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 255px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+.entryarea4 input {
+    font-family: poppins;
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 350px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+}
+.entryarea5 input {
+    font-family: poppins;
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 445px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+}  
+.entryarea6 input {
+    font-family: poppins;
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 540px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+}  
+.entryarea7 input {
+    font-family: poppins;
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 635px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+
+/* Input in the right side */
+
+.entryarea_1 input {
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 65px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+.entryarea_2 input {
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 160px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+.entryarea_3 input {
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 255px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+.entryarea_4 input {
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 350px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+}
+.entryarea_5 input {
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 445px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+}
+.entryarea_6 input {
+    position: absolute;
+    width: 35%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 540px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+}
+.entryarea_7 input {
+    position: absolute;
+    width: 26%;
+    font-size: 18px;
+    margin-top: 435px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+    
+}
+
+input[type="file"]::file-selector-button {
+    border-radius: 4px;
+    font-family: poppins;
+    color: #ffffff;
+    padding: 0 16px;
+    height: 52px;
+    cursor: pointer;
+    background-color: #31A463;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+  }
+
+
+/* Label in the left side */ 
+
+.labelline {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 53px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline2 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 148px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline3 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 243px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline4 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 338px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline5 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 433px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline6 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 528px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline7 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 623px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+/* Label in the right side */ 
+
+.labelline_1 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 53px;
+    margin-left: 663px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline_2 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 149px;
+    margin-left: 663px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline_3 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 245px;
+    margin-left: 663px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline_4 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 338px;
+    margin-left: 663px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline_5 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 433px;
+    margin-left: 663px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.labelline_6 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 528px;
+    margin-left: 663px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+} 
+.labelline_7 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 405px;
+    margin-left: 636px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+} 
+
+/* Books */ 
+
+.entryarea input:focus, 
+.entryarea input:valid {
+    color: #000;
+    border: 2px solid #31A463;
+}
+
+.entryarea input:focus + .labelline, 
+.entryarea input:valid + .labelline, 
+.entryarea_1 input:focus + .labelline_1, 
+.entryarea_1 input:valid + .labelline_1,
+.entryarea2 input:focus + .labelline2, 
+.entryarea2 input:valid + .labelline2, 
+.entryarea_2 input:focus + .labelline_2, 
+.entryarea_2 input:valid + .labelline_2, 
+.entryarea3 input:focus + .labelline3, 
+.entryarea3 input:valid + .labelline3, 
+.entryarea_3 input:focus + .labelline_3, 
+.entryarea_3 input:valid + .labelline_3, 
+.entryarea4 input:focus + .labelline4, 
+.entryarea4 input:valid + .labelline4, 
+.entryarea_4 input:focus + .labelline_4, 
+.entryarea_4 input:valid + .labelline_4,
+.entryarea5 input:focus + .labelline5, 
+.entryarea5 input:valid + .labelline5, 
+.entryarea_5 input:focus + .labelline_5, 
+.entryarea_5 input:valid + .labelline_5, 
+.entryarea6 input:focus + .labelline6, 
+.entryarea6 input:valid + .labelline6, 
+.entryarea_6 input:focus + .labelline_6, 
+.entryarea_6 input:valid + .labelline_6,
+.entryarea7 input:focus + .labelline7, 
+.entryarea7 input:valid + .labelline7 {
+    color: #31A463;
+    
+}
+
+/* Periodical */ 
+
+.perioarea input:focus, 
+.perioarea input:valid {
+    color: #000;
+    border: 2px solid #31A463;
+}
+
+.perioarea input:focus + .perioline, 
+.perioarea input:valid + .perioline, 
+.perioarea_1 input:focus + .perioline_1, 
+.perioarea_1 input:valid + .perioline_1
+.perioarea2 input:focus + .perioline2, 
+.perioarea2 input:valid + .perioline2, 
+.perioarea_2 input:focus + .perioline_2, 
+.perioarea_2 input:valid + .perioline_2
+.perioarea3 input:focus + .perioline3, 
+.perioarea3 input:valid + .perioline3, 
+.perioarea_3 input:focus + .perioline_3, 
+.perioarea_3 input:valid + .perioline_3,
+.perioarea4 input:focus + .perioline4, 
+.perioarea4 input:valid + .perioline4, 
+.perioarea_4 input:focus + .perioline_4, 
+.perioarea_4 input:valid + .perioline_4
+.perioarea5 input:focus + .perioline5, 
+.perioarea5 input:valid + .perioline5, 
+.perioarea_5 input:focus + .perioline_5, 
+.perioarea_5 input:valid + .perioline_5
+.perioarea6 input:focus + .perioline6, 
+.perioarea6 input:valid + .perioline6, 
+.perioarea_6 input:focus + .perioline_6, 
+.perioarea_6 input:valid + .perioline_6
+.perioarea7 input:focus + .perioline7, 
+.perioarea7 input:valid + .perioline7 {
+    color: #31A463;
+    
+}
+
+/* Periodical */ 
+
+.artiarea input:focus, 
+.artiarea input:valid {
+    color: #000;
+    border: 2px solid #31A463;
+}
+
+.artiarea input:focus + .artiline, 
+.artiarea input:valid + .artiline, 
+.artiarea_1 input:focus + .artiline_1, 
+.artiarea_1 input:valid + .artiline_1, 
+.artiarea_2 input:focus + .artiline_2, 
+.artiarea_2 input:valid + .artiline_2,
+.artiarea_2 input:focus + .artiline_2, 
+.artiarea_2 input:valid + .artiline_2,
+.artiarea_3 input:focus + .artiline_3, 
+.artiarea_3 input:valid + .artiline_3,
+.artiarea_3 input:focus + .artiline_3, 
+.artiarea_3 input:valid + .artiline_3,
+.artiarea_4 input:focus + .artiline_4, 
+.artiarea_4 input:valid + .artiline_4, 
+.artiarea_4 input:focus + .artiline_4, 
+.artiarea_4 input:valid + .artiline_4, 
+.artiarea_5 input:focus + .artiline_5, 
+.artiarea_5 input:valid + .artiline_5,
+.artiarea_5 input:focus + .artiline_5, 
+.artiarea_5 input:valid + .artiline_5, 
+.artiarea_6 input:focus + .artiline_6, 
+.artiarea_6 input:valid + .artiline_6, 
+.artiarea_6 input:focus + .artiline_6, 
+.artiarea_6 input:valid + .artiline_6 {
+    color: #31A463;
+}
+
+
+
+/* Book Submit Button */ 
+
+.bookbtn > input {
+	display: block;
+    font-family: poppins;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+	width: 15%;
+	margin-top: 535px;
+    margin-left: 490px;
+	background-color: #31A463;
+    border-radius: 5px;
+	color: #ffffff;
+	padding:13px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+
+/* PERIODICAL FORM */ 
+
+/* Input in the left side */ 
+
+.perioarea select {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    height: 55px;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 65px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+.perioarea2 input {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 160px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+.perioarea3 select {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 260px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+.perioarea4 input {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 360px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+.perioarea5 input {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 460px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+.perioarea6 input {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 560px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+
+
+/* Input in the right side */
+
+.perioarea_1 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 65px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+.perioarea_2 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 160px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+.perioarea_3 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 260px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+.perioarea_4 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 360px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+.perioarea_5 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 460px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+.perioarea_6 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 560px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+
+.perioarea_7 input {
+    position: absolute;
+    width: 26.2%;
+    font-size: 18px;
+    margin-top: 660px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+    
+}
+
+input[type="file"]::file-selector-button {
+    border-radius: 4px;
+    font-family: poppins;
+    color: #ffffff;
+    padding: 0 16px;
+    height: 52px;
+    cursor: pointer;
+    background-color: #31A463;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+  }
+
+/* Label in the left side */ 
+
+.perioline {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 53px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline2 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 149px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline3 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 249px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline4 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 349px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline5 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 449px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline6 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 549px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+/* Label in the rightside */ 
+
+.perioline_1 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 53px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline_2 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 149px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline_3 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 249px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline_4 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 349px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline_5 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 449px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline_6 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 549px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.perioline_7 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 625px;
+    margin-left: 87px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+/* Submit Button */ 
+
+.periobtn > input {
+    font-family: poppins;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+	width: 15%;
+	margin-top: 762px;
+    margin-left: 490px;
+	background-color: #31A463;
+    border-radius: 5px;
+	color: #ffffff;
+	padding:13px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+/* ARTICLE FORM */ 
+
+/* Input in the left side */ 
+
+.artiarea select {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    height: 55px;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 65px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+.artiarea2 input {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 160px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+.artiarea3 select {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 260px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+
+.artiarea4 input {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 360px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+
+.artiarea5 input {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 460px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+.artiarea6 input {
+    font-family: poppins;
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 560px;
+    margin-left: 100px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #ffffff;
+    transition: 0.1s ease;
+} 
+
+
+/* Input in the right side */
+
+.artiarea_1 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 65px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+.artiarea_2 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 160px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+
+.artiarea_3 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 260px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+
+.artiarea_4 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 360px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+
+.artiarea_5 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 460px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+.artiarea_6 input {
+    position: absolute;
+    width: 26.2%;
+    outline: none;
+    font-size: 18px;
+    padding: 0 18px;
+    margin-top: 560px;
+    margin-left: 650px;
+    line-height: 52px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+
+
+/* Label in the left side */ 
+
+.artiline {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 53px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+.artiline2 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 149px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.artiline3 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 249px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+.artiline4 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 349px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+.artiline5 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 449px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.artiline6 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 549px;
+    margin-left: 115px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+
+/* Label in the rightside */ 
+
+.artiline_1 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 53px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.artiline_2 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 149px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+.artiline_3 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 249px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.artiline_4 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 349px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.artiline_5 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 449px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+.artiline_6 {
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    padding: 0 17px;
+    margin-top: 549px;
+    margin-left: 670px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+/* Article Submit Button */ 
+
+/*
+.artibtn > input {
+    font-family: poppins;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+	width: 15%;
+	margin-top: 655px;
+    margin-left: 490px;
+	background-color: #31A463;
+    border-radius: 5px;
+	color: #ffffff;
+	padding:13px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+}
+*/
+
+/* Tab */
+
+.tabbed [type="radio"]:nth-of-type(1):checked ~ .tabs .tab:nth-of-type(1) label,
+.tabbed [type="radio"]:nth-of-type(2):checked ~ .tabs .tab:nth-of-type(2) label,
+.tabbed [type="radio"]:nth-of-type(3):checked ~ .tabs .tab:nth-of-type(3) label {
+	border-bottom-color: #31A463;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+	background: #31A463;
+	color: #ffffff;
+}
+
+.tabbed [type="radio"]:nth-of-type(1):checked ~ .tab-content:nth-of-type(1),
+.tabbed [type="radio"]:nth-of-type(2):checked ~ .tab-content:nth-of-type(2),
+.tabbed [type="radio"]:nth-of-type(3):checked ~ .tab-content:nth-of-type(3) {
+	display: block;
+}

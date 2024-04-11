@@ -1,0 +1,129 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<main>
+    <div class="content">
+        <div class="head">
+            <h1> Academic Projects </h1>
+            <a routerLink="../addproject" class="add-project"> 
+                <span> <i class='bx bx-plus-circle'></i> </span>
+                <span> Add Project </span>
+            </a>
+        </div>
+        
+        <div class="projects-table">
+
+            <div class="table-head">
+
+            <div class="table-filters">
+                <select id="filter">
+                    <option selected value="All Departments"> All Departments </option>
+                    <option> CCS </option>
+                    <option> CBA </option>
+                    <option> CAHS </option>
+                    <option> CEAS </option>
+                    <option> CHTM </option>
+                </select>
+
+                <select id="filter">
+                    <option selected value="All Projects"> All Projects </option>
+                    <option> Thesis </option>
+                    <option> Capstone </option>
+                    <option> Research </option>
+                    <option> Dissertation </option>
+                    <option> Feasibility </option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <form action="/action_page.php">
+                  <input type="text" placeholder="Search..." name="search">
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+
+            </div>
+              
+              
+            <div class="card">
+                <section class="project-table">
+                    <table class="table">
+                    <tr>
+                        <th> Date Added </th>
+                        <th> College </th>
+                        <th> Program </th>
+                        <th> Project </th>
+                        <th> Title </th>
+                        <th> Date Published </th>
+                        <th> Action </th>
+                    </tr>
+
+                    <!-- PROJECT DETAILS -->
+                    <tr routerLink="#">
+                        <td> (timestamp date) </td>
+                        <td> CCS </td>
+                        <td> BSIT </td>
+                        <td> Capstone </td>
+                        <td> GC Library Information Management System </td>
+                        <td> January 31, 2024 </td>
+                        <td> 
+                            <div class="actions">
+                            <a routerLink="../" class="edit"> <i class='bx bx-edit' ></i> </a>
+                            <a class="delete" (click)="togglePopup()"> <i class='bx bx-trash'></i> 
+                                <app-delete-popup *ngIf="showPopup" (closedPopup)="closePopup()" (deleteClicked)="redirectToListPage()"></app-delete-popup>
+                            </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- PROJECT DETAILS -->
+                    <tr (click)="toggleDetails()">
+                        <app-details-popup *ngIf="showDetails" (closedPopup)="closePopup()" (deleteClicked)="redirectToListPage()"></app-details-popup>
+                        <td> (timestamp date) </td>
+                        <td> CCS </td>
+                        <td> BSIT </td>
+                        <td> Capstone </td>
+                        <td> GC Library Information Management System </td>
+                        <td> January 31, 2024 </td>
+                        <td> 
+                            <div class="actions">
+                            <a routerLink="../" class="edit"> <i class='bx bx-edit' ></i> </a>
+                            <a class="delete" (click)="togglePopup()"> <i class='bx bx-trash'></i> 
+                                <app-delete-popup *ngIf="showPopup" (closedPopup)="closePopup()" (deleteClicked)="redirectToListPage()"></app-delete-popup>
+                            </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- PROJECT DETAILS -->
+                    <tr routerLink="#">
+                        <td> (timestamp date) </td>
+                        <td> CCS </td>
+                        <td> BSIT </td>
+                        <td> Capstone </td>
+                        <td> GC Library Information Management System </td>
+                        <td> January 31, 2024 </td>
+                        <td> 
+                            <div class="actions">
+                            <a routerLink="../" class="edit"> <i class='bx bx-edit' ></i> </a>
+                            <a class="delete" (click)="togglePopup()"> <i class='bx bx-trash'></i> 
+                                <app-delete-popup *ngIf="showPopup" (closedPopup)="closePopup()" (deleteClicked)="redirectToListPage()"></app-delete-popup>
+                            </a>
+
+                            
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    
+                    </table>
+                </section>
+
+
+
+            </div>           
+        </div>
+
+
+    </div>
+</main>

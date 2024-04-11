@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<main>
+    <div class="content">
+        <!-- MATERIALS DROPDOWN -->
+        <div class="dropdown">
+            <button class="dropbtn">
+                <span class="materials-icon"> <i class='bx bx-list-ul'></i> </span>
+                <span class="materials"> Materials </span>
+                <span class="drop-arrow"> <i id="left" class='bx bxs-left-arrow' ></i> <i id="down" class='bx bxs-down-arrow'></i> </span>
+            </button>
+            <div class="dropdown-content">
+                <a class="books" routerLink="books" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}"> 
+                    <span class="material-icon"> <i class='bx bx-book-alt' ></i> </span>
+                    <span class="material"> Books </span>
+                </a>
+                <a class="periodicals" routerLink="periodicals" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}"> 
+                    <span class="material-icon"> <i class='bx bxs-news' ></i> </span>
+                    <span class="material"> Periodicals </span>
+                </a>
+                <a class="articles" routerLink="articles" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}"> 
+                    <span class="material-icon"> <i class='bx bx-news' ></i> </span>
+                    <span class="material"> Articles </span>
+                </a>
+            </div>
+        </div>
+        <hr>
+
+        <!-- MATERIALS TABLE -->
+        <div class="table">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</main>

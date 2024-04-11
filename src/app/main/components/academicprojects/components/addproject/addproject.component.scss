@@ -1,0 +1,231 @@
+/* MAIN PADDING */
+main {
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    main {
+        margin: 10px;
+    }
+}
+/* END OF MAIN PADDING */
+
+.content {
+  justify-content: center;
+  align-items: center;
+  padding-right: 20px;
+}
+
+/* HEAD CONTENT */
+.head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.head h1 {
+    font-weight: bolder;
+    font-size: 20px;
+    padding-bottom: 25px;
+}
+
+.head .list {
+    align-items: center;
+    background-color: var(--main-green);
+    text-decoration: none;
+    color: white;
+    border-radius: 50px;
+    padding-left: 5px;
+    font-size: 16px;
+    width: 150px;
+    height: 40px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.322);
+    transition: .3s;
+}
+
+.head a {
+    padding: 8px;
+    text-align: center;
+    align-items: center;
+}
+
+.head .list:hover {
+    box-shadow: 0px 8px 15px -10px rgb(125, 125, 125);
+    background: var(--green-hover);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* FORM CONTENT */
+
+.addproject {
+    justify-content: center;
+    padding: 40px 60px 40px 65px; 
+    width: 100%; 
+    height: auto; 
+    background: var(--primary-color); 
+    box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.322);
+    border: 0.5px solid var(--table-border);
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.input-group input[type="text"], input[type="date"] {
+    font-family: 'Poppins';
+    position: absolute;
+    width: 500px;
+    height: 50px;
+    outline: none;
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+
+.input-group select {
+    font-family: 'Poppins';
+    position: absolute;
+    width: 500px;
+    height: 50px;
+    outline: none;
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+
+.input-column textarea {
+    font-family: 'Poppins';
+    position: absolute;
+    width: 1025px;
+    height: 100px;
+    outline: none;
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+
+input[type="file"] {
+    font-family: 'Poppins';
+    width: 500px;
+    height: 50px;
+    outline: none;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+}
+
+.labelline1 {
+    margin-top: -10px;
+    position: relative;
+    font-size: 13px;
+    width: auto;
+    padding: 0 7px;
+    height: auto;
+    color: #000000;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+input[type="file"]::file-selector-button {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-family: 'Poppins';
+    color: #ffffff;
+    height: 50px;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    background-color: var(--main-green);
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    transition: background-color 200ms;
+}
+
+.input-column {
+    padding-bottom: 50px;
+    margin-top: -50px;
+}
+
+.labelline {
+    position: absolute;
+    font-size: 13px;
+    width: auto;
+    height: auto;
+    color: #000000;
+    padding: 0 10px;
+    margin-left: 10px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+.input-row {
+    gap: 1rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 90px;
+    margin-top: 10px;
+}
+
+.input-row .input-group {
+    flex-basis: 100%;
+}
+
+input::-webkit-inner-spin-button, 
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    left: 0;
+}
+
+.buttons a {
+    padding: 10px;
+    text-align: center;
+    font-weight: bolder;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    height: 40px;
+    width: 155px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+
+.buttons .add {
+    background-color: var(--main-green);
+}
+
+.buttons .add:hover {
+    background-color: var(--green-hover);
+}
+
+.buttons .cancel {
+    background-color: var(--cancel-btn);
+}
+
+.buttons .cancel:hover {
+    background-color:#575757;
+}

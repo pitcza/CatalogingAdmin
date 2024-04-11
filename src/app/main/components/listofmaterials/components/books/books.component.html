@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- MATERIALS TABLE - BOOKS -->
+<div class="table">
+
+    <div class="table-head">
+
+        <div class="table-filters">
+            <select id="filter">
+                <option selected value="All Departments"> All Locations </option>
+                <option> FIL </option>
+                <option> FOR </option>
+                <option> MED </option>
+            </select>
+
+        </div>
+
+        <div class="search-container">
+            <form action="/action_page.php">
+                <input type="text" placeholder="Search..." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+    </div>
+
+
+        
+    <div class="card">
+        <section class="material-table">
+            <table class="table">
+            <tr>
+                <th> Date Added </th>
+                <th> Book Title </th>
+                <th> Author </th>
+                <th> Location </th>
+                <th> Copyright </th>
+                <th> Issue </th>
+                <th> Action </th>
+            </tr>
+
+            <!-- BOOKS DETAILS -->
+            <tr routerLink="#">
+                <td> (timestamp date) </td>
+                <td> Sample Books Title One Two Three </td>
+                <td> Jose Rizal </td>
+                <td> FIL </td>
+                <td> 2017 </td>
+                <td> Sample </td>
+                <td> 
+                    <div class="actions">
+                    <a routerLink="../" class="edit"> <i class='bx bx-edit' ></i> </a>
+                    <a routerLink="#" class="delete"> <i class='bx bx-trash'></i> </a>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- BOOKS DETAILS -->
+            <tr routerLink="#">
+                <td> (timestamp date) </td>
+                <td> Sample Books Title One Two Three </td>
+                <td> Jose Rizal </td>
+                <td> FIL </td>
+                <td> 2017 </td>
+                <td> Sample </td>
+                <td> 
+                    <div class="actions">
+                    <a routerLink="../" class="edit"> <i class='bx bx-edit' ></i> </a>
+                    <a routerLink="#" class="delete"> <i class='bx bx-trash'></i> </a>
+                    </div>
+                </td>
+            </tr>
+
+
+            
+            </table>
+        </section>
+
+    </div>         
+    
+</div>

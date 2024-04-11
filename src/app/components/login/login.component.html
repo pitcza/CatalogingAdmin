@@ -1,1 +1,77 @@
-<p>login works!</p>
+<main>
+
+    <div class="spit-screen">
+
+        <!-- LEFT SCREEN -->
+        <div class="left">
+                <div class="circles">
+                    <div class="circle1"> </div>
+                    <div class="circle2"> </div>
+                </div>
+                <div class="clipart">
+                    <img src="assets/images/CLIPART.png">
+                </div>
+
+            <div class="logos">
+
+                <img src="assets/images/GC-LIBRARY.png" class="gclibrary">
+                <img src="assets/images/GC.png" class="gclogo">
+
+            </div>
+
+        </div>
+      
+        <!-- RIGHT SCREEN -->
+        <div class="right">
+          <form action="">
+
+            <div class="gclims-logo">
+
+                <!--
+                <div class="logo">
+                    <img src="assets/images/GCLIMS.PNG">
+                </div>
+                -->
+
+                <div class="systemname">
+                    <h1> Gordon College </h1>
+                    <h1> Library Information Management System </h1>
+                </div>
+            </div>
+
+            <section class="subsystemname">
+              <h2> CATALOGING </h2> 
+            </section>
+      
+            <!-- LOG IN FORM -->
+            <div class="input-container email">
+                <i class='bx bxs-user-circle'></i>
+                <input id="email" name="email" type="email" placeholder="Email">
+            </div>
+            <div class="input-container password">
+                <i class='bx bxs-lock' ></i>
+                <input id="password" name="password" [type]="showpassword ? 'text' : 'password'" placeholder="Password">
+                <i (click)="toggleShow()" class="fa-solid fa-eye" *ngIf="!showpassword"></i>
+                <i (click)="toggleShow()" class="fa-solid fa-eye-slash" *ngIf="showpassword"></i>
+                
+            </div>
+
+
+      
+            <!-- LOG IN BUTTON -->
+            <div class="loginbtn">
+            <a class="login-btn" routerLink="/main"> LogIn </a>
+            </div>
+
+            <div class="gclims">
+                <h3> GCLIMS v0.1 </h3>
+            </div>
+      
+          </form>
+        </div>
+      
+      </div>
+      
+      
+
+</main>

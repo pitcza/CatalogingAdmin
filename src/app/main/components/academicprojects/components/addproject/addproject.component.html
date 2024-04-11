@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<main>
+    <div class="content">
+        <div class="head">
+            <h1> Add Academic Projects </h1>
+            <a routerLink="../listofprojects" class="list"> 
+                <span> Back to List </span>
+            </a>
+        </div>
+
+        <div class="addproject">
+        
+            <form>
+                <div class="input-row">
+                    <div class="input-group">
+                        <select id="college" [(ngModel)]="selectedOption1" (change)="onOption1Change()" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let option of options1" [value]="option.value">{{ option.label }} </option>
+                        </select>
+                        <label class="labelline" for="college"> College </label>
+                    </div>
+                    <div class="input-group">
+                        <select id="course" [(ngModel)]="selectedOption2" (change)="onOption2Change()" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let option of options2" [value]="option.value">{{ option.label }} </option>
+                        </select>
+                        <label class="labelline" for="course"> Course </label>
+                    </div>
+                </div>
+        
+                <div class="input-row">
+                    <div class="input-group">
+                        <input type="text">
+                        <div class="labelline"> Title </div>
+                    </div>
+                    <div class="input-group">
+                        <select id="projecttype" [(ngModel)]="selectedOption3" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let option of options3" [value]="option.value">{{ option.label }}</option>
+                        </select>
+                        <label class="labelline" for="projecttype"> Project </label>
+                    </div>
+                </div>
+        
+                <div class="input-row">
+                    <div class="input-group">
+                        <select id="projecttype">
+                            <option value="English"> English </option>
+                            <option value="Tagalog"> Tagalog </option>
+                        </select>
+                        <label class="labelline" for="projecttype"> Language </label>
+                    </div>
+                    <div class="input-group">
+                        <input type="date">
+                        <div class="labelline"> Date Published </div>
+                    </div> 
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <input type="text">
+                        <div class="labelline"> Author </div>
+                    </div> 
+                    <div class="input-group">
+                        <div class="labelline1"> Upload Image </div>
+                        <input type="file" class="file">
+                    </div> 
+                </div>
+
+                <div class="input-row">
+                    <div class="input-column">
+                        <textarea> </textarea>
+                        <div class="labelline"> Abstract </div>
+                    </div> 
+                </div>
+
+
+                <div class="buttons">
+                    <a routerLink="../listofprojects" class="add"> 
+                        <span> Add </span>
+                    </a>
+
+                    <a class="cancel" (click)="togglePopup()"> 
+                        <app-cancel-popup *ngIf="showPopup" (closedPopup)="closePopup()" (yesClicked)="redirectToListPage()"></app-cancel-popup>
+                        <span> Cancel </span>
+                    </a>
+                </div>
+            </form>
+        
+        </div>
+        
+
+
+    </div>
+</main>

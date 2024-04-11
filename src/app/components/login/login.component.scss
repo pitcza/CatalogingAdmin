@@ -1,0 +1,219 @@
+main {
+    font-family: 'Poppins';
+    background-image: url(../../../assets/images/GC-BUILDING.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+/* SPIT SCREEN */
+.spit-screen {
+    display: flex;
+    flex-direction: column;
+}
+
+.left, .right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* LEFT SCREEN */
+.left {
+    height: auto;
+    padding: 30px;
+}
+
+.logos {
+    position: absolute;
+    align-items: flex-end;
+    padding-top: 400px;
+    padding-left: 320px;
+}
+
+.logos img {
+    height: 160px;
+    width: 160px;
+}
+
+.circles {
+    padding-bottom: 990px;
+}
+
+.circle2 {
+    position: absolute;
+    background-color: var(--main-green);
+    height: 680px;
+    width: 680px;
+    border-radius: 50%;
+}
+
+.circle1 {
+    position: absolute;
+    background-color: #7CC644;
+    height: 690px;
+    width: 690px;
+    left: 4px;
+    border-radius: 50%;
+}
+
+.clipart img {
+    position: relative;
+    width: 860px;
+}
+
+
+/* RIGHT SCREEN */
+.right {
+    height: auto;
+    padding: 30px 30px 50px 30px;
+}
+
+.gclims-logo .systemname h1 {
+    font-size: 20px;
+    text-align: center;
+    color:var(--black);    
+    text-shadow: 2px 0 var(--black);
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.gclims-logo {
+    padding-bottom: 15px;
+}
+
+
+
+/* wala na itu */
+.logo img {
+    height: 160px;
+    width: 160px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.right .subsystemname h2 {
+    text-align: center;
+    color: var(--black);
+    font-size: 25px;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    margin-bottom: 3%;
+}
+
+.right form {
+    width: 500px;
+}
+
+form input[type="email"],
+form input[type="password"] {
+    margin: auto;
+    display: block;
+    width: 70%;
+    height: 60px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    border: 1px solid var(--table-border);
+    background: var(--primary-color);
+    padding: 1rem;
+    padding-left: 3.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Poppins';
+}
+
+.input-container {
+    width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+.input-container i {
+    position: absolute;
+}
+
+.bx {
+    padding: 15px;
+    padding-left: 90px;
+    color: var(--black);
+    min-width: 50px;
+    text-align: center;
+    font-size: 30px;
+}
+
+form input:focus {
+    outline: 1px;
+    border: 1.5px solid var(--table-border);
+    box-shadow: 0px 2px 2px rgb(141, 141, 141);
+}
+
+
+.login-btn {
+    margin: auto;
+    display: block;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--main-green);
+    transition: .3s;
+}
+
+.login-btn:hover {
+    box-shadow: 0px 8px 15px -10px rgb(61, 61, 61);
+    background: var(--green-hover);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.loginbtn a {
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+    width: 50%;
+    height: 3rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px;
+    font-size: 16px;
+}
+
+.loginbtn {
+    margin-top: 5%;
+    margin-left: 0.60rem;
+}
+
+.gclims {
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: 100;
+    margin-top: 5px;
+}
+
+.eye {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+
+/* MEDIA SCREEN */
+@media screen and (min-width:900px) {
+    .spit-screen {
+        flex-direction: row;
+        height: 100vh;
+    }
+    .left {
+        display: flex;
+        width: 50%;
+        height: auto;
+    }
+    .right {
+        display: flex;
+        width: 50%;
+        height: auto;
+    }
+}

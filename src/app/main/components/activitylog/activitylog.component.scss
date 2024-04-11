@@ -1,0 +1,83 @@
+/* MAIN PADDING */
+main {
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    main {
+        margin: 10px;
+    }
+}
+/* END OF MAIN PADDING */
+
+.content {
+  justify-content: center;
+  align-items: center;
+  padding-right: 20px;
+}
+
+/* HEAD CONTENT */
+.head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.head h1 {
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+
+.historylogs {
+    border-radius: 5px;
+    padding: 30px;
+    margin-top: 30px;
+    background: var(--primary-color);
+    width: 100%;
+    height: auto;
+    margin-bottom: 50px;
+    box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.322);
+    border: 0.5px solid var(--table-border);
+}
+
+
+.historylogs h3 {
+    letter-spacing: 1px;
+    color: var(--black);
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+
+
+.action {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--table-border);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.action span h1, p, h2 {
+    font-size: 15px;
+    font-weight: 200;
+   vertical-align: middle;
+}
+
+.action span h1 {
+    width: 850px;
+    vertical-align: middle;
+}
+
+.action span p {
+    color: var(--primary-color);
+    background-color: var(--main-green);
+    text-align: center;
+    padding: 2px;
+    width: 155px;
+    border-radius: 30px;
+}
+

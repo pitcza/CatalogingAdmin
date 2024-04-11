@@ -1,0 +1,176 @@
+body {
+    transition: all 0.5s ease;
+    font-family: "Poppins";
+}
+
+/* HEADER */
+.header {
+    position: fixed;
+    background-color: var(--primary-color);
+    height: 70px;
+    width: 100%;
+    border-bottom: 2px solid var(--border-color);
+    margin-left: 220px;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color:var(--main-green)
+}
+
+
+/* SIDEBAR CONTENTS */
+.logo img {
+    height: 130px;
+    width: 130px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.systemname h1 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.systemname h2 {
+    text-align: center;
+    font-size: 14px;
+    opacity: 80%;
+    font-weight: lighter;
+    text-transform: uppercase;
+}
+
+.logo-title {
+    padding-bottom: 10%;
+    border-bottom: 1px solid var(--border-color);
+}
+
+
+.sidebar-content {
+    position: relative;
+    background-color: var(--primary-color);
+    width: 220px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 30px 15px;
+    z-index: 100;
+    border-right: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.sidebar-content::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebar-content a {
+    color: var(--black);
+}
+
+.sidebar-content-tabs {
+    position: relative;
+}
+
+.admin-tabs {
+    padding: 0;
+    list-style: none;
+}
+
+.admin-tab a {
+    display: flex;
+    font-weight: 300;
+    font-size: 14px;
+    padding: 10px 10px 10px 10px;
+    text-decoration: none;
+    margin-bottom: 3px;
+    margin-top: 5px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-tab a:hover {
+    color: var(--main-green);
+}
+
+.admin-tab a.active-link {
+    font-weight: bold;
+    color: var(--main-green);
+}
+
+.tab-link .tab-link-name {
+    padding-left: 10px;
+    padding-top: 2px;
+}
+
+.admin-tabs .tab-link-icon {
+    font-size: 20px;
+}
+
+ul ul {
+    list-style: none;
+}
+
+
+.logoutbtn .logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    padding: 10px 10px 10px 10px;
+}
+
+.logoutbtn .logout:hover {
+    color: var(--main-green);
+}
+
+.logoutbtn {
+    position: fixed;
+    bottom: 25px;
+    left: 0;
+    width: 220px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+@media only screen and (max-width: 768px) {
+    .sidebar-content {
+        width: 70px;
+    }
+    .sidebar-content:hover {
+        width: 220px;
+        z-index: 200;
+    }
+    .sidebar-content:hover li a span:last-child {
+        display: inline;
+    }
+
+    .logo-title {
+        display: none;
+    }
+
+    .tab-link-name {
+        display: none;
+    }
+
+    .logoutbtn {
+        bottom: 20px;
+        width: 50px;
+    }
+    
+}
+
+@media screen and (min-width: 768px) {
+    .body-content {
+        padding-left: 20px;
+        padding-top: 70px;
+    }
+}
+
+.body-content {
+    padding-left: 240px;
+    padding-top: 90px;
+}

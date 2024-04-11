@@ -1,0 +1,204 @@
+/* MAIN PADDING */
+main {
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    main {
+        margin-left: 0px;
+    }
+}
+/* END OF MAIN PADDING */
+
+.content {
+    justify-content: center;
+    align-items: center;
+    padding-right: 20px;
+}
+
+/* TABLE CONTENT */
+.table-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.table-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-filters a {
+    color: var(--black);
+    font-size: 16px;
+    padding: 12px 16px;
+    font-weight: 500;
+    margin-right: 1em;
+    display: inline-block;
+    
+}
+
+.table-filters a:hover {
+    text-decoration: none;
+}
+
+.table-filters select {
+    background: var(--primary-color);
+    font-family: 'Poppins';
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    width: 12em;
+    height: 2.5em;
+    border: 1px solid var(--table-border);
+    border-radius: 7px;
+}
+
+.table-filters option {
+    padding: 30px;
+    margin: 30px;
+}
+
+.table-head input[type=text] {
+    font-family: 'Poppins';
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    width: 250px;
+    padding: 12px 16px;
+    height: 2.3em;
+    border: none;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+input:focus{
+    outline: none;
+}
+
+.table-head .search-container {
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    height: 2.5em;
+    border: 1px solid var(--table-border);
+    background-color: var(--primary-color);
+}
+
+.table-head .search-container button {
+    height: 2.5em;
+    width: 2.5em;
+    border: 1px solid var(--table-border);
+    background: var(--main-green);
+    color: var(--primary-color);
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.table-head .search-container button:hover {
+    background: var(--green-hover);
+}
+
+
+
+
+
+/* TABLE CONTENT */
+section .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section .actions a {
+    padding: 10px 10px 7px 10px;
+    border-radius: 15px;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    height: 40px;
+    width: 40px;
+    font-size: 15px;
+}
+
+
+section .edit {
+    background-color: var(--main-green);
+}
+
+section .edit:hover {
+    background-color: var(-green-hover);
+}
+
+section .delete {
+    background-color: var(--red);
+}
+
+section .delete:hover {
+    background-color:#8f1515;
+}
+
+
+.table {
+    border-radius: 5px;
+    padding: 20px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-top: 25px;
+    background: var(--secondary-color);
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.322);
+    border: 0.5px solid var(--border-color);
+}
+
+/* table */
+
+table {
+    border-radius: 5px;
+    font-size: 14px;
+    border: 2px solid var(--table-border2);
+}
+
+table,
+th,
+td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1.5px solid var(--table-border2);
+}
+
+th {
+    letter-spacing: 1px;
+    color: var(--black);
+    font-weight: bold;
+    border-bottom: 2px solid var(--black);
+    background-color: var(--secondary-color);
+}
+
+
+table tr:hover{
+    background-color: rgb(227, 227, 227);
+}
+
+table td:nth-child(2) {
+    width: 400px;
+    text-align: left;
+}
+
+table td:nth-child(3) {
+    width: 150px;
+}
+
+table td:nth-child(7) {
+    width: 120px;
+}
