@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve -open` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Add .vscode into the CatalogingAdmin folder
+## Add `node_modules` into the CatalogingAdmin folder
 
 https://drive.google.com/drive/folders/1C9qSYFgM0f3GRHZqfBGujCQCcm5cwA7w?usp=drive_link
 
