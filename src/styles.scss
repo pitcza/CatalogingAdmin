@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-color: #FFFFFF;
+    --secondary-color: #EEEEEE;
+    --main-green: #31A463;
+    --green-hover: #298f55;
+    --border-color: #DFE0E0;
+    --black: #000000;
+    --table-border: #BFBFBF;
+    --table-border2: #E1E1E1;
+    --red: #AB0E0E;
+    --red-hover: #8f0c0c;
+    --cancel-btn: #777777;
+    --cancel-hover: #6b6b6b;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+body {
+    font-family: "Poppins";
+    transition: all 0.5s ease;
+}
