@@ -4,40 +4,24 @@
     <div class="content">
         <div class="head">
             <h1> Activity Log </h1>
-            <div class="datefilter">
-                <div class="input-group">
-                    <div class="labelline"> From: </div>
-                    <input type="date">
-                </div>
-                <div class="input-group">
-                    <div class="labelline"> To: </div>
-                    <input type="date">
-                </div>
-
-                <a routerLink="/" class="filter" id="applyfilter"> 
-                    <span> Filter </span>
-                </a>
-                <a routerLink="/" class="filter" id="resetfilter"> 
-                    <span> Reset </span>
-                </a>
-            </div>
-            
         </div>
 
         <div class="historylogs">
             <div class="date-of-action">
                 <h3> January 11, 2024 </h3>
             </div>
+            <button mat-button></button>
+            <table mat-table></table>
 
             <div class="action-details">
                 <div class="action">
-                    <span> <h1> Added (Sample Title) Book to the FOR category </h1> </span>
+                    <span> <h1> Something was added <!-- {{ logs[1].log }} --> </h1> </span>
                     <span> <p> Material Added </p> </span>
                     <span> <h2> 4:00PM </h2> </span>
                 </div>
 
                 <div class="action">
-                    <span> <h1> Added (Sample Title) Book to the FOR category </h1> </span>
+                    <span> <h1> Another thing was added <!-- {{ logs[1].log }} --> </h1> </span>
                     <span> <p> Material Added </p> </span>
                     <span> <h2> 4:00PM </h2> </span>
                 </div>

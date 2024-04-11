@@ -10,6 +10,7 @@ import { LogoutPopupComponent } from './components/logout-popup/logout-popup.com
 // ADMIN MAIN PAGES WHEN THEY LOGIN
 import { MainComponent } from './main/main.component';
 import { MainModule } from './main/main.module';
+import { MaterialModule } from './modules/material/material.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MainModule } from './main/main.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MainModule
+    MainModule,
+    MaterialModule
   ],
   providers: [
     provideClientHydration()
