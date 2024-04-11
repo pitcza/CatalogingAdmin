@@ -11,11 +11,6 @@ import { LogoutPopupComponent } from './components/logout-popup/logout-popup.com
 // ADMIN MAIN PAGES WHEN THEY LOGIN
 import { MainComponent } from './main/main.component';
 import { MainModule } from './main/main.module';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
-// Angular material imports
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -28,9 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserModule,
     AppRoutingModule,
     MainModule,
-    HttpClientModule,
-    MatButtonModule,
-    MatIconModule
+    HttpClientModule
   ],
   providers: [
     provideClientHydration(),

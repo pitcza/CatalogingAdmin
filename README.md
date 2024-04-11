@@ -6,13 +6,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve -open` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Add `node_modules` into the CatalogingAdmin folder
+## Add `node_modules`
 
-https://drive.google.com/drive/folders/1C9qSYFgM0f3GRHZqfBGujCQCcm5cwA7w?usp=drive_link
+Run `npm install`.
 
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component.
+
 Run `ng generate module module-name --route routh-path-name --module app` to generate a new routing module.
 
 ## Build
