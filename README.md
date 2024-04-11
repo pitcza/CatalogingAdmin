@@ -13,6 +13,7 @@ Run `npm install`.
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component.
+
 Run `ng generate module module-name --route routh-path-name --module app` to generate a new routing module.
 
 ## Build
