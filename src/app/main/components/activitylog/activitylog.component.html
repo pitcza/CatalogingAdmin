@@ -4,6 +4,24 @@
     <div class="content">
         <div class="head">
             <h1> Activity Log </h1>
+            <div class="datefilter">
+                <div class="input-group">
+                    <div class="labelline"> From: </div>
+                    <input type="date">
+                </div>
+                <div class="input-group">
+                    <div class="labelline"> To: </div>
+                    <input type="date">
+                </div>
+
+                <a routerLink="/" class="filter" id="applyfilter"> 
+                    <span> Filter </span>
+                </a>
+                <a routerLink="/" class="filter" id="resetfilter"> 
+                    <span> Reset </span>
+                </a>
+            </div>
+            
         </div>
 
         <div class="historylogs">

@@ -35,6 +35,7 @@ a {
 	list-style: none;
     width: 93.5%; /*changed*/
 	color: #31A463;
+    
 }
 
 .tab {
@@ -59,7 +60,7 @@ a {
 	background-color: #31A463; 
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-
+    color: #FFFFFF;
 }
 
 .tab-content {
@@ -1306,7 +1307,6 @@ input[type="file"]::file-selector-button {
 
 /* Article Submit Button */ 
 
-/*
 .artibtn > input {
     font-family: poppins;
     text-transform: uppercase;
@@ -1317,12 +1317,12 @@ input[type="file"]::file-selector-button {
     margin-left: 490px;
 	background-color: #31A463;
     border-radius: 5px;
-	color: #ffffff;
+	color: #FFFFFF;
 	padding:13px;
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.16);
 }
-*/
+
 
 /* Tab */
 
