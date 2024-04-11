@@ -5,9 +5,9 @@
 		<input type="radio" id="tab3" name="css-tabs" checked="checked">
 		
 		<ul class="tabs">
-			<li class="tab"><label for="tab1">Journals</label></li>
-			<li class="tab"><label for="tab2">Magazines</label></li>
-			<li class="tab"><label for="tab3">Newspaper</label></li>
+			<li class="tab" (click)="changeType('journal')"><label for="tab1">Journals</label></li>
+			<li class="tab" (click)="changeType('magazine')"><label for="tab2">Magazines</label></li>
+			<li class="tab" (click)="changeType('newspaper')"><label for="tab3">Newspaper</label></li>
 		</ul>
 
         <!-- JOURNALS MATERIAL TABLE -->
