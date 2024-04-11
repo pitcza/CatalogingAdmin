@@ -4,11 +4,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `ng serve -open` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+## Add .vscode into the CatalogingAdmin folder
+
+https://drive.google.com/drive/folders/1C9qSYFgM0f3GRHZqfBGujCQCcm5cwA7w?usp=drive_link
 
 ## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng generate component component-name` to generate a new component.
+Run `ng generate module module-name --route routh-path-name --module app` to generate a new routing module.
 
 ## Build
 
