@@ -147,17 +147,31 @@ export class AddprojectComponent {
       ];
     }
     // CEAS PROGRAMS -------------------------------------------------
-
+    else if (this.selectedOption2 === 'BACOMM') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BEED') {
+      this.options3 = [
+        { value: 'Classroom Based Action Research', label: 'Classroom Based Action Research' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BPED') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
 
     // CAHS PROGRAMS -------------------------------------------------
     else if (this.selectedOption2 === 'BSN') {
       this.options3 = [
-        { value: '', label: '' }
+        { value: 'Case Presentation', label: 'Case Presentation' }
       ];
     } 
     else if (this.selectedOption2 === 'BSM') {
       this.options3 = [
-        { value: '', label: '' }
+        { value: 'Case Presentation', label: 'Case Presentation' }
       ];
     }
     // CHTM PROGRAMS -------------------------------------------------

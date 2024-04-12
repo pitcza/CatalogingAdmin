@@ -10,7 +10,9 @@ import { LogoutPopupComponent } from './components/logout-popup/logout-popup.com
 // ADMIN MAIN PAGES WHEN THEY LOGIN
 import { MainComponent } from './main/main.component';
 import { MainModule } from './main/main.module';
+
 import { MaterialModule } from './modules/material/material.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -22,11 +24,11 @@ import { MaterialModule } from './modules/material/material.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MainModule,
     MaterialModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

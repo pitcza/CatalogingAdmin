@@ -1,81 +1,100 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<!-- MATERIALS TABLE - BOOKS -->
-<div class="table">
-
-    <div class="table-head">
-
-        <div class="table-filters">
-            <select id="filter">
-                <option selected value="All Departments"> All Locations </option>
-                <option> FIL </option>
-                <option> FOR </option>
-                <option> MED </option>
-            </select>
-
-        </div>
-
-        <div class="search-container">
-            <form action="/action_page.php">
-                <input type="text" placeholder="Search..." name="search">
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-
-    </div>
-
-
+<main>
+    <div class="content">
         
-    <div class="card">
-        <section class="material-table">
-            <table class="table">
-            <tr>
-                <th> Date Added </th>
-                <th> Book Title </th>
-                <th> Author </th>
-                <th> Location </th>
-                <th> Copyright </th>
-                <th> Issue </th>
-                <th> Action </th>
-            </tr>
+        <div class="projects-table">
 
-            <!-- BOOKS DETAILS -->
-            <tr routerLink="#">
-                <td> (timestamp date) </td>
-                <td> Sample Books Title One Two Three </td>
-                <td> Jose Rizal </td>
-                <td> FIL </td>
-                <td> 2017 </td>
-                <td> Sample </td>
-                <td> 
-                    <div class="actions">
-                    <a routerLink="../" class="edit"> <i class='bx bx-edit' ></i> </a>
-                    <a routerLink="#" class="delete"> <i class='bx bx-trash'></i> </a>
-                    </div>
-                </td>
-            </tr>
+            <div class="table-head">
 
-            <!-- BOOKS DETAILS -->
-            <tr routerLink="#">
-                <td> (timestamp date) </td>
-                <td> Sample Books Title One Two Three </td>
-                <td> Jose Rizal </td>
-                <td> FIL </td>
-                <td> 2017 </td>
-                <td> Sample </td>
-                <td> 
-                    <div class="actions">
-                    <a routerLink="../" class="edit"> <i class='bx bx-edit' ></i> </a>
-                    <a routerLink="#" class="delete"> <i class='bx bx-trash'></i> </a>
-                    </div>
-                </td>
-            </tr>
+            <div class="table-filters">
+                <select id="filter">
+                    <option selected value="All Departments"> All Departments </option>
+                    <option> CCS </option>
+                    <option> CBA </option>
+                    <option> CAHS </option>
+                    <option> CEAS </option>
+                    <option> CHTM </option>
+                </select>
 
+            </div>
 
+            <div class="search-container">
+                <form action="/action_page.php">
+                  <input type="text" placeholder="Search..." name="search">
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+
+            </div>
+              
+              
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource">
             
-            </table>
-        </section>
+                <!-- Date Added Column -->
+                <ng-container matColumnDef="dateadd">
+                    <th mat-header-cell *matHeaderCellDef> Date Added </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dateadd}} </td>
+                </ng-container>
+            
+                <!-- Title Column -->
+                <ng-container matColumnDef="booktitle">
+                    <th mat-header-cell *matHeaderCellDef> Book Title </th>
+                    <td mat-cell *matCellDef="let element"> {{element.booktitle}} </td>
+                </ng-container>
+            
+                <!-- Author Column -->
+                <ng-container matColumnDef="author">
+                    <th mat-header-cell *matHeaderCellDef> Author </th>
+                    <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+                </ng-container>
+            
+                <!-- Location Column -->
+                <ng-container matColumnDef="location">
+                    <th mat-header-cell *matHeaderCellDef> Location </th>
+                    <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+                </ng-container>
+        
+                <!-- Copyright Column -->
+                <ng-container matColumnDef="copyright">
+                    <th mat-header-cell *matHeaderCellDef> Copyright </th>
+                    <td mat-cell *matCellDef="let element"> {{element.copyright}} </td>
+                </ng-container>
+        
+                <!-- Issue Column -->
+                <ng-container matColumnDef="issue">
+                    <th mat-header-cell *matHeaderCellDef> Issue </th>
+                    <td mat-cell *matCellDef="let element"> {{element.issue}} </td>
+                </ng-container>
+        
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action</th>
+                    <td mat-cell class="actions" *matCellDef="let element">
+            
+                        <button class="editbtn" (click)="editProject(element.id)"  mat-raised-button color="primary">
+                            <i class='bx bx-edit' ></i>
+                        </button>
+                        <button class="deletebtn" (click)="deleteProject(element.id)" (closedPopup)="closePopup()" mat-raised-button color="warn">
+                            <i class='bx bx-trash'></i>
+                        </button>
+                        <button class="detailsbtn" (click)="detailsProject(element.id)" (closedPopup)="closePopup()" mat-raised-button color="primary">
+                            <i class='bx bx-detail' ></i>
+                        </button>
+                    </td>
+                  </ng-container>
 
-    </div>         
-    
-</div>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons
+                            aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>   
+            
+            
+        </div>
+    </div>
+</main>

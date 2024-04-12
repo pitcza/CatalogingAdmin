@@ -1,19 +1,20 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-delete-popup',
   templateUrl: './delete-popup.component.html',
   styleUrl: './delete-popup.component.scss'
 })
-export class DeletePopupComponent {
-  @Output() deleteClicked = new EventEmitter<void>();
-  @Output() closedPopup = new EventEmitter<void>();
-
-  close() {
-    this.closedPopup.emit();
+export class DeletePopupComponent implements OnInit{
+  ngOnInit(): void {
   }
 
-  onDeleteClick() {
-    this.deleteClicked.emit();
+  constructor(private ref: MatDialogRef<DeletePopupComponent>, private buildr: FormBuilder,) {
+  }
+
+  closepopup() {
+    this.ref.close('Closed using function');
   }
 }

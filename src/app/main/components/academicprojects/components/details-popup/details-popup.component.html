@@ -2,11 +2,13 @@
     <div class="container">
         <div class="content">
             <div class="project-details">
-                <button class="exit-button" (close)="closedPopup"> &times; </button>
                 <!-- POST TITLE -->
-                <h1> Sample Project Title One Two Three </h1>
-    
-    
+                <div class="detailsheader">
+                    <button class="exit-button" (click)="closepopup()"> &times; </button>
+                <h1> Sample Project Title One Two Three One Two Three </h1>
+                </div>
+                
+                <div class="detailsbody">
                 <div class="details">
                     <div class="projectdetails">
                         <img alt="blog" src="https://raw.githubusercontent.com/pitcza/sampleimages/main/sample.jpg">
@@ -16,13 +18,8 @@
                         <span>
                             <h2> Date Published: </h2> <p> January 01, 2024 </p>
                         </span>
-                        <span>
-                            <h2> Author: </h2> <p> Pauleen Dalida </p>
-                        </span>
-                        <span>
-                            <h2> Date Published: </h2> <p> January 01, 2024 </p>
-                        </span>
                     </div>
+
                     <div class="projectdetails">
                         <span>
                             <h2> College: </h2> <p> CCS </p>
@@ -30,8 +27,27 @@
                         <span>
                             <h2> Program: </h2> <p> BSIT </p>
                         </span>
+                        <span>
+                            <h2> Project: </h2> <p> Capstone </p>
+                        </span>
+                        <span>
+                            <h2> Language: </h2> <p> Tagalog </p>
+                        </span>
+                        <span>
+                            <h2> Abstract: </h2>
+                        </span>
+                        <span>
+                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.. </p>
+                        </span>
                     </div>
                 </div>
+                <div class="button-container">
+                    <button class="edit-btn"> Edit </button>
+                    <button class="delete-btn"> Delete </button>
+                </div>
+                
+                </div>
+    
     
     
     

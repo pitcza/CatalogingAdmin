@@ -44,86 +44,72 @@
             </div>
               
               
-            <div class="card">
-                <section class="project-table">
-                    <table class="table">
-                    <tr>
-                        <th> Date Added </th>
-                        <th> College </th>
-                        <th> Program </th>
-                        <th> Project </th>
-                        <th> Title </th>
-                        <th> Date Published </th>
-                        <th> Action </th>
-                    </tr>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource">
+            
+                <!-- Date Added Column -->
+                <ng-container matColumnDef="dateadd" routerLink="/addproject">
+                    <th mat-header-cell *matHeaderCellDef> Date Added </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dateadd}} </td>
+                </ng-container>
+            
+                <!-- College Column -->
+                <ng-container matColumnDef="college">
+                    <th mat-header-cell *matHeaderCellDef> College </th>
+                    <td mat-cell *matCellDef="let element"> {{element.college}} </td>
+                </ng-container>
+            
+                <!-- Program Column -->
+                <ng-container matColumnDef="program">
+                    <th mat-header-cell *matHeaderCellDef> Program </th>
+                    <td mat-cell *matCellDef="let element"> {{element.program}} </td>
+                </ng-container>
+            
+                <!-- Project Column -->
+                <ng-container matColumnDef="project">
+                    <th mat-header-cell *matHeaderCellDef> Project </th>
+                    <td mat-cell *matCellDef="let element"> {{element.project}} </td>
+                </ng-container>
+        
+                <!-- Title Column -->
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef> Title </th>
+                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                </ng-container>
+        
+                <!-- Date Published Column -->
+                <ng-container matColumnDef="datepub">
+                    <th mat-header-cell *matHeaderCellDef> Date Published </th>
+                    <td mat-cell *matCellDef="let element"> {{element.datepub}} </td>
+                </ng-container>
+        
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action</th>
+                    <td mat-cell class="actions" *matCellDef="let element">
+            
+                        <button class="editbtn" (click)="editProject(element.id)"  mat-raised-button color="primary">
+                            <i class='bx bx-edit' ></i>
+                        </button>
+                        <button class="deletebtn" (click)="deleteProject(element.id)" (closedPopup)="closePopup()" mat-raised-button color="warn">
+                            <i class='bx bx-trash'></i>
+                        </button>
+                        <button class="detailsbtn" (click)="detailsProject(element.id)" (closedPopup)="closePopup()" mat-raised-button color="primary">
+                            <i class='bx bx-detail' ></i>
+                        </button>
+                    </td>
+                  </ng-container>
 
-                    <!-- PROJECT DETAILS -->
-                    <tr routerLink="#">
-                        <td> (timestamp date) </td>
-                        <td> CCS </td>
-                        <td> BSIT </td>
-                        <td> Capstone </td>
-                        <td> GC Library Information Management System </td>
-                        <td> January 31, 2024 </td>
-                        <td> 
-                            <div class="actions">
-                            <a routerLink="../" class="edit"> <i class='bx bx-edit' ></i> </a>
-                            <a class="delete" (click)="togglePopup()"> <i class='bx bx-trash'></i> 
-                                <app-delete-popup *ngIf="showPopup" (closedPopup)="closePopup()" (deleteClicked)="redirectToListPage()"></app-delete-popup>
-                            </a>
-                            </div>
-                        </td>
-                    </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
 
-                    <!-- PROJECT DETAILS -->
-                    <tr (click)="toggleDetails()">
-                        <app-details-popup *ngIf="showDetails" (closedPopup)="closePopup()" (deleteClicked)="redirectToListPage()"></app-details-popup>
-                        <td> (timestamp date) </td>
-                        <td> CCS </td>
-                        <td> BSIT </td>
-                        <td> Capstone </td>
-                        <td> GC Library Information Management System </td>
-                        <td> January 31, 2024 </td>
-                        <td> 
-                            <div class="actions">
-                            <a routerLink="../" class="edit"> <i class='bx bx-edit' ></i> </a>
-                            <a class="delete" (click)="togglePopup()"> <i class='bx bx-trash'></i> 
-                                <app-delete-popup *ngIf="showPopup" (closedPopup)="closePopup()" (deleteClicked)="redirectToListPage()"></app-delete-popup>
-                            </a>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <!-- PROJECT DETAILS -->
-                    <tr routerLink="#">
-                        <td> (timestamp date) </td>
-                        <td> CCS </td>
-                        <td> BSIT </td>
-                        <td> Capstone </td>
-                        <td> GC Library Information Management System </td>
-                        <td> January 31, 2024 </td>
-                        <td> 
-                            <div class="actions">
-                            <a routerLink="../" class="edit"> <i class='bx bx-edit' ></i> </a>
-                            <a class="delete" (click)="togglePopup()"> <i class='bx bx-trash'></i> 
-                                <app-delete-popup *ngIf="showPopup" (closedPopup)="closePopup()" (deleteClicked)="redirectToListPage()"></app-delete-popup>
-                            </a>
-
-                            
-
-                            </div>
-                        </td>
-                    </tr>
-
-                    
-                    </table>
-                </section>
-
-
-
-            </div>           
+                <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons
+                            aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>   
+            
+            
         </div>
-
-
     </div>
 </main>

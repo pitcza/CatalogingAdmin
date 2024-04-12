@@ -65,16 +65,14 @@ main {
 /* RIGHT SCREEN */
 .right {
     height: auto;
-    padding: 30px 30px 50px 30px;
+    padding: 20px 20px 50px 20px;
 }
 
 .gclims-logo .systemname h1 {
-    font-size: 20px;
+    font-size: 23px;
     text-align: center;
     color:var(--black);    
-    text-shadow: 2px 0 var(--black);
-    letter-spacing: 2px;
-    font-weight: bold;
+    font-weight: 800;
 }
 
 .gclims-logo {
@@ -97,7 +95,7 @@ main {
     text-align: center;
     color: var(--black);
     font-size: 25px;
-    font-weight: bolder;
+    font-weight: 600;
     letter-spacing: 1px;
     margin-bottom: 3%;
 }
@@ -167,7 +165,7 @@ form input:focus {
 .loginbtn a {
     text-align: center;
     color: white;
-    font-weight: bolder;
+    font-weight: 700;
     width: 50%;
     height: 3rem;
     font-size: 0.75rem;
@@ -182,10 +180,10 @@ form input:focus {
     margin-left: 0.60rem;
 }
 
-.gclims {
+.gclims h3 {
     text-align: center;
     font-size: 0.8em;
-    font-weight: 100;
+    font-weight: 400;
     margin-top: 5px;
 }
 

@@ -12,6 +12,7 @@ main {
 }
 /* END OF MAIN PADDING */
 
+
 .content {
   justify-content: center;
   align-items: center;
@@ -165,46 +166,6 @@ input:focus{
     }
 }
 
-
-
-
-section .actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-content: space-between;
-}
-
-section .actions a {
-    padding: 10px 10px 7px 10px;
-    border-radius: 15px;
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 8px;
-    height: 40px;
-    width: 40px;
-    font-size: 15px;
-}
-
-
-section .edit {
-    background-color: var(--main-green);
-}
-
-section .edit:hover {
-    background-color: var(--green-hover);
-}
-
-section .delete {
-    background-color: var(--red);
-}
-
-section .delete:hover {
-    background-color:#8f1515;
-}
-
-
 .projects-table {
     border-radius: 5px;
     padding: 20px;
@@ -230,16 +191,17 @@ table {
 table,
 th,
 td {
-    padding: 15px;
+    font-family: 'Poppins';
+    padding: 10px;
     text-align: center;
     border-bottom: 1.5px solid var(--table-border);
 }
 
 th {
-    letter-spacing: 1px;
-    color: var(--black);
+    background-color: var(--main-green) !important;
+    color: white;
     font-weight: bold;
-    background-color: var(--primary-color);
+    letter-spacing: 0.8px;
 }
 
 
@@ -247,11 +209,43 @@ table tr:hover{
     background-color: rgb(243, 243, 243);
 }
 
-table td:nth-child(5) {
-    width: 370px;
+.actions button {
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    height: 35px;
+    width: 35px;
+    font-size: 18px;
+    border: none;
 }
 
-table td:nth-child(7) {
-    width: 120px;
+button i {
+    padding: 4px;
 }
 
+
+.actions .editbtn {
+    background-color: var(--main-green);
+    margin-right: 5px;
+}
+
+.actions .editbtn:hover {
+    background-color: var(--green-hover);
+}
+
+.actions .deletebtn {
+    background-color: var(--red);
+}
+
+.actions .deletebtn:hover {
+    background-color:var(--red-hover);
+}
+
+.actions .detailsbtn {
+    background-color: var(--cancel-btn);
+    margin-left: 5px;
+}
+
+.actions .detailsbtn:hover {
+    background-color: var(--cancel-hover);
+}

@@ -1,24 +1,21 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-details-popup',
   templateUrl: './details-popup.component.html',
   styleUrl: './details-popup.component.scss'
 })
-export class DetailsPopupComponent {
-  @Output() editClicked = new EventEmitter<void>();
-  @Output() deleteClicked = new EventEmitter<void>();
-  @Output() closedPopup = new EventEmitter<void>();
+export class DetailsPopupComponent implements OnInit{
 
-  onEditClick() {
-    this.editClicked.emit();
-  }
-  
-  onDeleteClick() {
-    this.deleteClicked.emit();
+  ngOnInit(): void {
   }
 
-  close() {
-    this.closedPopup.emit();
+  constructor(private ref: MatDialogRef<DetailsPopupComponent>, private buildr: FormBuilder,) {
+  }
+
+  closepopup() {
+    this.ref.close('Closed using function');
   }
 }

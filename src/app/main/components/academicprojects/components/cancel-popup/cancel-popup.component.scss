@@ -24,6 +24,10 @@
     padding-bottom: 5px;
 }
 
+.popup-content p {
+    font-weight: 300;
+}
+
 .button-container {
     margin-top: 20px;
 }
@@ -35,7 +39,7 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    font-weight: 700;
+    font-weight: 500;
     width: 100px;
     letter-spacing: 1.5px;
 }
