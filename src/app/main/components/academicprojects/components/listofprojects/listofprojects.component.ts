@@ -12,6 +12,7 @@ import { MatSort } from '@angular/material/sort';
 import { EditdetailsComponent } from '../editdetails/editdetails.component';
 import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
 import { DetailsPopupComponent } from '../details-popup/details-popup.component';
+import { AddprojectComponent } from '../addproject/addproject.component';
 
 @Component({
   selector: 'app-listofprojects',
@@ -28,6 +29,11 @@ import { DetailsPopupComponent } from '../details-popup/details-popup.component'
   ],
 })
 export class ListofprojectsComponent implements AfterViewInit {
+  navigateTo() {
+    // Programmatically navigate to another route
+    this.router.navigate(['main/academicprojects/addproject']);
+  }
+
   displayedColumns: string[] = ['dateadd', 'college', 'program', 'project', 'title', 'datepub', 'action'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
