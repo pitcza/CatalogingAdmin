@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DataService } from '../../../../../services/data.service';
 
 @Component({
   selector: 'app-details-popup',
@@ -9,11 +11,28 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class DetailsPopupComponent implements OnInit{
 
+  protected image: any = null;
+
   ngOnInit(): void {
+
+    this.ds.getImage('project/image/', this.data.details.id).subscribe((data: Blob) => {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.image = e.target.result;
+      };
+      reader.readAsDataURL(data);
+    }, (error: any) => {
+      console.log(error);
+      this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/sample.jpg';
+    });
   }
 
-  constructor(private ref: MatDialogRef<DetailsPopupComponent>, private buildr: FormBuilder,) {
-  }
+  constructor(
+    private ref: MatDialogRef<DetailsPopupComponent>, 
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private buildr: FormBuilder,
+    private ds: DataService  
+  ) { }
 
   closepopup() {
     this.ref.close('Closed using function');

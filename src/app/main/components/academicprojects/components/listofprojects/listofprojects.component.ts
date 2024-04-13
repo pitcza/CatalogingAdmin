@@ -13,6 +13,8 @@ import { EditdetailsComponent } from '../editdetails/editdetails.component';
 import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
 import { DetailsPopupComponent } from '../details-popup/details-popup.component';
 import { AddprojectComponent } from '../addproject/addproject.component';
+import { DataService } from '../../../../../services/data.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-listofprojects',
@@ -25,7 +27,8 @@ import { AddprojectComponent } from '../addproject/addproject.component';
     MatTableModule, 
     MatPaginatorModule, 
     MatFormFieldModule, 
-    MatCardModule
+    MatCardModule,
+    CommonModule
   ],
 })
 export class ListofprojectsComponent implements AfterViewInit {
@@ -35,13 +38,19 @@ export class ListofprojectsComponent implements AfterViewInit {
   }
 
   displayedColumns: string[] = ['dateadd', 'college', 'program', 'project', 'title', 'datepub', 'action'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  
+  // <PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
+  protected dataSource: any = null;
+
   ngAfterViewInit() {
+
+    this.getData();
+    this.dataSource = new MatTableDataSource(this.projects);
     this.dataSource.paginator = this.paginator;
   }
 
@@ -50,9 +59,19 @@ export class ListofprojectsComponent implements AfterViewInit {
     private paginatorIntl: MatPaginatorIntl, 
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private ds: DataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
+  }
+
+  protected projects: any = null;
+
+  protected getData() {
+    this.ds.get('projects', '').subscribe((res: any) => {
+      this.projects = res;
+      console.log(this.projects)
+    });
   }
 
   showPopup: boolean = false;
@@ -78,18 +97,18 @@ export class ListofprojectsComponent implements AfterViewInit {
     this.Openpopup(code, 'Delete Project',DeletePopupComponent);
   }
 
-  detailsProject(code: any) {
-    this.Openpopup(code, 'Project Detail',DetailsPopupComponent);
+  detailsProject(details: any) {
+    this.Openpopup(details, 'Project Detail',DetailsPopupComponent);
   }
 
-  Openpopup(code: any, title: any,component:any) {
+  Openpopup(details: any, title: any,component:any) {
     var _popup = this.dialog.open(component, {
       width: '40%',
       enterAnimationDuration: '100ms',
       exitAnimationDuration: '100ms',
       data: {
         title: title,
-        code: code
+        details: details
       }
     });
     _popup.afterClosed().subscribe(result => {
@@ -115,34 +134,34 @@ export class ListofprojectsComponent implements AfterViewInit {
 
 }
 
-export interface PeriodicElement {
-  dateadd: string;
-  college: string;
-  program: string;
-  project: string;
-  title: string;
-  datepub: string;
-  action: string;
-}
+// export interface PeriodicElement {
+//   dateadd: string;
+//   college: string;
+//   program: string;
+//   project: string;
+//   title: string;
+//   datepub: string;
+//   action: string;
+// }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahhahahahahahaahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-  {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-];
+// const ELEMENT_DATA: PeriodicElement[] = [
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahhahahahahahaahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
+// ];
 
