@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
@@ -41,17 +41,20 @@ export class ListofprojectsComponent implements AfterViewInit {
   
   // <PeriodicElement>(ELEMENT_DATA);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatPaginator) paginatior !: MatPaginator;
-  @ViewChild(MatSort) sort !: MatSort;
+  @ViewChild(MatPaginator, {static:true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static:true}) paginatior !: MatPaginator;
+  @ViewChild(MatSort, {static:true}) sort !: MatSort;
 
-  protected dataSource: any = null;
+  protected projects: any = null;
+  protected dataSource!: any;
 
   ngAfterViewInit() {
 
-    this.getData();
-    this.dataSource = new MatTableDataSource(this.projects);
-    this.dataSource.paginator = this.paginator;
+    this.ds.get('projects', '').subscribe((res: any) => {
+      this.projects = res;
+      this.dataSource = new MatTableDataSource(this.projects);
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
   constructor(
@@ -62,16 +65,7 @@ export class ListofprojectsComponent implements AfterViewInit {
     private dialog: MatDialog,
     private ds: DataService
   ) {
-  this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
-  }
-
-  protected projects: any = null;
-
-  protected getData() {
-    this.ds.get('projects', '').subscribe((res: any) => {
-      this.projects = res;
-      console.log(this.projects)
-    });
+    this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   showPopup: boolean = false;
