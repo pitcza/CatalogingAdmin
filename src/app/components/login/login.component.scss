@@ -28,6 +28,7 @@ main {
     align-items: flex-end;
     padding-top: 400px;
     padding-left: 320px;
+    width: 900px;
 }
 
 .logos img {
@@ -58,21 +59,25 @@ main {
 
 .clipart img {
     position: relative;
-    width: 860px;
+    width: 900px;
 }
 
 
 /* RIGHT SCREEN */
 .right {
     height: auto;
-    padding: 20px 20px 50px 20px;
+    padding: 20px 20px 40px 20px;
 }
 
 .gclims-logo .systemname h1 {
     font-size: 23px;
     text-align: center;
     color:var(--black);    
-    font-weight: 800;
+    font-weight: 900;
+    width: 600px;
+    margin-left: -54px;
+    justify-content: center;
+    align-items: center;
 }
 
 .gclims-logo {
@@ -141,8 +146,7 @@ form input[type="password"] {
 
 form input:focus {
     outline: 1px;
-    border: 1.5px solid var(--table-border);
-    box-shadow: 0px 2px 2px rgb(141, 141, 141);
+    border: 2px solid var(--table-border);
 }
 
 
