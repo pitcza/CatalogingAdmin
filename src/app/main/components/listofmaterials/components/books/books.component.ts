@@ -67,15 +67,15 @@ export class BooksComponent implements AfterViewInit {
 
 
   editPopup(code: any) {
-    this.Openpopup(code, 'Edit Project',EditBookComponent);
+    this.Openpopup(code, 'Edit Book', EditBookComponent);
   }
 
   deletePopup(code: any) {
-    this.Openpopup(code, 'Delete Project',DeletePopupComponent);
+    this.Openpopup(code, 'Delete Book', DeletePopupComponent);
   }
 
   detailsPopup(code: any) {
-    this.Openpopup(code, 'Project Detail',BookDetailsPopupComponent);
+    this.Openpopup(code, 'Book Details', BookDetailsPopupComponent);
   }
 
   Openpopup(code: any, title: any,component:any) {
@@ -95,19 +95,7 @@ export class BooksComponent implements AfterViewInit {
 
 
   // DATA FOR FILTERING
-  data = [
-    { college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CBA', program: 'BSCA', project: 'Feasibility', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CBA', program: 'BSCA', project: 'Feasibility', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CBA', program: 'BSBA', project: 'Feasibility', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CBA', program: 'BSA', project: 'Feasibility', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CHTM', program: 'BSHM', project: 'Thesis', title: 'Sample Title', datepub: 'January 11, 2024' },
-
-  ];
-
-  filterValue: string = '';
+  
 
 }
 
