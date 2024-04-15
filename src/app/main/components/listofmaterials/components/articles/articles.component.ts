@@ -56,7 +56,7 @@ export class ArticlesComponent implements AfterViewInit {
   }
 
   redirectToListPage() {
-    this.router.navigate(['main/academicprojects/periodicals']); 
+    this.router.navigate(['main/academicprojects/articles']); 
   }
 
 
