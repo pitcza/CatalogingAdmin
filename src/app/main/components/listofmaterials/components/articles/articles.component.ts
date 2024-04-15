@@ -5,11 +5,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
+
 import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsPopupComponent } from '../article-details-popup/article-details-popup.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
+import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
 
 @Component({
   selector: 'app-articles',
@@ -17,10 +16,8 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './articles.component.scss',
   standalone: true,
   imports: [
-    MatFormFieldModule,
     MatTableModule, 
     MatPaginatorModule, 
-    MatCardModule
   ]
 })
 export class ArticlesComponent implements AfterViewInit {
@@ -65,7 +62,7 @@ export class ArticlesComponent implements AfterViewInit {
   }
 
   deletePopup(code: any) {
-    this.Openpopup(code, 'Delete Article', DeletePopupComponent);
+    this.Openpopup(code, 'Delete Article', DeletematPopupComponent);
   }
 
   detailsPopup(code: any) {

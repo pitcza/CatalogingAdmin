@@ -6,9 +6,9 @@ import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/mat
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
-import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PeriodicalDetailsPopupComponent } from '../periodical-details-popup/periodical-details-popup.component';
+import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
 
 @Component({
   selector: 'app-periodicals',
@@ -63,7 +63,7 @@ export class PeriodicalsComponent implements AfterViewInit {
   }
 
   deletePopup(code: any) {
-    this.Openpopup(code, 'Delete Periodical', DeletePopupComponent);
+    this.Openpopup(code, 'Delete Periodical', DeletematPopupComponent);
   }
 
   detailsPopup(code: any) {

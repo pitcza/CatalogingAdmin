@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import Swal from 'sweetalert2';
+
 import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
@@ -9,9 +11,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 
-import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
 import { EditBookComponent } from '../edit-book/edit-book.component';
 import { BookDetailsPopupComponent } from '../book-details-popup/book-details-popup.component';
+import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
 
 @Component({
   selector: 'app-books',
@@ -49,6 +51,40 @@ export class BooksComponent implements AfterViewInit {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
+  ngOnInit(){
+    //console.log('This is init method');
+  }
+
+  // SWEETALERT DELETE POPUP
+
+  confirmBox(){
+  Swal.fire({
+    title: 'Are you sure want to delete this material?',
+    text: 'You will not be able to recover this book!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: "#AB0E0E",
+    cancelButtonColor: "#777777",
+    confirmButtonText: 'Delete',
+    cancelButtonText: 'Cancel',
+  }).then((result) => {
+    if (result.value) {
+      Swal.fire(
+        'Deleted!',
+        'The book has been deleted.',
+        'success'
+      )
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+        'The book is safe.',
+        'error'
+      )
+    }
+  })
+}
+
+
 
   // POP UPS
   showPopup: boolean = false;
@@ -71,7 +107,7 @@ export class BooksComponent implements AfterViewInit {
   }
 
   deletePopup(code: any) {
-    this.Openpopup(code, 'Delete Book', DeletePopupComponent);
+    this.Openpopup(code, 'Delete Book', DeletematPopupComponent);
   }
 
   detailsPopup(code: any) {
