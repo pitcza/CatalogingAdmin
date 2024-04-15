@@ -6,15 +6,28 @@ main {
 }
 
 /* SPIT SCREEN */
-.spit-screen {
-    display: flex;
-    flex-direction: column;
-}
 
 .left, .right {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.spit-screen {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.left {
+    display: flex;
+    width: 50%;
+    height: auto;
+}
+.right {
+    display: flex;
+    width: 50%;
+    height: auto;
 }
 
 /* LEFT SCREEN */
@@ -29,6 +42,10 @@ main {
     padding-top: 400px;
     padding-left: 320px;
     //width: 900px;
+}
+
+.gclims-logo2 {
+    display: none;
 }
 
 .logos img {
@@ -84,9 +101,6 @@ main {
     padding-bottom: 15px;
 }
 
-
-
-/* wala na itu */
 .logo img {
     height: 160px;
     width: 160px;
@@ -203,19 +217,105 @@ form input:focus {
 
 
 /* MEDIA SCREEN */
-@media screen and (min-width:900px) {
+@media screen and (max-width:900px) {
+    main {
+        background-image: none;
+    }
+
     .spit-screen {
-        flex-direction: row;
-        height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
+
+    // LEFT STYLE
     .left {
-        display: flex;
-        width: 50%;
-        height: auto;
+        height: 500px;
+        padding: 30px;
+        background-color: var(--main-green);
+        width: 100%;
     }
+    
+    .gclibrary {
+        display: none;
+    }
+
+    .gclogo {
+        display: none;
+    }
+
+    .gclims-logo2 {
+        display: inline;
+        position: relative;
+        height: 300px;
+        width: 300px;
+        bottom: 0;
+    }
+    
+    .circles {
+        padding-bottom: 200px;
+    }
+    
+    .circle2 {
+        position: relative; /* or you can omit this line as it's the default */
+        z-index: 1;
+        background-color: var(--main-green);
+        width: 100%;
+        top: 0;
+        left: 0;
+        border-radius: 0px;
+    }
+    
+    .circle1 {
+        display: none;
+    }
+    
+    .clipart img {
+        display: none;
+    }
+
+    // RIGHT STYLE
     .right {
-        display: flex;
-        width: 50%;
+        background-color: var(--primary-color);
+        position: absolute;
         height: auto;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+    
+    .gclims-logo .systemname h1 {
+        font-size: 23px;
+        text-align: center;
+        color:var(--black);    
+        font-weight: 900;
+        width: 600px;
+        margin-left: -54px;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .gclims-logo {
+        padding-bottom: 15px;
+    }
+    
+    .logo img {
+        height: 160px;
+        width: 160px;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        margin-bottom: 10px;
+    }
+    
+    .right .subsystemname h2 {
+        text-align: center;
+        color: var(--black);
+        font-size: 25px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 3%;
     }
 }

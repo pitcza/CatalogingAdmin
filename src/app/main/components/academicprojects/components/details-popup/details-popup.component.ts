@@ -23,7 +23,7 @@ export class DetailsPopupComponent implements OnInit{
       reader.readAsDataURL(data);
     }, (error: any) => {
       console.log(error);
-      this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/sample.jpg';
+      this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
     });
   }
 

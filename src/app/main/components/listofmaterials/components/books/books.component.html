@@ -3,28 +3,27 @@
 <main>
     <div class="content">
         
-        <div class="projects-table">
+        <div class="table-content">
 
             <div class="table-head">
 
-            <div class="table-filters">
-                <select id="filter">
-                    <option selected value="All Departments"> All Departments </option>
-                    <option> CCS </option>
-                    <option> CBA </option>
-                    <option> CAHS </option>
-                    <option> CEAS </option>
-                    <option> CHTM </option>
-                </select>
+                <div class="table-filters">
+                    <select id="filter">
+                        <option selected value="All Departments"> All Locations </option>
+                        <option> FIL </option>
+                        <option> FOR </option>
+                        <option> MED </option>
+                        <option> EWAN </option>
+                    </select>
 
-            </div>
+                </div>
 
-            <div class="search-container">
-                <form action="/action_page.php">
-                  <input type="text" placeholder="Search..." name="search">
-                  <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
+                <div class="search-container">
+                    <form action="/action_page.php">
+                    <input type="text" placeholder="Search..." name="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
 
             </div>
               
@@ -73,13 +72,13 @@
                     <th mat-header-cell *matHeaderCellDef> Action</th>
                     <td mat-cell class="actions" *matCellDef="let element">
             
-                        <button class="editbtn" (click)="editProject(element.id)"  mat-raised-button color="primary">
+                        <button class="editbtn" (click)="editPopup(element.id)"  mat-raised-button color="primary">
                             <i class='bx bx-edit' ></i>
                         </button>
-                        <button class="deletebtn" (click)="deleteProject(element.id)" (closedPopup)="closePopup()" mat-raised-button color="warn">
+                        <button class="deletebtn" (click)="deletePopup(element.id)" (closedPopup)="closePopup()" mat-raised-button color="warn">
                             <i class='bx bx-trash'></i>
                         </button>
-                        <button class="detailsbtn" (click)="detailsProject(element.id)" (closedPopup)="closePopup()" mat-raised-button color="primary">
+                        <button class="detailsbtn" (click)="detailsPopup(element.id)" (closedPopup)="closePopup()" mat-raised-button color="primary">
                             <i class='bx bx-detail' ></i>
                         </button>
                     </td>
@@ -89,7 +88,7 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
 
-                <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons
+                <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons
                             aria-label="Select page of periodic elements">
                 </mat-paginator>
             </div>   

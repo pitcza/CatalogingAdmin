@@ -9,9 +9,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 
-import { EditdetailsComponent } from '../editdetails/editdetails.component';
 import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
-import { DetailsPopupComponent } from '../details-popup/details-popup.component';
+import { EditBookComponent } from '../edit-book/edit-book.component';
+import { BookDetailsPopupComponent } from '../book-details-popup/book-details-popup.component';
 
 @Component({
   selector: 'app-books',
@@ -49,6 +49,8 @@ export class BooksComponent implements AfterViewInit {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
+
+  // POP UPS
   showPopup: boolean = false;
 
   togglePopup() {
@@ -60,20 +62,20 @@ export class BooksComponent implements AfterViewInit {
   }
 
   redirectToListPage() {
-    this.router.navigate(['main/academicprojects/listofprojects']); 
+    this.router.navigate(['main/academicprojects/books']); 
   }
 
 
-  editProject(code: any) {
-    this.Openpopup(code, 'Edit Project',EditdetailsComponent);
+  editPopup(code: any) {
+    this.Openpopup(code, 'Edit Project',EditBookComponent);
   }
 
-  deleteProject(code: any) {
+  deletePopup(code: any) {
     this.Openpopup(code, 'Delete Project',DeletePopupComponent);
   }
 
-  detailsProject(code: any) {
-    this.Openpopup(code, 'Project Detail',DetailsPopupComponent);
+  detailsPopup(code: any) {
+    this.Openpopup(code, 'Project Detail',BookDetailsPopupComponent);
   }
 
   Openpopup(code: any, title: any,component:any) {

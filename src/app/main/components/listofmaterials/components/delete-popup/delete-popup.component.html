@@ -1,1 +1,15 @@
-<p>delete-popup works!</p>
+<main>
+    <div class="popup">
+        <div class="popup-content">
+          <!-- popup content goes here -->
+          <h2>Are you sure you want to delete this project?</h2>
+          <hr>
+          <br>
+          <p>This action cannot be undone.</p>
+          <div class="button-container">
+            <button class="delete-btn">Delete</button>
+            <button (click)="closepopup()" class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+    </div>
+</main>
