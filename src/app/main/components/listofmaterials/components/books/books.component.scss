@@ -15,26 +15,12 @@
     gap: 10px;
 }
 
-.table-filters a {
-    color: var(--black);
-    font-size: 16px;
-    padding: 12px 16px;
-    font-weight: 500;
-    margin-right: 1em;
-    display: inline-block;
-    
-}
-
-.table-filters a:hover {
-    text-decoration: none;
-}
-
 .table-filters select {
     background: var(--primary-color);
     font-family: 'Poppins';
     padding: 5px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     width: 12em;
     height: 2.5em;
     border: 1px solid var(--table-border);
@@ -50,7 +36,7 @@
     font-family: 'Poppins';
     padding: 5px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     width: 250px;
     padding: 12px 16px;
     height: 2.3em;
@@ -105,7 +91,7 @@ input:focus{
     }
 }
 
-.projects-table {
+.table-content {
     border-radius: 5px;
     padding: 20px;
     padding-top: 25px;
@@ -131,6 +117,7 @@ table,
 th,
 td {
     font-family: 'Poppins';
+    padding: 10px;
     text-align: center;
     border-bottom: 1.5px solid var(--table-border);
 }
@@ -138,7 +125,7 @@ td {
 th {
     background-color: var(--main-green) !important;
     color: white;
-    font-weight: bold;
+    font-weight: 600;
     letter-spacing: 0.8px;
 }
 
@@ -166,7 +153,6 @@ button i {
     padding: 4px;
 }
 
-
 .actions .editbtn {
     background-color: var(--main-green);
     margin-right: 5px;
@@ -191,4 +177,8 @@ button i {
 
 .actions .detailsbtn:hover {
     background-color: var(--cancel-hover);
+}
+
+.swal2-confirm, .swal2-cancel {
+    font-family: 'Poppins';
 }

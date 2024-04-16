@@ -4,7 +4,7 @@
     <div class="content">
         <div class="head">
             <h1> Academic Projects </h1>
-            <a (click)="navigateTo()" class="add-project"> 
+            <a (click)="redirectToProjectForm()" class="add-project"> 
                 <span> <i class='bx bx-plus-circle'></i> </span>
                 <span> Add Project </span>
             </a>
@@ -117,6 +117,7 @@
                 <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons
                             aria-label="Select page of periodic projects">
                 </mat-paginator>
+                
             </div>   
             
             

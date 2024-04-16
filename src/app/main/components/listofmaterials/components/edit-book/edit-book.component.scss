@@ -12,7 +12,7 @@
     z-index: 9999;
 }
 
-.project-details {
+.details-content {
     padding: 0 30px 30px 30px;
     background: white;
     width: 900px;
@@ -75,24 +75,24 @@ img {
     margin-bottom: 10px;
 }
 
-.details .projectdetails {
+.details .body-details {
     flex-basis: 50%;
     text-align: left;
     padding: 15px;
 }
 
-.projectdetails span {
+.body-details span {
     display: flex;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 
-.projectdetails h2 {
+.body-details h2 {
     font-size: 15px;
     font-weight: bold;
     padding-right: 10px;
 }
 
-.projectdetails p {
+.body-details p {
     font-size: 15px;
     font-weight: 400;
     text-align: justify;

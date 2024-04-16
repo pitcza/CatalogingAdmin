@@ -32,10 +32,11 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class ListofprojectsComponent implements AfterViewInit {
-  navigateTo() {
+  redirectToProjectForm() {
     // Programmatically navigate to another route
     this.router.navigate(['main/academicprojects/addproject']);
   }
+  
 
   displayedColumns: string[] = ['dateadd', 'college', 'program', 'project', 'title', 'datepub', 'action'];
   
