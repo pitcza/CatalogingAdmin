@@ -14,60 +14,60 @@
             <form>
                 <div class="input-row">
                     <div class="input-group">
-                        <select id="college" [(ngModel)]="selectedOption1" (change)="onOption1Change()" [ngModelOptions]="{standalone: true}">
+                        <select id="college" class="college" [(ngModel)]="selectedOption1" (change)="onOption1Change()" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let option of options1" [value]="option.value">{{ option.label }} </option>
                         </select>
                         <label class="labelline" for="college"> College </label>
                     </div>
                     <div class="input-group">
-                        <select id="course" [(ngModel)]="selectedOption2" (change)="onOption2Change()" [ngModelOptions]="{standalone: true}">
+                        <select id="course" class="program" [(ngModel)]="selectedOption2" (change)="onOption2Change()" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let option of options2" [value]="option.value">{{ option.label }} </option>
                         </select>
-                        <label class="labelline" for="course"> Course </label>
+                        <label class="labelline" for="course"> Program </label>
                     </div>
                 </div>
         
                 <div class="input-row">
                     <div class="input-group">
-                        <input type="text" id="title">
+                        <input class="title" type="text" id="title">
                         <div class="labelline"> Title </div>
                     </div>
                     <div class="input-group">
-                        <select id="projecttype" [(ngModel)]="selectedOption3" [ngModelOptions]="{standalone: true}">
+                        <select id="projecttype" class="category" [(ngModel)]="selectedOption3" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let option of options3" [value]="option.value">{{ option.label }}</option>
                         </select>
-                        <label class="labelline" for="projecttype"> Project </label>
+                        <label class="labelline" for="projecttype"> Category </label>
                     </div>
                 </div>
         
                 <div class="input-row">
                     <div class="input-group">
-                        <select id="language">
+                        <select id="language" class="language">
                             <option value="English"> English </option>
                             <option value="Tagalog"> Tagalog </option>
                         </select>
                         <label class="labelline" for="projecttype"> Language </label>
                     </div>
                     <div class="input-group">
-                        <input type="date" id="datepub">
+                        <input type="date" id="datepub" class="date_published">
                         <div class="labelline"> Date Published </div>
                     </div> 
                 </div>
 
                 <div class="input-row">
                     <div class="input-group">
-                        <input type="text" id="author">
+                        <input type="text" id="author" class="author">
                         <div class="labelline"> Author </div>
                     </div> 
                     <div class="input-group">
                         <div class="labelline1"> Upload Image </div>
-                        <input type="file" class="file" id="file">
+                        <input type="file" class="image_location" id="file">
                     </div> 
                 </div>
 
                 <div class="input-row">
                     <div class="input-column">
-                        <textarea id="abstract"> </textarea>
+                        <textarea id="abstract" class="abstract"> </textarea>
                         <div class="labelline"> Abstract </div>
                     </div> 
                 </div>

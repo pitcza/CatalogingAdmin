@@ -138,14 +138,15 @@ export class AddprojectComponent {
     } 
     else if (this.selectedOption2 === 'BSBA-MKT') {
       this.options3 = [
-        { value: 'Feasibility', label: 'Feasibility' }
+        { value: '', label: '' }
       ];
     } 
     else if (this.selectedOption2 === 'BSBA-HRM') {
       this.options3 = [
-        { value: 'Feasibility', label: 'Feasibility' }
+        { value: '', label: '' }
       ];
     }
+
     // CEAS PROGRAMS -------------------------------------------------
     else if (this.selectedOption2 === 'BACOMM') {
       this.options3 = [
@@ -158,6 +159,41 @@ export class AddprojectComponent {
       ];
     }
     else if (this.selectedOption2 === 'BPED') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BCAED') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BECED') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BSED-ENG') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BSED-FIL') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BSED-MATH') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BSED-SCI') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BSED-SOC') {
       this.options3 = [
         { value: '', label: '' }
       ];
