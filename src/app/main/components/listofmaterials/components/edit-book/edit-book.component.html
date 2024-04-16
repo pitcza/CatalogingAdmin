@@ -4,25 +4,90 @@
             <div class="details-content">
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
-                    <h1> Sample Title </h1>
+                    <h1> Edit Book Details </h1>
                 </div>
 
                 <!-- BODY - DETAILS -->
                 <div class="detailsbody">
                     <div class="details">
-                        <div class="body-details">
-                        
-                        </div>
-
-                        <div class="body-details">
-                            
-                        </div>
+                        <form>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input name="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                                <div class="input-group">
+                                    <input class="author" type="text" id="author">
+                                    <div class="labelline"> Author </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Location </div>
+                                </div>
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                                <div class="input-group">
+                                    <input class="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 
                     <!-- BUTTONS -->
                     <div class="button-container">
-                        <button class="update-btn"> Update </button>
-                        <button class="delete-btn" (click)="deleteBox()" (click)="closepopup()"> Delete </button>
+                        <button class="update-btn" (click)="updateBox()"> Update </button>
+                        <button class="delete-btn" (click)="archiveBox()"> Archive </button>
                         <button class="cancel-btn" (click)="closepopup()"> Cancel </button>
                     </div>
                 

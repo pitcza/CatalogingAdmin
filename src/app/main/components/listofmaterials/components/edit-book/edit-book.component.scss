@@ -9,11 +9,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    z-index: 999;
 }
 
 .details-content {
-    padding: 0 30px 30px 30px;
+    position: relative;
+    padding: 0 30px 10px 30px;
     background: white;
     width: 900px;
     border-radius: 5px;
@@ -24,84 +25,143 @@
 }
 
 .detailsbody {
-    padding-top: 50px;
     height: 70%; /* Adjust the height as needed */
+    justify-content: center;
+    padding: 90px 20px 30px 20px; 
+    width: 100%;
 }
 
 .details {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 100px;
+    padding-top: 15px;
 }
 
 .detailsheader {
+    padding-top: 30px;
     position: fixed;
     background-color: var(--primary-color);
     width: auto;
-}
-
-/* EXIT BUTTON */
-.exit-button {
-    position: relative;
-    top: 0;
-    right: 0;
-    background-color: transparent;
-    border: none;
-    font-size: 40px;
-    cursor: pointer;
-    color: var(--cancel-btn);
-    text-align: right;
-    width: 855px;
-    padding-top: 5px;
-
-}
-
-.exit-button:hover {
-    color: var(--cancel-hover);
+    z-index: 1;
 }
 
 h1 {
     font-weight: 700;
     font-size: 25px;
     border-bottom: 2px solid var(--border-color);
-    padding-bottom: 5px;
+    padding-bottom: 20px;
     text-align: left;
     width: 840px;
 }
 
-img {
-    width: 100%;
-    height: 400px;
-    margin-bottom: 10px;
+.input-group input[type="text"], input[type="date"], select {
+    font-family: 'Poppins';
+    position: absolute;
+    width: 380px;
+    height: 50px;
+    outline: none;
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+
+input[type="file"] {
+    font-family: 'Poppins';
+    width: 380px;
+    height: 50px;
+    outline: none;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
 }
 
-.details .body-details {
-    flex-basis: 50%;
-    text-align: left;
-    padding: 15px;
+input[type="file"]::file-selector-button {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-family: 'Poppins';
+    color: #ffffff;
+    height: 50px;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    background-color: var(--main-green);
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    transition: background-color 200ms;
 }
 
-.body-details span {
+.input-column textarea {
+    font-family: 'Poppins';
+    position: absolute;
+    width: 800px;
+    height: 100px;
+    outline: none;
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+} 
+
+.input-column {
+    padding-bottom: 50px;
+    margin-top: -50px;
+}
+
+.labelline {
+    position: absolute;
+    font-size: 13px;
+    width: auto;
+    height: auto;
+    color: #000000;
+    padding: 0 10px;
+    margin-left: 10px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+.labelline1 {
+    margin-top: -10px;
+    position: relative;
+    font-size: 13px;
+    width: auto;
+    padding: 0 7px;
+    height: auto;
+    color: #000000;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+}
+
+.input-row {
+    gap: 1rem;
     display: flex;
-    padding-bottom: 15px;
+    justify-content: space-between;
+    margin-bottom: 90px;
+    margin-top: 10px;
 }
 
-.body-details h2 {
-    font-size: 15px;
-    font-weight: bold;
-    padding-right: 10px;
+.input-row .input-group {
+    flex-basis: 100%;
 }
 
-.body-details p {
-    font-size: 15px;
-    font-weight: 400;
-    text-align: justify;
+input::-webkit-inner-spin-button, 
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .button-container {
     margin-top: 20px;
     display: flex;
     justify-content: flex-end;
+
 }
 
 button {
@@ -113,10 +173,9 @@ button {
     font-weight: 400;
     width: 100px;
     letter-spacing: 1.5px;
-
 }
 
-.edit-btn {
+.update-btn {
     background: var(--main-green);
     color: var(--primary-color);
     margin-right: 10px;
@@ -127,10 +186,20 @@ button {
     color: var(--primary-color);
 }
 
-.edit-btn:hover {
+.cancel-btn {
+    background: var(--cancel-btn);
+    color: var(--primary-color);
+    margin-left: 10px;
+}
+
+.update-btn:hover {
     background-color: var(--green-hover);
 }
 
 .delete-btn:hover {
     background-color: var(--red-hover);
+}
+
+.cancel-btn:hover {
+    background-color: var(--cancel-hover);
 }

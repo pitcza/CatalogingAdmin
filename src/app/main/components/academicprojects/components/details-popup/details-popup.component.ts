@@ -52,6 +52,7 @@ export class DetailsPopupComponent implements OnInit{
       cancelButtonColor: "#777777",
     }).then((result) => {
       if (result.isConfirmed) {
+        this.ref.close('Closed using function');
         Swal.fire({
           title: "Archiving complete!",
           text: "Project has been safely archived.",

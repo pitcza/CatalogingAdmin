@@ -4,8 +4,7 @@
             <div class="details-content">
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
-                    <button class="exit-button" (click)="closepopup()"> &times; </button>
-                    <h1> Sample Title </h1>
+                    <h1> Sample Title Sample Title Sample Title </h1>
                 </div>
                 
                 <!-- BODY - DETAILS -->
@@ -54,8 +53,9 @@
                 
                     <!-- BUTTONS -->
                     <div class="button-container">
-                        <button class="edit-btn"> Edit </button>
-                        <button class="delete-btn" (click)="archiveBox()" (click)="closepopup()"> Archive </button>
+                        <!--<button class="edit-btn" *ngIf="popupService.getPopupStatus() | async"> Edit </button>-->
+                        <button class="delete-btn" (click)="archiveBox()"> Archive </button>
+                        <button class="close-btn" (click)="closepopup()"> Close </button>
                     </div>
                 
                 </div>

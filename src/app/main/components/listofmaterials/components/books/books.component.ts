@@ -87,7 +87,6 @@ archiveBox(){
     this.router.navigate(['main/academicprojects/books']); 
   }
 
-
   editPopup(code: any) {
     this.Openpopup(code, 'Edit Book', EditBookComponent);
   }

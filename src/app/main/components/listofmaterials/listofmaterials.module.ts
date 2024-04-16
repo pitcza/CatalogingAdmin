@@ -14,6 +14,8 @@ import { BookDetailsPopupComponent } from './components/book-details-popup/book-
 import { PeriodicalDetailsPopupComponent } from './components/periodical-details-popup/periodical-details-popup.component';
 import { ArticleDetailsPopupComponent } from './components/article-details-popup/article-details-popup.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     EditBookComponent,
@@ -26,6 +28,8 @@ import { ArticleDetailsPopupComponent } from './components/article-details-popup
   imports: [
     CommonModule,
     ListofmaterialsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ListofmaterialsModule { }
