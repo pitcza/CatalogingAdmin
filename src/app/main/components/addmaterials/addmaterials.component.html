@@ -13,10 +13,10 @@
         <!--------- Books Tab --------->
 
 		<div class="tab-content">
-            <form>
+            <form id="submit-form">
                 <div class="bookcontainer">
                     <div class="entryarea"> 
-                        <input type="text" required> 
+                        <input type="text" required name="title"> 
                         <div class="labelline"> Title </div>
                     <div class="entryarea_1">
                         <input type="number" min="0" required> 
@@ -25,6 +25,10 @@
                     
                     <div class="entryarea2">
                         <input type="text" required> 
+                        <select [(ngModel)] = "locations" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let location of locations" [value] = "location.id">{{ location.location }}:
+                                {{ location.full_location }}</option>
+                        </select>
                         <div class="labelline2"> Location </div>
                     <div class="entryarea_2">
                         <input type="date" required> 
@@ -78,7 +82,7 @@
                         <div class="labelline_7"> Upload Image</div>
                     </div>
                     <div class="bookbtn">
-                        <input type="submit" value="Add">
+                        <input type="submit" value="Add" (click)="submit()" id="submit-button">
                     </div>
                 </div>
             </form>
