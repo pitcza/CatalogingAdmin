@@ -10,8 +10,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 
 import { EditdetailsComponent } from '../editdetails/editdetails.component';
-import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
 import { DetailsPopupComponent } from '../details-popup/details-popup.component';
+import Swal from 'sweetalert2';
+
 import { AddprojectComponent } from '../addproject/addproject.component';
 import { DataService } from '../../../../../services/data.service';
 import { CommonModule } from '@angular/common';
@@ -88,10 +89,6 @@ export class ListofprojectsComponent implements AfterViewInit {
     this.Openpopup(code, 'Edit Project',EditdetailsComponent);
   }
 
-  deleteProject(code: any) {
-    this.Openpopup(code, 'Delete Project',DeletePopupComponent);
-  }
-
   detailsProject(details: any) {
     this.Openpopup(details, 'Project Detail',DetailsPopupComponent);
   }
@@ -110,6 +107,28 @@ export class ListofprojectsComponent implements AfterViewInit {
       this.redirectToListPage();
     });
   }
+
+// SWEETALERT ARCHIVE POP UP
+archiveBox(){
+  Swal.fire({
+    title: "Archive Project",
+    text: "Are you sure want to archive this project?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: "#AB0E0E",
+    cancelButtonColor: "#777777",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Archiving complete!",
+        text: "Project has been safely archived.",
+        icon: "success"
+      });
+    }
+  });
+}
 
 
   // DATA FOR FILTERING

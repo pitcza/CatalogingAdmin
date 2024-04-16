@@ -4,6 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DataService } from '../../../../../services/data.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-details-popup',
   templateUrl: './details-popup.component.html',
@@ -37,4 +39,25 @@ export class DetailsPopupComponent implements OnInit{
   closepopup() {
     this.ref.close('Closed using function');
   }
+
+  archiveBox(){
+    Swal.fire({
+      title: "Archive Project",
+      text: "Are you sure want to archive this project?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: "#AB0E0E",
+      cancelButtonColor: "#777777",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Archiving complete!",
+          text: "Project has been safely archived.",
+          icon: "success"
+        });
+      }
+    });
+}
 }

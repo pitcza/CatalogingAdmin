@@ -74,12 +74,11 @@
 
 
                 <div class="buttons">
-                    <a routerLink="../listofprojects" class="add"> 
+                    <a class="add" (click)="redirectToListPage()"> 
                         <span> Add </span>
                     </a>
 
-                    <a class="cancel" (click)="togglePopup()"> 
-                        <app-cancel-popup *ngIf="showPopup" (closedPopup)="closePopup()" (yesClicked)="redirectToListPage()"></app-cancel-popup>
+                    <a class="cancel" (click)="cancelBox()"> 
                         <span> Cancel </span>
                     </a>
                 </div>

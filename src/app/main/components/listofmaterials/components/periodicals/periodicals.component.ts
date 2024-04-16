@@ -8,7 +8,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PeriodicalDetailsPopupComponent } from '../periodical-details-popup/periodical-details-popup.component';
-import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-periodicals',
@@ -62,10 +63,6 @@ export class PeriodicalsComponent implements AfterViewInit {
     this.Openpopup(code, 'Edit Periodical', EditPeriodicalComponent);
   }
 
-  deletePopup(code: any) {
-    this.Openpopup(code, 'Delete Periodical', DeletematPopupComponent);
-  }
-
   detailsPopup(code: any) {
     this.Openpopup(code, 'Periodical Details', PeriodicalDetailsPopupComponent);
   }
@@ -84,6 +81,28 @@ export class PeriodicalsComponent implements AfterViewInit {
       this.redirectToListPage();
     });
   }
+
+// SWEETALERT ARCHIVE POP UP
+archiveBox(){
+  Swal.fire({
+    title: "Archive Periodical",
+    text: "Are you sure want to archive this periodical?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: "#AB0E0E",
+    cancelButtonColor: "#777777",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Archiving complete!",
+        text: "Periodical has been safely archived.",
+        icon: "success"
+      });
+    }
+  });
+}
 
 
   // DATA FOR FILTERING

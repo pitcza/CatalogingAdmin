@@ -15,8 +15,8 @@ export class MainComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-      if(localStorage.getItem('auth-token') == null)
-        this.router.navigate(['login']);
+  /*    if(localStorage.getItem('auth-token') == null)
+        this.router.navigate(['login']); */
   }
 
   showPopup: boolean = false;
@@ -29,7 +29,7 @@ export class MainComponent implements OnInit{
     this.showPopup = this.showPopup;
   }
 
-  protected logout() {
+/*  protected logout() {
     this.ds.logout().subscribe({
       next: (res: any) => {
         localStorage.clear();
@@ -40,5 +40,5 @@ export class MainComponent implements OnInit{
       }
     });
 
-  }
+  } */
 }

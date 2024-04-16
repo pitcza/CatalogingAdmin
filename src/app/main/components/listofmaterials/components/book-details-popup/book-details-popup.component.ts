@@ -21,31 +21,26 @@ export class BookDetailsPopupComponent {
     this.ref.close('Closed using function');
   }
 
-  // SWEETALERT DELETE POPUP
-  deleteBox(){
-    Swal.fire({
-      title: 'Are you sure want to delete this material?',
-      text: 'You will not be able to recover this book.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel',
-      confirmButtonColor: "#AB0E0E",
-      cancelButtonColor: "#777777",
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire(
-          'Deleted',
-          'Book has been successfully deleted.',
-          'success'
-        )
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'The book is safe.',
-          'error'
-        )
-      }
-    })
-  }
+// SWEETALERT ARCHIVE POP UP
+archiveBox(){
+  Swal.fire({
+    title: "Archive Book",
+    text: "Are you sure want to archive this book?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: "#AB0E0E",
+    cancelButtonColor: "#777777",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Archiving complete!",
+        text: "Book has been safely archived.",
+        icon: "success"
+      });
+    }
+  });
+}
+
 }
