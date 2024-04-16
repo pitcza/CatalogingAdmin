@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './listofmaterials.component.scss'
 })
 export class ListofmaterialsComponent {
-
+  
 }

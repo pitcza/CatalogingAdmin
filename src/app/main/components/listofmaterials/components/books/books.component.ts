@@ -57,21 +57,21 @@ export class BooksComponent implements AfterViewInit {
 
   // SWEETALERT DELETE POPUP
 
-  confirmBox(){
+  deleteBox(){
   Swal.fire({
     title: 'Are you sure want to delete this material?',
-    text: 'You will not be able to recover this book!',
+    text: 'You will not be able to recover this book.',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: "#AB0E0E",
-    cancelButtonColor: "#777777",
     confirmButtonText: 'Delete',
     cancelButtonText: 'Cancel',
+    confirmButtonColor: "#AB0E0E",
+    cancelButtonColor: "#777777",
   }).then((result) => {
     if (result.value) {
       Swal.fire(
-        'Deleted!',
-        'The book has been deleted.',
+        'Deleted',
+        'Book has been successfully deleted.',
         'success'
       )
     } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -84,14 +84,8 @@ export class BooksComponent implements AfterViewInit {
   })
 }
 
-
-
   // POP UPS
   showPopup: boolean = false;
-
-  togglePopup() {
-    this.showPopup = !this.showPopup;
-  }
 
   closePopup() {
     this.showPopup = this.showPopup;
@@ -106,9 +100,9 @@ export class BooksComponent implements AfterViewInit {
     this.Openpopup(code, 'Edit Book', EditBookComponent);
   }
 
-  deletePopup(code: any) {
-    this.Openpopup(code, 'Delete Book', DeletematPopupComponent);
-  }
+//  deletePopup(code: any) {
+//    this.Openpopup(code, 'Delete Book', DeletematPopupComponent);
+//  }
 
   detailsPopup(code: any) {
     this.Openpopup(code, 'Book Details', BookDetailsPopupComponent);
