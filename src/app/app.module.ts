@@ -15,6 +15,9 @@ import { MainModule } from './main/main.module';
 import { MaterialModule } from './modules/material/material.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+import { RouterModule } from '@angular/router';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +29,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule, 
+    RouterModule
+    
   ],
   providers: [
     provideClientHydration(),

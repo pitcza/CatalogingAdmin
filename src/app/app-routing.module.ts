@@ -15,6 +15,7 @@ const routes: Routes = [
       loadChildren: ()=>import('./main/main.module').then((m)=>m.MainModule)
     }]
   },
+  { path: 'reports', loadChildren: () => import('./main/components/reports/reports.module').then(m => m.ReportsModule) },
 ];
 
 @NgModule({
