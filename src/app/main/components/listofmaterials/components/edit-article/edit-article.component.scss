@@ -13,6 +13,7 @@
 }
 
 .details-content {
+    max-width: 900px; /* Maximum width for larger screens */
     width: 900px;
     position: relative;
     background: white;
@@ -23,14 +24,22 @@
     scrollbar-width: thin; 
 }
 
+/*
+@media screen and (max-width: 1286px) {
+    .details-content {
+        max-width: 1000px; // Maximum width for larger screens 
+        width: 1000px;
+        max-height: 700px;
+    }
+} */
+
 .detailsbody {
     height: auto; /* Adjust the height as needed */
     justify-content: center; 
 }
 
 .details {
-    padding: 110px 50px 30px 55px;
-    padding-bottom: 10px;
+    padding: 110px 50px 10px 55px;
 }
 
 .detailsheader {
@@ -51,7 +60,7 @@ h1 {
     padding-bottom: 20px;
 }
 
-.input-group input[type="text"], input[type="date"], select {
+.input-group input[type="text"], input[type="date"], input[type="number"], select {
     font-family: 'Poppins';
     position: absolute;
     width: 380px;
@@ -157,7 +166,7 @@ input::-webkit-outer-spin-button {
 }
 
 .button-container {
-    margin: 10px 30px 30px 0px;
+    margin: -30px 30px 30px 0px;
     display: flex;
     justify-content: flex-end;
 }
