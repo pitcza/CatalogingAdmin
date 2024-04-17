@@ -45,7 +45,8 @@ export class BooksComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.ds.get('books', '').subscribe({
       next: (res: any) =>  {
-        this.dataSource = new MatTableDataSource(res);
+        // this.dataSource = new MatTableDataSource(res);
+        this.dataSource = new MatTableDataSource<PeriodicElement>(res);
         this.dataSource.paginator = this.paginator;
       },
       error: (err: any) => console.log(err)
@@ -157,15 +158,15 @@ export class BooksComponent implements AfterViewInit {
 
 }
 
-// export interface PeriodicElement {
-//   dateadd: string;
-//   booktitle: string;
-//   author: string;
-//   location: string;
-//   copyright: string;
-//   issue: string;
-//   action: string;
-// }
+export interface PeriodicElement {
+  dateadd: string;
+  booktitle: string;
+  author: string;
+  location: string;
+  copyright: string;
+  issue: string;
+  action: string;
+}
 
 // const ELEMENT_DATA: PeriodicElement[] = [
 //   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
