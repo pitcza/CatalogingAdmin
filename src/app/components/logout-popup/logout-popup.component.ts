@@ -6,6 +6,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrl: './logout-popup.component.scss'
 })
 export class LogoutPopupComponent {
+  
   @Output() leaveClicked = new EventEmitter<void>();
   @Output() closedPopup = new EventEmitter<void>();
 

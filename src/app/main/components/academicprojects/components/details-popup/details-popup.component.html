@@ -2,36 +2,52 @@
     <div class="container">
         <div class="content">
             <div class="project-details">
-                <button class="exit-button" (close)="closedPopup"> &times; </button>
                 <!-- POST TITLE -->
-                <h1> Sample Project Title One Two Three </h1>
-    
-    
+                <div class="detailsheader">
+                    <button class="exit-button" (click)="closepopup()"> &times; </button>
+                <h1> {{ data.details.title }} </h1>
+                </div>
+                
+                <div class="detailsbody">
                 <div class="details">
                     <div class="projectdetails">
-                        <img alt="blog" src="https://raw.githubusercontent.com/pitcza/sampleimages/main/sample.jpg">
+                        <img alt="blog" src="{{ image }}">
                         <span>
-                            <h2> Author: </h2> <p> Pauleen Dalida </p>
+                            <h2> Author: </h2> <p> {{ data.details.author }} </p>
                         </span>
                         <span>
-                            <h2> Date Published: </h2> <p> January 01, 2024 </p>
-                        </span>
-                        <span>
-                            <h2> Author: </h2> <p> Pauleen Dalida </p>
-                        </span>
-                        <span>
-                            <h2> Date Published: </h2> <p> January 01, 2024 </p>
+                            <h2> Date Published: </h2> <p> {{ data.details.date_published | date:'longDate' }} </p>
                         </span>
                     </div>
+
                     <div class="projectdetails">
                         <span>
-                            <h2> College: </h2> <p> CCS </p>
+                            <h2> College: </h2> <p> {{ data.details.department }} </p>
                         </span>
                         <span>
-                            <h2> Program: </h2> <p> BSIT </p>
+                            <h2> Program: </h2> <p> {{ data.details.program }} </p>
+                        </span>
+                        <span>
+                            <h2> Category: </h2> <p> {{ data.details.category | titlecase }} </p>
+                        </span>
+                        <span>
+                            <h2> Language: </h2> <p> {{ data.details.language }} </p>
+                        </span>
+                        <span>
+                            <h2> Abstract: </h2>
+                        </span>
+                        <span>
+                            <p> {{ data.details.abstract }} </p>
                         </span>
                     </div>
                 </div>
+                <div class="button-container">
+                    <!--<button class="edit-btn"> Edit </button>-->
+                    <button class="delete-btn" (click)="archiveBox()"> Archive </button>
+                </div>
+                
+                </div>
+    
     
     
     

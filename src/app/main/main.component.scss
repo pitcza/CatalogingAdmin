@@ -16,7 +16,7 @@ body {
     padding-left: 20px;
     padding-bottom: 20px;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 1px;
     color:var(--main-green);
     z-index: 1;
@@ -35,7 +35,7 @@ body {
 .systemname h1 {
     text-align: center;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .systemname h2 {
@@ -85,7 +85,7 @@ body {
 
 .admin-tab a {
     display: flex;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 14px;
     padding: 10px 10px 10px 10px;
     text-decoration: none;
@@ -99,7 +99,7 @@ body {
 }
 
 .admin-tab a.active-link {
-    font-weight: bold;
+    font-weight: 600;
     color: var(--main-green);
 }
 

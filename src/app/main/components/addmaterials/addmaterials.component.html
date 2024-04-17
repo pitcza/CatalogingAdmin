@@ -13,58 +13,64 @@
         <!--------- Books Tab --------->
 
 		<div class="tab-content">
-            <form>
+            <form id="submit-form">
                 <div class="bookcontainer">
-                    <div class="entryarea"> 
-                        <input type="text" required> 
+                    <div class="entryarea">
+                        <input type="text" required name="title"> 
                         <div class="labelline"> Title </div>
+                      
                     <div class="entryarea_1">
-                        <input type="number" min="0" required> 
+                        <input type="number" min="0" required name="id"> 
                         <div class="labelline_1"> Accession </div>
                     </div>
                     
                     <div class="entryarea2">
                         <input type="text" required> 
+                        <select [(ngModel)] = "locations" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let location of locations" [value] = "location.id">{{ location.location }}:
+                                {{ location.full_location }}</option>
+                        </select>
                         <div class="labelline2"> Location </div>
+                      
                     <div class="entryarea_2">
-                        <input type="date" required> 
+                        <input type="date" required name="date_published"> 
                         <div class="labelline_2"> Publication Date </div>
                     </div>
 
                     <div class="entryarea3">
-                        <input type="number" min="0" required> 
+                        <input type="number" min="0" required name="call_number"> 
                         <div class="labelline3"> Call Number </div>
                     <div class="entryarea_3">
-                        <input type="number" min="0" required> 
+                        <input type="number" min="0" name="edition"> 
                         <div class="labelline_3"> Edition </div>
                     </div>
 
                     <div class="entryarea4">
-                        <input type="text" required> 
+                        <input type="text" required name="copyright"> 
                         <div class="labelline4"> Copyright </div>
                     <div class="entryarea_4">
-                        <input type="number" min="0" required> 
+                        <input type="number" min="0" name="volume"> 
                         <div class="labelline_4"> Volume </div>
                     </div>
 
                     <div class="entryarea5">
-                        <input type="text" required> 
+                        <input type="text" name="remarks"> 
                         <div class="labelline5"> Remarks </div>
                     <div class="entryarea_5">
-                        <input type="number" min="0" required> 
+                        <input type="number" min="0" name="pages"> 
                         <div class="labelline_5"> Pages </div>
                     </div>
 
                     <div class="entryarea6">
-                        <input type="date" required> 
+                        <input type="date" required name="purchased_date"> 
                         <div class="labelline6"> Date Purchased/Donated </div>
                     <div class="entryarea_6">
-                        <input type="number" min="0" required> 
+                        <input type="number" min="0" name="copies"> 
                         <div class="labelline_6"> Copies </div>
                     </div>
 
                     <div class="entryarea7">
-                        <input type="text" required> 
+                        <input type="text" required name="author"> 
                         <div class="labelline7"> Author </div>
                     </div>
                     </div>
@@ -74,11 +80,13 @@
                     </div>
                     </div>
                     <div class="entryarea_7"> 
-                        <input type="file" required> 
+                        <input type="file" required name="image_location"> 
                         <div class="labelline_7"> Upload Image</div>
                     </div>
+                  
                     <div class="bookbtn">
                         <input type="submit" value="Add">
+                            <button (click)="submit()"></button>
                     </div>
                 </div>
             </form>
@@ -90,57 +98,57 @@
             <form>
                 <div class="periocontainer">
                     <div class="perioarea"> 
-                        <select id="type">
+                        <select id="type" name="material_type">
                             <option value="magazine"> Magazine </option>
                             <option value="journal"> Journal </option>
                             <option value="newspaper"> Newspaper </option>
                         </select>
                         <div class="perioline"> Type of Material </div>
                     <div class="perioarea_1">
-                        <input type="text" required> 
+                        <input type="text" name="author"> 
                         <div class="perioline_1"> Author </div>
                     </div>
 
                     <div class="perioarea2">
-                        <input type="text" required> 
+                        <input type="text" required name="title"> 
                         <div class="perioline2"> Title </div>
                     <div class="perioarea_2">
-                        <input type="text" required> 
+                        <input type="text" name="issue"> 
                         <div class="perioline_2"> Issue </div>
                     </div>
 
                     <div class="perioarea3">
-                        <select id="type">
+                        <select id="type" name="language">
                             <option value="english"> English </option>
                             <option value="tagalog"> Tagalog </option>
                         </select>
                         <div class="perioline3"> Language </div>
                     <div class="perioarea_3">
-                        <input type="date" required> 
+                        <input type="date" required name="receive_date"> 
                         <div class="perioline_3"> Date Received </div>
                     </div>
 
                     <div class="perioarea4">
-                        <input type="date" required> 
+                        <input type="date" required name="date_published">  
                         <div class="perioline4"> Publication Date </div>
                     <div class="perioarea_4">
-                        <input type="text" required> 
+                        <input type="text" required name="copyright"> 
                         <div class="perioline_4"> Copyright </div>
                     </div>
 
                     <div class="perioarea5">
-                        <input type="text" required> 
+                        <input type="text" required name="publisher"> 
                         <div class="perioline5"> Publisher </div>
                     <div class="perioarea_5">
-                        <input type="number" min="0" required> 
+                        <input type="number" min="0" name="pages"> 
                         <div class="perioline_5"> Pages </div>
                     </div>
 
                     <div class="perioarea6">
-                        <input type="number" min="0" required> 
+                        <input type="number" min="0" name="volume"> 
                         <div class="perioline6"> Volume </div>
                     <div class="perioarea_6">
-                        <input type="text" required> 
+                        <input type="text" name="remarks"> 
                         <div class="perioline_6"> Remarks </div>
                     </div>
                     </div>
@@ -150,11 +158,12 @@
                     </div>
                     </div>
                     <div class="perioarea_7"> 
-                        <input type="file" required> 
+                        <input type="file" required name="image_location"> 
                         <div class="perioline_7"> Upload Image</div>
                     </div>
                     <div class="periobtn"> 
                         <input type="submit" value="Add">
+                            <button onclick="myfunction();"></button>
                     </div>
                 </div>
             </form>
@@ -167,57 +176,57 @@
             <div class="articontainer">
                 <form>
                 <div class="artiarea"> 
-                    <select id="type">
+                    <select id="type" name="material_type">
                         <option value="magazine"> Magazine </option>
                         <option value="journal"> Journal </option>
                         <option value="newspaper"> Newspaper </option>
                     </select>
                     <div class="artiline"> Type of Material </div>
                 <div class="artiarea_1">
-                    <input type="text" required> 
+                    <input type="text"  name="author"> 
                     <div class="artiline_1"> Author </div>
                 </div>
 
                 <div class="artiarea2">
-                    <input type="text" required> 
+                    <input type="text" name="title"> 
                     <div class="artiline2"> Title </div>
                 <div class="artiarea_2">
-                    <input type="text" required> 
+                    <input type="text" required name="abstract"> 
                     <div class="artiline_2"> Abstract </div>
                 </div>
 
                 <div class="artiarea3">
-                    <select id="type">
+                    <select id="type" name="language">
                         <option value="english"> English </option>
                         <option value="tagalog"> Tagalog </option>
                     </select>
                     <div class="artiline3"> Language </div>
                 <div class="artiarea_3">
-                    <input type="text" required> 
+                    <input type="text" required name="issue"> 
                     <div class="artiline_3"> Issue </div>
                 </div>
 
                 <div class="artiarea4">
-                    <input type="text" required> 
+                    <input type="text" name="subject"> 
                     <div class="artiline4"> Subject </div>
                 <div class="artiarea_4">
-                    <input type="number" min="0" required> 
+                    <input type="number" min="0" name="volume"> 
                     <div class="artiline_4"> Volume </div>
                 </div>
 
                 <div class="artiarea5">
-                    <input type="text" required> 
+                    <input type="text" required name="publisher"> 
                     <div class="artiline5"> Publisher </div>
                 <div class="artiarea_5">
-                    <input type="number" min="0" required> 
+                    <input type="number" min="0" name="page"> 
                     <div class="artiline_5"> Pages </div>
                 </div>
 
                 <div class="artiarea6">
-                    <input type="date" required> 
+                    <input type="date" name="date_published"> 
                     <div class="artiline6"> Publication Date </div>
                 <div class="artiarea_6">
-                    <input type="text"  required> 
+                    <input type="text"  name="remarks"> 
                     <div class="artiline_6"> Remarks </div>
                 </div>
                 </div>
@@ -227,6 +236,7 @@
                 </div>
                 <div class="artibtn"> 
                     <input type="submit" value="Add">
+                        <button onclick="myfunction();"></button>
                 </div>
                 </div>
                 </form>

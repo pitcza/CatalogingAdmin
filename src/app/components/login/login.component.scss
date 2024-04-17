@@ -6,15 +6,28 @@ main {
 }
 
 /* SPIT SCREEN */
-.spit-screen {
-    display: flex;
-    flex-direction: column;
-}
 
 .left, .right {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.spit-screen {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.left {
+    display: flex;
+    width: 50%;
+    height: auto;
+}
+.right {
+    display: flex;
+    width: 50%;
+    height: auto;
 }
 
 /* LEFT SCREEN */
@@ -28,6 +41,11 @@ main {
     align-items: flex-end;
     padding-top: 400px;
     padding-left: 320px;
+    //width: 900px;
+}
+
+.gclims-logo2 {
+    display: none;
 }
 
 .logos img {
@@ -58,32 +76,31 @@ main {
 
 .clipart img {
     position: relative;
-    width: 860px;
+    width: 900px;
 }
 
 
 /* RIGHT SCREEN */
 .right {
     height: auto;
-    padding: 30px 30px 50px 30px;
+    padding: 20px 20px 40px 20px;
 }
 
 .gclims-logo .systemname h1 {
-    font-size: 20px;
+    font-size: 23px;
     text-align: center;
     color:var(--black);    
-    text-shadow: 2px 0 var(--black);
-    letter-spacing: 2px;
-    font-weight: bold;
+    font-weight: 900;
+    width: 600px;
+    margin-left: -54px;
+    justify-content: center;
+    align-items: center;
 }
 
 .gclims-logo {
     padding-bottom: 15px;
 }
 
-
-
-/* wala na itu */
 .logo img {
     height: 160px;
     width: 160px;
@@ -97,7 +114,7 @@ main {
     text-align: center;
     color: var(--black);
     font-size: 25px;
-    font-weight: bolder;
+    font-weight: 600;
     letter-spacing: 1px;
     margin-bottom: 3%;
 }
@@ -106,7 +123,7 @@ main {
     width: 500px;
 }
 
-form input[type="email"],
+form input[type="username"],
 form input[type="password"] {
     margin: auto;
     display: block;
@@ -141,10 +158,10 @@ form input[type="password"] {
     font-size: 30px;
 }
 
-form input:focus {
+form input[type="username"]:focus,
+form input[type="password"]:focus {
     outline: 1px;
-    border: 1.5px solid var(--table-border);
-    box-shadow: 0px 2px 2px rgb(141, 141, 141);
+    border: 2px solid var(--table-border);
 }
 
 
@@ -155,19 +172,9 @@ form input:focus {
     border-radius: 30px;
     background-color: var(--main-green);
     transition: .3s;
-}
-
-.login-btn:hover {
-    box-shadow: 0px 8px 15px -10px rgb(61, 61, 61);
-    background: var(--green-hover);
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.loginbtn a {
     text-align: center;
     color: white;
-    font-weight: bolder;
+    font-weight: 700;
     width: 50%;
     height: 3rem;
     font-size: 0.75rem;
@@ -177,15 +184,22 @@ form input:focus {
     font-size: 16px;
 }
 
+.login-btn:hover {
+    box-shadow: 0px 8px 15px -10px rgb(61, 61, 61);
+    background: var(--green-hover);
+    cursor: pointer;
+    text-decoration: none;
+}
+
 .loginbtn {
     margin-top: 5%;
     margin-left: 0.60rem;
 }
 
-.gclims {
+.gclims h3 {
     text-align: center;
     font-size: 0.8em;
-    font-weight: 100;
+    font-weight: 400;
     margin-top: 5px;
 }
 
@@ -201,19 +215,105 @@ form input:focus {
 
 
 /* MEDIA SCREEN */
-@media screen and (min-width:900px) {
+@media screen and (max-width:900px) {
+    main {
+        background-image: none;
+    }
+
     .spit-screen {
-        flex-direction: row;
-        height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
+
+    // LEFT STYLE
     .left {
-        display: flex;
-        width: 50%;
-        height: auto;
+        height: 500px;
+        padding: 30px;
+        background-color: var(--main-green);
+        width: 100%;
     }
+    
+    .gclibrary {
+        display: none;
+    }
+
+    .gclogo {
+        display: none;
+    }
+
+    .gclims-logo2 {
+        display: inline;
+        position: relative;
+        height: 300px;
+        width: 300px;
+        bottom: 0;
+    }
+    
+    .circles {
+        padding-bottom: 200px;
+    }
+    
+    .circle2 {
+        position: relative; /* or you can omit this line as it's the default */
+        z-index: 1;
+        background-color: var(--main-green);
+        width: 100%;
+        top: 0;
+        left: 0;
+        border-radius: 0px;
+    }
+    
+    .circle1 {
+        display: none;
+    }
+    
+    .clipart img {
+        display: none;
+    }
+
+    // RIGHT STYLE
     .right {
-        display: flex;
-        width: 50%;
+        background-color: var(--primary-color);
+        position: absolute;
         height: auto;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+    
+    .gclims-logo .systemname h1 {
+        font-size: 23px;
+        text-align: center;
+        color:var(--black);    
+        font-weight: 900;
+        width: 600px;
+        margin-left: -54px;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .gclims-logo {
+        padding-bottom: 15px;
+    }
+    
+    .logo img {
+        height: 160px;
+        width: 160px;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        margin-bottom: 10px;
+    }
+    
+    .right .subsystemname h2 {
+        text-align: center;
+        color: var(--black);
+        font-size: 25px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 3%;
     }
 }

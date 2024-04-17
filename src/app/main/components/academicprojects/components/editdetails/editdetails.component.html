@@ -1,1 +1,87 @@
-<p>editdetails works!</p>
+<main>
+    <div class="container">
+        <div class="content">
+            <div class="details-content">
+                <!-- HEADER - TITLE -->
+                <div class="detailsheader">
+                    <h1> Edit Project Details </h1>
+                </div>
+
+                <!-- BODY - DETAILS -->
+                <div class="detailsbody">
+                    <div class="details">
+                        <form>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <select id="college" name="college" [(ngModel)]="selectedOption1" (change)="onOption1Change()" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let option of options1" [value]="option.value">{{ option.label }} </option>
+                                    </select>
+                                    <label class="labelline" for="college"> College </label>
+                                </div>
+                                <div class="input-group">
+                                    <select id="course" name="program_id" [(ngModel)]="selectedOption2" (change)="onOption2Change()" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let option of options2" [value]="option.value">{{ option.label }} </option>
+                                    </select>
+                                    <label class="labelline" for="course"> Program </label>
+                                </div>
+                            </div>
+                    
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input name="title" type="text" id="title" value="Sample">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                                <div class="input-group">
+                                    <select id="projecttype" name="category" [(ngModel)]="selectedOption3" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let option of options3" [value]="option.value">{{ option.label }}</option>
+                                    </select>
+                                    <label class="labelline" for="projecttype"> Category </label>
+                                </div>
+                            </div>
+                    
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <select id="language" name="language">
+                                        <option value="English"> English </option>
+                                        <option value="Tagalog"> Tagalog </option>
+                                    </select>
+                                    <label class="labelline" for="projecttype"> Language </label>
+                                </div>
+                                <div class="input-group">
+                                    <input type="date" id="datepub" name="date_published">
+                                    <div class="labelline"> Date Published </div>
+                                </div> 
+                            </div>
+            
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="text" id="author" name="author" value="Sample">
+                                    <div class="labelline"> Author </div>
+                                </div> 
+                                <div class="input-group">
+                                    <div class="labelline1"> Upload Image </div>
+                                    <input type="file" name="image_location" id="file">
+                                </div> 
+                            </div>
+            
+                            <div class="input-row">
+                                <div class="input-column">
+                                    <textarea id="abstract" name="abstract"> Sample </textarea>
+                                    <div class="labelline"> Abstract </div>
+                                </div> 
+                            </div>
+                        </form>
+                    </div>
+                
+                    <!-- BUTTONS -->
+                    <div class="button-container">
+                        <button class="update-btn" (click)="updateBox()"> Update </button>
+                        <button class="delete-btn" (click)="archiveBox()"> Archive </button>
+                        <button class="cancel-btn" (click)="closepopup()"> Cancel </button>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

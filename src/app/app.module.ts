@@ -12,6 +12,9 @@ import { LogoutPopupComponent } from './components/logout-popup/logout-popup.com
 import { MainComponent } from './main/main.component';
 import { MainModule } from './main/main.module';
 
+import { MaterialModule } from './modules/material/material.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +26,7 @@ import { MainModule } from './main/main.module';
     BrowserModule,
     AppRoutingModule,
     MainModule,
+    MaterialModule,
     HttpClientModule
   ],
   providers: [
