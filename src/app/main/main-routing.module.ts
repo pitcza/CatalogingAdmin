@@ -29,9 +29,14 @@ const routes: Routes = [
     }]
   },
   { path: 'activitylog', component: ActivitylogComponent},
-
-  { path: '', redirectTo: 'reports', pathMatch: 'full' },
-  { path: 'reports', component: ReportsComponent},
+  { 
+    path: 'reports', 
+    component: ReportsComponent,
+    children: [{
+      path: '',
+      loadChildren: ()=>import('./components/reports/reports.module').then((m)=>m.ReportsModule)
+    }]
+  },
 ];
 
 @NgModule({
