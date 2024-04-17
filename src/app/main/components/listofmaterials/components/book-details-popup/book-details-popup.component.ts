@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
+import { DataService } from '../../../../../services/data.service';
 import { EditBookComponent } from '../edit-book/edit-book.component';
 
 @Component({
@@ -16,9 +17,7 @@ export class BookDetailsPopupComponent {
     private ref: MatDialogRef<BookDetailsPopupComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
-    private dialog: MatDialog
   ) { }
-
 
   closepopup() {
     this.ref.close('Closed using function');

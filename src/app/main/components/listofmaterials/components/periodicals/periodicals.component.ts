@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +11,7 @@ import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.comp
 import { PeriodicalDetailsPopupComponent } from '../periodical-details-popup/periodical-details-popup.component';
 
 import Swal from 'sweetalert2';
+import { DataService } from '../../../../../services/data.service';
 
 @Component({
   selector: 'app-periodicals',
@@ -18,20 +20,21 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    CommonModule
   ]
 })
 
 export class PeriodicalsComponent implements AfterViewInit {
   displayedColumns: string[] = ['dateadd', 'title', 'publisher', 'copyright', 'action'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource: any = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.getData('newspaper');
   }
 
   constructor(
@@ -39,12 +42,39 @@ export class PeriodicalsComponent implements AfterViewInit {
     private paginatorIntl: MatPaginatorIntl, 
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private ds: DataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   showPopup: boolean = false;
+
+  protected publishers = ['All Publishers'];
+  protected getData(type: any) {
+    this.publishers = ['All Publishers'];
+    this.ds.get('periodicals/type/', type).subscribe({
+      next: (res: any) => {
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+
+        // get publishers
+        for(let x of res) {
+          let in_array = false;
+          for(let y of this.publishers) {
+            if(x.publisher == y){
+              in_array = true;
+              break;
+            }
+          }
+          
+          if(in_array == false) 
+            this.publishers.push(x.publisher)
+        }
+      },
+      error: (err: any) => console.log(err)
+    })
+  }
 
   togglePopup() {
     this.showPopup = !this.showPopup;
