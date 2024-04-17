@@ -13,72 +13,76 @@
                         <form>
                             <div class="input-row">
                                 <div class="input-group">
-                                    <input name="title" type="text" id="title">
+                                    <input name="title" type="text" id="title" required>
                                     <div class="labelline"> Title </div>
                                 </div>
                                 <div class="input-group">
-                                    <input class="author" type="text" id="author">
-                                    <div class="labelline"> Author </div>
+                                    <input type="number" min="0" name="id" required>
+                                    <div class="labelline"> Accession </div>
                                 </div>
                             </div>
                             <div class="input-row">
                                 <div class="input-group">
-                                    <input class="title" type="text" id="title">
+                                    <select id="type" name="location_id" required>
+                                        <option value="FIL"> FIL </option>
+                                        <option value="FOR"> FOR </option>
+                                        <option value="MED"> MED </option>
+                                    </select>
                                     <div class="labelline"> Location </div>
                                 </div>
                                 <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
+                                    <input type="date" name="date_published" required> 
+                                    <div class="labelline"> Publication Date </div>
                                 </div>
                             </div>
                             <div class="input-row">
                                 <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
+                                    <input type="number" min="0" name="call_number" required> 
+                                    <div class="labelline"> Call Number </div>
                                 </div>
                                 <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
-                                </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
-                                </div>
-                                <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
+                                    <input type="number" min="0" name="edition"> 
+                                    <div class="labelline"> Edition </div>
                                 </div>
                             </div>
                             <div class="input-row">
                                 <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
+                                    <input type="text" name="copyright" required> 
+                                <div class="labelline"> Copyright </div>
                                 </div>
                                 <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
-                                </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
-                                </div>
-                                <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
+                                    <input type="number" min="0" name="volume"> 
+                                    <div class="labelline"> Volume </div>
                                 </div>
                             </div>
                             <div class="input-row">
                                 <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
+                                    <input type="text" name="remarks"> 
+                                    <div class="labelline"> Remarks </div>
                                 </div>
                                 <div class="input-group">
-                                    <input class="title" type="text" id="title">
-                                    <div class="labelline"> Title </div>
+                                    <input type="number" min="0" name="pages"> 
+                                    <div class="labelline"> Pages </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="date" name="purchased_date" required> 
+                                    <div class="labelline"> Date Purchased/Donated </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="copies"> 
+                                    <div class="labelline"> Copies </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="text" name="author" required> 
+                                    <div class="labelline"> Author </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="labelline1"> Upload Image</div>
+                                    <input type="file" name="image_location"> 
                                 </div>
                             </div>
                         </form>

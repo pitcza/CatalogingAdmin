@@ -13,10 +13,10 @@
 }
 
 .details-content {
-    position: relative;
-    padding: 0 30px 10px 30px;
-    background: white;
+    max-width: 900px; /* Maximum width for larger screens */
     width: 900px;
+    position: relative;
+    background: white;
     border-radius: 5px;
     box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
     max-height: 600px;
@@ -24,35 +24,43 @@
     scrollbar-width: thin; 
 }
 
+/*
+@media screen and (max-width: 1286px) {
+    .details-content {
+        max-width: 1000px; // Maximum width for larger screens 
+        width: 1000px;
+        max-height: 700px;
+    }
+} */
+
 .detailsbody {
-    height: 70%; /* Adjust the height as needed */
-    justify-content: center;
-    padding: 90px 20px 30px 20px; 
-    width: 100%;
+    height: auto; /* Adjust the height as needed */
+    justify-content: center; 
 }
 
 .details {
-    padding-top: 15px;
+    padding: 110px 50px 10px 55px;
 }
 
 .detailsheader {
-    padding-top: 30px;
+    padding: 30px 30px 0 25px;
     position: fixed;
+    width: 900px;
     background-color: var(--primary-color);
-    width: auto;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     z-index: 1;
 }
 
 h1 {
     font-weight: 700;
     font-size: 25px;
+    text-align: left;
     border-bottom: 2px solid var(--border-color);
     padding-bottom: 20px;
-    text-align: left;
-    width: 840px;
 }
 
-.input-group input[type="text"], input[type="date"], select {
+.input-group input[type="text"], input[type="date"], input[type="number"], select {
     font-family: 'Poppins';
     position: absolute;
     width: 380px;
@@ -98,7 +106,7 @@ input[type="file"]::file-selector-button {
 .input-column textarea {
     font-family: 'Poppins';
     position: absolute;
-    width: 800px;
+    width: 785px;
     height: 100px;
     outline: none;
     font-size: 15px;
@@ -111,7 +119,7 @@ input[type="file"]::file-selector-button {
 } 
 
 .input-column {
-    padding-bottom: 50px;
+    padding-bottom: 20px;
     margin-top: -50px;
 }
 
@@ -148,7 +156,7 @@ input[type="file"]::file-selector-button {
 }
 
 .input-row .input-group {
-    flex-basis: 100%;
+    flex-basis: 900px;
 }
 
 input::-webkit-inner-spin-button, 
@@ -158,10 +166,9 @@ input::-webkit-outer-spin-button {
 }
 
 .button-container {
-    margin-top: 20px;
+    margin: -30px 30px 30px 0px;
     display: flex;
     justify-content: flex-end;
-
 }
 
 button {

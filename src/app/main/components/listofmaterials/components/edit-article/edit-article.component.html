@@ -4,7 +4,7 @@
             <div class="details-content">
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
-                    <h1> Edit Project Details </h1>
+                    <h1> WAIT LANG PO HEHE </h1>
                 </div>
 
                 <!-- BODY - DETAILS -->
@@ -13,62 +13,77 @@
                         <form>
                             <div class="input-row">
                                 <div class="input-group">
-                                    <select id="college" class="college" [(ngModel)]="selectedOption1" (change)="onOption1Change()" [ngModelOptions]="{standalone: true}">
-                                        <option *ngFor="let option of options1" [value]="option.value">{{ option.label }} </option>
-                                    </select>
-                                    <label class="labelline" for="college"> College </label>
-                                </div>
-                                <div class="input-group">
-                                    <select id="course" class="program" [(ngModel)]="selectedOption2" (change)="onOption2Change()" [ngModelOptions]="{standalone: true}">
-                                        <option *ngFor="let option of options2" [value]="option.value">{{ option.label }} </option>
-                                    </select>
-                                    <label class="labelline" for="course"> Program </label>
-                                </div>
-                            </div>
-                    
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input class="title" type="text" id="title" value="Sample">
+                                    <input name="title" type="text" id="title" required>
                                     <div class="labelline"> Title </div>
                                 </div>
                                 <div class="input-group">
-                                    <select id="projecttype" class="category" [(ngModel)]="selectedOption3" [ngModelOptions]="{standalone: true}">
-                                        <option *ngFor="let option of options3" [value]="option.value">{{ option.label }}</option>
-                                    </select>
-                                    <label class="labelline" for="projecttype"> Category </label>
+                                    <input type="number" min="0" name="id" required>
+                                    <div class="labelline"> Accession </div>
                                 </div>
                             </div>
-                    
                             <div class="input-row">
                                 <div class="input-group">
-                                    <select id="language" class="language">
-                                        <option value="English"> English </option>
-                                        <option value="Tagalog"> Tagalog </option>
+                                    <select id="type" name="location_id" required>
+                                        <option value="FIL"> FIL </option>
+                                        <option value="FOR"> FOR </option>
+                                        <option value="MED"> MED </option>
                                     </select>
-                                    <label class="labelline" for="projecttype"> Language </label>
+                                    <div class="labelline"> Location </div>
                                 </div>
                                 <div class="input-group">
-                                    <input type="date" id="datepub" class="date_published">
-                                    <div class="labelline"> Date Published </div>
-                                </div> 
+                                    <input type="date" name="date_published" required> 
+                                    <div class="labelline"> Publication Date </div>
+                                </div>
                             </div>
-            
                             <div class="input-row">
                                 <div class="input-group">
-                                    <input type="text" id="author" class="author" value="Sample">
+                                    <input type="number" min="0" name="call_number" required> 
+                                    <div class="labelline"> Call Number </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="edition"> 
+                                    <div class="labelline"> Edition </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="text" name="copyright" required> 
+                                <div class="labelline"> Copyright </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="volume"> 
+                                    <div class="labelline"> Volume </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="text" name="remarks"> 
+                                    <div class="labelline"> Remarks </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="pages"> 
+                                    <div class="labelline"> Pages </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="date" name="purchased_date" required> 
+                                    <div class="labelline"> Date Purchased/Donated </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="copies"> 
+                                    <div class="labelline"> Copies </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="text" name="author" required> 
                                     <div class="labelline"> Author </div>
-                                </div> 
+                                </div>
                                 <div class="input-group">
-                                    <div class="labelline1"> Upload Image </div>
-                                    <input type="file" class="image_location" id="file">
-                                </div> 
-                            </div>
-            
-                            <div class="input-row">
-                                <div class="input-column">
-                                    <textarea id="abstract" class="abstract"> Sample </textarea>
-                                    <div class="labelline"> Abstract </div>
-                                </div> 
+                                    <div class="labelline1"> Upload Image</div>
+                                    <input type="file" name="image_location"> 
+                                </div>
                             </div>
                         </form>
                     </div>

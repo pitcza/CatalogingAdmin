@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { DataService } from '../../../../../services/data.service';
 
 import Swal from 'sweetalert2';
 
@@ -13,8 +14,11 @@ export class EditBookComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  constructor(private ref: MatDialogRef<EditBookComponent>, private buildr: FormBuilder,) {
-  }
+  constructor(private ref: MatDialogRef<EditBookComponent>, 
+    private buildr: FormBuilder,
+    private ds: DataService
+  ) { }
+
 
   closepopup() {
     this.ref.close('Closed using function');
