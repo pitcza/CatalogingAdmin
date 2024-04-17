@@ -1,3 +1,5 @@
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../../../../services/data.service';
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -28,6 +30,15 @@ import { BookDetailsPopupComponent } from '../book-details-popup/book-details-po
     MatCardModule
   ],
 })
+
+export class BooksComponent implements OnInit{
+
+  constructor(
+    private ds: DataService
+  ) { }
+
+  protected books: any;
+  
 export class BooksComponent implements AfterViewInit {
   displayedColumns: string[] = ['dateadd', 'booktitle', 'author', 'location', 'copyright', 'issue', 'action'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);

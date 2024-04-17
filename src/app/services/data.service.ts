@@ -11,7 +11,7 @@ export class DataService {
   constructor(
     private http: HttpClient
   ) { }
-
+  
   private url:string = 'http://127.0.0.1:8000/api/';
 
   public login(payload: any) {
