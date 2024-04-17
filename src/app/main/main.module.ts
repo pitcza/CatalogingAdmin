@@ -11,20 +11,25 @@ import { ActivitylogComponent } from './components/activitylog/activitylog.compo
 
 import { FormsModule } from '@angular/forms';
 
+import { ReportsComponent } from './components/reports/reports.component';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
     AddmaterialsComponent,
     AcademicprojectsComponent,
     ListofmaterialsComponent,
-    ActivitylogComponent
+    ActivitylogComponent, 
+    ReportsComponent
   ],
   imports: [
     CommonModule,
     MainRoutingModule,
     AcademicprojectsModule,
     ListofmaterialsModule,
-    FormsModule
+    FormsModule, 
+    RouterModule
   ]
 })
 export class MainModule { }

@@ -1,3 +1,5 @@
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../../../../services/data.service';
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -33,6 +35,15 @@ import { DataService } from '../../../../../services/data.service';
     CommonModule
   ],
 })
+
+export class BooksComponent implements OnInit{
+
+  constructor(
+    private ds: DataService
+  ) { }
+
+  protected books: any;
+  
 export class BooksComponent implements AfterViewInit {
   displayedColumns: string[] = ['dateadd', 'booktitle', 'author', 'location', 'copyright', 'issue', 'action'];
   dataSource:any = null;

@@ -13,7 +13,7 @@ export class DataService {
     private http: HttpClient,
     private headers: HeaderService
   ) { }
-
+  
   private url:string = 'http://127.0.0.1:8000/api/';
 
   public login(payload: any) {

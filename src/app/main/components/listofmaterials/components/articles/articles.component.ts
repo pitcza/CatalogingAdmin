@@ -1,3 +1,6 @@
+
+import { Component } from '@angular/core';
+import { DataService } from '../../../../../services/data.service';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -89,6 +92,29 @@ export class ArticlesComponent implements AfterViewInit {
   }
 
 
+  constructor(
+    private ds: DataService
+  ) { }
+
+  protected articles: any;
+
+  ngOnInit(): void {
+      this.getData('journal');
+  }
+
+  protected getData(param: string): void {
+
+    this.ds.get('periodicals/type/', param).subscribe((res:any) => {
+      console.log(res);
+    }, (error: any) => {
+      // error function
+    })
+  }
+
+  protected changeType(type: string) {
+    this.getData(type);
+  }
+
   editPopup(code: any) {
     this.Openpopup(code, 'Edit Article', EditArticleComponent);
   }
@@ -133,10 +159,6 @@ archiveBox(){
     }
   });
 }
-
-
-  // DATA FOR FILTERING
-  
 
 }
 

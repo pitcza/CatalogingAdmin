@@ -1,3 +1,5 @@
+import { Component } from '@angular/core';
+import { DataService } from '../../../../../services/data.service';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -24,6 +26,18 @@ import { DataService } from '../../../../../services/data.service';
     CommonModule
   ]
 })
+
+  constructor(
+    private ds: DataService
+  ) { }
+
+  protected periodicals: any;
+
+  ngOnInit(): void {
+    this.getData('journal');
+}
+
+protected getData(param: string): void {
 
 export class PeriodicalsComponent implements AfterViewInit {
   displayedColumns: string[] = ['dateadd', 'title', 'publisher', 'copyright', 'action'];
@@ -133,10 +147,6 @@ archiveBox(){
     }
   });
 }
-
-
-  // DATA FOR FILTERING
-  
 
 }
 
