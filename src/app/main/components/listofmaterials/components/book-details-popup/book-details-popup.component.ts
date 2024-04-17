@@ -54,13 +54,26 @@ export class BookDetailsPopupComponent {
       cancelButtonColor: "#777777",
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('Closed using function');
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Book has been safely archived.",
-          icon: "success"
+        this.ds.delete('books/process/', this.data.details.id).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Book has been safely archived.",
+              icon: "success",
+            });
+            this.ref.close('Closed using function');
+            this.router.navigate(['listofmaterials/books']);
+          },
+          error: (err: any) => {
+            Swal.fire({
+              title: "Error",
+              text: "Oops an error occured.",
+              icon: "error"
+            });
+            console.log(err);
+          }
         });
-      }
+      };
     });
   }
 

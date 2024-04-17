@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  /*  var form = document.getElementById('login-form') as HTMLFormElement;
+    var form = document.getElementById('login-form') as HTMLFormElement;
 
     form.addEventListener('submit', (event) => {
       // Prevent the default form submission behavior
@@ -80,6 +80,6 @@ export class LoginComponent implements OnInit {
           });
         }
       });
-    }); */
+    }); 
   }
 }

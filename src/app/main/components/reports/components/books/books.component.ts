@@ -46,10 +46,6 @@ export class BooksComponent implements AfterViewInit {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
-  ngOnInit(){
-    //console.log('This is init method');
-  }
-
 }
 
 export interface PeriodicElement {
