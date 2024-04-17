@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs';
 import { throwError } from 'rxjs';
+import { HeaderService } from './header.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { throwError } from 'rxjs';
 export class DataService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private headers: HeaderService
   ) { }
 
   private url:string = 'http://127.0.0.1:8000/api/';
@@ -19,29 +21,16 @@ export class DataService {
   }
 
   public logout() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('auth-token')
-    });
 
-    return this.http.post(this.url + 'logout', {}, { headers: headers })
+    return this.http.post(this.url + 'logout', {}, { headers: this.headers.get() })
   }
 
   public get(endpoint: string, param: string) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('auth-token')
-    });
-    return this.http.get(this.url+endpoint+param, { headers: headers });
+    return this.http.get(this.url+endpoint+param, { headers: this.headers.get() });
   }
 
   public getImage(endpoint: string, param: string) {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('auth-token')
-      });
-      
-      return this.http.get(this.url+endpoint+param, { responseType: 'blob' }).pipe(
+      return this.http.get(this.url+endpoint+param, { responseType: 'blob', headers: this.headers.get() }).pipe(
         catchError((error: HttpErrorResponse) => {
           
           return throwError(() => 'HTTP Response: No image found or invalid file found.');
@@ -49,12 +38,7 @@ export class DataService {
       );
   }
 
-  public post(endpoint: string, param: string, payload: any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('auth-token')
-    });
-
-    return this.http.post(this.url+endpoint+param, payload, { headers: headers });
+  public post(endpoint: string, param: string, formData: FormData) {
+    return this.http.post(this.url+endpoint+param, formData, { headers: this.headers.get() });
   }
 }

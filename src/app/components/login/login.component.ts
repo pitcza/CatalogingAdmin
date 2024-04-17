@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
       var elements = form.elements;
   
       // Create an object to store form values
-      var formData: { [key: string]: any } = {};
+      // var formData: { [key: string]: any } = {};
+
+      let formData = new FormData();
   
       // Loop through each form element
       for (let i = 0; i < elements.length; i++) {
@@ -39,8 +41,7 @@ export class LoginComponent implements OnInit {
   
           // Check if the element is an input field
           if (element.tagName === 'INPUT' && element.id != 'login-button') {
-              // Store the value in the formData object with the element's name as key
-              formData[element.name] = element.value;
+            formData.append(element.name, element.value);
           }
       }
 

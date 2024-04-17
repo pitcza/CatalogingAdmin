@@ -4,18 +4,35 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
+import { DataService } from '../../../../../services/data.service';
 
 @Component({
   selector: 'app-book-details-popup',
   templateUrl: './book-details-popup.component.html',
   styleUrl: './book-details-popup.component.scss'
 })
-export class BookDetailsPopupComponent {
+export class BookDetailsPopupComponent implements OnInit {
   constructor(
     private ref: MatDialogRef<BookDetailsPopupComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
+    private ds: DataService
   ) { }
+
+  protected image: any = null;
+
+  ngOnInit(): void {
+      this.ds.getImage('book/image/', this.data.details.id).subscribe({
+        next: (res: Blob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+              this.image = reader.result; // Assign data URL to 'image'
+          };
+          reader.readAsDataURL(res);
+        },
+        error: (err: any) => this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png'
+      })
+  }
 
   closepopup() {
     this.ref.close('Closed using function');

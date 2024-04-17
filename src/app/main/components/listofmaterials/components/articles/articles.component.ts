@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
@@ -9,6 +10,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsPopupComponent } from '../article-details-popup/article-details-popup.component';
 import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
+import { DataService } from '../../../../../services/data.service';
 
 @Component({
   selector: 'app-articles',
@@ -18,17 +20,19 @@ import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.comp
   imports: [
     MatTableModule, 
     MatPaginatorModule, 
+    CommonModule
   ]
 })
 export class ArticlesComponent implements AfterViewInit {
   displayedColumns: string[] = ['dateadd', 'title', 'publisher', 'pubdate', 'action'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource: any = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
   ngAfterViewInit() {
+    this.getData('newspaper');
     this.dataSource.paginator = this.paginator;
   }
 
@@ -37,12 +41,38 @@ export class ArticlesComponent implements AfterViewInit {
     private paginatorIntl: MatPaginatorIntl, 
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private ds: DataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   showPopup: boolean = false;
+
+  protected publishers = ['All Publishers'];
+  protected getData(type: any) {
+    this.publishers = ['All Publishers'];
+    this.ds.get('articles/type/', type).subscribe({
+      next: (res: any) => {
+        this.dataSource = res;
+
+        // get publishers
+        for(let x of res) {
+          let in_array = false;
+          for(let y of this.publishers) {
+            if(x.publisher == y){
+              in_array = true;
+              break;
+            }
+          }
+          
+          if(in_array == false) 
+            this.publishers.push(x.publisher)
+        }
+      },
+      error: (err: any) => console.log(err)
+    })
+  }
 
   togglePopup() {
     this.showPopup = !this.showPopup;
@@ -90,38 +120,38 @@ export class ArticlesComponent implements AfterViewInit {
 
 }
 
-export interface PeriodicElement {
-  dateadd: string;
-  title: string;
-  publisher: string;
-  pubdate: string;
-  action: string;
-}
+// export interface PeriodicElement {
+//   dateadd: string;
+//   title: string;
+//   publisher: string;
+//   pubdate: string;
+//   action: string;
+// }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Jan. 22, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Mar. 24, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Feb. 28, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'June 21, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'May 31, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Dec. 25 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Jan. 22, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Mar. 24, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Feb. 28, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'June 21, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'May 31, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Dec. 25 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Jan. 22, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Mar. 24, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Feb. 28, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'June 21, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'May 31, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Dec. 25 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Jan. 22, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Mar. 24, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Feb. 28, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'June 21, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'May 31, 2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Dec. 25 2017', action: 'ewan'},
-];
+// const ELEMENT_DATA: PeriodicElement[] = [
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Jan. 22, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Mar. 24, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Feb. 28, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'June 21, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'May 31, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Dec. 25 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Jan. 22, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Mar. 24, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Feb. 28, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'June 21, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'May 31, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Dec. 25 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Jan. 22, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Mar. 24, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Feb. 28, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'June 21, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'May 31, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Dec. 25 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Jan. 22, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Mar. 24, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'Feb. 28, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'June 21, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', pubdate: 'May 31, 2017', action: 'ewan'},
+//   {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', pubdate: 'Dec. 25 2017', action: 'ewan'},
+// ];
 
