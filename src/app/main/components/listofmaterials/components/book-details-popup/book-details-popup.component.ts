@@ -17,8 +17,10 @@ export class BookDetailsPopupComponent {
     private ref: MatDialogRef<BookDetailsPopupComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
+    private ds: DataService
   ) { }
 
+  image: any = null;
   closepopup() {
     this.ref.close('Closed using function');
   }

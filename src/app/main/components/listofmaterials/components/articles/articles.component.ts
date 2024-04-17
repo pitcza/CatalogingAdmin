@@ -1,6 +1,3 @@
-
-import { Component } from '@angular/core';
-import { DataService } from '../../../../../services/data.service';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -12,7 +9,6 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsPopupComponent } from '../article-details-popup/article-details-popup.component';
-import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
 import { DataService } from '../../../../../services/data.service';
 
 import Swal from 'sweetalert2';
@@ -55,6 +51,7 @@ export class ArticlesComponent implements AfterViewInit {
   showPopup: boolean = false;
 
   protected publishers = ['All Publishers'];
+  
   protected getData(type: any) {
     this.publishers = ['All Publishers'];
     this.ds.get('articles/type/', type).subscribe({
@@ -91,24 +88,10 @@ export class ArticlesComponent implements AfterViewInit {
     this.router.navigate(['main/academicprojects/articles']); 
   }
 
-
-  constructor(
-    private ds: DataService
-  ) { }
-
   protected articles: any;
 
   ngOnInit(): void {
       this.getData('journal');
-  }
-
-  protected getData(param: string): void {
-
-    this.ds.get('periodicals/type/', param).subscribe((res:any) => {
-      console.log(res);
-    }, (error: any) => {
-      // error function
-    })
   }
 
   protected changeType(type: string) {
