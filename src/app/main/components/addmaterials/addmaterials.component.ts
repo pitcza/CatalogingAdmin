@@ -55,12 +55,29 @@ export class AddmaterialsComponent implements OnInit{
       }
 
       formData.forEach((value, key) => {
-          console.log("%s: %s", key, value);
-          })
+        console.log("%s: %s", key, value);
+      })
 
       this.ds.post('books/process', '', formData).subscribe({
-        next: (res: any) => console.log(res),
-        error: (err: any) => console.log(err)
+        next: (res: any) => {
+          Swal.fire({
+            title: 'Success',
+            text: formData.get('title') + " has been added successfully",
+            icon: 'success',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+          });
+        },
+        error:(err: any) => {
+          console.log(err);
+          Swal.fire({
+            title: 'Error',
+            text: "Oops an error occured",
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+          });
+        }
       });
     });
   }

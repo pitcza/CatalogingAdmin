@@ -41,4 +41,8 @@ export class DataService {
   public post(endpoint: string, param: string, formData: FormData) {
     return this.http.post(this.url+endpoint+param, formData, { headers: this.headers.get() });
   }
+
+  public delete(endpoint: string, param: string) {
+    return this.http.delete(this.url+endpoint+param, { headers: this.headers.get() });
+  }
 }
