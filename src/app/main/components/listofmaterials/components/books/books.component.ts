@@ -17,6 +17,7 @@ import { EditBookComponent } from '../edit-book/edit-book.component';
 import { BookDetailsPopupComponent } from '../book-details-popup/book-details-popup.component';
 import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
 import { DataService } from '../../../../../services/data.service';
+import { get } from 'http';
 
 @Component({
   selector: 'app-books',
@@ -86,32 +87,60 @@ export class BooksComponent implements AfterViewInit {
 
   // SWEETALERT DELETE POPUP
 
-  deleteBox(){
-  Swal.fire({
-    title: 'Are you sure want to delete this material?',
-    text: 'You will not be able to recover this book.',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Delete',
-    cancelButtonText: 'Cancel',
-    confirmButtonColor: "#AB0E0E",
-    cancelButtonColor: "#777777",
-  }).then((result) => {
-    if (result.value) {
-      Swal.fire(
-        'Deleted',
-        'Book has been successfully deleted.',
-        'success'
-      )
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      Swal.fire(
-        'Cancelled',
-        'The book is safe.',
-        'error'
-      )
-    }
-  })
-}
+//   archiveBox(){
+//   Swal.fire({
+//     title: "Archive Book",
+//     text: "Are you sure want to archive this book?",
+//     icon: "warning",
+//     showCancelButton: true,
+//     confirmButtonText: 'Yes',
+//     cancelButtonText: 'Cancel',
+//     confirmButtonColor: "#AB0E0E",
+//     cancelButtonColor: "#777777",
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       Swal.fire({
+//         title: "Archiving complete!",
+//         text: "Book has been safely archived.",
+//         icon: "success"
+//       });
+//     }
+//   });
+// }
+
+  archiveBox(id: any){
+    Swal.fire({
+      title: "Archive Book",
+      text: "Are you sure want to archive this book?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: "#AB0E0E",
+      cancelButtonColor: "#777777",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ds.delete('books/process/', id).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Book has been safely archived.",
+              icon: "success",
+            });
+            this.getData();
+          },
+          error: (err: any) => {
+            Swal.fire({
+              title: "Error",
+              text: "Oops an error occured.",
+              icon: "error"
+            });
+            console.log(err)
+          }
+        });
+      };
+    });
+  }
 
   // POP UPS
   showPopup: boolean = false;
@@ -125,8 +154,9 @@ export class BooksComponent implements AfterViewInit {
   }
 
 
-  editPopup(code: any) {
-    this.Openpopup(code, 'Edit Book', EditBookComponent);
+  editPopup(data: any) {
+    this.Openpopup(data, 'Edit Book', EditBookComponent);
+    
   }
 
 //  deletePopup(code: any) {
@@ -138,6 +168,7 @@ export class BooksComponent implements AfterViewInit {
   }
 
   Openpopup(data: any, title: any,component:any) {
+    console.log(data)
     var _popup = this.dialog.open(component, {
       width: '40%',
       enterAnimationDuration: '100ms',
@@ -151,10 +182,6 @@ export class BooksComponent implements AfterViewInit {
       this.redirectToListPage();
     });
   }
-
-
-  // DATA FOR FILTERING
-  
 
 }
 

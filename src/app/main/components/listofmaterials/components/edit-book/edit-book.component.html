@@ -10,19 +10,88 @@
                 <!-- BODY - DETAILS -->
                 <div class="detailsbody">
                     <div class="details">
-                        <div class="body-details">
-                        
-                        </div>
-
-                        <div class="body-details">
-                            
-                        </div>
+                        <form id="edit-form" enctype="multipart/form-data">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input name="title" type="text" id="title">
+                                    <div class="labelline"> Title </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="id">
+                                    <div class="labelline"> Accession </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <select name="location_id">
+                                        <option *ngFor="let location of locations" [value] = "location.id">{{ location.location }}:
+                                            {{ location.full_location }}</option>
+                                    </select>
+                                    <div class="labelline"> Location </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="date" name="date_published"> 
+                                    <div class="labelline"> Publication Date </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="number" min="0" name="call_number"> 
+                                    <div class="labelline"> Call Number </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="edition"> 
+                                    <div class="labelline"> Edition </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="text" name="copyright"> 
+                                <div class="labelline"> Copyright </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="volume"> 
+                                    <div class="labelline"> Volume </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="text" name="remarks"> 
+                                    <div class="labelline"> Remarks </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="pages"> 
+                                    <div class="labelline"> Pages </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="date" name="purchased_date"> 
+                                    <div class="labelline"> Date Purchased/Donated </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="author"> 
+                                    <div class="labelline"> Author </div>
+                                </div>
+                                <!-- <div class="input-group">
+                                    <input type="number" min="0" name="copies"> 
+                                    <div class="labelline"> Copies </div>
+                                </div> -->
+                            </div>
+                            <div class="input-row">
+                                
+                                <div class="input-group">
+                                    <div class="labelline1"> Upload Image</div>
+                                    <input type="file" name="image_location"> 
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 
                     <!-- BUTTONS -->
                     <div class="button-container">
-                        <button class="update-btn"> Update </button>
-                        <button class="delete-btn" (click)="deleteBox()" (click)="closepopup()"> Delete </button>
+                        <button class="update-btn" (click)="updateBook()"> Update </button>
+                        <button class="delete-btn" (click)="archiveBox()"> Archive </button>
                         <button class="cancel-btn" (click)="closepopup()"> Cancel </button>
                     </div>
                 

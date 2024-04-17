@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 import { DataService } from '../../../../../services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-details-popup',
@@ -16,22 +17,23 @@ export class BookDetailsPopupComponent implements OnInit {
     private ref: MatDialogRef<BookDetailsPopupComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
-    private ds: DataService
+    private ds: DataService,
+    private router: Router
   ) { }
 
   protected image: any = null;
 
   ngOnInit(): void {
+    console.log(this.data.details.id)
       this.ds.getImage('book/image/', this.data.details.id).subscribe({
-        next: (res: Blob) => {
-          const reader = new FileReader();
-          reader.onload = () => {
-              this.image = reader.result; // Assign data URL to 'image'
-          };
-          reader.readAsDataURL(res);
+        next: (res:any) => {
+          this.image = URL.createObjectURL(res)
         },
-        error: (err: any) => this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png'
-      })
+        error: (err: any) => {
+          this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
+          console.log(err)
+        }
+      });
   }
 
   closepopup() {

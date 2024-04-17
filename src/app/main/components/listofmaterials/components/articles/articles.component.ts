@@ -9,7 +9,6 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsPopupComponent } from '../article-details-popup/article-details-popup.component';
-import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
 import { DataService } from '../../../../../services/data.service';
 
 @Component({
