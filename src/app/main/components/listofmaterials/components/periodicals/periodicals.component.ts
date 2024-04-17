@@ -1,3 +1,5 @@
+import { Component } from '@angular/core';
+import { DataService } from '../../../../../services/data.service';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,7 +10,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PeriodicalDetailsPopupComponent } from '../periodical-details-popup/periodical-details-popup.component';
-import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-periodicals',
@@ -20,6 +23,18 @@ import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.comp
     MatPaginatorModule
   ]
 })
+
+  constructor(
+    private ds: DataService
+  ) { }
+
+  protected periodicals: any;
+
+  ngOnInit(): void {
+    this.getData('journal');
+}
+
+protected getData(param: string): void {
 
 export class PeriodicalsComponent implements AfterViewInit {
   displayedColumns: string[] = ['dateadd', 'title', 'publisher', 'copyright', 'action'];
@@ -62,10 +77,6 @@ export class PeriodicalsComponent implements AfterViewInit {
     this.Openpopup(code, 'Edit Periodical', EditPeriodicalComponent);
   }
 
-  deletePopup(code: any) {
-    this.Openpopup(code, 'Delete Periodical', DeletematPopupComponent);
-  }
-
   detailsPopup(code: any) {
     this.Openpopup(code, 'Periodical Details', PeriodicalDetailsPopupComponent);
   }
@@ -85,9 +96,27 @@ export class PeriodicalsComponent implements AfterViewInit {
     });
   }
 
-
-  // DATA FOR FILTERING
-  
+// SWEETALERT ARCHIVE POP UP
+archiveBox(){
+  Swal.fire({
+    title: "Archive Periodical",
+    text: "Are you sure want to archive this periodical?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: "#AB0E0E",
+    cancelButtonColor: "#777777",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Archiving complete!",
+        text: "Periodical has been safely archived.",
+        icon: "success"
+      });
+    }
+  });
+}
 
 }
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 interface MyOption {
   value: string;
@@ -138,14 +139,15 @@ export class AddprojectComponent {
     } 
     else if (this.selectedOption2 === 'BSBA-MKT') {
       this.options3 = [
-        { value: 'Feasibility', label: 'Feasibility' }
+        { value: '', label: '' }
       ];
     } 
     else if (this.selectedOption2 === 'BSBA-HRM') {
       this.options3 = [
-        { value: 'Feasibility', label: 'Feasibility' }
+        { value: '', label: '' }
       ];
     }
+
     // CEAS PROGRAMS -------------------------------------------------
     else if (this.selectedOption2 === 'BACOMM') {
       this.options3 = [
@@ -158,6 +160,41 @@ export class AddprojectComponent {
       ];
     }
     else if (this.selectedOption2 === 'BPED') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BCAED') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BECED') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BSED-ENG') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BSED-FIL') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BSED-MATH') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BSED-SCI') {
+      this.options3 = [
+        { value: '', label: '' }
+      ];
+    }
+    else if (this.selectedOption2 === 'BSED-SOC') {
       this.options3 = [
         { value: '', label: '' }
       ];
@@ -213,6 +250,53 @@ export class AddprojectComponent {
 
   redirectToListPage() {
     this.router.navigate(['main/academicprojects/listofprojects']); 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    Toast.fire({
+      icon: "success",
+      title: "Project Successfully Added."
+    });
   }
+
+  cancelBox(){
+    Swal.fire({
+      title: "Are you sure you want to cancel?",
+      text: "Your changes will not be saved.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      confirmButtonColor: "#AB0E0E",
+      cancelButtonColor: "#777777",
+    }).then((result) => {
+      if (result.isConfirmed) {
+          this.router.navigate(['main/academicprojects/listofprojects']); 
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "error",
+            title: "Project not saved."
+          });
+      }
+    });
+}
 
 }

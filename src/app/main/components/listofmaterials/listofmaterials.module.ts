@@ -13,7 +13,8 @@ import { EditArticleComponent } from './components/edit-article/edit-article.com
 import { BookDetailsPopupComponent } from './components/book-details-popup/book-details-popup.component';
 import { PeriodicalDetailsPopupComponent } from './components/periodical-details-popup/periodical-details-popup.component';
 import { ArticleDetailsPopupComponent } from './components/article-details-popup/article-details-popup.component';
-import { DeletematPopupComponent } from './components/deletemat-popup/deletemat-popup.component';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,11 +24,12 @@ import { DeletematPopupComponent } from './components/deletemat-popup/deletemat-
     BookDetailsPopupComponent,
     PeriodicalDetailsPopupComponent,
     ArticleDetailsPopupComponent,
-    DeletematPopupComponent
   ],
   imports: [
     CommonModule,
     ListofmaterialsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ListofmaterialsModule { }

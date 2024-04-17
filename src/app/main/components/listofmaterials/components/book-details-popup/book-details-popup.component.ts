@@ -1,51 +1,50 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
+import { EditBookComponent } from '../edit-book/edit-book.component';
 
 @Component({
   selector: 'app-book-details-popup',
   templateUrl: './book-details-popup.component.html',
-  styleUrl: './book-details-popup.component.scss'
+  styleUrl: './book-details-popup.component.scss',
 })
 export class BookDetailsPopupComponent {
   constructor(
     private ref: MatDialogRef<BookDetailsPopupComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
+    private dialog: MatDialog
   ) { }
+
 
   closepopup() {
     this.ref.close('Closed using function');
   }
 
-  // SWEETALERT DELETE POPUP
-  deleteBox(){
+  // SWEETALERT ARCHIVE POP UP
+  archiveBox(){
     Swal.fire({
-      title: 'Are you sure want to delete this material?',
-      text: 'You will not be able to recover this book.',
-      icon: 'warning',
+      title: "Archive Book",
+      text: "Are you sure want to archive this book?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Delete',
+      confirmButtonText: 'Yes',
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
     }).then((result) => {
-      if (result.value) {
-        Swal.fire(
-          'Deleted',
-          'Book has been successfully deleted.',
-          'success'
-        )
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'The book is safe.',
-          'error'
-        )
+      if (result.isConfirmed) {
+        this.ref.close('Closed using function');
+        Swal.fire({
+          title: "Archiving complete!",
+          text: "Book has been safely archived.",
+          icon: "success"
+        });
       }
-    })
+    });
   }
+
 }

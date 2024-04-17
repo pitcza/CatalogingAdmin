@@ -1,3 +1,6 @@
+
+import { Component } from '@angular/core';
+import { DataService } from '../../../../../services/data.service';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,7 +11,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsPopupComponent } from '../article-details-popup/article-details-popup.component';
-import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-articles',
@@ -57,12 +61,31 @@ export class ArticlesComponent implements AfterViewInit {
   }
 
 
-  editPopup(code: any) {
-    this.Openpopup(code, 'Edit Article', EditArticleComponent);
+  constructor(
+    private ds: DataService
+  ) { }
+
+  protected articles: any;
+
+  ngOnInit(): void {
+      this.getData('journal');
   }
 
-  deletePopup(code: any) {
-    this.Openpopup(code, 'Delete Article', DeletematPopupComponent);
+  protected getData(param: string): void {
+
+    this.ds.get('periodicals/type/', param).subscribe((res:any) => {
+      console.log(res);
+    }, (error: any) => {
+      // error function
+    })
+  }
+
+  protected changeType(type: string) {
+    this.getData(type);
+  }
+
+  editPopup(code: any) {
+    this.Openpopup(code, 'Edit Article', EditArticleComponent);
   }
 
   detailsPopup(code: any) {
@@ -84,9 +107,27 @@ export class ArticlesComponent implements AfterViewInit {
     });
   }
 
-
-  // DATA FOR FILTERING
-  
+// SWEETALERT ARCHIVE POP UP
+archiveBox(){
+  Swal.fire({
+    title: "Archive Article",
+    text: "Are you sure want to archive this article?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: "#AB0E0E",
+    cancelButtonColor: "#777777",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Archiving complete!",
+        text: "Article has been safely archived.",
+        icon: "success"
+      });
+    }
+  });
+}
 
 }
 

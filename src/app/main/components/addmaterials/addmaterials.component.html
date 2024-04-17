@@ -13,23 +13,25 @@
         <!--------- Books Tab --------->
 
 		<div class="tab-content">
-            <form>
+            <form id="submit-form">
                 <div class="bookcontainer">
-                    <div class="entryarea"> 
-                        <input type="text" name="title"> 
+                    <div class="entryarea">
+                        <input type="text" required name="title"> 
                         <div class="labelline"> Title </div>
+                      
                     <div class="entryarea_1">
                         <input type="number" min="0" required name="id"> 
                         <div class="labelline_1"> Accession </div>
                     </div>
                     
                     <div class="entryarea2">
-                        <select id="type" name="location_id">
-                            <option value=""></option>
-                            <option value=""></option>
-                            <option value=""></option>
+                        <input type="text" required> 
+                        <select [(ngModel)] = "locations" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let location of locations" [value] = "location.id">{{ location.location }}:
+                                {{ location.full_location }}</option>
                         </select>
                         <div class="labelline2"> Location </div>
+                      
                     <div class="entryarea_2">
                         <input type="date" required name="date_published"> 
                         <div class="labelline_2"> Publication Date </div>
@@ -81,9 +83,10 @@
                         <input type="file" required name="image_location"> 
                         <div class="labelline_7"> Upload Image</div>
                     </div>
+                  
                     <div class="bookbtn">
                         <input type="submit" value="Add">
-                            <button onclick="myfunction();"></button>
+                            <button (click)="submit()"></button>
                     </div>
                 </div>
             </form>

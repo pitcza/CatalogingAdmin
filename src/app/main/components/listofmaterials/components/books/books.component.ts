@@ -1,3 +1,5 @@
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../../../../services/data.service';
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -13,7 +15,6 @@ import { MatSort } from '@angular/material/sort';
 
 import { EditBookComponent } from '../edit-book/edit-book.component';
 import { BookDetailsPopupComponent } from '../book-details-popup/book-details-popup.component';
-import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.component';
 
 @Component({
   selector: 'app-books',
@@ -29,6 +30,15 @@ import { DeletematPopupComponent } from '../deletemat-popup/deletemat-popup.comp
     MatCardModule
   ],
 })
+
+export class BooksComponent implements OnInit{
+
+  constructor(
+    private ds: DataService
+  ) { }
+
+  protected books: any;
+  
 export class BooksComponent implements AfterViewInit {
   displayedColumns: string[] = ['dateadd', 'booktitle', 'author', 'location', 'copyright', 'issue', 'action'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -55,33 +65,26 @@ export class BooksComponent implements AfterViewInit {
     //console.log('This is init method');
   }
 
-  // SWEETALERT DELETE POPUP
-
-  deleteBox(){
+// SWEETALERT ARCHIVE POPUP
+archiveBox(){
   Swal.fire({
-    title: 'Are you sure want to delete this material?',
-    text: 'You will not be able to recover this book.',
-    icon: 'warning',
+    title: "Archive Book",
+    text: "Are you sure want to archive this book?",
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonText: 'Delete',
+    confirmButtonText: 'Yes',
     cancelButtonText: 'Cancel',
     confirmButtonColor: "#AB0E0E",
     cancelButtonColor: "#777777",
   }).then((result) => {
-    if (result.value) {
-      Swal.fire(
-        'Deleted',
-        'Book has been successfully deleted.',
-        'success'
-      )
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      Swal.fire(
-        'Cancelled',
-        'The book is safe.',
-        'error'
-      )
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Archiving complete!",
+        text: "Book has been safely archived.",
+        icon: "success"
+      });
     }
-  })
+  });
 }
 
   // POP UPS
@@ -95,14 +98,9 @@ export class BooksComponent implements AfterViewInit {
     this.router.navigate(['main/academicprojects/books']); 
   }
 
-
   editPopup(code: any) {
     this.Openpopup(code, 'Edit Book', EditBookComponent);
   }
-
-//  deletePopup(code: any) {
-//    this.Openpopup(code, 'Delete Book', DeletematPopupComponent);
-//  }
 
   detailsPopup(code: any) {
     this.Openpopup(code, 'Book Details', BookDetailsPopupComponent);

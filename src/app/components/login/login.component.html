@@ -1,5 +1,5 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+<!-- HINDI KO PA TINANGGAL NA NAKACOMMENT YUNG BACKEND NG LOGIN KASI DI PA ME TAPOS PERO GO LANG PO KAPAG ITRY NIYO, COMMENT KO NA LANG ULIT HEHE ^^ -->
 <main>
 
     <div class="spit-screen">
@@ -25,7 +25,7 @@
       
         <!-- RIGHT SCREEN -->
         <div class="right">
-          <form action="">
+          <form id="login-form">
 
             <div class="gclims-logo">
 
@@ -48,7 +48,7 @@
             <!-- LOG IN FORM -->
             <div class="input-container email">
                 <i class='bx bxs-user-circle'></i>
-                <input id="email" name="email" type="email" placeholder="Email">
+                <input id="username" name="username" type="username" placeholder="Username">
             </div>
             <div class="input-container password">
                 <i class='bx bxs-lock' ></i>
@@ -58,12 +58,13 @@
                 
             </div>
 
-
-      
-            <!-- LOG IN BUTTON -->
+            <!-- LOG IN BUTTON 
             <div class="loginbtn">
-            <a class="login-btn" routerLink="/main"> LogIn </a>
-            </div>
+                <input id="login-button" type="submit" class="login-btn" value="LogIn" routerLink="/main">
+            </div> -->
+            <div class="loginbtn">
+                <a class="login-btn" routerLink="/main"> LogIn </a>
+                </div>
 
             <div class="gclims">
                 <h3> GCLIMS v0.1 </h3>
