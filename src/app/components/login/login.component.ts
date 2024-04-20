@@ -3,6 +3,9 @@ import { DataService } from '../../services/data.service';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 
+import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   constructor(
-    private ds: DataService,
+    private as: AuthService,
     private router: Router
   ) { }
 
@@ -21,6 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     var form = document.getElementById('login-form') as HTMLFormElement;
 
     form.addEventListener('submit', (event) => {
@@ -45,15 +49,29 @@ export class LoginComponent implements OnInit {
           }
       }
 
-      this.ds.post('login/', 'cataloging', formData).subscribe({
+      this.as.login(formData).subscribe({
         next: (res: any) => {
           localStorage.setItem('auth-token', res.token);
+          localStorage.setItem('timer', '1');
           this.router.navigate(['main']);
+          // hindi na ba need alert
+          // kahit wag na siguro para malinis tignan
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Signed in successfully"
+          });
         },
-        error: (err: any) => {
-          console.log('Error:', err.statusText)
-          // insert sweet alert
-        }
       });
     });
   }

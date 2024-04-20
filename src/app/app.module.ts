@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +14,10 @@ import { MainModule } from './main/main.module';
 
 import { MaterialModule } from './modules/material/material.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+import { RouterModule } from '@angular/router';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+
 
 @NgModule({
   declarations: [
@@ -30,8 +34,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient(withFetch()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule { 
+}

@@ -33,7 +33,7 @@ export class PeriodicalsComponent implements AfterViewInit {
   @ViewChild(MatSort) sort !: MatSort;
 
   ngAfterViewInit() {
-    this.getData('newspaper');
+    this.getData('journal');
   }
 
   constructor(
@@ -50,13 +50,14 @@ export class PeriodicalsComponent implements AfterViewInit {
   showPopup: boolean = false;
 
   protected publishers = ['All Publishers'];
+
   protected getData(type: any) {
     this.publishers = ['All Publishers'];
     this.ds.get('periodicals/type/', type).subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
-
+        console.log(res)
         // get publishers
         for(let x of res) {
           let in_array = false;
@@ -107,7 +108,7 @@ export class PeriodicalsComponent implements AfterViewInit {
       exitAnimationDuration: '100ms',
       data: {
         title: title,
-        code: code
+        details: code
       }
     });
     _popup.afterClosed().subscribe(result => {

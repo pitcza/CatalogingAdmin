@@ -31,8 +31,7 @@ export class ArticlesComponent implements AfterViewInit {
   @ViewChild(MatSort) sort !: MatSort;
 
   ngAfterViewInit() {
-    this.getData('newspaper');
-    this.dataSource.paginator = this.paginator;
+    this.getData('journal');
   }
 
   constructor(
@@ -53,8 +52,8 @@ export class ArticlesComponent implements AfterViewInit {
     this.publishers = ['All Publishers'];
     this.ds.get('articles/type/', type).subscribe({
       next: (res: any) => {
-        this.dataSource = res;
-
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
         // get publishers
         for(let x of res) {
           let in_array = false;
@@ -105,7 +104,7 @@ export class ArticlesComponent implements AfterViewInit {
       exitAnimationDuration: '100ms',
       data: {
         title: title,
-        code: code
+        details: code
       }
     });
     _popup.afterClosed().subscribe(result => {

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Route } from '@angular/router';
 
 import { AcademicprojectsRoutingModule } from './academicprojects-routing.module';
 
@@ -25,7 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     AcademicprojectsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class AcademicprojectsModule { }

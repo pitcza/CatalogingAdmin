@@ -10,6 +10,7 @@ import { ListofmaterialsModule } from './components/listofmaterials/listofmateri
 import { ActivitylogComponent } from './components/activitylog/activitylog.component';
 
 import { FormsModule } from '@angular/forms';
+import { ReportsComponentScssComponent } from './reports/reports.component.scss/reports.component.scss.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     AddmaterialsComponent,
     AcademicprojectsComponent,
     ListofmaterialsComponent,
-    ActivitylogComponent
+    ActivitylogComponent,
+    ReportsComponentScssComponent
   ],
   imports: [
     CommonModule,
