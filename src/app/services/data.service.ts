@@ -16,15 +16,6 @@ export class DataService {
   
   private url:string = 'http://127.0.0.1:8000/api/';
 
-  public login(payload: any) {
-    return this.http.post(this.url+'login/cataloging', payload);
-  }
-
-  public logout() {
-
-    return this.http.post(this.url + 'logout', {}, { headers: this.headers.get() })
-  }
-
   public get(endpoint: string, param: string) {
     return this.http.get(this.url+endpoint+param, { headers: this.headers.get() });
   }

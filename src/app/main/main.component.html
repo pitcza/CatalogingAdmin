@@ -22,8 +22,9 @@
                 <img src="assets/images/GCLIMS.PNG">
             </div>
             <div class="systemname">
-                <h1> Marlon John </h1>
-                <h2> Admin </h2>
+                <h1> {{ user.first_name }} {{ user.middle_name != null ? user.middle_name.charAt(0) + '.' : '' }} 
+                    {{ user.last_name }} {{ user.ext_name != null ? user.ext_name : '' }} </h1>
+                <h2> {{ user.role }} </h2>
             </div>
         </div>
 
@@ -62,7 +63,7 @@
             </li>
             </ul>
 
-            <!-- LOGOUT BUTTON 
+            <!-- LOGOUT BUTTON -->
             <div class="logoutbtn">
             <div class="logout" (click)="togglePopup()" >
                 <span> <i class='bx bx-log-out bx-rotate-180' ></i> 
@@ -71,7 +72,7 @@
 
     
             </div>
-            </div> -->
+            </div> 
         </div>
     </nav>
 
