@@ -4,49 +4,51 @@
             <div class="details-content">
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
-                    <h1> Sample Title Sample Title Sample Title </h1>
+                    <h1> {{ data.details.title }} </h1>
                 </div>
                 
                 <!-- BODY - DETAILS -->
                 <div class="detailsbody">
                     <div class="details">
                         <div class="body-details">
-                            <img alt="blog" src="https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png">
+                            <img [src]="image">
+                            
+                            <!-- <img alt="blog" src="https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png"> -->
                         </div>
 
                         <div class="body-details">
                             <span>
-                                <h2> Accession Number: </h2> <p> 1 </p>
+                                <h2> Accession Number: </h2> <p> {{ data.details.id }} </p>
                             </span>
                             <span>
-                                <h2> Location: </h2> <p> ha </p>
+                                <h2> Location: </h2> <p> {{ data.details.location }} </p>
                             </span>
                             <span>
-                                <h2> Call Number: </h2> <p> ha </p>
+                                <h2> Call Number: </h2> <p> {{ data.details.call_number }} </p>
                             </span>
                             <span>
-                                <h2> Copyright: </h2> <p> ha </p>
+                                <h2> Copyright: </h2> <p> {{ data.details.copyright }} </p>
                             </span>
                             <span>
-                                <h2> Author: </h2> <p> ha </p>
+                                <h2> Author: </h2> <p> {{ data.details.author }} </p>
                             </span>
                             <span>
-                                <h2> Publication Date: </h2> <p> ha </p>
+                                <h2> Publication Date: </h2> <p> {{ data.details.date_published }} </p>
                             </span>
                             <span>
-                                <h2> Volume: </h2> <p> ha </p>
+                                <h2> Volume: </h2> <p> {{ data.details.volume != null ? data.details.volume : 'N/A' }} </p>
                             </span>
                             <span>
-                                <h2> Pages: </h2> <p> ha </p>
+                                <h2> Pages: </h2> <p> {{ data.details.pages }} </p>
                             </span>
                             <span>
-                                <h2> Edition: </h2> <p> ha </p>
+                                <h2> Edition: </h2> <p> {{ data.details.edition != null ? data.details.edition : 'N/A' }} </p>
                             </span>
                             <span>
-                                <h2> Remark: </h2> <p> ha </p>
+                                <h2> Remark: </h2> <p> {{ data.details.remarks != null ? data.details.remarks : 'N/A' }} </p>
                             </span>
                             <span>
-                                <h2> Date Purchased/Donated: </h2> <p> ha </p>
+                                <h2> Date Purchased/Donated: </h2> <p> {{ data.details.purchased_date }} </p>
                             </span>
                         </div>
                     </div>

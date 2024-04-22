@@ -11,10 +11,7 @@
                 <div class="table-filters">
                     <select id="filter">
                         <option selected value="All Departments"> All Locations </option>
-                        <option> FIL </option>
-                        <option> FOR </option>
-                        <option> MED </option>
-                        <option> EWAN </option>
+                        <option *ngFor="let x of locations" [value]="x.location"> {{ x.location }} </option>
                     </select>
 
                 </div>
@@ -35,13 +32,13 @@
                 <!-- Date Added Column -->
                 <ng-container matColumnDef="dateadd">
                     <th mat-header-cell *matHeaderCellDef> Date Added </th>
-                    <td mat-cell *matCellDef="let element"> {{element.dateadd}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.created_at | date: 'mediumDate'}} </td>
                 </ng-container>
             
                 <!-- Title Column -->
                 <ng-container matColumnDef="booktitle">
                     <th mat-header-cell *matHeaderCellDef> Book Title </th>
-                    <td mat-cell *matCellDef="let element"> {{element.booktitle}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                 </ng-container>
             
                 <!-- Author Column -->
@@ -53,7 +50,7 @@
                 <!-- Location Column -->
                 <ng-container matColumnDef="location">
                     <th mat-header-cell *matHeaderCellDef> Location </th>
-                    <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.location.location}} </td>
                 </ng-container>
         
                 <!-- Copyright Column -->
@@ -65,7 +62,10 @@
                 <!-- Issue Column -->
                 <ng-container matColumnDef="issue">
                     <th mat-header-cell *matHeaderCellDef> Issue </th>
-                    <td mat-cell *matCellDef="let element"> {{element.issue}} </td>
+                    <td mat-cell *matCellDef="let dataSource">
+                        <span *ngIf="dataSource.issue == null; else hasIssue">N/A</span>
+                        <ng-template #hasIssue>{{ dataSource.issue }}</ng-template>
+                    </td>
                 </ng-container>
         
                 <!-- Action Column -->
@@ -76,10 +76,25 @@
                         <button class="editbtn" (click)="editPopup(element.id)">
                             <i class='bx bx-edit' ></i>
                         </button>
-                        <button class="deletebtn" (click)="archiveBox()" (closedPopup)="closePopup()">
+                        <button class="deletebtn" (click)="archiveBox(element.id)" (closedPopup)="closePopup()">
                             <i class='bx bx-archive-in'></i>
                         </button>
-                        <button class="detailsbtn" (click)="detailsPopup(element.id)" (closedPopup)="closePopup()">
+                        <button class="detailsbtn" (click)="detailsPopup(
+                            {
+                                id: element.id,
+                                title: element.title,
+                                location: element.location.location + ': ' + element.location.full_location,
+                                call_number: element.call_number,
+                                copyright: element.copyright,
+                                author: element.author,
+                                date_published: element.date_published,
+                                volume: element.volume,
+                                pages: element.pages,
+                                edition: element.edition,
+                                remark: element.remarks,
+                                purchased_date: element.purchased_date
+                            }
+                            )" (closedPopup)="closePopup()">
                             <i class='bx bx-detail' ></i>
                         </button>
                     </td>
@@ -96,6 +111,6 @@
             
             
         </div>
-        
+
     </div>
 </main>

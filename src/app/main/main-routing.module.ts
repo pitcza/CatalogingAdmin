@@ -6,6 +6,9 @@ import { AcademicprojectsComponent } from './components/academicprojects/academi
 import { ListofmaterialsComponent } from './components/listofmaterials/listofmaterials.component';
 import { ActivitylogComponent } from './components/activitylog/activitylog.component';
 
+import { ReportsComponent } from './components/reports/reports.component';
+
+
 const routes: Routes = [
   { path: '', redirectTo: 'addmaterials', pathMatch: 'full' },
   { path: 'addmaterials', component: AddmaterialsComponent},
@@ -26,6 +29,14 @@ const routes: Routes = [
     }]
   },
   { path: 'activitylog', component: ActivitylogComponent},
+  { 
+    path: 'reports', 
+    component: ReportsComponent,
+    children: [{
+      path: '',
+      loadChildren: ()=>import('./components/reports/reports.module').then((m)=>m.ReportsModule)
+    }]
+  },
 ];
 
 @NgModule({

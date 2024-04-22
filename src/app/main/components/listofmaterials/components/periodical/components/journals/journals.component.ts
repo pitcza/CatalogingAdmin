@@ -6,8 +6,8 @@ import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/mat
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
-
 import Swal from 'sweetalert2';
+
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PerioDetailsComponent } from '../perio-details/perio-details.component';
 
@@ -48,16 +48,8 @@ export class JournalsComponent implements AfterViewInit {
 
   showPopup: boolean = false;
 
-  togglePopup() {
-    this.showPopup = !this.showPopup;
-  }
-
   closePopup() {
     this.showPopup = this.showPopup;
-  }
-
-  redirectToListPage() {
-    this.router.navigate(['main/academicprojects/periodicals']); 
   }
 
   editPopup(code: any) {
@@ -79,7 +71,7 @@ export class JournalsComponent implements AfterViewInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      this.redirectToListPage();
+      
     });
   }
 

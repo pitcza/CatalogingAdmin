@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
@@ -19,6 +20,7 @@ import { ArticleDetailsComponent } from '../article-details/article-details.comp
   imports: [
     MatTableModule, 
     MatPaginatorModule, 
+    CommonModule
   ]
 })
 

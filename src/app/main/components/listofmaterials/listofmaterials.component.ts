@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-listofmaterials',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './listofmaterials.component.scss'
 })
 export class ListofmaterialsComponent {
-  
+
 }

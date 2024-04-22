@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     PerioDetailsComponent,
-    EditPeriodicalComponent
+    EditPeriodicalComponent,
   ],
   imports: [
     CommonModule,

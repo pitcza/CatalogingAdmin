@@ -56,7 +56,9 @@ export class DetailsPopupComponent implements OnInit{
         Swal.fire({
           title: "Archiving complete!",
           text: "Project has been safely archived.",
-          icon: "success"
+          icon: "success",
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
         });
       }
     });

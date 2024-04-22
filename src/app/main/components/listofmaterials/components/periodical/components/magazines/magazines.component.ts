@@ -48,16 +48,8 @@ export class MagazinesComponent implements AfterViewInit {
 
   showPopup: boolean = false;
 
-  togglePopup() {
-    this.showPopup = !this.showPopup;
-  }
-
   closePopup() {
     this.showPopup = this.showPopup;
-  }
-
-  redirectToListPage() {
-    this.router.navigate(['main/academicprojects/periodicals']); 
   }
 
   editPopup(code: any) {
@@ -79,7 +71,7 @@ export class MagazinesComponent implements AfterViewInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      this.redirectToListPage();
+      
     });
   }
 

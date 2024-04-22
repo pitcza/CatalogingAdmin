@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { of } from 'rxjs';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements AfterViewInit {
   constructor(
-    private ds: DataService,
+    private as: AuthService,
     private router: Router
   ) { }
 
@@ -22,8 +21,8 @@ export class LoginComponent implements OnInit {
     this.showpassword = !this.showpassword
   }
 
-  ngOnInit(): void {
-  /*  var form = document.getElementById('login-form') as HTMLFormElement;
+  ngAfterViewInit(): void {
+    var form = document.getElementById('login-form') as HTMLFormElement;
 
     form.addEventListener('submit', (event) => {
       // Prevent the default form submission behavior
@@ -33,7 +32,9 @@ export class LoginComponent implements OnInit {
       var elements = form.elements;
   
       // Create an object to store form values
-      var formData: { [key: string]: any } = {};
+      // var formData: { [key: string]: any } = {};
+
+      let formData = new FormData();
   
       // Loop through each form element
       for (let i = 0; i < elements.length; i++) {
@@ -41,12 +42,11 @@ export class LoginComponent implements OnInit {
   
           // Check if the element is an input field
           if (element.tagName === 'INPUT' && element.id != 'login-button') {
-              // Store the value in the formData object with the element's name as key
-              formData[element.name] = element.value;
+            formData.append(element.name, element.value);
           }
       }
 
-      this.ds.post('login/', 'cataloging', formData).subscribe({
+      this.as.login(formData).subscribe({
         next: (res: any) => {
           localStorage.setItem('auth-token', res.token);
           this.router.navigate(['main']);
@@ -67,18 +67,7 @@ export class LoginComponent implements OnInit {
             title: "Signed in successfully"
           });
         },
-        error: (err: any) => {
-          console.log('Error:', err.statusText)
-          // insert sweet alert
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Login Failed",
-            showConfirmButton: false,
-            timer: 1500
-          });
-        }
       });
-    }); */
+    }); 
   }
 }

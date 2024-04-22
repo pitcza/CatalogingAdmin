@@ -23,6 +23,7 @@ export class ActivitylogComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
+  ds: any;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -41,6 +42,17 @@ export class ActivitylogComponent implements AfterViewInit {
   // DATA FOR FILTERING
   
 
+  protected activities: any;
+
+  ngOnInit(): void {
+      this.getData();
+  }
+
+  protected getData(): void {
+    this.ds.get('cataloging/logs', '').subscribe((res:any) => {
+      console.log(res);
+    })
+  }
 }
 
 // SAMPLE DATA FOR TABLE
