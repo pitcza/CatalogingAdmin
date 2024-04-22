@@ -71,7 +71,7 @@ main {
     margin-bottom: 30px;
 }
 
-.input-group input[type="text"], input[type="date"] {
+.input-group input[type="text"], input[type="date"], #multi-input {
     font-family: 'Poppins';
     position: absolute;
     width: 500px;
@@ -115,6 +115,28 @@ main {
     background: transparent;
     transition: 0.1s ease;
 } 
+
+// KEYWORDS
+.input-column2 input {
+    font-family: 'Poppins';
+    position: absolute;
+    width: 1025px;
+    height: 50px;
+    outline: none;
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+}
+
+.input-column2 .multi-item {
+    position: relative;
+    display: inline;
+}
 
 input[type="file"] {
     font-family: 'Poppins';

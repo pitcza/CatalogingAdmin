@@ -8,7 +8,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 // Insert material imports here
@@ -24,7 +23,6 @@ const MatModules = [
   MatPaginatorModule, 
   MatFormFieldModule, 
   MatCardModule,
-  MatProgressSpinnerModule
 ]
 
 @NgModule({

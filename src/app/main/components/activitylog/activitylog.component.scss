@@ -1,11 +1,12 @@
 /* MAIN PADDING */
 main {
+    
     justify-content: center;
     align-items: center;
     padding: 10px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
     main {
         margin: 10px;
     }
@@ -28,7 +29,6 @@ main {
 .head h1 {
     font-weight: 700;
     font-size: 25px;
-    padding-top: 15px;
 }
 
 .datefilter {
@@ -110,41 +110,168 @@ main {
     border: 0.5px solid var(--table-border);
 }
 
-
-.historylogs h3 {
-    letter-spacing: 0.6px;
-    color: var(--black);
-    font-weight: 600;
-    padding-bottom: 15px;
+.table-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
-
-.action {
+.table-filters {
     display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-filters select {
+    background: var(--primary-color);
+    font-family: 'Poppins';
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    width: 12em;
+    height: 2.5em;
+    border: 1px solid var(--table-border);
+    border-radius: 7px;
+}
+
+.table-filters option {
+    padding: 30px;
+    margin: 30px;
+}
+
+.table-head input[type=text] {
+    font-family: 'Poppins';
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    width: 250px;
+    padding: 12px 16px;
+    height: 2.3em;
+    border: none;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+input:focus{
+    outline: none;
+}
+
+.table-head .search-container {
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    height: 2.5em;
+    border: 1px solid var(--table-border);
+    background-color: var(--primary-color);
+}
+
+.table-head .search-container button {
+    height: 2.5em;
+    width: 2.5em;
+    border: 1px solid var(--table-border);
+    background: var(--main-green);
+    color: var(--primary-color);
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.table-head .search-container button:hover {
+    background: var(--green-hover);
+}
+
+@media screen and (max-width: 600px) {
+    .table-head .search-container {
+    float: none;
+    }
+    .table-head a, .table-head input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
     width: 100%;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--table-border);
-    padding-top: 20px;
-    padding-bottom: 20px;
+    margin: 0;
+    padding: 14px;
+    }
+    .table-head input[type=text] {
+    border: 1px solid #ccc;  
+    }
+}
+
+/*
+.table-content {
+    border-radius: 5px;
+    padding: 20px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-top: 25px;
+    background: var(--primary-color);
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.322);
+    border: 0.5px solid var(--table-border);
+}
+*/
+
+.table-content {
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+/* table */
+
+table {
+    border-radius: 5px;
+    font-size: 15px;
+    border: 1px solid var(--table-border);
+}
+
+table,
+th,
+td {
+    font-family: 'Poppins';
+    padding: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 1.5px solid var(--table-border);
+}
+
+th {
+    background-color: var(--main-green) !important;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+}
+
+table tr:hover{
+    background-color: var(--secondary-color);
 }
 
 .action span h1, p, h2 {
-    font-size: 15px;
-    font-weight: 400;
-    vertical-align: middle;
-}
-
-.action span h1 {
-    width: 850px;
-    vertical-align: middle;
-}
-
-.action span p {
     color: var(--primary-color);
     background-color: var(--main-green);
     text-align: center;
     padding: 2px;
-    width: 155px;
     border-radius: 30px;
 }
 
+table td:nth-child(1) {
+    width: 200px;
+}
+
+table td:nth-child(2) {
+    text-align: left;
+}
+
+table td:nth-child(3) {
+    width: 200px;
+}
+
+mat-paginator {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    font-size: 15px;
+    border: 1px solid var(--table-border);
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef  } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -29,7 +29,9 @@ export class AddprojectComponent {
   selectedOption2: string;
   selectedOption3: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+    private elementRef: ElementRef
+  ) {
     this.selectedOption1 = ''; // Initialize selectedOption1 in the constructor
     this.selectedOption2 = '';
     this.selectedOption3 = '';
@@ -231,9 +233,41 @@ export class AddprojectComponent {
   }
 
 
+  filterItems: string[] = [];
 
+  // Existing code...
 
+  removeItem(item: string) {
+    const index = this.filterItems.indexOf(item);
+    if (index !== -1) {
+      this.filterItems.splice(index, 1);
+    }
+  }
 
+  multiWordKeyup(inputElement: HTMLInputElement, event: Event) {
+    const keyboardEvent = event as KeyboardEvent;
+    if (keyboardEvent.key === 'Enter') {
+      if (inputElement.value.trim() !== '') {
+        this.filterItems.push(inputElement.value.trim());
+        inputElement.value = "";
+      }
+    }
+  }
+
+  createFilterItem(text: string): HTMLDivElement {
+    const item = document.createElement("div");
+    item.setAttribute("class", "multi-search-item");
+    const span = document.createElement("span");
+    span.textContent = text;
+    const close = document.createElement("div");
+    close.setAttribute("class", "fa fa-close");
+    close.addEventListener('click', () => {
+      item.remove();
+    });
+    item.appendChild(span);
+    item.appendChild(close);
+    return item;
+  }
 
 
 

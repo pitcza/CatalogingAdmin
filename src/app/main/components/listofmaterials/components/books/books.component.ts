@@ -28,6 +28,7 @@ import { BookDetailsPopupComponent } from '../book-details-popup/book-details-po
     MatCardModule
   ],
 })
+
 export class BooksComponent implements AfterViewInit {
   displayedColumns: string[] = ['dateadd', 'booktitle', 'author', 'location', 'copyright', 'issue', 'action'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -54,27 +55,29 @@ export class BooksComponent implements AfterViewInit {
     //console.log('This is init method');
   }
 
-// SWEETALERT ARCHIVE POPUP
-archiveBox(){
-  Swal.fire({
-    title: "Archive Book",
-    text: "Are you sure want to archive this book?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: 'Yes',
-    cancelButtonText: 'Cancel',
-    confirmButtonColor: "#AB0E0E",
-    cancelButtonColor: "#777777",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire({
-        title: "Archiving complete!",
-        text: "Book has been safely archived.",
-        icon: "success"
-      });
-    }
-  });
-}
+  // SWEETALERT ARCHIVE POP UP
+  archiveBox(){
+    Swal.fire({
+      title: "Archive Book",
+      text: "Are you sure want to archive this book?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: "#AB0E0E",
+      cancelButtonColor: "#777777",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Archiving complete!",
+          text: "Book has been safely archived.",
+          icon: "success",
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+        });
+      }
+    });
+  }
 
   // POP UPS
   showPopup: boolean = false;

@@ -17,7 +17,6 @@ import { FormsModule } from '@angular/forms';
     AddmaterialsComponent,
     AcademicprojectsComponent,
     ListofmaterialsComponent,
-    ActivitylogComponent
   ],
   imports: [
     CommonModule,

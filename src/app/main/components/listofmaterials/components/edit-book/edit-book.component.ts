@@ -41,7 +41,9 @@ export class EditBookComponent implements OnInit{
         Swal.fire({
           title: "Update successful!",
           text: "The changes have been saved.",
-          icon: "success"
+          icon: "success",
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
         });
       }
     });
@@ -64,7 +66,9 @@ export class EditBookComponent implements OnInit{
         Swal.fire({
           title: "Archiving complete!",
           text: "Book has been safely archived.",
-          icon: "success"
+          icon: "success",
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
         });
       }
     });

@@ -6,54 +6,61 @@
             <h1> Activity Log </h1>
         </div>
 
-        <div class="historylogs">
-            <div class="date-of-action">
-                <h3> January 11, 2024 </h3>
-            </div>
-            <button mat-button></button>
-            <table mat-table></table>
+        <div class="table-content">
 
-            <div class="action-details">
-                <div class="action">
-                    <span> <h1> Something was added <!-- {{ logs[1].log }} --> </h1> </span>
-                    <span> <p> Material Added </p> </span>
-                    <span> <h2> 4:00PM </h2> </span>
+        <!--    <div class="table-head">
+                <div class="table-filters">
+                    <select id="filter">
+                        <option selected value="All Departments"> All Locations </option>
+                        <option> FIL </option>
+                        <option> FOR </option>
+                        <option> MED </option>
+                        <option> EWAN </option>
+                    </select>
                 </div>
-
-                <div class="action">
-                    <span> <h1> Another thing was added <!-- {{ logs[1].log }} --> </h1> </span>
-                    <span> <p> Material Added </p> </span>
-                    <span> <h2> 4:00PM </h2> </span>
-                </div>
-            </div>
-        </div>
-
-        <div class="historylogs">
-            <div class="date-of-action">
-                <h3> January 10, 2024 </h3>
-            </div>
-
-            <div class="action-details">
-                <div class="action">
-                    <span> <h1> Added (Sample Title) Book to the FOR category </h1> </span>
-                    <span> <p> Material Added </p> </span>
-                    <span> <h2> 4:00PM </h2> </span>
-                </div>
-
-                <div class="action">
-                    <span> <h1> Added (Sample Title) Book to the FOR category </h1> </span>
-                    <span> <p> Material Added </p> </span>
-                    <span> <h2> 4:00PM </h2> </span>
-                </div>
-
-                <div class="action">
-                    <span> <h1> Added (Sample Title) Book to the FOR category </h1> </span>
-                    <span> <p> Material Added </p> </span>
-                    <span> <h2> 4:00PM </h2> </span>
-                </div>
-            </div>
-        </div>
+            </div> -->
+              
+              
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource">
+            
+                <!-- Date Column -->
+                <ng-container matColumnDef="logdate">
+                    <th mat-header-cell *matHeaderCellDef> Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.logdate}} </td>
+                </ng-container>
+            
+                <!-- Log Column -->
+                <ng-container matColumnDef="log">
+                    <th mat-header-cell *matHeaderCellDef> Log </th>
+                    <td mat-cell *matCellDef="let element"> {{element.log}} </td>
+                </ng-container>
+            
+                <!-- Action Column -->
+                <ng-container matColumnDef="action" class="action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let element"> <p> {{element.action}} </p> </td>
+                </ng-container>
+            
+        
+                <!-- Time Column -->
+                <ng-container matColumnDef="logtime">
+                    <th mat-header-cell *matHeaderCellDef> Time </th>
+                    <td mat-cell *matCellDef="let element"> {{element.logtime}} </td>
+                </ng-container>
         
 
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons
+                            aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>   
+            
+            
+        </div>
+        
     </div>
 </main>

@@ -1,0 +1,79 @@
+/* MAIN PADDING */
+main {
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    main {
+        margin-left: 0px;
+    }
+}
+
+.content {
+    justify-content: center;
+    align-items: center;
+    padding-right: 20px;
+}
+
+/* END OF MAIN PADDING */
+
+/* PERIODICALS TAB BUTTON */
+.tabbed {
+	padding-bottom: 10px;
+}
+
+.tabs {
+    padding-left: 5px;
+    margin-top: 20px;
+    margin-bottom: 11px;
+	display: block;
+	align-items: stretch;
+	list-style: none;
+}
+
+.tabs:hover {
+	display: block;
+	align-items: stretch;
+	list-style: none;
+}
+
+.tab {
+    color: var(--black);
+    font-size: 15px; 
+    font-weight: 700;
+    line-height: 10px;
+    width: 100px;
+    padding: 10px 10px;
+    text-align: center;
+	background: var(--primary-color);
+	cursor: pointer;	
+	transition: all 0.3s;
+    border-bottom: 3px solid var(--black);
+}
+
+.tab:hover {
+	color: var(--main-green);
+    border-bottom: 3px solid var(--main-green);
+}
+
+.tabs a.active-link {
+    color: var(--main-green);
+    border-bottom: 3px solid var(--main-green);
+}
+// END OF TABS BUTTON
+
+// TABLE ROUTER OUTLET STYLE
+.table-content {
+    border-radius: 5px;
+    padding: 20px;
+    padding-top: 30px;
+    padding-bottom: 25px;
+    background: var(--secondary-color);
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.322);
+    border: 0.5px solid var(--border-color);
+}

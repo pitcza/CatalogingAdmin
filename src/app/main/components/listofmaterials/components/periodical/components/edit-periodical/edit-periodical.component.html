@@ -1,0 +1,102 @@
+<main>
+    <div class="container">
+        <div class="content">
+            <div class="details-content">
+                <!-- HEADER - TITLE -->
+                <div class="detailsheader">
+                    <h1> Edit Periodical Details </h1>
+                </div>
+
+                <!-- BODY - DETAILS -->
+                <div class="detailsbody">
+                    <div class="details">
+                        <form>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <select id="type" name="material_type">
+                                        <option value="Magazine"> Magazine </option>
+                                        <option value="Journal"> Journal </option>
+                                        <option value="Newspaper"> Newspaper </option>
+                                    </select>
+                                    <div class="labelline"> Type of Material </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="author" value="Sample">
+                                    <div class="labelline"> Author </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-column">
+                                    <input type="text" required name="title"> 
+                                    <div class="labelline"> Title </div>
+                                </div>
+                
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <select id="type" name="language">
+                                        <option value="english"> English </option>
+                                        <option value="tagalog"> Tagalog </option>
+                                    </select>
+                                    <div class="labelline"> Language </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="issue"> 
+                                    <div class="labelline"> Issue </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="date" required name="date_published">  
+                                    <div class="labelline"> Publication Date </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" required name="copyright"> 
+                                    <div class="labelline"> Copyright </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="text" required name="publisher"> 
+                                    <div class="labelline"> Publisher </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="pages"> 
+                                    <div class="labelline"> Pages </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="text" name="remarks"> 
+                                    <div class="labelline"> Remarks </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" min="0" name="volume"> 
+                                    <div class="labelline"> Volume </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <input type="date" required name="receive_date"> 
+                                    <div class="labelline"> Date Received </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="labelline1"> Upload Image</div>
+                                    <input type="file" name="image_location"> 
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                
+                    <!-- BUTTONS -->
+                    <div class="button-container">
+                        <button class="update-btn" (click)="updateBox()"> Update </button>
+                        <button class="delete-btn" (click)="archiveBox()"> Archive </button>
+                        <button class="cancel-btn" (click)="closepopup()"> Cancel </button>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

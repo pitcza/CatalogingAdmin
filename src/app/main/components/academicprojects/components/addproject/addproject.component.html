@@ -72,6 +72,19 @@
                     </div> 
                 </div>
 
+          <!--      <div class="input-row">
+                    <div class="input-column2">
+                        <input #inputElement (keyup.enter)="multiWordKeyup(inputElement, $event)" class="multi-input" placeholder="Type and press Enter">
+                
+                        <div class="labelline"> Keywords </div>
+
+                        <div *ngFor="let item of filterItems" class="multi-item">
+                            <span>{{ item }}</span>
+                            <div class="fa fa-close" (click)="removeItem(item)"></div>
+                        </div>
+                    </div> 
+                </div> -->
+
 
                 <div class="buttons">
                     <a class="add" (click)="redirectToListPage()"> 

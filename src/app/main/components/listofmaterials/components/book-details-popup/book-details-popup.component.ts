@@ -41,7 +41,9 @@ export class BookDetailsPopupComponent {
         Swal.fire({
           title: "Archiving complete!",
           text: "Book has been safely archived.",
-          icon: "success"
+          icon: "success",
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
         });
       }
     });
