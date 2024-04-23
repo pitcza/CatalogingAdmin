@@ -49,7 +49,7 @@ export class ActivitylogComponent implements AfterViewInit {
   }
 
   protected getData(): void {
-    this.ds.get('cataloging/logs', '').subscribe((res:any) => {
+    this.ds.get('cataloging/logs').subscribe((res:any) => {
       console.log(res);
     })
   }

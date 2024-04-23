@@ -26,7 +26,7 @@ export class MainComponent implements OnInit, OnDestroy {
       next: (res: any) => this.user = res
     });
 
-    // Refresh user token every 55 minutes
+    // Refresh user token every 55 minutes (under construction)
     this.timer = setInterval(() => {
       let timer = parseInt(localStorage.getItem('timer') || '0', 10);
       timer = timer + 1;
@@ -35,7 +35,7 @@ export class MainComponent implements OnInit, OnDestroy {
         localStorage.setItem('timer', '0');
       } else {
         localStorage.setItem('timer', timer.toString());
-      } console.log(timer)
+      } 
     }, 1000);
   }
   

@@ -17,7 +17,7 @@ export class DetailsPopupComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.ds.getImage('project/image/', this.data.details.id).subscribe((data: Blob) => {
+    this.ds.getImage('project/image/' + this.data.details.id).subscribe((data: Blob) => {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.image = e.target.result;

@@ -15,22 +15,22 @@
             <div class="table-head">
 
             <div class="table-filters">
-                <select id="filter">
-                    <option selected value="All Departments"> All Departments </option>
-                    <option> CCS </option>
-                    <option> CBA </option>
-                    <option> CAHS </option>
-                    <option> CEAS </option>
-                    <option> CHTM </option>
+                <select id="filter-department" (change)="applyFilter($event, 'department')">
+                    <option selected value=""> All Departments </option>
+                    <option value="CCS"> CCS </option>
+                    <option value="CBA"> CBA </option>
+                    <option value="CAHS"> CAHS </option>
+                    <option value="CEAS"> CEAS </option>
+                    <option value="CHTM"> CHTM </option>
                 </select>
 
-                <select id="filter">
-                    <option selected value="All Projects"> All Projects </option>
-                    <option> Thesis </option>
-                    <option> Capstone </option>
-                    <option> Research </option>
-                    <option> Dissertation </option>
-                    <option> Feasibility </option>
+                <select id="filter-category" (change)="applyFilter($event, 'category')">
+                    <option selected value=""> All Projects </option>
+                    <option value="thesis"> Thesis </option>
+                    <option value="capstone"> Capstone </option>
+                    <option value="research"> Research </option>
+                    <option value="dissertation"> Dissertation </option>
+                    <option value="feasibility"> Feasibility </option>
                 </select>
             </div>
 
@@ -45,17 +45,17 @@
               
               
             <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="dataSource">
+                <table mat-table [dataSource]="dataSource" matSort>
             
                 <!-- Date Added Column -->
-                <ng-container matColumnDef="dateadd">
+                <ng-container matColumnDef="date_added" routerLink="/addproject">
                     <th mat-header-cell *matHeaderCellDef> Date Added </th>
                     <td mat-cell *matCellDef="let project"> {{project.created_at | date:'mediumDate'}} </td>
                 </ng-container>
             
                 <!-- College Column -->
-                <ng-container matColumnDef="college">
-                    <th mat-header-cell *matHeaderCellDef> College </th>
+                <ng-container matColumnDef="department">
+                    <th mat-header-cell *matHeaderCellDef> Department </th>
                     <td mat-cell *matCellDef="let project"> {{project.program.department}} </td>
                 </ng-container>
             
@@ -66,7 +66,7 @@
                 </ng-container>
             
                 <!-- Project Column -->
-                <ng-container matColumnDef="project">
+                <ng-container matColumnDef="category">
                     <th mat-header-cell *matHeaderCellDef> Category </th>
                     <td mat-cell *matCellDef="let project"> {{project.category | titlecase}} </td>
                 </ng-container>
@@ -78,8 +78,8 @@
                 </ng-container>
         
                 <!-- Date Published Column -->
-                <ng-container matColumnDef="datepub">
-                    <th mat-header-cell *matHeaderCellDef> Date Published </th>
+                <ng-container matColumnDef="date_published">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Date Published </th>
                     <td mat-cell *matCellDef="let project"> {{project.date_published | date: 'mediumDate'}} </td>
                 </ng-container>
         
