@@ -26,7 +26,7 @@ export class BookDetailsPopupComponent {
 
   ngOnInit(): void {
     console.log(this.data.details.id)
-      this.ds.getImage('book/image/', this.data.details.id).subscribe({
+      this.ds.getImage('book/image/' + this.data.details.id).subscribe({
         next: (res:any) => {
           this.image = URL.createObjectURL(res)
         },
@@ -54,7 +54,7 @@ export class BookDetailsPopupComponent {
       cancelButtonColor: "#777777",
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.delete('books/process/', this.data.details.id).subscribe({
+        this.ds.delete('books/process/' + this.data.details.id).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

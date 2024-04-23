@@ -54,7 +54,7 @@ export class ArticlesComponent implements AfterViewInit {
   
   protected getData(type: any) {
     this.publishers = ['All Publishers'];
-    this.ds.get('articles/type/', type).subscribe({
+    this.ds.get('articles/type/' + type).subscribe({
       next: (res: any) => {
         this.dataSource = res;
 

@@ -16,12 +16,12 @@ export class DataService {
   
   private url:string = 'http://127.0.0.1:8000/api/';
 
-  public get(endpoint: string, param: string) {
-    return this.http.get(this.url+endpoint+param, { headers: this.headers.get() });
+  public get(endpoint: string) {
+    return this.http.get(this.url+endpoint, { headers: this.headers.get() });
   }
 
-  public getImage(endpoint: string, param: string) {
-      return this.http.get(this.url+endpoint+param, { responseType: 'blob', headers: this.headers.get() }).pipe(
+  public getImage(endpoint: string) {
+      return this.http.get(this.url+endpoint, { responseType: 'blob', headers: this.headers.get() }).pipe(
         catchError((error: HttpErrorResponse) => {
           
           return throwError(() => 'HTTP Response: No image found or invalid file found.');
@@ -29,11 +29,11 @@ export class DataService {
       );
   }
 
-  public post(endpoint: string, param: string, formData: FormData) {
-    return this.http.post(this.url+endpoint+param, formData, { headers: this.headers.get() });
+  public post(endpoint: string, formData: FormData) {
+    return this.http.post(this.url+endpoint, formData, { headers: this.headers.get() });
   }
 
-  public delete(endpoint: string, param: string) {
-    return this.http.delete(this.url+endpoint+param, { headers: this.headers.get() });
+  public delete(endpoint: string) {
+    return this.http.delete(this.url+endpoint, { headers: this.headers.get() });
   }
 }

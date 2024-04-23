@@ -53,7 +53,7 @@ export class PeriodicalsComponent implements AfterViewInit {
   protected publishers = ['All Publishers'];
   protected getData(type: any) {
     this.publishers = ['All Publishers'];
-    this.ds.get('periodicals/type/', type).subscribe({
+    this.ds.get('periodicals/type/' + type).subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -11,12 +11,13 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 import { EditBookComponent } from '../edit-book/edit-book.component';
 import { BookDetailsPopupComponent } from '../book-details-popup/book-details-popup.component';
 import { DataService } from '../../../../../services/data.service';
 import { get } from 'http';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-books',
@@ -29,31 +30,33 @@ import { get } from 'http';
     MatTableModule, 
     MatPaginatorModule, 
     MatFormFieldModule, 
+    MatSortModule,
     MatCardModule,
     DatePipe,
     CommonModule
   ],
 })
 
-export class BooksComponent implements AfterViewInit {
-  displayedColumns: string[] = ['dateadd', 'booktitle', 'author', 'location', 'copyright', 'issue', 'action'];
+export class BooksComponent implements OnInit {
+  displayedColumns: string[] = ['created_at', 'title', 'author', 'location', 'copyright', 'issue', 'action'];
   dataSource:any = null;
+  materials: any = null;
 
-  @ViewChild(MatPaginator, {static:true}) paginator: MatPaginator;
-  @ViewChild(MatPaginator, {static:true}) paginatior !: MatPaginator;
-  @ViewChild(MatSort, {static:true}) sort !: MatSort;
+  @ViewChild(MatPaginator, {static:true}) paginator!: MatPaginator;
+  @ViewChild(MatSort, {static:true}) sort!: MatSort;
 
-  ngAfterViewInit() {
-    this.ds.get('books', '').subscribe({
+  ngOnInit() {
+    this.ds.get('books').subscribe({
       next: (res: any) =>  {
-        // this.dataSource = new MatTableDataSource(res);
-        this.dataSource = new MatTableDataSource<PeriodicElement>(res);
+        this.materials = res;
+        this.dataSource = new MatTableDataSource<BookElement, MatPaginator>(this.materials);
+        this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
       error: (err: any) => console.log(err)
     });
 
-    this.ds.get('books/locations', '').subscribe({
+    this.ds.get('books/locations').subscribe({
       next: (res: any) => this.locations = res,
       error: (err: any) => console.log(err)
     });
@@ -67,46 +70,58 @@ export class BooksComponent implements AfterViewInit {
     private dialog: MatDialog,
     private ds: DataService
   ) { 
-    this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef); 
+    this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   protected books: any = null;
   protected locations: any = null;
 
   protected getData() {
-    this.ds.get('books', '').subscribe({
+    this.ds.get('books').subscribe({
       next: (res: any) => this.dataSource = new MatTableDataSource(res),
       error: (err: any) => console.log(err)
     });
 
-    this.ds.get('books/locations', '').subscribe({
+    this.ds.get('books/locations').subscribe({
       next: (res: any) => this.locations = res,
       error: (err: any) => console.log(err)
     });
+
+  }
+
+  // Filtering 
+  applyFilter(event: Event, type: string) {
+
+    const select = (document.getElementById('filter') as HTMLSelectElement).value;
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+      const titleFilterPredicate = (data: BookElement, search: string): boolean => {
+        return data.title.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const authorFilterPredicate = (data: BookElement, search: string): boolean => {
+        return data.author.toLowerCase().includes(search.toLowerCase());
+      }
+      
+      const locationFilterPredicate = (data: BookElement, select: string): boolean => {
+        return data.location.location === select || select === '';
+      }
+
+      const filterPredicate = (data: BookElement): boolean => {
+        return (titleFilterPredicate(data, search) ||
+               authorFilterPredicate(data, search)) &&
+               locationFilterPredicate(data, select);
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      if(type === 'filter')
+        this.dataSource.filter = select;
+      else if(type === 'search')
+        this.dataSource.filter = search;
+    
   }
 
   // SWEETALERT ARCHIVE POPUP
-
-//   archiveBox(){
-//   Swal.fire({
-//     title: "Archive Book",
-//     text: "Are you sure want to archive this book?",
-//     icon: "warning",
-//     showCancelButton: true,
-//     confirmButtonText: 'Yes',
-//     cancelButtonText: 'Cancel',
-//     confirmButtonColor: "#AB0E0E",
-//     cancelButtonColor: "#777777",
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       Swal.fire({
-//         title: "Archiving complete!",
-//         text: "Book has been safely archived.",
-//         icon: "success"
-//       });
-//     }
-//   });
-// }
 
   archiveBox(id: any){
     Swal.fire({
@@ -120,7 +135,7 @@ export class BooksComponent implements AfterViewInit {
       cancelButtonColor: "#777777",
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.delete('books/process/', id).subscribe({
+        this.ds.delete('books/process/' + id).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
@@ -178,42 +193,18 @@ export class BooksComponent implements AfterViewInit {
     });
   }
 
+
+
 }
 
-export interface PeriodicElement {
-  dateadd: string;
-  booktitle: string;
+export interface BookElement {
+  created_at: Date;
+  title: string;
   author: string;
-  location: string;
-  copyright: string;
-  issue: string;
-  action: string;
+  location: any;
+  copyright: Date;
+  issue: number;
+  date_published: Date;
+  volume: number;
+  [key: string]: any;
 }
-
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title One', author: 'Czarina Arellano', location: 'FIL', copyright: '2017', issue: 'ewan', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', booktitle: 'Sample Title Ewan One Two Three', author: 'Pauleen Dalida', location: 'FOR', copyright: '2017', issue: 'ewan din', action: 'ewan'},
-// ];
-

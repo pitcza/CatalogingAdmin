@@ -58,7 +58,7 @@ export class AddmaterialsComponent implements OnInit{
         console.log("%s: %s", key, value);
       })
 
-      this.ds.post('books/process', '', formData).subscribe({
+      this.ds.post('books/process', formData).subscribe({
         next: (res: any) => {
           Swal.fire({
             title: 'Success',
@@ -83,7 +83,7 @@ export class AddmaterialsComponent implements OnInit{
   }
 
   protected getLocations() {
-    this.ds.get('books/locations', '').subscribe((res: any) => {
+    this.ds.get('books/locations').subscribe((res: any) => {
       this.locations = res;
       console.log(this.locations)
     })
@@ -153,7 +153,7 @@ export class AddmaterialsComponent implements OnInit{
           }
       }
 
-      this.ds.post('articles/process', '', formData).subscribe({
+      this.ds.post('articles/process',  formData).subscribe({
         next: (res: any) => console.log(res),
         error: (err: any) => console.log(err)
       });

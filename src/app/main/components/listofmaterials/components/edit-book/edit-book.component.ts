@@ -18,7 +18,7 @@ export class EditBookComponent implements OnInit{
   protected locations: any = null;
 
   ngOnInit(): void {
-    this.ds.get('books/locations', '').subscribe((res: any) => {
+    this.ds.get('books/locations').subscribe((res: any) => {
       this.locations = res;
       console.log(this.locations)
     })
@@ -115,7 +115,7 @@ export class EditBookComponent implements OnInit{
     })
 
     formData.append('_method', 'PUT');
-    this.ds.post('books/process/', this.data.details, formData).subscribe({
+    this.ds.post('books/process/' + this.data.details, formData).subscribe({
       next: (res: any) => {
         console.log(res)
         Swal.fire({

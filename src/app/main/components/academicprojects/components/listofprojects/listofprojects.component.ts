@@ -7,7 +7,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 import { EditdetailsComponent } from '../editdetails/editdetails.component';
 import { DetailsPopupComponent } from '../details-popup/details-popup.component';
@@ -29,6 +29,7 @@ import { CommonModule } from '@angular/common';
     MatPaginatorModule, 
     MatFormFieldModule, 
     MatCardModule,
+    MatSortModule,
     CommonModule
   ],
 })
@@ -39,7 +40,7 @@ export class ListofprojectsComponent implements AfterViewInit {
   }
   
 
-  displayedColumns: string[] = ['dateadd', 'college', 'program', 'project', 'title', 'datepub', 'action'];
+  displayedColumns: string[] = ['created_at', 'department', 'program', 'category', 'title', 'date_published', 'action'];
   
   // <PeriodicElement>(ELEMENT_DATA);
 
@@ -52,9 +53,10 @@ export class ListofprojectsComponent implements AfterViewInit {
 
   ngAfterViewInit() {
 
-    this.ds.get('projects', '').subscribe((res: any) => {
+    this.ds.get('projects').subscribe((res: any) => {
       this.projects = res;
       this.dataSource = new MatTableDataSource(this.projects);
+      this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
   }
@@ -68,6 +70,41 @@ export class ListofprojectsComponent implements AfterViewInit {
     private ds: DataService
   ) {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
+  }
+
+  // Filtering 
+  applyFilter(event: Event, type: string) {
+
+    const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
+    const selectCategory = (document.getElementById('filter-category') as HTMLSelectElement).value;
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+      const titleFilterPredicate = (data: Project, search: string): boolean => {
+        return data.title.toLowerCase().includes(search.toLowerCase());
+      } 
+      
+      const departmentFilterPredicate = (data: Project, selectDepartment: string): boolean => {
+        return data.program.department === selectDepartment || selectDepartment === '';
+      }
+
+      const categoryFilterPredicate = (data: Project, selectCategory: string): boolean => {
+        return data.category === selectCategory || selectCategory === '';
+      }
+
+      const filterPredicate = (data: Project): boolean => {
+        return titleFilterPredicate(data, search) &&
+               departmentFilterPredicate(data, selectDepartment) &&
+               categoryFilterPredicate(data, selectCategory);
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      if(type === 'department')
+        this.dataSource.filter = selectDepartment;
+      else if(type === 'category')
+        this.dataSource.filter = selectCategory;
+      else if(type === 'search')
+        this.dataSource.filter = search;
+    
   }
 
   showPopup: boolean = false;
@@ -148,34 +185,13 @@ archiveBox(){
 
 }
 
-// export interface PeriodicElement {
-//   dateadd: string;
-//   college: string;
-//   program: string;
-//   project: string;
-//   title: string;
-//   datepub: string;
-//   action: string;
-// }
+export interface Project {
+  created_at: string;
+  program: any;
+  category: string;
+  title: string;
+  date_published: string;
+  action: string;
+}
 
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahhahahahahahaahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-//   {dateadd: 'January 01, 2024', college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'hahahaha', datepub: 'January 01, 2024', action: 'ewan'},
-// ];
 

@@ -19,7 +19,7 @@ export class ActivitylogComponent implements OnInit{
   }
 
   protected getData(): void {
-    this.ds.get('cataloging/logs', '').subscribe((res:any) => {
+    this.ds.get('cataloging/logs').subscribe((res:any) => {
       console.log(res);
     })
   }
