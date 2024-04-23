@@ -60,6 +60,8 @@ export class BookDetailsPopupComponent {
               title: "Archiving complete!",
               text: "Book has been safely archived.",
               icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
             });
             this.ref.close('Closed using function');
             this.router.navigate(['listofmaterials/books']);

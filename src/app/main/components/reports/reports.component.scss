@@ -1,3 +1,10 @@
+/* MAIN PADDING */
+main {
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
 .button {
     background-color: #31A463;
     border: none;
@@ -20,6 +27,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
+
 .cards .card {
     width: 350px;
     height: 100px;
@@ -95,11 +103,6 @@
 }
 */
 
-hr {
-    width: 1227px;
-    margin-left: 25px;
-}
-
 /* Dropdown Button */ 
 
 .buttons .dropbtn {
@@ -140,7 +143,7 @@ hr {
     display: none;
 }
 
-.dropdown:hover {
+.dropbtn:hover {
     .drop-arrow #down {
         display: inline;
     }
