@@ -82,6 +82,10 @@ export class ListofprojectsComponent implements AfterViewInit {
       const titleFilterPredicate = (data: Project, search: string): boolean => {
         return data.title.toLowerCase().includes(search.toLowerCase());
       } 
+
+      const authorFilterPredicate = (data: Project, search: string): boolean => {
+        return data.author.toLowerCase().includes(search.toLowerCase());
+      } 
       
       const departmentFilterPredicate = (data: Project, selectDepartment: string): boolean => {
         return data.program.department === selectDepartment || selectDepartment === '';
@@ -92,7 +96,7 @@ export class ListofprojectsComponent implements AfterViewInit {
       }
 
       const filterPredicate = (data: Project): boolean => {
-        return titleFilterPredicate(data, search) &&
+        return (titleFilterPredicate(data, search) || authorFilterPredicate(data, search)) &&
                departmentFilterPredicate(data, selectDepartment) &&
                categoryFilterPredicate(data, selectCategory);
       };
@@ -169,26 +173,11 @@ export class ListofprojectsComponent implements AfterViewInit {
     });
   }
 
-
-  // DATA FOR FILTERING
-  data = [
-    { college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CCS', program: 'BSIT', project: 'Capstone', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CCS', program: 'BSCS', project: 'Thesis', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CBA', program: 'BSCA', project: 'Feasibility', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CBA', program: 'BSCA', project: 'Feasibility', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CBA', program: 'BSBA', project: 'Feasibility', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CBA', program: 'BSA', project: 'Feasibility', title: 'Sample Title', datepub: 'January 11, 2024' },
-    { college: 'CHTM', program: 'BSHM', project: 'Thesis', title: 'Sample Title', datepub: 'January 11, 2024' },
-
-  ];
-
-  filterValue: string = '';
-
 }
 
 export interface Project {
   created_at: string;
+  author: string;
   program: any;
   category: string;
   title: string;

@@ -25,9 +25,9 @@
                 <table mat-table [dataSource]="dataSource">
             
                 <!-- Date Column -->
-                <ng-container matColumnDef="logdate">
+                <ng-container matColumnDef="create_date">
                     <th mat-header-cell *matHeaderCellDef> Date </th>
-                    <td mat-cell *matCellDef="let element"> {{element.logdate}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.create_date | date: 'mediumDate'}} </td>
                 </ng-container>
             
                 <!-- Log Column -->
@@ -46,7 +46,7 @@
                 <!-- Time Column -->
                 <ng-container matColumnDef="logtime">
                     <th mat-header-cell *matHeaderCellDef> Time </th>
-                    <td mat-cell *matCellDef="let element"> {{element.logtime}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.create_date | date: 'shortTime'}} </td>
                 </ng-container>
         
 

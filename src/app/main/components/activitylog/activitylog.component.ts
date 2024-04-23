@@ -1,10 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { DataService } from '../../../services/data.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-activitylog',
@@ -12,29 +14,26 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
   styleUrl: './activitylog.component.scss',
   standalone: true,
   imports: [
+    CommonModule,
     MatTableModule, 
     MatPaginatorModule, 
   ]
 })
-export class ActivitylogComponent implements AfterViewInit {
-  displayedColumns: string[] = ['logdate', 'log', 'action', 'logtime'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+export class ActivitylogComponent implements OnInit {
+  displayedColumns: string[] = ['create_date', 'log', 'action', 'logtime'];
+  protected dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
-  ds: any;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
 
   constructor(
     private router: Router,
     private paginatorIntl: MatPaginatorIntl, 
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private ds: DataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
@@ -50,34 +49,17 @@ export class ActivitylogComponent implements AfterViewInit {
 
   protected getData(): void {
     this.ds.get('cataloging/logs').subscribe((res:any) => {
-      console.log(res);
+      this.dataSource = new MatTableDataSource<PeriodicElement>(res);
+      this.dataSource.paginator = this.paginator;
+      console.log(res)
     })
   }
 }
 
 // SAMPLE DATA FOR TABLE
 export interface PeriodicElement {
-  logdate: string;
+  create_date: string;
   log: string;
   action: string;
   logtime: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  {logdate: 'January 01, 2024', log: 'Something was added to Books', action: 'Material Added', logtime: '4:00 PM'},
-  
-];

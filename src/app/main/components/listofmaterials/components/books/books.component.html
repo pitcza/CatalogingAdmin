@@ -73,7 +73,22 @@
                     <th mat-header-cell *matHeaderCellDef> Action</th>
                     <td mat-cell class="actions" *matCellDef="let element">
             
-                        <button class="editbtn" (click)="editPopup(element.id)">
+                        <button class="editbtn" (click)="editPopup(
+                            {
+                                id: element.id,
+                                title: element.title,
+                                location: element.location.location_id,
+                                call_number: element.call_number,
+                                copyright: element.copyright,
+                                author: element.author,
+                                date_published: element.date_published,
+                                volume: element.volume,
+                                pages: element.pages,
+                                edition: element.edition,
+                                remark: element.remarks,
+                                purchased_date: element.purchased_date
+                            }
+                        )">
                             <i class='bx bx-edit' ></i>
                         </button>
                         <button class="deletebtn" (click)="archiveBox(element.id)" (closedPopup)="closePopup()">
