@@ -9,8 +9,8 @@
             <div class="table-head">
 
                 <div class="table-filters">
-                    <select id="filter">
-                        <option selected value="All Departments"> All Locations </option>
+                    <select id="filter" (change)="applyFilter($event, 'filter')">
+                        <option selected value=""> All Locations </option>
                         <option *ngFor="let x of locations" [value]="x.location"> {{ x.location }} </option>
                     </select>
 
@@ -18,7 +18,7 @@
 
                 <div class="search-container">
                     <form action="/action_page.php">
-                    <input type="text" placeholder="Search..." name="search">
+                    <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
                     <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
@@ -27,23 +27,23 @@
               
               
             <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="dataSource">
+                <table mat-table [dataSource]="dataSource" matSort>
             
                 <!-- Date Added Column -->
-                <ng-container matColumnDef="dateadd">
-                    <th mat-header-cell *matHeaderCellDef> Date Added </th>
+                <ng-container matColumnDef="created_at">
+                    <th mat-header-cell *matHeaderCellDef="" mat-sort-header> Date Added </th>
                     <td mat-cell *matCellDef="let element"> {{element.created_at | date: 'mediumDate'}} </td>
                 </ng-container>
             
                 <!-- Title Column -->
-                <ng-container matColumnDef="booktitle">
-                    <th mat-header-cell *matHeaderCellDef> Book Title </th>
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef="" mat-sort-header> Book Title </th>
                     <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                 </ng-container>
             
                 <!-- Author Column -->
                 <ng-container matColumnDef="author">
-                    <th mat-header-cell *matHeaderCellDef> Author </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Author </th>
                     <td mat-cell *matCellDef="let element"> {{element.author}} </td>
                 </ng-container>
             
@@ -73,7 +73,22 @@
                     <th mat-header-cell *matHeaderCellDef> Action</th>
                     <td mat-cell class="actions" *matCellDef="let element">
             
-                        <button class="editbtn" (click)="editPopup(element.id)">
+                        <button class="editbtn" (click)="editPopup(
+                            {
+                                id: element.id,
+                                title: element.title,
+                                location: element.location.location_id,
+                                call_number: element.call_number,
+                                copyright: element.copyright,
+                                author: element.author,
+                                date_published: element.date_published,
+                                volume: element.volume,
+                                pages: element.pages,
+                                edition: element.edition,
+                                remark: element.remarks,
+                                purchased_date: element.purchased_date
+                            }
+                        )">
                             <i class='bx bx-edit' ></i>
                         </button>
                         <button class="deletebtn" (click)="archiveBox(element.id)" (closedPopup)="closePopup()">

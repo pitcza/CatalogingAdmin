@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
+import { DataService } from '../../../../../services/data.service';
 
 @Component({
   selector: 'app-books',
@@ -23,15 +24,16 @@ import { MatSort } from '@angular/material/sort';
 
   ],
 })
-export class BooksComponent implements AfterViewInit {
+export class BooksComponent implements OnInit {
   displayedColumns: string[] = ['dateadd', 'booktitle', 'author', 'location', 'copyright', 'issue'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -41,11 +43,20 @@ export class BooksComponent implements AfterViewInit {
     private paginatorIntl: MatPaginatorIntl,
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef, 
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private ds: DataService
   ) {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
+  protected getData() {
+    this.ds.get('books').subscribe({
+      next: (res: any) => {
+        return res;
+      }
+    })
+    return [];
+  }
 }
 
 export interface PeriodicElement {
