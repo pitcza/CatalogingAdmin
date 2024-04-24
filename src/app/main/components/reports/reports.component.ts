@@ -23,4 +23,10 @@ export class ReportsComponent implements OnInit {
       next: (res: any) => this.materialCounts = res
     });
   }
+
+  protected print() {
+    this.ds.get('cataloging/reports/pdf').subscribe({
+      next: (res: any) => console.log(res)
+    })
+  }
 }

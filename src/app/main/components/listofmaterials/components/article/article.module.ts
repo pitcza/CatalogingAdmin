@@ -8,15 +8,20 @@ import { MagazinesComponent } from './components/magazines/magazines.component';
 import { NewspapersComponent } from './components/newspapers/newspapers.component';
 import { EditArticleComponent } from './components/edit-article/edit-article.component';
 import { ArticleDetailsComponent } from './components/article-details/article-details.component';
+import { MaterialModule } from '../../../../../modules/material/material.module';
 
 
 @NgModule({
   declarations: [
     ArticleDetailsComponent,
     EditArticleComponent,
+    // JournalsComponent,
+    // MagazinesComponent,
+    // NewspapersComponent
   ],
   imports: [
     CommonModule,
+    // MaterialModule,
     ArticleRoutingModule
   ]
 })

@@ -14,20 +14,20 @@
                             <div class="input-row">
                                 <div class="input-group">
                                     <select id="type" name="material_type">
-                                        <option value="Magazine"> Magazine </option>
-                                        <option value="Journal"> Journal </option>
+                                        <option value="Magazine" [selected]="data.details.type == 'magazine'"> Magazine </option>
+                                        <option value="Journal" [selected]="data.details.type == 'journal'"> Journal </option>
                                         <option value="Newspaper"> Newspaper </option>
                                     </select>
                                     <div class="labelline"> Type of Material </div>
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" name="author" value="Sample">
+                                    <input type="text" name="author" [placeholder]="data.details.author">
                                     <div class="labelline"> Author </div>
                                 </div>
                             </div>
                             <div class="input-row">
                                 <div class="input-column">
-                                    <input type="text" required name="title"> 
+                                    <input type="text" name="title" [placeholder]="data.details.title"> 
                                     <div class="labelline"> Title </div>
                                 </div>
                 
@@ -35,49 +35,49 @@
                             <div class="input-row">
                                 <div class="input-group">
                                     <select id="type" name="language">
-                                        <option value="english"> English </option>
-                                        <option value="tagalog"> Tagalog </option>
+                                        <option value="English" [selected]="data.details.language == 'English'"> English </option>
+                                        <option value="Tagalog" [selected]="data.details.language == 'Tagalog'"> Tagalog </option>
                                     </select>
                                     <div class="labelline"> Language </div>
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" name="issue"> 
+                                    <input type="text" name="issue" [placeholder]="data.details.issue"> 
                                     <div class="labelline"> Issue </div>
                                 </div>
                             </div>
                             <div class="input-row">
                                 <div class="input-group">
-                                    <input type="date" required name="date_published">  
+                                    <input type="date" required name="date_published" [value]="data.details.date_published">  
                                     <div class="labelline"> Publication Date </div>
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" required name="copyright"> 
+                                    <input type="text" required name="copyright" [placeholder]="data.details.copyright"> 
                                     <div class="labelline"> Copyright </div>
                                 </div>
                             </div>
                             <div class="input-row">
                                 <div class="input-group">
-                                    <input type="text" required name="publisher"> 
+                                    <input type="text" required name="publisher" [placeholder]="data.details.publisher"> 
                                     <div class="labelline"> Publisher </div>
                                 </div>
                                 <div class="input-group">
-                                    <input type="number" min="0" name="pages"> 
+                                    <input type="number" min="0" name="pages" [placeholder]="data.details.pages"> 
                                     <div class="labelline"> Pages </div>
                                 </div>
                             </div>
                             <div class="input-row">
                                 <div class="input-group">
-                                    <input type="text" name="remarks"> 
+                                    <input type="text" name="remarks" [placeholder]="data.details.remark"> 
                                     <div class="labelline"> Remarks </div>
                                 </div>
                                 <div class="input-group">
-                                    <input type="number" min="0" name="volume"> 
+                                    <input type="number" min="0" name="volume" [placeholder]="data.details.volume"> 
                                     <div class="labelline"> Volume </div>
                                 </div>
                             </div>
                             <div class="input-row">
                                 <div class="input-group">
-                                    <input type="date" required name="receive_date"> 
+                                    <input type="date" required name="receive_date" [value]="data.details.receive_date"> 
                                     <div class="labelline"> Date Received </div>
                                 </div>
                                 <div class="input-group">

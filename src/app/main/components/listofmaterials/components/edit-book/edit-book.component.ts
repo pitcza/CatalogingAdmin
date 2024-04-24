@@ -20,7 +20,7 @@ export class EditBookComponent implements OnInit{
   ngOnInit(): void {
     this.ds.get('books/locations').subscribe((res: any) => {
       this.locations = res;
-      console.log(this.locations)
+      console.log(this.data)
     })
   }
 

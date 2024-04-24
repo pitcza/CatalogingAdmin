@@ -80,7 +80,7 @@
                     </div>
                     </div>
                     <div class="entryarea_7"> 
-                        <input type="file" required name="image_location"> 
+                        <input type="file" accept=".jpeg, .png, .jpg" name="image_location"> 
                         <div class="labelline_7"> Upload Image</div>
                     </div>
                   
@@ -95,7 +95,7 @@
         <!--------- Periodicals Tab --------->
 
 		<div class="tab-content">
-            <form id="periodical-form">
+            <form id="periodical-form" enctype="multipart/form-data">
                 <div class="periocontainer">
                     <div class="perioarea"> 
                         <select id="type" name="material_type">
@@ -158,12 +158,12 @@
                     </div>
                     </div>
                     <div class="perioarea_7"> 
-                        <input type="file" required name="image_location"> 
+                        <input type="file" accept=".jpeg, .png, .jpg" name="image_location"> 
                         <div class="perioline_7"> Upload Image</div>
                     </div>
                     <div class="periobtn"> 
                         <input type="submit" value="Add">
-                            <button onclick="myfunction();"></button>
+                            <!-- <button onclick="myfunction();"></button> -->
                     </div>
                 </div>
             </form>

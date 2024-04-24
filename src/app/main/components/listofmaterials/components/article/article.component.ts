@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-article',
@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrl: './article.component.scss'
 })
 export class ArticleComponent {
-
 }
