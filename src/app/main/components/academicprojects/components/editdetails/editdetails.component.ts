@@ -243,50 +243,85 @@ export class EditdetailsComponent implements OnInit{
   }
 
   // SWEETALERT UPDATE POPUP
-updateBox(){
-  Swal.fire({
-    title: "Update Project",
-    text: "Are you sure you want to update the project details?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: 'Yes',
-    cancelButtonText: 'Cancel',
-    confirmButtonColor: "#31A463",
-    cancelButtonColor: "#777777",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.ref.close('Closed using function');
-      Swal.fire({
-        title: "Update successful!",
-        text: "The changes have been saved.",
-        icon: "success"
-      });
-    }
-  });
-}
+  updateBox(){
+    Swal.fire({
+      title: "Update Project",
+      text: "Are you sure you want to update the project details?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: "#31A463",
+      cancelButtonColor: "#777777",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ref.close('Closed using function');
+        Swal.fire({
+          title: "Update successful!",
+          text: "The changes have been saved.",
+          icon: "success",
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+        });
+      }
+    });
+  }
 
-// SWEETALERT ARCHIVE POPUP
-archiveBox(){
-  Swal.fire({
-    title: "Archive Project",
-    text: "Are you sure want to archive this project?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: 'Yes',
-    cancelButtonText: 'Cancel',
-    confirmButtonColor: "#AB0E0E",
-    cancelButtonColor: "#777777",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.ref.close('Closed using function');
-      Swal.fire({
-        title: "Archiving complete!",
-        text: "Project has been safely archived.",
-        icon: "success",
-        confirmButtonText: 'Close',
-        confirmButtonColor: "#777777",
-      });
-    }
-  });
-}
+  // SWEETALERT ARCHIVE POPUP
+  archiveBox(){
+    Swal.fire({
+      title: "Archive Project",
+      text: "Are you sure want to archive this project?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: "#AB0E0E",
+      cancelButtonColor: "#777777",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ref.close('Closed using function');
+        Swal.fire({
+          title: "Archiving complete!",
+          text: "Project has been safely archived.",
+          icon: "success",
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+        });
+      }
+    });
+  }
+
+  // CANCEL EDITING POPUP
+  cancelBox(){
+    Swal.fire({
+      title: "Are you sure you want to cancel editing details?",
+      text: "Your changes will not be saved.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      confirmButtonColor: "#AB0E0E",
+      cancelButtonColor: "#777777",
+    }).then((result) => {
+      if (result.isConfirmed) {
+          this.ref.close('Closed using function');
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "error",
+            title: "Changes not saved."
+          });
+      }
+    });
+  }
 }

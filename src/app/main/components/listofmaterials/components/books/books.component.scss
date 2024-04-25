@@ -109,7 +109,6 @@ input:focus{
 
 table {
     border-radius: 5px;
-    font-size: 14px;
     border: 1px solid var(--table-border);
 }
 
@@ -117,6 +116,7 @@ table,
 th,
 td {
     font-family: 'Poppins';
+    font-size: 14px;
     padding: 10px;
     text-align: center;
     border-bottom: 1.5px solid var(--table-border);
@@ -177,8 +177,4 @@ button i {
 
 .actions .detailsbtn:hover {
     background-color: var(--cancel-hover);
-}
-
-.swal2-confirm, .swal2-cancel {
-    font-family: 'Poppins';
 }

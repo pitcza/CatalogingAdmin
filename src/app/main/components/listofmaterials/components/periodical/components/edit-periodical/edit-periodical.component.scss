@@ -39,11 +39,11 @@
 }
 
 .details {
-    padding: 110px 50px 10px 55px;
+    padding: 120px 50px 10px 55px;
 }
 
 .detailsheader {
-    padding: 30px 30px 0 25px;
+    padding: 0 30px 0 25px;
     position: fixed;
     width: 900px;
     background-color: var(--primary-color);
@@ -52,12 +52,32 @@
     z-index: 1;
 }
 
+/* EXIT BUTTON */
+.exit-button {
+    position: relative;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: var(--cancel-btn);
+    text-align: right;
+    width: 855px;
+    padding-top: 5px;
+
+}
+
+.exit-button:hover {
+    color: var(--cancel-hover);
+}
+
 h1 {
     font-weight: 700;
     font-size: 25px;
     text-align: left;
     border-bottom: 2px solid var(--border-color);
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .input-group input[type="text"], input[type="date"], input[type="number"], select {
@@ -166,7 +186,7 @@ input::-webkit-outer-spin-button {
     justify-content: flex-end;
 }
 
-button {
+.button-container button {
     font-family: 'Poppins';
     padding: 10px 20px;
     cursor: pointer;

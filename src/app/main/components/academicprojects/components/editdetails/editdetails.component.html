@@ -4,6 +4,7 @@
             <div class="details-content">
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
+                    <button class="exit-button" (click)="closepopup()"> &times; </button>
                     <h1> Edit Project Details </h1>
                 </div>
 
@@ -77,7 +78,7 @@
                     <div class="button-container">
                         <button class="update-btn" (click)="updateBox()"> Update </button>
                         <button class="delete-btn" (click)="archiveBox()"> Archive </button>
-                        <button class="cancel-btn" (click)="closepopup()"> Cancel </button>
+                        <button class="cancel-btn" (click)="cancelBox()"> Cancel </button>
                     </div>
                 
                 </div>

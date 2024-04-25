@@ -331,6 +331,6 @@ export class AddprojectComponent {
           });
       }
     });
-}
+  }
 
 }
