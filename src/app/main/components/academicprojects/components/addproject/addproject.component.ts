@@ -1,4 +1,4 @@
-import { Component, ElementRef  } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild   } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -14,6 +14,7 @@ interface MyOption {
 })
 
 export class AddprojectComponent {
+  // FOR COLLEGE, PROGRAM, AND CATEGORY OF THE PROJECT
   options1 = [
     { value: 'CCS', label: 'CCS' },
     { value: 'CBA', label: 'CBA' },
@@ -233,56 +234,97 @@ export class AddprojectComponent {
   }
 
 
-  filterItems: string[] = [];
+  // DYNAMIC ADD MULTIPLE AUTHOR
+  ngOnInit() {
+    this.values = this.inputValues.map(input => ({ ...input }));
+  }
 
-  // Existing code...
+  inputValues: { value: string }[] = [{ value: "" }];
+  values: { value: string }[] = [];
 
-  removeItem(item: string) {
-    const index = this.filterItems.indexOf(item);
-    if (index !== -1) {
-      this.filterItems.splice(index, 1);
+  removevalue(i: any){
+    this.values.splice(i, 1);
+  }
+
+  addvalue(){
+    if (this.inputValues.length <6) {
+    // Add a new input value to the inputValues array
+    this.inputValues.push({ value: "" });
+    // Update the values array with the current input values
+    this.values = this.inputValues.map(input => ({ ...input }));
     }
   }
 
-  multiWordKeyup(inputElement: HTMLInputElement, event: Event) {
-    const keyboardEvent = event as KeyboardEvent;
-    if (keyboardEvent.key === 'Enter') {
-      if (inputElement.value.trim() !== '') {
-        this.filterItems.push(inputElement.value.trim());
-        inputElement.value = "";
-      }
-    }
+  isMaxLimitReached(): boolean {
+    return this.inputValues.length >= 6;
   }
 
-  createFilterItem(text: string): HTMLDivElement {
-    const item = document.createElement("div");
-    item.setAttribute("class", "multi-search-item");
-    const span = document.createElement("span");
-    span.textContent = text;
-    const close = document.createElement("div");
-    close.setAttribute("class", "fa fa-close");
-    close.addEventListener('click', () => {
-      item.remove();
-    });
-    item.appendChild(span);
-    item.appendChild(close);
-    return item;
-  }
+  // KEYWORDS FUNCTION NA HINDI NAGF-FUNCTION
+  // maxTags: number = 10;
+  // tags: string[] = ["coding", "nepal"];
+
+  // countTags() {
+  //   let tagNumb = document.querySelector(".details span");
+  //   if (tagNumb) {
+  //     tagNumb.textContent = String(this.maxTags - this.tags.length);
+  //   }
+  // }
+
+  // createTag() {
+  //   let ul = document.querySelector("ul");
+  //   if (ul) {
+  //     ul.innerHTML = ''; // Clear existing content
+  //     this.tags.slice().reverse().forEach(tag => {
+  //       let liTag = `<li>${tag} <i class="uit uit-multiply" (click)="remove('${tag}')"></i></li>`;
+  //       ul!.insertAdjacentHTML("afterbegin", liTag); // Use 'ul!' to assert non-null
+  //     });
+  //     this.countTags();
+  //   } else {
+  //     console.error("UL element not found");
+  //   }
+  // }
+
+  // remove(tag: string) {
+  //   let index = this.tags.indexOf(tag);
+  //   this.tags = [...this.tags.slice(0, index), ...this.tags.slice(index + 1)];
+  //   this.createTag();
+  // }
+
+  // addTag(e: any) {
+  //   if (e.key == "Enter") {
+  //     let tag = e.target.value.replace(/\s+/g, ' ');
+  //     if (tag.length > 1 && !this.tags.includes(tag)) {
+  //       if (this.tags.length < this.maxTags) {
+  //         tag.split(',').forEach((tag: string) => {
+  //           this.tags.push(tag);
+  //           this.createTag();
+  //         });
+  //       }
+  //     }
+  //     e.target.value = "";
+  //   }
+  // }
+
+  // removeAll() {
+  //   this.tags.length = 0;
+  //   let ul = document.querySelector("ul");
+  //   if (ul) {
+  //     ul.querySelectorAll("li").forEach(li => li.remove());
+  //   }
+  //   this.countTags();
+  // }
+
 
 
 
   // POP UP FUNCTION CONTENT
   showPopup: boolean = false;
 
-  togglePopup() {
-    this.showPopup = !this.showPopup;
-  }
-
   closePopup() {
     this.showPopup = this.showPopup;
   }
 
-  redirectToListPage() {
+  addBox() {
     this.router.navigate(['main/academicprojects/listofprojects']); 
     const Toast = Swal.mixin({
       toast: true,

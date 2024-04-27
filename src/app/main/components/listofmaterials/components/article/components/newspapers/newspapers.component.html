@@ -50,14 +50,17 @@
             <th mat-header-cell *matHeaderCellDef> Action</th>
             <td mat-cell class="actions" *matCellDef="let element">
 
-                <button class="editbtn" (click)="editPopup(element.id)"  mat-raised-button color="primary">
+                <button class="editbtn" (click)="editPopup(element.id)">
                     <i class='bx bx-edit' ></i>
+                    <span class="tooltiptext"> Edit </span>
                 </button>
-                <button class="deletebtn" (click)="archiveBox()" (closedPopup)="closePopup()" mat-raised-button color="warn">
+                <button class="deletebtn" (click)="archiveBox()" (closedPopup)="closePopup()">
                     <i class='bx bx-archive-in'></i>
+                    <span class="tooltiptext"> Archive </span>
                 </button>
-                <button class="detailsbtn" (click)="detailsPopup(element.id)" (closedPopup)="closePopup()" mat-raised-button color="primary">
+                <button class="detailsbtn" (click)="detailsPopup(element.id)" (closedPopup)="closePopup()">
                     <i class='bx bx-detail' ></i>
+                    <span class="tooltiptext"> View </span>
                 </button>
             </td>
             </ng-container>

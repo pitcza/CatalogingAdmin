@@ -131,7 +131,7 @@ th {
 
 
 table tr:hover{
-    background-color: var(--table-border2);
+    background-color: var(--secondary-hover);
 }
 
 table td:nth-child(2) {
@@ -177,4 +177,38 @@ button i {
 
 .actions .detailsbtn:hover {
     background-color: var(--cancel-hover);
+}
+
+/* ACTIONS TOOLTIP */
+tr {
+    position: relative;
+}
+
+.actions .tooltiptext {
+    font-family: 'Poppins';
+    font-size: 14px;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: var(--primary-color);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text */
+    position: absolute;
+    width: 130px;
+    top: 100%;
+    left: 87%;
+    z-index: 1;
+}
+
+.editbtn:hover .tooltiptext {
+    visibility: visible;
+}
+
+.deletebtn:hover .tooltiptext {
+    visibility: visible;
+}
+
+.detailsbtn:hover .tooltiptext {
+    visibility: visible;
 }

@@ -20,7 +20,27 @@
     box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
     max-height: 600px;
     overflow-y: auto;
-    scrollbar-width: thin; 
+}
+
+/* Hide the scrollbar track */
+.project-details::-webkit-scrollbar {
+    width: 7px; /* Set the width of the scrollbar */
+}
+
+/* Handle of the scrollbar */
+.project-details::-webkit-scrollbar-thumb {
+    background-color: var(--table-border); /* Set the color of the scrollbar handle */
+    border-radius: 5px; /* Set the border radius of the scrollbar handle */
+}
+
+/* Track of the scrollbar */
+.project-details::-webkit-scrollbar-track {
+    background-color: var(--secondary-color); 
+}
+
+/* Hover effect on the scrollbar handle */
+.project-details::-webkit-scrollbar-thumb:hover {
+    background-color: var(--table-border2); /* Set the color of the scrollbar handle on hover */
 }
 
 .detailsbody {
@@ -31,17 +51,20 @@
 .details {
     display: flex;
     justify-content: space-between;
-    padding-top: 70px;
+    padding-top: 50px;
 }
 
 .detailsheader {
-    padding: 0 30px 0 25px;
+    display: flex;
+    padding: 20px 30px 30px;
     position: fixed;
     width: 900px;
-    background-color: var(--primary-color);
+    background-color: var(--main-green);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     z-index: 1;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.192);
+    padding-bottom: 15px;
 }
 
 /* EXIT BUTTON */
@@ -53,24 +76,20 @@
     border: none;
     font-size: 40px;
     cursor: pointer;
-    color: var(--cancel-btn);
-    text-align: right;
-    width: 855px;
-    padding-top: 5px;
-
+    color: var(--primary-color);
 }
 
 .exit-button:hover {
-    color: var(--cancel-hover);
+    color: var(--secondary-color);
 }
 
 h1 {
+    color: var(--primary-color);
+    padding-top: 5px;
+    width: 880px;
     font-weight: 700;
     font-size: 25px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 5px;
     text-align: left;
-    width: 840px;
 }
 
 img {

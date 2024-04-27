@@ -40,7 +40,7 @@ export class ListofprojectsComponent implements AfterViewInit {
   }
   
 
-  displayedColumns: string[] = ['created_at', 'department', 'program', 'category', 'title', 'date_published', 'action'];
+  displayedColumns: string[] = [ 'program', 'category', 'title', 'author', 'date_published', 'action'];
   
   // <PeriodicElement>(ELEMENT_DATA);
 
@@ -76,6 +76,7 @@ export class ListofprojectsComponent implements AfterViewInit {
   applyFilter(event: Event, type: string) {
 
     const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
+    const selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
     const selectCategory = (document.getElementById('filter-category') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
 
@@ -91,6 +92,10 @@ export class ListofprojectsComponent implements AfterViewInit {
         return data.program.department === selectDepartment || selectDepartment === '';
       }
 
+      const programFilterPredicate = (data: Project, selectProgram: string): boolean => {
+        return data.program.program === selectProgram || selectProgram === '';
+      }
+
       const categoryFilterPredicate = (data: Project, selectCategory: string): boolean => {
         return data.category === selectCategory || selectCategory === '';
       }
@@ -98,12 +103,15 @@ export class ListofprojectsComponent implements AfterViewInit {
       const filterPredicate = (data: Project): boolean => {
         return (titleFilterPredicate(data, search) || authorFilterPredicate(data, search)) &&
                departmentFilterPredicate(data, selectDepartment) &&
+               programFilterPredicate(data, selectProgram) &&
                categoryFilterPredicate(data, selectCategory);
       };
       
       this.dataSource.filterPredicate = filterPredicate;
       if(type === 'department')
         this.dataSource.filter = selectDepartment;
+      else if(type === 'program')
+        this.dataSource.filter = selectProgram;
       else if(type === 'category')
         this.dataSource.filter = selectCategory;
       else if(type === 'search')

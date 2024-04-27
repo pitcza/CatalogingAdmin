@@ -233,10 +233,20 @@ export class EditdetailsComponent implements OnInit{
   }
 
 
-
+  // DYNAMIC ADD MULTIPLE AUTHOR
   ngOnInit(): void {
+    this.addvalue();
   }
 
+  values: { value: string }[] = [];
+
+  removevalue(i: any){
+    this.values.splice(i, 1);
+  }
+
+  addvalue(){
+    this.values.push({value: "'di ko alam paano, comma na ba kapag marami tas pwede pa rin mag add?"});
+  }
 
   closepopup() {
     this.ref.close('Closed using function');

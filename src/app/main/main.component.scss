@@ -140,6 +140,7 @@ ul ul {
     transition: all 0.5s ease;
 }
 
+// RESPONSIVE SIDEBAR SIZE 
 @media only screen and (max-width: 768px) {
     .sidebar-content {
         width: 70px;
@@ -147,12 +148,34 @@ ul ul {
     .sidebar-content:hover {
         width: 220px;
         z-index: 200;
+
+        .logoutbtn {
+            width: 220px;
+        }
+        .logo img {
+            height: 130px;
+            width: 130px;
+        }
+        .systemname {
+            display: inline;
+        }
+    
+        .tab-link-name {
+            display: inline;
+        }
     }
+
     .sidebar-content:hover li a span:last-child {
         display: inline;
     }
 
-    .logo-title {
+    .logo img {
+        height: 40px;
+        width: 40px;
+        margin-bottom: 20px;
+    }
+
+    .systemname {
         display: none;
     }
 
@@ -162,7 +185,7 @@ ul ul {
 
     .logoutbtn {
         bottom: 20px;
-        width: 50px;
+        width: 70px;
     }
     
 }
@@ -178,3 +201,15 @@ ul ul {
     padding-left: 240px;
     padding-top: 90px;
 }
+
+// @media screen and (min-width: 768px) {
+//     .body-content {
+//         padding-left: 240px;
+//         padding-top: 90px;
+//     }
+// }
+
+// .body-content {
+//     padding-left: 20px;
+//     padding-top: 70px;
+// }

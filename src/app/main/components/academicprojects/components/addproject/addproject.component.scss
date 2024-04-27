@@ -1,21 +1,7 @@
-/* MAIN PADDING */
-main {
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-}
-
-@media screen and (min-width: 768px) {
-    main {
-        margin: 10px;
-    }
-}
-/* END OF MAIN PADDING */
 
 .content {
   justify-content: center;
   align-items: center;
-  padding-right: 20px;
 }
 
 /* HEAD CONTENT */
@@ -28,6 +14,7 @@ main {
     font-weight: 700;
     font-size: 20px;
     padding-bottom: 25px;
+    padding-top: 10px;
 }
 
 .head .list {
@@ -35,6 +22,7 @@ main {
     background-color: var(--main-green);
     text-decoration: none;
     color: white;
+    top: 0;
     border-radius: 50px;
     padding-left: 5px;
     font-size: 16px;
@@ -56,12 +44,14 @@ main {
     cursor: pointer;
     text-decoration: none;
 }
+/* HEAD CONTENT */
+
 
 /* FORM CONTENT */
 
 .addproject {
     justify-content: center;
-    padding: 40px 60px 40px 65px; 
+    padding: 40px 60px 40px 60px; 
     width: 100%; 
     height: auto; 
     background: var(--primary-color); 
@@ -71,148 +61,321 @@ main {
     margin-bottom: 30px;
 }
 
-.input-group input[type="text"], input[type="date"], #multi-input {
-    font-family: 'Poppins';
-    position: absolute;
-    width: 500px;
-    height: 50px;
-    outline: none;
-    font-size: 15px;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-
-.input-group select {
-    font-family: 'Poppins';
-    position: absolute;
-    width: 500px;
-    height: 50px;
-    outline: none;
-    font-size: 15px;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-
-.input-column textarea {
-    font-family: 'Poppins';
-    position: absolute;
-    width: 1025px;
-    height: 100px;
-    outline: none;
-    font-size: 15px;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-
 // KEYWORDS
-.input-column2 input {
+// .input-column2 input {
+//     font-family: 'Poppins';
+//     position: absolute;
+//     width: 1025px;
+//     height: 50px;
+//     outline: none;
+//     font-size: 15px;
+//     padding: 10px;
+//     margin-top: 10px;
+//     margin-bottom: 20px;
+//     border-radius: 5px;
+//     border: 1px solid #000;
+//     background: transparent;
+//     transition: 0.1s ease;
+// }
+
+// .input-column2 .multi-item {
+//     position: relative;
+//     display: inline;
+// }
+
+// FORMS INPUT SCSS
+.input_field {
+    padding-bottom: 30px;
+}
+
+.input-row {
+    gap: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-row .txt_field {
+    flex-basis: 100%;
+}
+
+.input-row .txt_field{
+    position: relative;
+    border-bottom: 2px solid var(--cancel-btn);
+    margin: 1.3rem 0;
+}
+
+.txt_field .inputtxt {
+    font-family: 'Poppins';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 60px;
+    font-size: 15px;
+    border: none;
+    background-color: var(--input);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.txt_field .labelline {
     font-family: 'Poppins';
     position: absolute;
-    width: 1025px;
-    height: 50px;
-    outline: none;
+    top: 50%;
+    left: 10px;
+    color: var(--cancel-btn);
+    transform: translateY(-50%);
     font-size: 15px;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
+    pointer-events: none;
+    transition: .3s;
 }
 
-.input-column2 .multi-item {
+.txt_field span::before{
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 0%;
+    height: 2.3px;
+    background: var(--main-green);
+    transition: .3s;
+}
+
+.inputtxt:not(:focus) + span::before {
+    background: var(--cancel-btn);
+}
+
+.txt_field .inputtxt:hover{
+    background-color: #f0f0f0;
+}
+
+.txt_field .inputtxt:valid ~ .labelline {
+    top: 17px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+}
+
+.txt_field .inputtxt:focus ~ .labelline {
+    top: 17px;
+    font-size: 12px;
+    color: var(--main-green);
+    letter-spacing: 0.5px;
+}
+
+.txt_field .inputtxt:focus ~ span::before {
+    width: 100%;
+}
+
+// SELECT OPTION
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Add some padding to align text with border */
+    padding-right: 20px;
+    /* Add a background image for custom arrow */
+    background-image: url('../../../../../../assets/icons/down.png');
+    background-repeat: no-repeat;
+    background-position: center right 7px;
+}
+
+option {
+    background-color: var(--primary-color);
+}
+// SELECT OPTION
+
+// ADD MULTIPLE AUTHOR
+.multiple-author p {
+    position: absolute;
+    bottom: 0;
+    font-size: 12px;
+    font-weight: 500;
+    padding-left: 10px;
+    opacity: 70%;
+}
+
+.input-row .multiple-author {
     position: relative;
-    display: inline;
+    flex-basis: 100%;
 }
 
-input[type="file"] {
+.txt_field #author {
+    padding-right: 45px;
+}
+
+.input-row .add-author {
     font-family: 'Poppins';
-    width: 500px;
-    height: 50px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-top: 1.3rem;
+    height: 60px;
+    width: 70px;
+    background-color: var(--main-green);
+    color: var(--primary-color);
     outline: none;
-    font-size: 15px;
+    border: none;
     border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
 }
 
-.labelline1 {
-    margin-top: -10px;
-    position: relative;
-    font-size: 13px;
-    width: auto;
-    padding: 0 7px;
-    height: auto;
-    color: #000000;
-    background-color: #ffffff;
-    transition: 0.2s ease;
+.input-row .removebtn {
+    position: absolute;
+    font-size: 30px;
+    color: var(--cancel-btn);
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    top: 0;
+    right: 0;
+    margin: 35px 10px 0 0;
+    cursor: pointer;
+}
+// ADD MULTIPLE AUTHOR
+
+// INPUT DATE
+.txt_field input[type="date"] {
+    font-family: 'Poppins';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 60px;
+    font-size: 15px;
+    border: none;
+    background-color: var(--input);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.txt_field .datelabel {
+    top: 7px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+    position: absolute;
+    left: 10px;
+}
+
+.txt_field input[type="date"]:focus ~ .datelabel {
+    color: var(--main-green);
+}
+// INPUT DATE 
+
+// INPUT FILE LABEL AND BUTTON
+.txt_field .uploadlabel {
+    position: absolute;
+    top: 0;
+    margin-top: -20px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+    position: absolute;
+    left: 10px;
+}
+
+.txt_field input[type="file"]:focus ~ .uploadlabel {
+    color: var(--main-green);
 }
 
 input[type="file"]::file-selector-button {
     border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
     font-family: 'Poppins';
-    color: #ffffff;
-    height: 50px;
-    cursor: pointer;
-    left: 0;
+    color: var(--primary-color);
+    position: absolute;
     top: 0;
-    padding: 10px;
+    left: 0;
+    margin-left: -0px;
+    width: 100px;
+    height: 60px;
+    cursor: pointer;
     background-color: var(--main-green);
-    border: 1px solid rgba(0, 0, 0, 0.16);
+    border: none;
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
     transition: background-color 200ms;
 }
+// INPUT FILE LABEL AND BUTTON
 
-.input-column {
-    padding-bottom: 50px;
-    margin-top: -50px;
-}
-
-.labelline {
-    position: absolute;
-    font-size: 13px;
-    width: auto;
-    height: auto;
-    color: #000000;
-    padding: 0 10px;
-    margin-left: 10px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-
-.input-row {
-    gap: 1rem;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 90px;
-    margin-top: 10px;
-}
-
-.input-row .input-group {
+// TEXTAREA
+.input-row .txtarea {
     flex-basis: 100%;
+    position: relative;
+    margin-top: 1.5rem;
 }
 
-input::-webkit-inner-spin-button, 
-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.txtarea textarea {
+    font-family: 'Poppins';
+    width: 100%;
+    height: 200px;
+    padding-top: 29px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+    border: none;
+    background-color: var(--input);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+    border-bottom: 2px solid var(--cancel-btn);
 }
 
+.txtarea .labelline1 {
+    font-family: 'Poppins';
+    position: absolute;
+    top: 60%;
+    left: 10px;
+    color: var(--cancel-btn);
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+.txtarea textarea:focus {
+    content: '';
+    border-bottom: 2.5px solid var(--main-green);
+}
+
+.txtarea textarea:hover{
+    background-color: #f0f0f0;
+}
+
+.txtarea textarea:valid ~ .labelline1 {
+    top: 17px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+}
+
+.txtarea textarea:focus ~ .labelline1 {
+    top: 17px;
+    font-size: 12px;
+    color: var(--main-green);
+    letter-spacing: 0.5px;
+}
+// TEXTAREA
+
+// KEYWORDS NA WALA
+.input-row .removeall {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-top: 1.3rem;
+    height: 60px;
+    width: 70px;
+    background-color: var(--main-green);
+    color: var(--primary-color);
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+
+// BUTTONS
 .buttons {
     display: flex;
     justify-content: center;
@@ -249,5 +412,5 @@ input::-webkit-outer-spin-button {
 }
 
 .buttons .cancel:hover {
-    background-color:#575757;
+    background-color: var(--cancel-hover);
 }

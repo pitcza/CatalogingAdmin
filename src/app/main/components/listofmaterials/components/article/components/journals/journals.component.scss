@@ -97,7 +97,7 @@ th {
 }
 
 table tr:hover{
-    background-color: var(--table-border2);
+    background-color: var(--secondary-hover);
 }
 
 table td:nth-child(2) {
@@ -168,9 +168,9 @@ tr {
     border-radius: 6px;
     /* Position the tooltip text */
     position: absolute;
-    width: 120px;
+    width: 130px;
     top: 100%;
-    left: 88%;
+    left: 87%;
     z-index: 1;
 }
 
