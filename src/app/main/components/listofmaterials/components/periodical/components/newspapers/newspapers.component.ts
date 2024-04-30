@@ -10,28 +10,35 @@ import Swal from 'sweetalert2';
 
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PerioDetailsComponent } from '../perio-details/perio-details.component';
+import { DataSource } from '@angular/cdk/collections';
+import { DataService } from '../../../../../../../services/data.service';
 
 @Component({
   selector: 'app-newspapers',
   templateUrl: './newspapers.component.html',
   styleUrl: './newspapers.component.scss',
-  standalone: true,
-  imports: [
-    MatTableModule,
-    MatPaginatorModule
-  ]
+  // standalone: true,
+  // imports: [
+  //   MatTableModule,
+  //   MatPaginatorModule
+  // ]
 })
 
 export class NewspapersComponent implements AfterViewInit {
-  displayedColumns: string[] = ['dateadd', 'title', 'publisher', 'copyright', 'action'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['created_at', 'title', 'publisher', 'copyright', 'action'];
+  dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.ds.get('periodicals/type/journal').subscribe({
+      next: (res: any) => {
+        this.dataSource = new MatTableDataSource<Newspaper>(res)
+        this.dataSource.paginator = this.paginator;
+      }
+    })
   }
 
   constructor(
@@ -39,7 +46,8 @@ export class NewspapersComponent implements AfterViewInit {
     private paginatorIntl: MatPaginatorIntl, 
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private ds: DataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
@@ -67,7 +75,7 @@ export class NewspapersComponent implements AfterViewInit {
       exitAnimationDuration: '100ms',
       data: {
         title: title,
-        code: code
+        details: code
       }
     });
     _popup.afterClosed().subscribe(result => {
@@ -107,35 +115,10 @@ export class NewspapersComponent implements AfterViewInit {
 
 // SAMPLE DATA FOR TABLES
 
-export interface PeriodicElement {
-  dateadd: string;
+export interface Newspaper {
+  created_at: string;
   title: string;
   publisher: string;
   copyright: string;
   action: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title Ewan One Two Three', publisher: 'Pauleen Dalida', copyright: '2017', action: 'ewan'},
-  {dateadd: 'January 01, 2024', title: 'Sample Title One', publisher: 'Czarina Arellano', copyright: '2017', action: 'ewan'},
-];
-

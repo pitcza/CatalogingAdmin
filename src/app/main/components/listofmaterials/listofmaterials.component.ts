@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-listofmaterials',
@@ -6,5 +7,4 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './listofmaterials.component.scss'
 })
 export class ListofmaterialsComponent {
-
 }

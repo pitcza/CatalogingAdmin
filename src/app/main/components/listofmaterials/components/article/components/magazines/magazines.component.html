@@ -22,9 +22,9 @@
         <table mat-table [dataSource]="dataSource">
 
         <!-- Date Added Column -->
-        <ng-container matColumnDef="dateadd">
+        <ng-container matColumnDef="created_at">
             <th mat-header-cell *matHeaderCellDef> Date Added </th>
-            <td mat-cell *matCellDef="let element"> {{element.dateadd}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.created_at | date : 'mediumDate'}} </td>
         </ng-container>
 
         <!-- Title Column -->
@@ -40,9 +40,9 @@
         </ng-container>
 
         <!-- Publication Date Column -->
-        <ng-container matColumnDef="pubdate">
+        <ng-container matColumnDef="date_published">
             <th mat-header-cell *matHeaderCellDef> Publication Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.pubdate}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.date_published | date: 'mediumDate' }} </td>
         </ng-container>
 
         <!-- Action Column -->
@@ -52,12 +52,15 @@
 
                 <button class="editbtn" (click)="editPopup(element.id)"  mat-raised-button color="primary">
                     <i class='bx bx-edit' ></i>
+                    <span class="tooltiptext"> Edit </span>
                 </button>
                 <button class="deletebtn" (click)="archiveBox()" (closedPopup)="closePopup()" mat-raised-button color="warn">
                     <i class='bx bx-archive-in'></i>
+                    <span class="tooltiptext"> Archive </span>
                 </button>
                 <button class="detailsbtn" (click)="detailsPopup(element.id)" (closedPopup)="closePopup()" mat-raised-button color="primary">
                     <i class='bx bx-detail' ></i>
+                    <span class="tooltiptext"> View </span>
                 </button>
             </td>
             </ng-container>

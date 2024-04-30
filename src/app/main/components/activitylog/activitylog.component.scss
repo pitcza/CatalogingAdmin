@@ -1,22 +1,22 @@
 /* MAIN PADDING */
-main {
-    
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-}
+// main {
+//     justify-content: center;
+//     align-items: center;
+//     padding: 20px;
+//     margin-left: 70px;
+// }
 
-@media screen and (max-width: 768px) {
-    main {
-        margin: 10px;
-    }
-}
+// @media screen and (min-width: 768px) {
+//     main {
+//         margin-left: 220px;
+//     }
+// }
 /* END OF MAIN PADDING */
 
 .content {
   justify-content: center;
   align-items: center;
-  padding-right: 20px;
+  padding: 10px 30px 20px 20px;
 }
 
 /* HEAD CONTENT */
@@ -224,7 +224,6 @@ input:focus{
 
 table {
     border-radius: 5px;
-    font-size: 15px;
     border: 1px solid var(--table-border);
 }
 
@@ -232,6 +231,7 @@ table,
 th,
 td {
     font-family: 'Poppins';
+    font-size: 14px;
     padding: 15px;
     margin-bottom: 10px;
     text-align: center;
@@ -272,6 +272,6 @@ table td:nth-child(3) {
 mat-paginator {
     background-color: var(--primary-color);
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 14px;
     border: 1px solid var(--table-border);
 }

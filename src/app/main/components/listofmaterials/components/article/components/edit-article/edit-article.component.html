@@ -5,80 +5,94 @@
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
                     <h1> Edit Article Details </h1>
+                    <button class="exit-button" (click)="closepopup()"> &times; </button>
                 </div>
 
                 <!-- BODY - DETAILS -->
                 <div class="detailsbody">
                     <div class="details">
                         <form>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <select id="type" name="material_type">
-                                        <option value="Magazine"> Magazine </option>
-                                        <option value="Journal"> Journal </option>
-                                        <option value="Newspaper"> Newspaper </option>
-                                    </select>
-                                    <div class="labelline"> Type of Material </div>
+                            <div class="input_field">
+                                <div class="input-row">
+                                    <div class="txt_field_short">
+                                        <select class="inputtxt" name="material_type">
+                                            <option value="magazine"> Magazine </option>
+                                            <option value="journal"> Journal </option>
+                                            <option value="newspaper"> Newspaper </option>
+                                        </select>
+                                        <span></span>
+                                        <div class="labelline"> Type of Material </div>
+                                    </div>
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="author">
+                                        <span></span>
+                                        <div class="labelline"> Author </div>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <select id="type" name="language">
-                                        <option value="english"> English </option>
-                                        <option value="tagalog"> Tagalog </option>
-                                    </select>
-                                    <div class="labelline"> Language </div>
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="title">
+                                        <span></span>
+                                        <div class="labelline"> Title </div>
+                                    </div>
                                 </div>
-                        
-                            </div>
-                            <div class="input-row">
-                                <div class="input-column">
-                                    <input type="text" required name="title"> 
-                                    <div class="labelline"> Title </div>
+                                <div class="input-row">
+                                    <div class="txtarea">
+                                        <textarea name="abstract"> </textarea>
+                                        <span></span>
+                                        <label class="labelline1"> Abstract </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-column">
-                                    <input type="text" required name="abstract"> 
-                                    <div class="labelline"> Abstract </div>
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="issue">
+                                        <span></span>
+                                        <div class="labelline"> Issue </div>
+                                    </div>
+                                    <div class="txt_field">
+                                        <select class="inputtxt" name="language">
+                                            <option value="english"> English </option>
+                                            <option value="tagalog"> Tagalog </option>
+                                        </select>
+                                        <span></span>
+                                        <div class="labelline"> Language </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input type="text" name="author" value="Sample">
-                                    <div class="labelline"> Author </div>
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="subject">
+                                        <span></span>
+                                        <div class="labelline"> Subject </div>
+                                    </div>
+                                    <div class="txt_field_short">
+                                        <input class="inputtxt" type="number" min="0" name="volume">
+                                        <span></span>
+                                        <div class="labelline"> Volume </div>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <input type="text" name="subject"> 
-                                    <div class="labelline"> Subject </div>
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="publisher">
+                                        <span></span>
+                                        <div class="labelline"> Publisher </div>
+                                    </div>
+                                    <div class="txt_field_short">
+                                        <input class="inputtxt" type="date" name="date_published">
+                                        <span></span>
+                                        <div class="datelabel"> Publication Date </div>
+                                    </div> 
                                 </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input type="text" required name="publisher"> 
-                                    <div class="labelline"> Publisher </div>
-                                </div>
-                                <div class="input-group">
-                                    <input type="date" required name="issue">  
-                                    <div class="labelline"> Issue </div>
-                                </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input type="date" required name="date_published">  
-                                    <div class="labelline"> Publication Date </div>
-                                </div>
-                                <div class="input-group">
-                                    <input type="number" min="0" name="volume"> 
-                                    <div class="labelline"> Volume </div>
-                                </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input type="text" name="remarks"> 
-                                    <div class="labelline"> Remarks </div>
-                                </div>
-                                <div class="input-group">
-                                    <input type="number" min="0" name="page"> 
-                                    <div class="labelline"> Page </div>
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="remarks">
+                                        <span></span>
+                                        <div class="labelline"> Remarks </div>
+                                    </div>
+                                    <div class="txt_field_short">
+                                        <input class="inputtxt" type="text" name="page">
+                                        <span></span>
+                                        <div class="datelabel"> Page </div>
+                                    </div> 
                                 </div>
                             </div>
                         </form>
@@ -88,7 +102,7 @@
                     <div class="button-container">
                         <button class="update-btn" (click)="updateBox()"> Update </button>
                         <button class="delete-btn" (click)="archiveBox()"> Archive </button>
-                        <button class="cancel-btn" (click)="closepopup()"> Cancel </button>
+                        <button class="cancel-btn" (click)="cancelBox()"> Cancel </button>
                     </div>
                 
                 </div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DataService } from '../../../../../../../services/data.service';
+import { Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 
@@ -13,10 +15,12 @@ import Swal from 'sweetalert2';
 
 export class EditPeriodicalComponent implements OnInit{
   ngOnInit(): void {
+    console.log(this.data)
   }
 
   constructor(private ref: MatDialogRef<EditPeriodicalComponent>, 
     private buildr: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: any, 
     private ds: DataService
   ) { }
 
@@ -71,6 +75,39 @@ export class EditPeriodicalComponent implements OnInit{
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
         });
+      }
+    });
+  }
+
+  // CANCEL EDITING POPUP
+  cancelBox(){
+    Swal.fire({
+      title: "Are you sure you want to cancel editing details?",
+      text: "Your changes will not be saved.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      confirmButtonColor: "#AB0E0E",
+      cancelButtonColor: "#777777",
+    }).then((result) => {
+      if (result.isConfirmed) {
+          this.ref.close('Closed using function');
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "error",
+            title: "Changes not saved."
+          });
       }
     });
   }

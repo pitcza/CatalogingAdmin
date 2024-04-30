@@ -20,7 +20,7 @@ export class EditBookComponent implements OnInit{
   ngOnInit(): void {
     this.ds.get('books/locations').subscribe((res: any) => {
       this.locations = res;
-      console.log(this.locations)
+      console.log(this.data)
     })
   }
 
@@ -83,6 +83,39 @@ export class EditBookComponent implements OnInit{
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
         });
+      }
+    });
+  }
+
+  // CANCEL EDITING POPUP
+  cancelBox(){
+    Swal.fire({
+      title: "Are you sure you want to cancel editing details?",
+      text: "Your changes will not be saved.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      confirmButtonColor: "#AB0E0E",
+      cancelButtonColor: "#777777",
+    }).then((result) => {
+      if (result.isConfirmed) {
+          this.ref.close('Closed using function');
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "error",
+            title: "Changes not saved."
+          });
       }
     });
   }

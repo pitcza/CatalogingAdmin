@@ -1,22 +1,6 @@
-/* MAIN PADDING */
-main {
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-}
-
-@media screen and (min-width: 768px) {
-    main {
-        margin: 10px;
-    }
-}
-/* END OF MAIN PADDING */
-
-
 .content {
   justify-content: center;
   align-items: center;
-  padding-right: 20px;
 }
 
 /* HEAD CONTENT */
@@ -29,7 +13,6 @@ main {
     font-size: 18px;
     padding-top: 10px;
 }
-
 
 .head .add-project {
     align-items: center;
@@ -62,8 +45,10 @@ main {
 .head h1 {
     font-weight: 700;
     font-size: 20px;
+    padding-top: 10px;
 }
 
+// TABLE HEAD
 .table-head {
     display: flex;
     align-items: center;
@@ -175,7 +160,6 @@ input:focus{
 
 table {
     border-radius: 5px;
-    font-size: 14px;
     border: 1px solid var(--table-border);
 }
 
@@ -183,9 +167,11 @@ table,
 th,
 td {
     font-family: 'Poppins';
+    font-size: 14px;
     padding: 10px;
     text-align: center;
     border-bottom: 1.5px solid var(--table-border);
+    justify-content: center;
 }
 
 th {
@@ -193,6 +179,7 @@ th {
     color: white;
     font-weight: 600;
     letter-spacing: 0.8px;
+    justify-content: center;
 }
 
 
@@ -240,4 +227,38 @@ button i {
 
 .actions .detailsbtn:hover {
     background-color: var(--cancel-hover);
+}
+
+/* ACTIONS TOOLTIP */
+tr {
+    position: relative;
+}
+
+.actions .tooltiptext {
+    font-family: 'Poppins';
+    font-size: 14px;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: var(--primary-color);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text */
+    position: absolute;
+    width: 130px;
+    top: 100%;
+    left: 87%;
+    z-index: 1;
+}
+
+.editbtn:hover .tooltiptext {
+    visibility: visible;
+}
+
+.deletebtn:hover .tooltiptext {
+    visibility: visible;
+}
+
+.detailsbtn:hover .tooltiptext {
+    visibility: visible;
 }

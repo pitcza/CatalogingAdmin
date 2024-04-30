@@ -25,16 +25,15 @@ export class BookDetailsPopupComponent {
   protected image: any = null;
 
   ngOnInit(): void {
-    console.log(this.data.details.id)
-      this.ds.getImage('book/image/' + this.data.details.id).subscribe({
-        next: (res:any) => {
-          this.image = URL.createObjectURL(res)
-        },
-        error: (err: any) => {
-          this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
-          console.log(err)
-        }
-      });
+    this.ds.getImage('book/image/' + this.data.details.id).subscribe({
+      next: (res:any) => {
+        this.image = URL.createObjectURL(res)
+      },
+      error: (err: any) => {
+        this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
+        console.log(err)
+      }
+    });
   }
 
   closepopup() {

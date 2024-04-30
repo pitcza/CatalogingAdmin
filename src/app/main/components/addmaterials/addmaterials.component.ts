@@ -109,18 +109,34 @@ export class AddmaterialsComponent implements OnInit{
   
           // Check if the element is an input field
           if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
-            if (element.id != 'submit')
-              // formData[element.name] = element.value;
+            if (element.type !== 'file' && element.id !== 'submit' && element.value !== '') {
               formData.append(element.name, element.value);
+            } else if (element.type === 'file' && element.files && element.files.length > 0) {
+              formData.append(element.name, element.files[0]);
+            }
           }
       }
 
-      // this.ds.post('books/process', '', formData).subscribe({
-      //   next: (res: any) => console.log(res),
-      //   error: (err: any) => console.log(err)
-      // });
-
-      console.log(formData)
+      this.ds.post('periodicals/process', formData).subscribe({
+        next: (res: any) => {
+          Swal.fire({
+            title: 'Success',
+            text: formData.get('title') + " has been added successfully",
+            icon: 'success',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+          });
+        },
+        error: (err: any) => {
+          Swal.fire({
+            title: 'Error',
+            text: "Oops an error occured",
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+          });
+        }
+      });
     });
   }
 
@@ -146,7 +162,6 @@ export class AddmaterialsComponent implements OnInit{
           // Check if the element is an input field
           if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
             if (element.id != 'submit' && element.value != ''){
-              // formData[element.name] = element.value;
 
               formData.append(element.name, element.value);
             }
@@ -154,8 +169,24 @@ export class AddmaterialsComponent implements OnInit{
       }
 
       this.ds.post('articles/process',  formData).subscribe({
-        next: (res: any) => console.log(res),
-        error: (err: any) => console.log(err)
+        next: (res: any) => {
+          Swal.fire({
+            title: 'Success',
+            text: formData.get('title') + " has been added successfully",
+            icon: 'success',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+          });
+        },
+        error: (err: any) => {
+          Swal.fire({
+            title: 'Error',
+            text: "Oops an error occured",
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+          });
+        }
       });
       formData.forEach((value, key) => {
         console.log("%s: %s", key, value);

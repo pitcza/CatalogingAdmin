@@ -9,48 +9,89 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 1000;
 }
 
 .details-content {
     position: relative;
-    padding: 0 30px 10px 30px;
     background: white;
     width: 900px;
     border-radius: 5px;
     box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
     max-height: 600px;
     overflow-y: auto;
-    scrollbar-width: thin; 
 }
 
+// SCROLLBAR 
+.details-content::-webkit-scrollbar {
+    width: 7px;
+}
+
+.details-content::-webkit-scrollbar-thumb {
+    background-color: var(--table-border);
+    border-radius: 5px;
+}
+
+.details-content::-webkit-scrollbar-track {
+    background-color: var(--primary-color); 
+    margin-top: 90px;
+    margin-bottom: 10px;
+}
+
+.details-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--table-border2);
+}
+// SCROLLBAR
+
 .detailsbody {
-    padding-top: 50px;
-    height: 70%; /* Adjust the height as needed */
+    padding: 110px 30px 10px 30px;
+    height: auto; /* Adjust the height as needed */
 }
 
 .details {
     display: flex;
     justify-content: space-between;
-    padding-top: 60px;
 }
 
+// HEADER
 .detailsheader {
-    padding-top: 30px;
+    display: flex;
+    padding: 20px 30px 30px;
     position: fixed;
-    background-color: var(--primary-color);
-    width: auto;
+    width: 900px;
+    background-color: var(--main-green);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     z-index: 1;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.192);
+    padding-bottom: 15px;
+}
+
+/* EXIT BUTTON */
+.exit-button {
+    position: relative;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+.exit-button:hover {
+    color: var(--secondary-color);
 }
 
 h1 {
+    color: var(--primary-color);
+    padding-top: 5px;
+    width: 880px;
     font-weight: 700;
     font-size: 25px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 5px;
     text-align: left;
-    width: 840px;
 }
+// END OF HEADER 
 
 img {
     width: 100%;
@@ -88,7 +129,7 @@ img {
     justify-content: flex-end;
 }
 
-button {
+.button-container button {
     font-family: 'Poppins';
     padding: 10px 20px;
     cursor: pointer;

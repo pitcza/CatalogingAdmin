@@ -13,31 +13,58 @@
 }
 
 .project-details {
-    padding: 0 30px 30px 30px;
+    position: relative;
     background: white;
     width: 900px;
     border-radius: 5px;
     box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
     max-height: 600px;
     overflow-y: auto;
-    scrollbar-width: thin; 
 }
 
+// SCROLLBAR 
+.project-details::-webkit-scrollbar {
+    width: 7px;
+}
+
+.project-details::-webkit-scrollbar-thumb {
+    background-color: var(--table-border);
+    border-radius: 5px;
+}
+
+.project-details::-webkit-scrollbar-track {
+    background-color: var(--primary-color); 
+    margin-top: 90px;
+    margin-bottom: 10px;
+}
+
+.project-details::-webkit-scrollbar-thumb:hover {
+    background-color: var(--table-border2);
+}
+// SCROLLBAR
+
 .detailsbody {
-    padding-top: 50px;
-    height: 70%; /* Adjust the height as needed */
+    padding: 50px 30px 30px 30px;
+    height: auto; /* Adjust the height as needed */
 }
 
 .details {
     display: flex;
     justify-content: space-between;
-    padding-top: 100px;
+    padding-top: 50px;
 }
 
 .detailsheader {
+    display: flex;
+    padding: 20px 30px 30px;
     position: fixed;
-    background-color: var(--primary-color);
-    width: auto;
+    width: 900px;
+    background-color: var(--main-green);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    z-index: 1;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.192);
+    padding-bottom: 15px;
 }
 
 /* EXIT BUTTON */
@@ -49,24 +76,20 @@
     border: none;
     font-size: 40px;
     cursor: pointer;
-    color: var(--cancel-btn);
-    text-align: right;
-    width: 855px;
-    padding-top: 5px;
-
+    color: var(--primary-color);
 }
 
 .exit-button:hover {
-    color: var(--cancel-hover);
+    color: var(--secondary-color);
 }
 
 h1 {
+    color: var(--primary-color);
+    padding-top: 5px;
+    width: 880px;
     font-weight: 700;
     font-size: 25px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 5px;
     text-align: left;
-    width: 840px;
 }
 
 img {
@@ -104,7 +127,7 @@ img {
     justify-content: flex-end;
 }
 
-button {
+.button-container button {
     font-family: 'Poppins';
     padding: 10px 20px;
     cursor: pointer;

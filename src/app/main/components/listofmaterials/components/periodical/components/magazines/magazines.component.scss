@@ -71,42 +71,9 @@ input:focus{
     background: var(--green-hover);
 }
 
-
-
-/* ACTIONS TOOLTIP (WAIT) */
-
-.actions .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    top: 100%;
-    left: 50%;
-    margin-left: -60px;
-    background-color: rgba(0, 0, 0, 0.395);
-    color: var(--primary-color);
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-
-    /* Position the tooltip text - see examples below! */
-    position: absolute;
-    z-index: 1;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.edit:hover .tooltiptext {
-    visibility: visible;
-}
-
-.delete:hover .tooltiptext {
-    visibility: visible;
-}
-
-
 /* TABLE CONTENT */
-
 table {
     border-radius: 5px;
-    font-size: 14px;
     border: 1px solid var(--table-border);
 }
 
@@ -114,6 +81,7 @@ table,
 th,
 td {
     font-family: 'Poppins';
+    font-size: 14px;
     padding: 10px;
     text-align: center;
     border-bottom: 1.5px solid var(--table-border);
@@ -128,9 +96,8 @@ th {
 
 
 table tr:hover{
-    background-color: var(--table-border2);
+    background-color: var(--secondary-hover);
 }
-
 
 table td:nth-child(2) {
     width: 400px;
@@ -181,4 +148,38 @@ button i {
 
 .actions .detailsbtn:hover {
     background-color: var(--cancel-hover);
+}
+
+/* ACTIONS TOOLTIP */
+tr {
+    position: relative;
+}
+
+.actions .tooltiptext {
+    font-family: 'Poppins';
+    font-size: 14px;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: var(--primary-color);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text */
+    position: absolute;
+    width: 130px;
+    top: 100%;
+    left: 86%;
+    z-index: 1;
+}
+
+.editbtn:hover .tooltiptext {
+    visibility: visible;
+}
+
+.deletebtn:hover .tooltiptext {
+    visibility: visible;
+}
+
+.detailsbtn:hover .tooltiptext {
+    visibility: visible;
 }
