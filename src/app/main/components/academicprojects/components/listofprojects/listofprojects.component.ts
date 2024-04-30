@@ -181,6 +181,9 @@ export class ListofprojectsComponent implements AfterViewInit {
     });
   }
 
+
+  // SELECTION
+
 }
 
 export interface Project {

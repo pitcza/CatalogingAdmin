@@ -147,7 +147,7 @@
 }
 
 .txt_field .inputtxt:hover{
-    background-color: #f0f0f0;
+    background-color: var(--input-hover);
 }
 
 .txt_field .inputtxt:valid ~ .labelline {
@@ -340,7 +340,7 @@ input[type="file"]::file-selector-button {
 }
 
 .txtarea textarea:hover{
-    background-color: #f0f0f0;
+    background-color: var(--input-hover);
 }
 
 .txtarea textarea:valid ~ .labelline1 {

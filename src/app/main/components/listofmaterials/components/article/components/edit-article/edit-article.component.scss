@@ -23,35 +23,26 @@
     overflow-y: auto;
 }
 
-/* Hide the scrollbar track */
+// SCROLLBAR 
 .details-content::-webkit-scrollbar {
-    width: 7px; /* Set the width of the scrollbar */
+    width: 7px;
 }
 
-/* Handle of the scrollbar */
 .details-content::-webkit-scrollbar-thumb {
-    background-color: var(--table-border); /* Set the color of the scrollbar handle */
-    border-radius: 5px; /* Set the border radius of the scrollbar handle */
+    background-color: var(--table-border);
+    border-radius: 5px;
 }
 
-/* Track of the scrollbar */
 .details-content::-webkit-scrollbar-track {
-    background-color: var(--secondary-color); 
+    background-color: var(--primary-color); 
+    margin-top: 90px;
+    margin-bottom: 10px;
 }
 
-/* Hover effect on the scrollbar handle */
 .details-content::-webkit-scrollbar-thumb:hover {
-    background-color: var(--table-border2); /* Set the color of the scrollbar handle on hover */
+    background-color: var(--table-border2);
 }
-
-/*
-@media screen and (max-width: 1286px) {
-    .details-content {
-        max-width: 1000px; // Maximum width for larger screens 
-        width: 1000px;
-        max-height: 700px;
-    }
-} */
+// SCROLLBAR
 
 .detailsbody {
     height: auto; /* Adjust the height as needed */
@@ -103,106 +94,272 @@ h1 {
 }
 // END OF HEADER DETAILS
 
-.input-group input[type="text"], input[type="date"], input[type="number"], select {
+// FORMS INPUT SCSS
+.input_field {
+    padding-bottom: 30px;
+}
+
+.input-row {
+    gap: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-row .txt_field {
+    flex-basis: 100%;
+}
+
+.input-row .txt_field, .input-row .txt_field_short {
+    position: relative;
+    border-bottom: 2px solid var(--cancel-btn);
+    margin: 1.3rem 0;
+}
+
+.txt_field .inputtxt, .txt_field_short .inputtxt, .txt_field input[type="date"] {
+    font-family: 'Poppins';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 60px;
+    font-size: 15px;
+    border: none;
+    background-color: var(--input);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.txt_field .labelline, .txt_field_short .labelline {
     font-family: 'Poppins';
     position: absolute;
-    width: 380px;
-    height: 50px;
-    outline: none;
+    top: 50%;
+    left: 10px;
+    color: var(--cancel-btn);
+    transform: translateY(-50%);
     font-size: 15px;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
+    pointer-events: none;
+    transition: .3s;
+}
 
-input[type="file"] {
-    font-family: 'Poppins';
-    width: 380px;
-    height: 50px;
-    outline: none;
-    font-size: 15px;
-    border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
+.txt_field span::before {
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 0%;
+    height: 2.5px;
+    background: var(--main-green);
+    transition: .3s;
+}
+
+.inputtxt:not(:focus) + span::before {
+    background: var(--cancel-btn);
+}
+
+.txt_field .inputtxt:hover{
+    background-color: var(--input-hover);
+}
+
+.txt_field .inputtxt:valid ~ .labelline {
+    top: 17px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+}
+
+.txt_field .inputtxt:focus ~ .labelline {
+    top: 17px;
+    font-size: 12px;
+    color: var(--main-green);
+    letter-spacing: 0.5px;
+}
+
+.txt_field .inputtxt:focus ~ span::before {
+    width: 100%;
+}
+
+// SHORT INPUT FIELD
+.input-row .txt_field_short {
+    flex-basis: 47%;
+}
+
+.txt_field_short span::before{
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 0%;
+    height: 2.5px;
+    background: var(--main-green);
+    transition: .3s;
+}
+
+.txt_field_short .inputtxt:hover{
+    background-color: var(--input-hover);
+}
+
+.txt_field_short .inputtxt:valid ~ .labelline {
+    top: 17px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+}
+
+.txt_field_short .inputtxt:focus ~ .labelline {
+    top: 17px;
+    font-size: 12px;
+    color: var(--main-green);
+    letter-spacing: 0.5px;
+}
+
+.txt_field_short .inputtxt:focus ~ span::before {
+    width: 100%;
+}
+// date label for short input field
+.txt_field_short .datelabel {
+    top: 7px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+    position: absolute;
+    left: 10px;
+}
+
+.txt_field_short input[type="date"]:focus ~ .datelabel {
+    color: var(--main-green);
+}
+// SHORT INPUT FIELD
+
+// SELECT OPTION
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Add some padding to align text with border */
+    padding-right: 20px;
+    /* Add a background image for custom arrow */
+    background-image: url('../../../../../../../../assets/icons/down.png');
+    background-repeat: no-repeat;
+    background-position: center right 7px;
+}
+
+option {
+    background-color: var(--primary-color);
+}
+// SELECT OPTION
+
+// INPUT DATE
+.txt_field .datelabel {
+    top: 7px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+    position: absolute;
+    left: 10px;
+}
+
+.txt_field input[type="date"]:focus ~ .datelabel {
+    color: var(--main-green);
+}
+// INPUT DATE 
+
+// INPUT FILE LABEL AND BUTTON
+.txt_field .uploadlabel {
+    position: absolute;
+    top: 0;
+    margin-top: -20px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+    position: absolute;
+    left: 10px;
+}
+
+.txt_field input[type="file"]:focus ~ .uploadlabel {
+    color: var(--main-green);
 }
 
 input[type="file"]::file-selector-button {
     border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
     font-family: 'Poppins';
-    color: #ffffff;
-    height: 50px;
-    cursor: pointer;
-    left: 0;
+    color: var(--primary-color);
+    position: absolute;
     top: 0;
-    padding: 10px;
+    left: 0;
+    margin-left: -0px;
+    width: 100px;
+    height: 60px;
+    cursor: pointer;
     background-color: var(--main-green);
-    border: 1px solid rgba(0, 0, 0, 0.16);
+    border: none;
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
     transition: background-color 200ms;
 }
+// INPUT FILE LABEL AND BUTTON
 
-.input-column input[type="text"] {
+// TEXTAREA
+.input-row .txtarea {
+    flex-basis: 100%;
+    position: relative;
+    margin-top: 1.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.txtarea textarea {
+    font-family: 'Poppins';
+    width: 100%;
+    height: 200px;
+    padding-top: 29px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+    border: none;
+    background-color: var(--input);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+    border-bottom: 2px solid var(--cancel-btn);
+}
+
+.txtarea .labelline1 {
     font-family: 'Poppins';
     position: absolute;
-    width: 780px;
-    height: 50px;
-    outline: none;
+    top: 60%;
+    left: 10px;
+    color: var(--cancel-btn);
+    transform: translateY(-50%);
     font-size: 15px;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-
-.labelline {
-    position: absolute;
-    font-size: 13px;
-    width: auto;
-    height: auto;
-    color: #000000;
-    padding: 0 10px;
-    margin-left: 10px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
+    pointer-events: none;
+    transition: .3s;
 }
 
-.labelline1 {
-    margin-top: -10px;
-    position: relative;
-    font-size: 13px;
-    width: auto;
-    padding: 0 7px;
-    height: auto;
-    color: #000000;
-    background-color: #ffffff;
-    transition: 0.2s ease;
+.txtarea textarea:focus {
+    content: '';
+    border-bottom: 2.5px solid var(--main-green);
 }
 
-.input-row {
-    gap: 1rem;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 90px;
-    margin-top: 10px;
+.txtarea textarea:hover{
+    background-color: var(--input-hover);
 }
 
-.input-row .input-group {
-    flex-basis: 900px;
+.txtarea textarea:valid ~ .labelline1 {
+    top: 17px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
 }
 
-input::-webkit-inner-spin-button, 
-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.txtarea textarea:focus ~ .labelline1 {
+    top: 17px;
+    font-size: 12px;
+    color: var(--main-green);
+    letter-spacing: 0.5px;
 }
+// TEXTAREA
+// END OF FORM INPUT SCSS
 
+// BUTTONS
 .button-container {
     margin: -30px 30px 30px 0px;
     display: flex;

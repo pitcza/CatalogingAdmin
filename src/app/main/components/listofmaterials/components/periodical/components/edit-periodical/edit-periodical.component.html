@@ -12,78 +12,92 @@
                 <div class="detailsbody">
                     <div class="details">
                         <form>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <select id="type" name="material_type">
-                                        <option value="Magazine" [selected]="data.details.type == 'magazine'"> Magazine </option>
-                                        <option value="Journal" [selected]="data.details.type == 'journal'"> Journal </option>
-                                        <option value="Newspaper"> Newspaper </option>
-                                    </select>
-                                    <div class="labelline"> Type of Material </div>
+                            <div class="input_field">
+                                <div class="input-row">
+                                    <div class="txt_field_short">
+                                        <select class="inputtxt" name="material_type">
+                                            <option value="magazine"> Magazine </option>
+                                            <option value="journal"> Journal </option>
+                                            <option value="newspaper"> Newspaper </option>
+                                        </select>
+                                        <span></span>
+                                        <div class="labelline"> Type of Material </div>
+                                    </div>
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="author">
+                                        <span></span>
+                                        <div class="labelline"> Author </div>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <input type="text" name="author" [placeholder]="data.details.author">
-                                    <div class="labelline"> Author </div>
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="title">
+                                        <span></span>
+                                        <div class="labelline"> Title </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-column">
-                                    <input type="text" name="title" [placeholder]="data.details.title"> 
-                                    <div class="labelline"> Title </div>
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="issue">
+                                        <span></span>
+                                        <div class="labelline"> Issue </div>
+                                    </div>
+                                    <div class="txt_field">
+                                        <select class="inputtxt" name="language">
+                                            <option value="english"> English </option>
+                                            <option value="tagalog"> Tagalog </option>
+                                        </select>
+                                        <span></span>
+                                        <div class="labelline"> Language </div>
+                                    </div>
                                 </div>
-                
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <select id="type" name="language">
-                                        <option value="English" [selected]="data.details.language == 'English'"> English </option>
-                                        <option value="Tagalog" [selected]="data.details.language == 'Tagalog'"> Tagalog </option>
-                                    </select>
-                                    <div class="labelline"> Language </div>
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="publisher">
+                                        <span></span>
+                                        <div class="labelline"> Publisher </div>
+                                    </div>
+                                    <div class="txt_field_short">
+                                        <input class="inputtxt" type="date" name="date_published">
+                                        <span></span>
+                                        <div class="datelabel"> Publication Date </div>
+                                    </div> 
                                 </div>
-                                <div class="input-group">
-                                    <input type="text" name="issue" [placeholder]="data.details.issue"> 
-                                    <div class="labelline"> Issue </div>
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="number" min="0" name="copyright">
+                                        <span></span>
+                                        <div class="labelline"> Copyright </div>
+                                    </div>
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="date" name="date_published">
+                                        <span></span>
+                                        <div class="datelabel"> Date Received </div>
+                                    </div> 
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="number" min="0" name="volume">
+                                        <span></span>
+                                        <div class="labelline"> Volume </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input type="date" required name="date_published" [value]="data.details.date_published">  
-                                    <div class="labelline"> Publication Date </div>
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="remarks">
+                                        <span></span>
+                                        <div class="labelline"> Remarks </div>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <input type="text" required name="copyright" [placeholder]="data.details.copyright"> 
-                                    <div class="labelline"> Copyright </div>
-                                </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input type="text" required name="publisher" [placeholder]="data.details.publisher"> 
-                                    <div class="labelline"> Publisher </div>
-                                </div>
-                                <div class="input-group">
-                                    <input type="number" min="0" name="pages" [placeholder]="data.details.pages"> 
-                                    <div class="labelline"> Pages </div>
-                                </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input type="text" name="remarks" [placeholder]="data.details.remark"> 
-                                    <div class="labelline"> Remarks </div>
-                                </div>
-                                <div class="input-group">
-                                    <input type="number" min="0" name="volume" [placeholder]="data.details.volume"> 
-                                    <div class="labelline"> Volume </div>
-                                </div>
-                            </div>
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <input type="date" required name="receive_date" [value]="data.details.receive_date"> 
-                                    <div class="labelline"> Date Received </div>
-                                </div>
-                                <div class="input-group">
-                                    <div class="labelline1"> Upload Image</div>
-                                    <input type="file" name="image_location"> 
+                                <div class="input-row">
+                                    <div class="txt_field_short">
+                                        <input class="inputtxt" type="number" min="0" name="pages">
+                                        <span></span>
+                                        <div class="labelline"> Pages </div>
+                                    </div>
+                                    <div class="txt_field"> 
+                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_location" style="padding-left: 110px;"> 
+                                        <span></span>
+                                        <div class="uploadlabel"> Upload Image </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
