@@ -61,1204 +61,7 @@ a {
 
 }
 
-.tab-content {
-	display: none;
-	color: #777;
-}
-
-/* For the Form bg  */ 
-
-.bookcontainer {
-    border-radius: 10px;
-    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
-    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
-    box-shadow: 0 0 3px 3px #EEEEEE;
-    height: 840px;
-    width: 1135px;
-    padding-bottom: 200px;
-    margin-top: 50px;
-    margin-left: 48px;
-}
-.periocontainer {
-    border-radius: 10px;
-    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
-    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
-    box-shadow: 0 0 3px 3px #EEEEEE;
-    height: 855px;
-    width: 1135px;
-    padding-bottom: 200px;
-    margin-top: 50px;
-    margin-left: 48px;
-}
-.articontainer {
-    border-radius: 10px;
-    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
-    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
-    box-shadow: 0 0 3px 3px #EEEEEE;
-    height: 755px;
-    width: 1135px;
-    padding-bottom: 200px;
-    margin-top: 50px;
-    margin-left: 48px;
-}
-
-/*Form*/
-
-.tab-content {
-    width: 500px; 
-}
-
-.entryarea {
-    position: relative;
-    height: 200px;
-    line-height: 25px;
-}
-
-/* Input in the left side */ 
-.entryarea input {
-    font-family: Poppins;
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 65px;
-    margin-left: 100px;
-    height: 52px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-.entryarea2 select {
-    font-family: Poppins;
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 160px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-
-.entryarea3 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 255px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-.entryarea4 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 350px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-}
-.entryarea5 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 445px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-}  
-.entryarea6 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 540px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-}  
-.entryarea7 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 635px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-
-/* Input in the right side */
-
-.entryarea_1 input {
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 65px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-.entryarea_2 input {
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 160px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-.entryarea_3 input {
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 255px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-.entryarea_4 input {
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 350px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-}
-.entryarea_5 input {
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 445px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-}
-.entryarea_6 input {
-    position: absolute;
-    width: 35%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 540px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-}
-.entryarea_7 input {
-    position: absolute;
-    width: 26%;
-    height: 52px;
-    font-size: 16px;
-    margin-top: 435px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-    
-}
-
-input[type="file"]::file-selector-button {
-    border-radius: 4px;
-    font-family: Poppins;
-    color: #ffffff;
-    padding: 0 16px;
-    height: 52px;
-    cursor: pointer;
-    background-color: #31A463;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
-    margin-right: 16px;
-    transition: background-color 200ms;
-  }
-
-
-/* Label in the left side */ 
-
-.labelline {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 53px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline2 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 148px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline3 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 243px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline4 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 338px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline5 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 433px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline6 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 528px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline7 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 623px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-
-/* Label in the right side */ 
-
-.labelline_1 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 53px;
-    margin-left: 663px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline_2 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 149px;
-    margin-left: 663px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline_3 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 245px;
-    margin-left: 663px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline_4 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 338px;
-    margin-left: 663px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline_5 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 433px;
-    margin-left: 663px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.labelline_6 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 528px;
-    margin-left: 663px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-} 
-.labelline_7 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 405px;
-    margin-left: 636px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-} 
-
-
-/* Book Submit Button */ 
-
-.bookbtn > input {
-	display: block;
-    font-family: Poppins;
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 600;
-	width: 15%;
-	margin-top: 535px;
-    margin-left: 490px;
-	background-color: #31A463;
-    border-radius: 5px;
-	color: #ffffff;
-	padding:13px;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-}
-
-.bookbtn > input:hover {
-	display: block;
-    font-family: Poppins;
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 600;
-	width: 15%;
-	margin-top: 535px;
-    margin-left: 490px;
-	background-color: #298f55;
-    border-radius: 5px;
-	color: #ffffff;
-	padding:13px;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-}
-
-/* PERIODICAL FORM */ 
-
-/* Input in the left side */ 
-
-.perioarea select {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 65px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-.perioarea2 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 160px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-.perioarea3 select {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 260px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-.perioarea4 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 360px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-.perioarea5 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 460px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-.perioarea6 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 560px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-
-
-/* Input in the right side */
-
-.perioarea_1 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 65px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-.perioarea_2 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 160px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-.perioarea_3 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 260px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-.perioarea_4 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 360px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-.perioarea_5 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 460px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-.perioarea_6 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 560px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-
-.perioarea_7 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    font-size: 16px;
-    margin-top: 660px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-    
-}
-
-input[type="file"]::file-selector-button {
-    border-radius: 4px;
-    font-family: Poppins;
-    color: #ffffff;
-    padding: 0 16px;
-    height: 52px;
-    cursor: pointer;
-    background-color: #31A463;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
-    margin-right: 16px;
-    transition: background-color 200ms;
-  }
-
-/* Label in the left side */ 
-
-.perioline {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 53px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline2 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 149px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline3 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 249px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline4 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 349px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline5 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 449px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline6 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 549px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-
-/* Label in the rightside */ 
-
-.perioline_1 {
-    font-family: Poppins;
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 53px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline_2 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 149px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline_3 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 249px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline_4 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 349px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline_5 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 449px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline_6 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 549px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.perioline_7 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 632px;
-    margin-left: 87px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-
-/* Submit Button */ 
-
-.periobtn > input {
-    font-family: Poppins;
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 600;
-	width: 15%;
-	margin-top: 762px;
-    margin-left: 490px;
-	background-color: #31A463;
-    border-radius: 5px;
-	color: #ffffff;
-	padding:13px;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-}
-.periobtn > input:hover {
-    font-family: Poppins;
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 600;
-	width: 15%;
-	margin-top: 762px;
-    margin-left: 490px;
-	background-color:#298f55;
-    border-radius: 5px;
-	color: #ffffff;
-	padding:13px;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-}
-
-/* ARTICLE FORM */ 
-
-/* Input in the left side */ 
-
-.artiarea select {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 65px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-.artiarea2 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 160px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-.artiarea3 select {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 260px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-
-.artiarea4 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 360px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-
-.artiarea5 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 460px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-.artiarea6 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 560px;
-    margin-left: 100px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: #ffffff;
-    transition: 0.1s ease;
-} 
-
-
-/* Input in the right side */
-
-.artiarea_1 input {
-    font-family: Poppins;
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 65px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-.artiarea_2 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 160px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-
-.artiarea_3 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 260px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-
-.artiarea_4 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 360px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-
-.artiarea_5 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 460px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-.artiarea_6 input {
-    position: absolute;
-    width: 26.2%;
-    height: 52px;
-    outline: none;
-    font-size: 16px;
-    padding: 0 18px;
-    margin-top: 560px;
-    margin-left: 650px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-
-
-/* Label in the left side */ 
-
-.artiline {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 53px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-
-.artiline2 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 149px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.artiline3 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 249px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-
-.artiline4 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 349px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-
-.artiline5 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 449px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.artiline6 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 549px;
-    margin-left: 115px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-
-
-/* Label in the rightside */ 
-
-.artiline_1 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 53px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.artiline_2 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 149px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-
-.artiline_3 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 249px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.artiline_4 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 349px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.artiline_5 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 449px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-.artiline_6 {
-    position: absolute;
-    font-size: 15px;
-    color: #000000;
-    padding: 0 17px;
-    margin-top: 549px;
-    margin-left: 670px;
-    background-color: #ffffff;
-    transition: 0.2s ease;
-}
-
-/* Article Submit Button */ 
-
-.artibtn > input {
-    font-family: Poppins;
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 600;
-	width: 15%;
-	margin-top: 655px;
-    margin-left: 490px;
-	background-color: #31A463;
-    border-radius: 5px;
-	color: #ffffff;
-	padding:13px;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-}
-
-.artibtn > input:hover {
-    font-family: Poppins;
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 600;
-	width: 15%;
-	margin-top: 655px;
-    margin-left: 490px;
-	background-color: #298f55;
-    border-radius: 5px;
-	color: #ffffff;
-	padding:13px;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-}
 /* Tab */
-
 
 .tabbed [type="radio"]:nth-of-type(1):checked ~ .tabs .tab:nth-of-type(1) label,
 .tabbed [type="radio"]:nth-of-type(2):checked ~ .tabs .tab:nth-of-type(2) label,
@@ -1274,4 +77,3121 @@ input[type="file"]::file-selector-button {
 .tabbed [type="radio"]:nth-of-type(2):checked ~ .tab-content:nth-of-type(2),
 .tabbed [type="radio"]:nth-of-type(3):checked ~ .tab-content:nth-of-type(3) {
 	display: block;
+}
+
+.tab-content {
+	display: none;
+	color: #777;
+}
+
+/* For the Form bg  */ 
+
+.bookcontainer {
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
+    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
+    box-shadow: 0 0 3px 3px #EEEEEE;
+    height: 875px;
+    width: 1135px;
+    padding-bottom: 200px;
+    margin-top: 50px;
+    margin-left: 48px;
+}
+.periocontainer {
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
+    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
+    box-shadow: 0 0 3px 3px #EEEEEE;
+    height: 875px;
+    width: 1135px;
+    padding-bottom: 200px;
+    margin-top: 50px;
+    margin-left: 48px;
+}
+.articontainer {
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
+    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
+    box-shadow: 0 0 3px 3px #EEEEEE;
+    height: 900px;
+    width: 1135px;
+    padding-bottom: 200px;
+    margin-top: 50px;
+    margin-left: 48px;
+}
+
+/*Form*/
+
+.tab-content {
+    width: 500px; 
+}
+
+// Book Accession   
+
+.entryarea {
+    position: relative;
+    height: 200px;
+    line-height: 25px;
+}
+
+.entryarea input {
+    position: absolute;
+    width: 27.5%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 65px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline {
+    position: absolute;
+    margin-top: 97px;
+    margin-left: 90px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea span::before {
+    content: '';
+    position: absolute;
+    top: 122px;
+    left: 75px;
+    width: 27.5%;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea input:focus ~ span::before {
+    width: 27.5%;
+    top: 122px;
+    left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea input:valid ~ .labelline {
+    margin-top: 80px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea input:focus ~ .labelline {
+    margin-top: 80px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Author  
+
+.entryarea1 input {
+    position: absolute;
+    width: 55.8%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 65px;
+    margin-left: 425px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline1 {
+    position:absolute;
+    margin-top: 97px;
+    margin-left: 440px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+
+/* Bottom Line when hover */ 
+
+.entryarea1 span::before {
+    content: '';
+    width: 56%;
+    margin-top: 0;
+    margin-left: 350px;
+    height: 2px;
+    transition: .3s;
+    position: absolute;
+}
+
+.entryarea1 input:focus ~ span::before {
+    width: 56%;
+    margin-top: 0;
+    margin-left: 350px;
+    transition: .3s;
+    background-color: #31A463;
+}
+
+
+/* Change Bg color when Hover */ 
+
+.entryarea1 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea1 input:valid ~ .labelline1 {
+    margin-top: 80px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea1 input:focus ~ .labelline1 {
+    margin-top: 80px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+
+// Book - Title 
+
+.entryarea_2 input {
+    position: absolute;
+    width: 64.7%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: -28px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_2 {
+    position: absolute;
+    top: 57%;
+    margin-left: 90px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+
+/* Bottom Line when hover */ 
+
+.entryarea_2 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 29px;
+    margin-left: 75px;
+    width: 64.7%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_2 input:focus ~ span::before {
+    width: 64.7%;
+    margin-top: 29px;
+    margin-left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_2 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_2 input:valid ~ .labelline_2 {
+    margin-top: -17px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea_2 input:focus ~ .labelline_2 {
+    margin-top: -17px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+
+// Book - Copyright 
+
+.entryarea2 input {
+    position: absolute;
+    width: 20.2%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 77px;
+    margin-left: 76px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline2 {
+    position: absolute;
+    margin-top: 107px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea2 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 134px;
+    margin-left: 76px;
+    width: 20.2%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea2 input:focus ~ span::before {
+    width: 20.2%;
+    margin-top: 134px;
+    margin-left: 76px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea2 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea2 input:valid ~ .labelline2{
+    margin-top: 92px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea2 input:focus ~ .labelline2 {
+    margin-top: 92px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Volume 
+
+.entryarea_4 input {
+    position: absolute;
+    width: 20.2%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 77px;
+    margin-left: 418px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_4 {
+    position: absolute;
+    margin-top: 107px;
+    margin-left: 432px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_4 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 134px;
+    margin-left: 418px;
+    width: 20.2%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_4 input:focus ~ span::before {
+    width: 20.2%;
+    margin-top: 134px;
+    margin-left: 418px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_4 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_4 input:valid ~ .labelline_4 {
+    margin-top: 92px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea_4 input:focus ~ .labelline_4 {
+    margin-top: 92px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Edition
+
+.entryarea_5 input {
+    position: absolute;
+    width: 20%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 77px;
+    margin-left: 755px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_5 {
+    position: absolute;
+    margin-top: 107px;
+    margin-left: 770px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_5 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 134px;
+    margin-left: 755px;
+    width: 20%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_5 input:focus ~ span::before {
+    width: 20%;
+    margin-top: 134px;
+    margin-left: 755px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_5 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_5 input:valid ~ .labelline_5 {
+    margin-top: 92px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea_5 input:focus ~ .labelline_5 {
+    margin-top: 92px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Remarks
+
+.entryarea_6 input {
+    position: absolute;
+    width: 20.2%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 180px;
+    margin-left: 76px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_6 {
+    position: absolute;
+    margin-top: 210px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_6 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 237px;
+    margin-left: 76px;
+    width: 20.2%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_6 input:focus ~ span::before {
+    width: 20.2%;
+    margin-top: 237px;
+    margin-left: 76px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_6 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_6 input:valid ~ .labelline_6 {
+    margin-top: 195px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea_6 input:focus ~ .labelline_6 {
+    margin-top: 195px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Pages
+
+.entryarea_7 input {
+    position: absolute;
+    width: 20.2%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 180px;
+    margin-left: 418px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_7 {
+    position: absolute;
+    margin-top: 210px;
+    margin-left: 432px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_7 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 237px;
+    margin-left: 418px;
+    width: 20.2%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_7 input:focus ~ span::before {
+    width: 20.2%;
+    margin-top: 237px;
+    margin-left: 418px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_7 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_7 input:valid ~ .labelline_7 {
+    margin-top: 195px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea_7 input:focus ~ .labelline_7 {
+    margin-top: 195px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Date Purchased/Donated 
+
+.entryarea_8 input {
+    position: absolute;
+    width: 20%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 180px;
+    margin-left: 755px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_8 {
+    position: absolute;
+    margin-top: 195px;
+    margin-left: 770px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_8 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 237px;
+    margin-left: 755px;
+    width: 20%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_8 input:focus ~ span::before {
+    width: 20%;
+    margin-top: 237px;
+    margin-left: 755px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+
+.entryarea_8 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_8 input:valid ~ .labelline_8 {
+    margin-top: 195px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea_8 input:focus ~ .labelline_8 {
+    margin-top: 195px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Source of Fund 
+
+.entryarea_9 select {
+    position: absolute;
+    width: 31%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 285px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_9 {
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 95px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+
+
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_9 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 342px;
+    margin-left: 75px;
+    width: 31%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_9 select:focus ~ span::before {
+    width: 31%;
+    margin-top: 342px;
+    margin-left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_9 select:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_9 select:valid ~ .labelline_9 {
+    margin-top: 302px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea_9 select:focus ~ .labelline_9 {
+    margin-top: 302px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Location 
+
+.entryarea_10 select {
+    position: absolute;
+    width: 31.5%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 285px;
+    margin-left: 580px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_10 {
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 600px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_10 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 342px;
+    margin-left: 580px;
+    width: 31.5%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_10 select:focus ~ span::before {
+    width: 31.5%;
+    margin-top: 342px;
+    margin-left: 580px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_10 select:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_10 select:valid ~ .labelline_10 {
+    margin-top: 302px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea_10 select:focus ~ .labelline_10 {
+    margin-top: 302px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Price
+
+.entryarea_11 input {
+    position: absolute;
+    width: 20.2%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 388px;
+    margin-left: 76px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_11 {
+    position: absolute;
+    margin-top: 419px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_11 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 445px;
+    margin-left: 76px;
+    width: 20.2%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_11 input:focus ~ span::before {
+    width: 20.2%;
+    margin-top: 445px;
+    margin-left: 76px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_11 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_11 input:valid ~ .labelline_11 {
+    margin-top: 403px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea_11 input:focus ~ .labelline_11 {
+    margin-top: 403px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Call Number  
+
+.entryarea_12 input {
+    position: absolute;
+    width: 42%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 388px;
+    margin-left: 418px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_12 {
+    position: absolute;
+    margin-top: 419px;
+    margin-left: 433px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_12 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 445px;
+    margin-left: 418px;
+    width: 42%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_12 input:focus ~ span::before {
+    width: 42%;
+    margin-top: 445px;
+    margin-left: 418px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_12 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_12 input:valid ~ .labelline_12 {
+    margin-top: 403px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea_12 input:focus ~ .labelline_12 {
+    margin-top: 403px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Copies 
+
+.entryarea_13 input {
+    position: absolute;
+    width: 31%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 492px;
+    margin-left: 76px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.labelline_13 {
+    position: absolute;
+    margin-top: 524px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_13 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 549px;
+    margin-left: 76px;
+    width: 31%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea_13 input:focus ~ span::before {
+    width: 31%;
+    margin-top: 549px;
+    margin-left: 76px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_13 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea_13 input:valid ~ .labelline_13 {
+    margin-top: 508px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.entryarea_13 input:focus ~ .labelline_13 {
+    margin-top: 508px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Upload Image 
+
+.entryarea_14 input {
+    position: absolute;
+    width: 31%;
+    height: 55px;
+    font-size: 16px;
+    margin-top: 495px;
+    margin-left: 582px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+}
+
+.labelline_14 {
+    position: absolute;
+    margin-top: 482px;
+    margin-left: 585px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+
+input[type="file"]::file-selector-button {
+    border-radius: 4px;
+    font-family: Poppins;
+    color: #ffffff;
+    padding: 0 16px;
+    height: 55px;
+    cursor: pointer;
+    background-color: #31A463;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+  }
+
+
+/* Book Submit Button */ 
+
+.bookbtn > input {
+	display: block;
+    font-family: Poppins;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;
+	width: 11%;
+	margin-top: 595px;
+    margin-left: 500px;
+	background-color: #31A463;
+    border-radius: 5px;
+	color: #ffffff;
+	padding:10px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.bookbtn > input:hover {
+	display: block;
+    font-family: Poppins;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;
+	width: 11%;
+	margin-top: 595px;
+    margin-left: 500px;
+	background-color: #298f55;
+    border-radius: 5px;
+	color: #ffffff;
+	padding:10px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+/********************************* PERIO FORM **********************************************/ 
+
+// Type of Materials 
+
+.perioarea {
+    position: relative;
+    height: 200px;
+    line-height: 25px;
+}
+
+.perioarea select {
+    position: absolute;
+    width: 27.5%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 65px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.perioline {
+    position: absolute;
+    margin-top: 97px;
+    margin-left: 90px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.perioarea span::before {
+    content: '';
+    position: absolute;
+    top: 122px;
+    left: 75px;
+    width: 27.5%;
+    height: 2px;
+    transition: .3s;
+} 
+
+.perioarea select:focus ~ span::before {
+    width: 27.5%;
+    top: 122px;
+    left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea select:hover {
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea select:valid ~ .perioline {
+    margin-top: 80px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea select:focus ~ .perioline {
+    margin-top: 80px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Author 
+
+.perioarea_1 input {
+    position: absolute;
+    width: 55.8%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 65px;
+    margin-left: 425px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.perioline_1 {
+    position:absolute;
+    margin-top: 97px;
+    margin-left: 440px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */  
+
+.perioarea_1 span::before {
+    content: '';
+    width: 56%;
+    margin-top: 0;
+    margin-left: 350px;
+    height: 2px;
+    transition: .3s;
+    position: absolute;
+}
+
+.perioarea_1 input:focus ~ span::before {
+    width: 56%;
+    margin-top: 0;
+    margin-left: 350px;
+    transition: .3s;
+    background-color: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_1 input:hover {
+    background-color: #ececec; 
+}
+
+/* Label float */  
+
+.perioarea_1 input:valid ~ .perioline_1 {
+    margin-top: 80px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_1 input:focus ~ .perioline_1 {
+    margin-top: 80px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Title 
+
+.perioarea_2 input {
+    position: absolute;
+    width: 64.7%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: -28px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.perioline_2 {
+    position: absolute;
+    top: 57%;
+    margin-left: 90px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.perioarea_2 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 29px;
+    margin-left: 75px;
+    width: 64.7%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_2 input:focus ~ span::before {
+    width: 64.7%;
+    margin-top: 29px;
+    margin-left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */  
+
+.perioarea_2 input:hover {
+    background-color: #ececec;
+}
+
+/* Label float */  
+
+.perioarea_2 input:valid ~ .perioline_2 {
+    margin-top: -17px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_2 input:focus ~ .perioline_2 {
+    margin-top: -17px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Issue 
+
+.perioarea_3 input {
+    position: absolute;
+    width: 31%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 77px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.perioline_3 {
+    position: absolute;
+    margin-top: 107px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+}
+
+/* Bottom Line when hover */  
+
+.perioarea_3 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 134px;
+    margin-left: 75px;
+    width: 31%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_3 input:focus ~ span::before {
+    width: 31%;
+    margin-top: 134px;
+    margin-left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_3 input:hover {
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea_3 input:valid ~ .perioline_3 {
+    margin-top: 92px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_3 input:focus ~ .perioline_3 {
+    margin-top: 92px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Language 
+
+.perioarea_4 select {
+    position: absolute;
+    width: 31.5%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 77px;
+    margin-left: 580px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.perioline_4 {
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 600px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+} 
+
+/* Bottom Line when hover */ 
+
+.perioarea_4 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 134px;
+    margin-left: 580px;
+    width: 31.5%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_4 select:focus ~ span::before {
+    width: 31.5%;
+    margin-top: 134px;
+    margin-left: 580px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_4 select:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea_4 select:valid ~ .perioline_4 {
+    margin-top: 92px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_4 select:focus ~ .perioline_4 {
+    margin-top: 92px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Date Received 
+
+.perioarea_5 input {
+    position: absolute;
+    width: 31%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 180px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.perioline_5 {
+    position: absolute;
+    margin-top: 195px;
+    margin-left: 93px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+}
+
+/* Bottom Line when hover */ 
+
+.perioarea_5 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 237px;
+    margin-left: 75px;
+    width: 31%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_5 input:focus ~ span::before {
+    width: 31%;
+    margin-top: 237px;
+    margin-left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_5 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea_5 input:valid ~ .perioline_5 {
+    margin-top: 195px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_5 input:focus ~ .perioline_5 {
+    margin-top: 195px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Publication Date 
+
+.perioarea_6 input {
+    position: absolute;
+    width: 31.5%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 180px;
+    margin-left: 580px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.perioline_6 {
+    position: absolute;
+    margin-top: 195px;
+    margin-left: 600px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+}
+
+/* Bottom Line when hover */ 
+
+.perioarea_6 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 237px;
+    margin-left: 580px;
+    width: 31.5%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_6 input:focus ~ span::before {
+    width: 31.5%;
+    margin-top: 237px;
+    margin-left: 580px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_6 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea_6 input:valid ~ .perioline_6 {
+    margin-top: 195px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_6 input:focus ~ .perioline_6 {
+    margin-top: 195px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Copyright 
+
+.perioarea_7 input {
+    position: absolute;
+    width: 20.2%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 285px;
+    margin-left: 76px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+} 
+
+.perioline_7 {
+    position: absolute;
+    margin-top: 314px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.perioarea_7 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 342px;
+    margin-left: 76px;
+    width: 20.2%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_7 input:focus ~ span::before {
+    width: 20.2%;
+    margin-top: 342px;
+    margin-left: 76px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_7 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea_7 input:valid ~ .perioline_7 {
+    margin-top: 302px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_7 input:focus ~ .perioline_7 {
+    margin-top: 302px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Publisher 
+
+.perioarea_8 input {
+    position: absolute;
+    width: 20%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 285px;
+    margin-left: 420px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.perioline_8 {
+    position: absolute;
+    margin-top: 314px;
+    margin-left: 434px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+
+}
+
+/* Bottom Line when hover */ 
+
+.perioarea_8 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 342px;
+    margin-left: 420px;
+    width: 20%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_8 input:focus ~ span::before {
+    width: 20%;
+    margin-top: 342px;
+    margin-left: 420px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_8 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea_8 input:valid ~ .perioline_8 {
+    margin-top: 302px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_8 input:focus ~ .perioline_8 {
+    margin-top: 302px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Volume 
+
+.perioarea_9 input {
+    position: absolute;
+    width: 20%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 285px;
+    margin-left: 755px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.perioline_9 {
+    position: absolute;
+    margin-top: 314px;
+    margin-left: 768px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+
+}
+
+/* Bottom Line when hover */ 
+
+.perioarea_9 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 342px;
+    margin-left: 755px;
+    width: 20%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_9 input:focus ~ span::before {
+    width: 20%;
+    margin-top: 342px;
+    margin-left: 755px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_9 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea_9 input:valid ~ .perioline_9 {
+    margin-top: 302px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_9 input:focus ~ .perioline_9 {
+    margin-top: 302px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Remarks 
+
+.perioarea_10 input {
+    position: absolute;
+    width: 64.7%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 388px;
+    margin-left: 76px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.perioline_10 {
+    position: absolute;
+    margin-top: 419px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.perioarea_10 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 445px;
+    margin-left: 76px;
+    width: 64.7%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_10 input:focus ~ span::before {
+    width: 64.7%;
+    margin-top: 445px;
+    margin-left: 76px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_10 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea_10 input:valid ~ .perioline_10 {
+    margin-top: 405px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_10 input:focus ~ .perioline_10 {
+    margin-top: 405px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Pages 
+
+.perioarea_11 input {
+    position: absolute;
+    width: 20%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 388px;
+    margin-left: 755px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.perioline_11 {
+    position: absolute;
+    margin-top: 419px;
+    margin-left: 768px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+
+}
+
+/* Bottom Line when hover */ 
+
+.perioarea_11 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 445px;
+    margin-left: 755px;
+    width: 20%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_11 input:focus ~ span::before {
+    width: 20%;
+    margin-top: 445px;
+    margin-left: 755px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_11 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea_11 input:valid ~ .perioline_11 {
+    margin-top: 405px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_11 input:focus ~ .perioline_11 {
+    margin-top: 405px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Pages 
+
+.perioarea_11 input {
+    position: absolute;
+    width: 31%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 492px;
+    margin-left: 76px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.perioline_11 {
+    position: absolute;
+    margin-top: 524px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.perioarea_11 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 549px;
+    margin-left: 76px;
+    width: 31%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.perioarea_11 input:focus ~ span::before {
+    width: 31%;
+    margin-top: 549px;
+    margin-left: 76px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.perioarea_11 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.perioarea_11 input:valid ~ .perioline_11 {
+    margin-top: 510px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.perioarea_11 input:focus ~ .perioline_11 {
+    margin-top: 510px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Perio - Upload Image 
+
+.perioarea_12 input {
+    position: absolute;
+    width: 31%;
+    height: 55px;
+    font-size: 16px;
+    margin-top: 495px;
+    margin-left: 582px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: transparent;
+    transition: 0.1s ease;
+}
+
+.perioline_12 {
+    position: absolute;
+    margin-top: 482px;
+    margin-left: 585px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+
+input[type="file"]::file-selector-button {
+    border-radius: 4px;
+    font-family: Poppins;
+    color: #ffffff;
+    padding: 0 16px;
+    height: 55px;
+    cursor: pointer;
+    background-color: #31A463;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+}
+
+/* Perio Submit Button */ 
+
+.periobtn > input {
+	display: block;
+    font-family: Poppins;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;
+	width: 11%;
+	margin-top: 595px;
+    margin-left: 500px;
+	background-color: #31A463;
+    border-radius: 5px;
+	color: #ffffff;
+	padding:10px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.periobtn > input:hover {
+	display: block;
+    font-family: Poppins;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;
+	width: 11%;
+	margin-top: 595px;
+    margin-left: 500px;
+	background-color: #298f55;
+    border-radius: 5px;
+	color: #ffffff;
+	padding:10px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+/****************************** ARTICLE *********************************/
+
+// Type of Materials 
+
+.artiarea {
+    position: relative;
+    height: 200px;
+    line-height: 25px;
+}
+
+.artiarea select {
+    position: absolute;
+    width: 27.5%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 65px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.artiline {
+    position: absolute;
+    margin-top: 97px;
+    margin-left: 90px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.artiarea span::before {
+    content: '';
+    position: absolute;
+    top: 122px;
+    left: 75px;
+    width: 27.5%;
+    height: 2px;
+    transition: .3s;
+} 
+
+.artiarea select:focus ~ span::before {
+    width: 27.5%;
+    top: 122px;
+    left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea select:hover {
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.artiarea select:valid ~ .artiline {
+    margin-top: 80px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea select:focus ~ .artiline {
+    margin-top: 80px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Author 
+
+.artiarea_1 input {
+    position: absolute;
+    width: 55.8%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 65px;
+    margin-left: 425px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.artiline_1 {
+    position:absolute;
+    margin-top: 97px;
+    margin-left: 440px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */  
+
+.artiarea_1 span::before {
+    content: '';
+    width: 56%;
+    margin-top: 0;
+    margin-left: 350px;
+    height: 2px;
+    transition: .3s;
+    position: absolute;
+}
+
+.artiarea_1 input:focus ~ span::before {
+    width: 56%;
+    margin-top: 0;
+    margin-left: 350px;
+    transition: .3s;
+    background-color: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea_1 input:hover {
+    background-color: #ececec; 
+}
+
+/* Label float */  
+
+.artiarea_1 input:valid ~ .artiline_1 {
+    margin-top: 80px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_1 input:focus ~ .artiline_1 {
+    margin-top: 80px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Title 
+
+.artiarea_2 input {
+    position: absolute;
+    width: 64.8%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: -28px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.artiline_2 {
+    position: absolute;
+    top: 57%;
+    margin-left: 90px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.artiarea_2 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 29px;
+    margin-left: 75px;
+    width: 64.7%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.artiarea_2 input:focus ~ span::before {
+    width: 64.7%;
+    margin-top: 29px;
+    margin-left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */  
+
+.artiarea_2 input:hover {
+    background-color: #ececec;
+}
+
+/* Label float */  
+
+.artiarea_2 input:valid ~ .artiline_2 {
+    margin-top: -17px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_2 input:focus ~ .artiline_2 {
+    margin-top: -17px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Abstract 
+
+.artiarea_3 textarea {
+    position: absolute;
+    width: 64.8%;
+    padding-top: 39px;
+    padding-left: 17px;
+    padding-right: 10px;
+    margin-top: 77px;
+    margin-left: 75px;
+    height: 100px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.artiline_3 {
+    position: absolute;
+    margin-top: 93px;
+    margin-left: 95px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+}
+
+/* Bottom Line when hover */ 
+
+.artiarea_3 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 175px;
+    margin-left: 75px;
+    width: 64.8%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.artiarea_3 textarea:focus ~ span::before {
+    width: 64.8%;
+    margin-top: 175px;
+    margin-left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea_3 textarea:hover {
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.artiarea_3 textarea:valid ~ .artiline_3 {
+    margin-top: 98px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_3 textarea:focus ~ .artiline_3 {
+    margin-top: 98px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Language 
+
+.artiarea_4 select {
+    position: absolute;
+    width: 31%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 220px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.artiline_4 {
+    position: absolute;
+    margin-top: 235px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+}
+
+/* Bottom Line when hover */  
+
+.artiarea_4 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 277px;
+    margin-left: 75px;
+    width: 31%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.artiarea_4 select:focus ~ span::before {
+    width: 31%;
+    margin-top: 277px;
+    margin-left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea_4 select:hover {
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.artiarea_4 select:valid ~ .artiline_4 {
+    margin-top: 235px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_4 select:focus ~ .artiline_4 {
+    margin-top: 235px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Issue 
+
+.artiarea_5 input {
+    position: absolute;
+    width: 31.5%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 220px;
+    margin-left: 580px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.artiline_5 {
+    position: absolute;
+    margin-top: 250px;
+    margin-left: 595px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+} 
+
+/* Bottom Line when hover */ 
+
+.artiarea_5 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 277px;
+    margin-left: 580px;
+    width: 31.5%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.artiarea_5 input:focus ~ span::before {
+    width: 31.5%;
+    margin-top: 277px;
+    margin-left: 580px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea_5 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.artiarea_5 input:valid ~ .artiline_5 {
+    margin-top: 235px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_5 input:focus ~ .artiline_5 {
+    margin-top: 235px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Subject 
+
+.artiarea_6 input {
+    position: absolute;
+    width: 31%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 325px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.artiline_6 {
+    position: absolute;
+    margin-top: 355px;
+    margin-left: 90px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+}
+
+/* Bottom Line when hover */  
+
+.artiarea_6 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 382px;
+    margin-left: 75px;
+    width: 31%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.artiarea_6 input:focus ~ span::before {
+    width: 31%;
+    margin-top: 382px;
+    margin-left: 75px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea_6 input:hover {
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.artiarea_6 input:valid ~ .artiline_6 {
+    margin-top: 340px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_6 input:focus ~ .artiline_6 {
+    margin-top: 340px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Volume 
+
+.artiarea_7 input {
+    position: absolute;
+    width: 31.5%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 325px;
+    margin-left: 580px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.artiline_7 {
+    position: absolute;
+    margin-top: 355px;
+    margin-left: 595px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+} 
+
+/* Bottom Line when hover */ 
+
+.artiarea_7 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 382px;
+    margin-left: 580px;
+    width: 31.5%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.artiarea_7 input:focus ~ span::before {
+    width: 31.5%;
+    margin-top: 382px;
+    margin-left: 580px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea_7 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.artiarea_7 input:valid ~ .artiline_7 {
+    margin-top: 340px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_7 input:focus ~ .artiline_7 {
+    margin-top: 340px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Publisher 
+
+.artiarea_8 input {
+    position: absolute;
+    width: 20.2%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 430px;
+    margin-left: 76px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+} 
+
+.artiline_8 {
+    position: absolute;
+    margin-top: 460px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.artiarea_8 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 487px;
+    margin-left: 76px;
+    width: 20.2%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.artiarea_8 input:focus ~ span::before {
+    width: 20.2%;
+    margin-top: 487px;
+    margin-left: 76px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea_8 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.artiarea_8 input:valid ~ .artiline_8 {
+    margin-top: 445px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_8 input:focus ~ .artiline_8 {
+    margin-top: 445px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Pages
+
+.artiarea_9 input {
+    position: absolute;
+    width: 20%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 430px;
+    margin-left: 420px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.artiline_9 {
+    position: absolute;
+    margin-top: 460px;
+    margin-left: 434px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.artiarea_9 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 487px;
+    margin-left: 420px;
+    width: 20%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.artiarea_9 input:focus ~ span::before {
+    width: 20%;
+    margin-top: 487px;
+    margin-left: 420px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea_9 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.artiarea_9 input:valid ~ .artiline_9 {
+    margin-top: 445px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_9 input:focus ~ .artiline_9 {
+    margin-top: 445px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Publication Date 
+
+.artiarea_10 input {
+    position: absolute;
+    width: 20%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 430px;
+    margin-left: 755px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+
+}
+
+.artiline_10 {
+    position: absolute;
+    margin-top: 460px;
+    margin-left: 768px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+
+}
+
+/* Bottom Line when hover */ 
+
+.artiarea_10 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 487px;
+    margin-left: 755px;
+    width: 20%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.artiarea_10 input:focus ~ span::before {
+    width: 20%;
+    margin-top: 487px;
+    margin-left: 755px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea_10 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.artiarea_10 input:valid ~ .artiline_10 {
+    margin-top: 445px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_10 input:focus ~ .artiline_10 {
+    margin-top: 445px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Arti - Remarks 
+
+.artiarea_11 input {
+    position: absolute;
+    width: 64.8%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 530px;
+    margin-left: 76px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.artiline_11 {
+    position: absolute;
+    margin-top: 560px;
+    margin-left: 92px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.artiarea_11 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 587px;
+    margin-left: 76px;
+    width: 64.8%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.artiarea_11 input:focus ~ span::before {
+    width: 64.8%;
+    margin-top: 587px;
+    margin-left: 76px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.artiarea_11 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.artiarea_11 input:valid ~ .artiline_11 {
+    margin-top: 545px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.artiarea_11 input:focus ~ .artiline_11 {
+    margin-top: 545px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+/* Arti Submit Button */ 
+
+.artibtn > input {
+	display: block;
+    font-family: Poppins;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;
+	width: 11%;
+	margin-top: 625px;
+    margin-left: 500px;
+	background-color: #31A463;
+    border-radius: 5px;
+	color: #ffffff;
+	padding:10px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.artibtn > input:hover {
+	display: block;
+    font-family: Poppins;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;
+	width: 11%;
+	margin-top: 625px;
+    margin-left: 500px;
+	background-color: #298f55;
+    border-radius: 5px;
+	color: #ffffff;
+	padding:10px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.16);
 }

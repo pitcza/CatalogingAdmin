@@ -21,6 +21,7 @@ export class LoginComponent implements AfterViewInit {
     this.showpassword = !this.showpassword
   }
 
+  
   ngAfterViewInit(): void {
     var form = document.getElementById('login-form') as HTMLFormElement;
 
@@ -70,4 +71,5 @@ export class LoginComponent implements AfterViewInit {
       });
     }); 
   }
+  
 }
