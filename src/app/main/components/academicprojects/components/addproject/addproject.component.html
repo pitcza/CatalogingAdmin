@@ -90,40 +90,35 @@
                         </div>
                     </div>
 
+                    <!-- <div class="input-row"> KEYWORDS ULIT
+                        <div class="txt_field" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
+                            <input class="inputtxt" type="text" onkeyup="multiSearchKeyup(this)">
+                            <span></span>
+                            <label class="labelline"> Keywords </label>
+                        </div>
+                    </div> -->
+
 
                 </div>
 
-                 <!-- KEYWORDS NA AYAW GUMANA 
+                 <!-- KEYWORDS NA AYAW GUMANA  
                     <div class="input-row">
                         <div class="txt_field">
                             <input class="inputtxt" type="text" name="keywords" spellcheck="false" (keyup)="addTag($event)">
                             <span></span>
-                            <ul> <div class="labelline"> Keywords </div> </ul>
+                            <div class="labelline"> Keywords </div>
                         </div>
                         <div class="remove_all">
                             <button class="removeall" (click)="removeAll()"> Remove All </button>
                         </div>
                     </div> -->
 
-          <!--      <div class="input-row">   KEYWORDS NA AYAW GUMANA PO ITO ULIT
-                    <div class="input-column2">
-                        <input #inputElement (keyup.enter)="multiWordKeyup(inputElement, $event)" class="multi-input" placeholder="Type and press Enter">
-                
-                        <div class="labelline"> Keywords </div>
 
-                        <div *ngFor="let item of filterItems" class="multi-item">
-                            <span>{{ item }}</span>
-                            <div class="fa fa-close" (click)="removeItem(item)"></div>
-                        </div>
-                    </div> 
-                </div> -->
-
-
+                <!-- BUTTONS -->
                 <div class="buttons">
                     <a class="add" (click)="addBox()"> 
                         <span> Add </span>
                     </a>
-
                     <a class="cancel" (click)="cancelBox()"> 
                         <span> Cancel </span>
                     </a>

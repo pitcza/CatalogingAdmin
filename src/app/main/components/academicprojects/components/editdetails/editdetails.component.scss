@@ -39,7 +39,7 @@
 }
 
 .details-content::-webkit-scrollbar-thumb:hover {
-    background-color: var(--table-border2);
+    background-color: var(--table-darkhover);
 }
 // SCROLLBAR
 
@@ -110,7 +110,7 @@ h1 {
 
 .input-row .txt_field{
     position: relative;
-    border-bottom: 2px solid var(--cancel-btn);
+    border-bottom: 2px solid var(--input-border);
     margin: 1.3rem 0;
 }
 
@@ -134,7 +134,7 @@ h1 {
     position: absolute;
     top: 50%;
     left: 10px;
-    color: var(--cancel-btn);
+    color: var(--input-border);
     transform: translateY(-50%);
     font-size: 15px;
     pointer-events: none;
@@ -153,7 +153,7 @@ h1 {
 }
 
 .inputtxt:not(:focus) + span::before {
-    background: var(--cancel-btn);
+    background: var(--input-border);
 }
 
 .txt_field .inputtxt:hover{
@@ -164,7 +164,7 @@ h1 {
     top: 17px;
     font-size: 12px;
     letter-spacing: 0.5px;
-    color: var(--cancel-btn);
+    color: var(--input-border);
 }
 
 .txt_field .inputtxt:focus ~ .labelline {
@@ -265,7 +265,7 @@ option {
     top: 7px;
     font-size: 12px;
     letter-spacing: 0.5px;
-    color: var(--cancel-btn);
+    color: var(--input-border);
     position: absolute;
     left: 10px;
 }
@@ -282,7 +282,7 @@ option {
     margin-top: -20px;
     font-size: 12px;
     letter-spacing: 0.5px;
-    color: var(--cancel-btn);
+    color: var(--input-border);
     position: absolute;
     left: 10px;
 }
@@ -329,7 +329,7 @@ input[type="file"]::file-selector-button {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     outline: none;
-    border-bottom: 2px solid var(--cancel-btn);
+    border-bottom: 2px solid var(--input-border);
 }
 
 .txtarea .labelline1 {
@@ -337,7 +337,7 @@ input[type="file"]::file-selector-button {
     position: absolute;
     top: 60%;
     left: 10px;
-    color: var(--cancel-btn);
+    color: var(--input-border);
     transform: translateY(-50%);
     font-size: 15px;
     pointer-events: none;
@@ -357,7 +357,7 @@ input[type="file"]::file-selector-button {
     top: 17px;
     font-size: 12px;
     letter-spacing: 0.5px;
-    color: var(--cancel-btn);
+    color: var(--input-border);
 }
 
 .txtarea textarea:focus ~ .labelline1 {
