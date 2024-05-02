@@ -10,21 +10,43 @@
 
                 <div class="table-filters">
                     <select id="filter">
-                        <option selected value="All Departments"> All Locations </option>
-                        <option> FIL </option>
-                        <option> FOR </option>
-                        <option> MED </option>
-                        <option> EWAN </option>
+                        <option selected value="Accession"> Accession  </option>
                     </select>
 
                 </div>
 
-                <div class="search-container">
-                    <form action="/action_page.php">
-                    <input type="text" placeholder="Search..." name="search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
+                <div class="table-filters">
+                    <select id="filter">
+                        <option selected value="Author"> Author </option>
+                        <option> Ewan </option>
+                        <option> Dili na Alam  </option>
+                        <option> Si ano </option>
+                        <option> Jose Rizal </option>
+                    </select>
                 </div>
+
+                <div class="table-filters">
+                    <select id="filter">
+                        <option selected value="Title"> Title </option>
+                        <option> Ewan </option>
+                        <option> Dili na Alam  </option>
+                        <option> Ang Alamat </option>
+                        <option> The choosen One </option>
+                    </select>
+                </div>
+
+                <div class="table-filters">
+                    <select id="filter">
+                        <option selected value="Copyright"> Copyright </option>
+                        <option> 2000 </option>
+                        <option> 2001 </option>
+                        <option> 2002 </option>
+                        <option> 2003 </option>
+                    </select>
+
+                </div>
+
+                
 
             </div>
               
@@ -32,12 +54,13 @@
             <div class="mat-elevation-z8">
                 <table mat-table [dataSource]="dataSource">
             
-                <!-- Date Added Column -->
-                <ng-container matColumnDef="dateadd">
-                    <th mat-header-cell *matHeaderCellDef> Date Added </th>
-                    <td mat-cell *matCellDef="let element"> {{element.dateadd}} </td>
+               
+                <!-- Accession Column -->
+                <ng-container matColumnDef="accession">
+                    <th mat-header-cell *matHeaderCellDef> Accession </th>
+                    <td mat-cell *matCellDef="let element"> {{element.accession}} </td>
                 </ng-container>
-            
+
                 <!-- Title Column -->
                 <ng-container matColumnDef="booktitle">
                     <th mat-header-cell *matHeaderCellDef> Book Title </th>
@@ -60,12 +83,6 @@
                 <ng-container matColumnDef="copyright">
                     <th mat-header-cell *matHeaderCellDef> Copyright </th>
                     <td mat-cell *matCellDef="let element"> {{element.copyright}} </td>
-                </ng-container>
-        
-                <!-- Issue Column -->
-                <ng-container matColumnDef="issue">
-                    <th mat-header-cell *matHeaderCellDef> Issue </th>
-                    <td mat-cell *matCellDef="let element"> {{element.issue}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

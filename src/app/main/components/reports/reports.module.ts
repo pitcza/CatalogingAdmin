@@ -14,10 +14,10 @@ import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
-    JournalsComponent,
-    MagazinesComponent,
-    ArticlesComponent,
-    NewspapersComponent, 
+    // JournalsComponent,
+    // MagazinesComponent,
+    // ArticlesComponent,
+    // NewspapersComponent, 
   ],
   imports: [
     CommonModule,

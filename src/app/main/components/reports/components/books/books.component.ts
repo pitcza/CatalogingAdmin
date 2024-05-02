@@ -25,7 +25,7 @@ import { DataService } from '../../../../../services/data.service';
   ],
 })
 export class BooksComponent implements OnInit {
-  displayedColumns: string[] = ['dateadd', 'booktitle', 'author', 'location', 'copyright', 'issue'];
+  displayedColumns: string[] = ['accession', 'booktitle', 'author', 'location', 'copyright'];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -60,30 +60,14 @@ export class BooksComponent implements OnInit {
 }
 
 export interface PeriodicElement {
-  dateadd: string;
+  accession: string,
   booktitle: string;
   author: string;
   location: string;
   copyright: string;
-  issue: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {dateadd: 'April 15, 2024', booktitle: 'One Piece', author: 'Eiichiro Oda', location: 'FIL', copyright: '1999', issue: 'sobrang haba'}, 
-  {dateadd: 'April 16, 2024', booktitle: 'Ang alamat ng Marupok', author: 'Sempre ako na yun', location: 'FIL', copyright: '2003', issue: 'for marupok only'},
-  {dateadd: 'April 15, 2024', booktitle: 'One Piece', author: 'Eiichiro Oda', location: 'FIL', copyright: '1999', issue: 'sobrang haba'}, 
-  {dateadd: 'April 16, 2024', booktitle: 'Ang alamat ng Marupok', author: 'Sempre ako na yun', location: 'FIL', copyright: '2003', issue: 'for marupok only'},
-  {dateadd: 'April 15, 2024', booktitle: 'One Piece', author: 'Eiichiro Oda', location: 'FIL', copyright: '1999', issue: 'sobrang haba'}, 
-  {dateadd: 'April 16, 2024', booktitle: 'Ang alamat ng Marupok', author: 'Sempre ako na yun', location: 'FIL', copyright: '2003', issue: 'for marupok only'},
-  {dateadd: 'April 15, 2024', booktitle: 'One Piece', author: 'Eiichiro Oda', location: 'FIL', copyright: '1999', issue: 'sobrang haba'}, 
-  {dateadd: 'April 16, 2024', booktitle: 'Ang alamat ng Marupok', author: 'Sempre ako na yun', location: 'FIL', copyright: '2003', issue: 'for marupok only'},
-  {dateadd: 'April 15, 2024', booktitle: 'One Piece', author: 'Eiichiro Oda', location: 'FIL', copyright: '1999', issue: 'sobrang haba'}, 
-  {dateadd: 'April 16, 2024', booktitle: 'Ang alamat ng Marupok', author: 'Sempre ako na yun', location: 'FIL', copyright: '2003', issue: 'for marupok only'},
-  {dateadd: 'April 15, 2024', booktitle: 'One Piece', author: 'Eiichiro Oda', location: 'FIL', copyright: '1999', issue: 'sobrang haba'}, 
-  {dateadd: 'April 16, 2024', booktitle: 'Ang alamat ng Marupok', author: 'Sempre ako na yun', location: 'FIL', copyright: '2003', issue: 'for marupok only'},
-  {dateadd: 'April 15, 2024', booktitle: 'One Piece', author: 'Eiichiro Oda', location: 'FIL', copyright: '1999', issue: 'sobrang haba'}, 
-  {dateadd: 'April 16, 2024', booktitle: 'Ang alamat ng Marupok', author: 'Sempre ako na yun', location: 'FIL', copyright: '2003', issue: 'for marupok only'},
-  {dateadd: 'April 15, 2024', booktitle: 'One Piece', author: 'Eiichiro Oda', location: 'FIL', copyright: '1999', issue: 'sobrang haba'}, 
-  {dateadd: 'April 16, 2024', booktitle: 'Ang alamat ng Marupok', author: 'Sempre ako na yun', location: 'FIL', copyright: '2003', issue: 'for marupok only'},
-];
+  {accession: '1001', booktitle: 'One Piece', author: 'Eiichiro Oda', location: 'FIL', copyright: '1999'}, 
+  ];
 
