@@ -39,7 +39,7 @@
             
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="title" required value="Sample value from backend data">
+                                        <input class="inputtxt" type="text" name="title" [placeholder]="data.details.title">
                                         <span></span>
                                         <div class="labelline"> Title </div>
                                     </div>
@@ -71,7 +71,7 @@
                                         <label class="labelline" for="language"> Language </label>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="date" id="datepub" name="date_published" required>
+                                        <input class="inputtxt" type="date" id="datepub" name="date_published" [value]="data.details.date_published">
                                         <span></span>
                                         <div class="datelabel"> Date Published </div>
                                     </div> 
@@ -84,7 +84,7 @@
             
                                 <div class="input-row">
                                     <div class="txtarea">
-                                        <textarea name="abstract" placeholder="Project abstract..."> sample sample... hindi ko pa magawa yung sa keywords </textarea>
+                                        <textarea name="abstract" [placeholder]="data.details.abstract"></textarea>
                                         <span></span>
                                         <label class="labelline1"> Abstract </label>
                                     </div>

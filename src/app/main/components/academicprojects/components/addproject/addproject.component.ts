@@ -1,6 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild   } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild   } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { DataService } from '../../../../../services/data.service';
+import { filter } from 'rxjs';
 
 interface MyOption {
   value: string;
@@ -13,230 +15,52 @@ interface MyOption {
   styleUrl: './addproject.component.scss'
 })
 
-export class AddprojectComponent {
-  // FOR COLLEGE, PROGRAM, AND CATEGORY OF THE PROJECT
-  options1 = [
-    { value: 'CCS', label: 'CCS' },
-    { value: 'CBA', label: 'CBA' },
-    { value: 'CEAS', label: 'CEAS' },
-    { value: 'CAHS', label: 'CAHS' },
-    { value: 'CHTM', label: 'CHTM' },
-  ];
+export class AddprojectComponent implements OnInit{
 
-  options2: MyOption[] = [];
-  options3: MyOption[] = [];
-
-  selectedOption1: string;
-  selectedOption2: string;
-  selectedOption3: string;
+  programs: any;
+  departments: any;
+  departmentFilter = '';
+  programFilter: any;
+  programCategory: any;
+  categories: any;
 
   constructor(private router: Router,
-    private elementRef: ElementRef
-  ) {
-    this.selectedOption1 = ''; // Initialize selectedOption1 in the constructor
-    this.selectedOption2 = '';
-    this.selectedOption3 = '';
-  }
+    private elementRef: ElementRef,
+    private ds: DataService
+  ) { }
 
-  onOption1Change() {
-    // Logic for populating PROGRAM based on COLLEGE DEPARTMENT
-
-    // CCS -------------------------------------------------
-    if (this.selectedOption1 === 'CCS') {
-      this.options2 = [
-        { value: 'BSCS', label: 'BSCS' },
-        { value: 'BSIT', label: 'BSIT' },
-        { value: 'BSEMC', label: 'BSEMC' },
-        { value: 'ACT', label: 'ACT' },
-      ];
-    }
-    // CBA -------------------------------------------------
-    else if (this.selectedOption1 === 'CBA') {
-      this.options2 = [
-        { value: 'BSA', label: 'BSA' },
-        { value: 'BSCA', label: 'BSCA' },
-        { value: 'BSBA-FM', label: 'BSBA-FM' },
-        { value: 'BSBA-MKT', label: 'BSBA-MKT' },
-        { value: 'BSBA-HRM', label: 'BSBA-HRM' },
-      ];
-    }
-    // CEAS -------------------------------------------------
-    else if (this.selectedOption1 === 'CEAS') {
-      this.options2 = [
-        { value: 'BACOMM', label: 'BACOMM' },
-        { value: 'BEED', label: 'BEED' },
-        { value: 'BPED', label: 'BPED' },
-        { value: 'BCAED', label: 'BCAED' },
-        { value: 'BECED', label: 'BECED' },
-        { value: 'BSED-ENG', label: 'BSED-ENG' },
-        { value: 'BSED-FIL', label: 'BSED-FIL' },
-        { value: 'BSED-MATH', label: 'BSED-MATH' },
-        { value: 'BSED-SCI', label: 'BSED-SCI' },
-        { value: 'BSED-SOC', label: 'BSED-SOC' }
-      ];
-    }
-    // CAHS -------------------------------------------------
-    else if (this.selectedOption1 === 'CAHS') {
-      this.options2 = [
-        { value: 'BSM', label: 'BSM' },
-        { value: 'BSN', label: 'BSN' }
-      ];
-    }
-    // CHTM -------------------------------------------------
-    else if (this.selectedOption1 === 'CHTM') {
-      this.options2 = [
-        { value: 'BSHM', label: 'BSHM' },
-        { value: 'BSTM', label: 'BSTM' }
-      ];
-    } 
-    
-    else {
-      this.options2 = [];
-    }
-
-    this.selectedOption2 = '';
-    this.options3 = []; // Reset options3 when the first select menu changes
-    this.selectedOption3 = ''; // Reset selectedOption3 when the first select menu changes
-  }
-
-
-  onOption2Change() {
-    // Logic for populating PROJECT TYPE based on COLLEGE PROGRAM
-
-    // CCS PROGRAMS -------------------------------------------------
-    if (this.selectedOption2 === 'BSCS') {
-      this.options3 = [
-        { value: 'Thesis', label: 'Thesis' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSIT') {
-      this.options3 = [
-        { value: 'Capstone', label: 'Capstone' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSEMC') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'ACT') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    // CBA PROGRAMS -------------------------------------------------
-    else if (this.selectedOption2 === 'BSA') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSCA') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSBA-FM') {
-      this.options3 = [
-        { value: 'Feasibility', label: 'Feasibility' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSBA-MKT') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSBA-HRM') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-
-    // CEAS PROGRAMS -------------------------------------------------
-    else if (this.selectedOption2 === 'BACOMM') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BEED') {
-      this.options3 = [
-        { value: 'Classroom Based Action Research', label: 'Classroom Based Action Research' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BPED') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BCAED') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BECED') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BSED-ENG') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BSED-FIL') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BSED-MATH') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BSED-SCI') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BSED-SOC') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-
-    // CAHS PROGRAMS -------------------------------------------------
-    else if (this.selectedOption2 === 'BSN') {
-      this.options3 = [
-        { value: 'Case Presentation', label: 'Case Presentation' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSM') {
-      this.options3 = [
-        { value: 'Case Presentation', label: 'Case Presentation' }
-      ];
-    }
-    // CHTM PROGRAMS -------------------------------------------------
-    else if (this.selectedOption2 === 'BSTM') {
-      this.options3 = [
-        { value: 'Thesis', label: 'Thesis' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSHM') {
-      this.options3 = [
-        { value: 'Thesis', label: 'Thesis' }
-      ];
-    } 
-
-    else {
-      this.options3 = [];
-    }
-
-    this.selectedOption3 = '';
-  }
-
-
-  // DYNAMIC ADD MULTIPLE AUTHOR
   ngOnInit() {
+    this.ds.get('programs').subscribe({
+      next: (res: any) => {
+        this.programs = res;
+        this.departmentFilter = res[0].department;
+        this.programFilter = res[0].program;
+        this.programCategory = res[0].category;
+
+        // Extract unique department names from programs
+        const uniqueDepartments = new Set<string>();
+        this.programs.forEach((program: any) => {
+            uniqueDepartments.add(program.department);
+        });
+
+        // Convert the Set back to an array
+        this.departments = Array.from(uniqueDepartments);
+
+        
+        const uniqueCategories = new Set<string>();
+        this.programs.forEach((program: any) => {
+            uniqueCategories.add(program.category);
+        });
+
+        // Convert the Set back to an array
+        this.categories = Array.from(uniqueCategories);
+      }
+    })
+    
+    // DYNAMIC ADD MULTIPLE AUTHOR
     this.values = this.inputValues.map(input => ({ ...input }));
+
+    this.submit();
   }
 
   inputValues: { value: string }[] = [{ value: "" }];
@@ -259,6 +83,45 @@ export class AddprojectComponent {
     return this.inputValues.length >= 6;
   }
 
+  // PROGRAM FILTERING
+  changedDepartment(event: Event) {
+    const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
+    this.departmentFilter = selectDepartment;
+
+    const selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
+    this.programFilter = selectProgram;
+
+    this.changeCategory();
+  }
+
+  changedProgram(event: Event) {
+    const selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
+    this.programFilter = selectProgram;
+
+    this.changeCategory();
+  }
+
+  changeCategory(){
+    console.log(this.programFilter)
+    let tempCategory: any;
+    for(let x of this.programs) {
+      if(x.program === this.programFilter) {
+        tempCategory = x.category;
+        break;
+      }
+    }
+
+    let tempIndex: any;
+    for(let i = 0; i < this.categories.length; i++) {
+      if(this.categories[i] == tempCategory) {
+        tempIndex = i;
+        break;
+      }
+    }
+
+    const selectCategory = document.getElementById('category') as HTMLSelectElement
+    selectCategory.selectedIndex = tempIndex;
+  }
   // KEYWORDS FUNCTION NA HINDI NAGF-FUNCTION
   // maxTags: number = 10;
   // tags: string[] = ["coding", "nepal"];
@@ -315,7 +178,44 @@ export class AddprojectComponent {
   // }
 
 
+  /* SUBMIT FORM */
+  submit() {
+    var form = document.getElementById('project-form') as HTMLFormElement;
 
+    form.addEventListener('submit', (event) => {
+
+      // Prevent the default form submission behavior
+      event.preventDefault();
+  
+      // Get the form elements
+      const elements = form.elements;
+
+      let formData = new FormData();
+  
+      // Loop through each form element
+      for (let i = 0; i < elements.length; i++) {
+          var element = elements[i] as HTMLInputElement;
+        
+          // Check if the element is an input field
+          if (element.type === 'file' && element.files && element.files.length > 0) {
+            formData.append(element.name, element.files[0]);
+          } else if ((element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'DATE'
+          || element.tagName === 'TEXTAREA') && element.id != 'submit-button' && element.id != 'author') {
+            formData.append(element.name, element.value);
+            console.log(element.name + ': ' + element.value)
+          } else if (element.id == 'author') {
+              formData.append('authors', JSON.stringify(this.values)); 
+          }
+      }
+
+      console.log(formData.get('category'))
+      this.ds.post('projects/process', formData).subscribe({
+        next: (res: any) => console.log(res)
+      })
+
+    }); // end of event listener
+
+  }
 
   // POP UP FUNCTION CONTENT
   showPopup: boolean = false;

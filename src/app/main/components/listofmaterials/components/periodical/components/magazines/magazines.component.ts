@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PerioDetailsComponent } from '../perio-details/perio-details.component';
 import { DataService } from '../../../../../../../services/data.service';
-//import { SharedDataService } from '../../../../../../../services/shared-data.service';
 
 @Component({
   selector: 'app-magazines',
@@ -43,7 +42,6 @@ export class MagazinesComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
     private ds: DataService,
-    //private shared: SharedDataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }

@@ -14,22 +14,19 @@
 
             <div class="table-head">
                 <div class="table-filters">
-                    <select id="filter-department" (change)="applyFilter($event, 'department')">
+                    <select id="filter-department" (change)="applyFilter($event, 'department')" (change)="changedDepartment($event)">
                         <option selected value=""> All College </option>
-                        <option value="CCS"> CCS </option>
-                        <option value="CBA"> CBA </option>
-                        <option value="CAHS"> CAHS </option>
-                        <option value="CEAS"> CEAS </option>
-                        <option value="CHTM"> CHTM </option>
+                        <option *ngFor="let x of departments" [value] = "x">{{ x }}</option>
                     </select>
 
                     <select id="filter-program" (change)="applyFilter($event, 'program')">
-                        <option selected value=""> All Programs </option>
-                        <option value="BSCS"> BSCS </option>
-                        <option value="BSIT"> BSIT </option>
-                        <option value="BSEMC"> BSEMC </option>
-                        <option value="ACT"> ACT </option>
-                        <option value="HUHU"> paano siya ibase sa dept </option>
+                        <option [selected]="departmentFilter === '' ? true : null" value=""> 
+                            {{ departmentFilter === '' ? 'Select Department' : 'All Programs' }} 
+                        </option>
+
+                        <ng-container *ngFor="let x of programs">
+                            <option *ngIf="x.department == departmentFilter" [value] = "x.program">{{ x.program }}</option>
+                        </ng-container>
                     </select>
 
                     <select id="filter-category" (change)="applyFilter($event, 'category')">
@@ -103,7 +100,11 @@
                 <!-- Author Column -->
                 <ng-container matColumnDef="author">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Author </th>
-                    <td mat-cell *matCellDef="let project"> {{project.author}} </td>
+                    <td mat-cell *matCellDef="let project"> 
+                        <ng-container *ngFor="let author of project.projectAuthors; let last = last">
+                            {{ author.name }} {{ !last ? ',' : '' }}
+                        </ng-container> 
+                    </td>
                 </ng-container>
         
                 <!-- Date Published Column -->
@@ -117,7 +118,17 @@
                     <th mat-header-cell *matHeaderCellDef> Actions </th>
                     <td mat-cell class="actions" *matCellDef="let project">
             
-                        <button class="editbtn" (click)="editProject(project.id)"  mat-raised-button color="primary">
+                        <button class="editbtn" (click)="editProject({
+                            id: project.id,
+                            title: project.title, 
+                            program: project.program.program, 
+                            department: project.program.department,
+                            category: project.category,
+                            language: project.language,
+                            abstract: project.abstract,
+                            authors: project.projectAuthors,
+                            date_published: project.date_published
+                        })"  mat-raised-button color="primary">
                             <i class='bx bx-edit' ></i>
                             <span class="tooltiptext"> Edit </span>
                         </button>
@@ -133,7 +144,7 @@
                             category: project.category,
                             language: project.language,
                             abstract: project.abstract,
-                            author: project.author,
+                            authors: project.projectAuthors,
                             date_published: project.date_published
                             })" (closedPopup)="closePopup()" mat-raised-button color="primary">
                             <i class='bx bx-detail' ></i>

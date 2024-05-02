@@ -383,7 +383,8 @@ input[type="file"]::file-selector-button {
     left: 0;
 }
 
-.buttons a {
+.buttons a, .buttons input {
+    border: none;
     padding: 10px;
     text-align: center;
     font-weight: 600;

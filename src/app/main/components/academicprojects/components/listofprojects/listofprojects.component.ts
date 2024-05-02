@@ -33,7 +33,7 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
 })
-export class ListofprojectsComponent implements AfterViewInit {
+export class ListofprojectsComponent implements OnInit {
   redirectToProjectForm() {
     // Programmatically navigate to another route
     this.router.navigate(['main/academicprojects/addproject']);
@@ -50,15 +50,32 @@ export class ListofprojectsComponent implements AfterViewInit {
 
   protected projects: any = null;
   protected dataSource!: any;
+  protected programs: any;
+  protected departments: any;
+  protected departmentFilter = '';
 
-  ngAfterViewInit() {
+  ngOnInit() {
 
     this.ds.get('projects').subscribe((res: any) => {
       this.projects = res;
+      console.log(res)
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
+
+    this.ds.get('programs').subscribe((res: any) => {
+      this.programs = res;
+
+      // Extract unique department names from programs
+      const uniqueDepartments = new Set<string>();
+      this.programs.forEach((program: any) => {
+          uniqueDepartments.add(program.department);
+      });
+
+      // Convert the Set back to an array
+      this.departments = Array.from(uniqueDepartments);
+    })
   }
 
   constructor(
@@ -72,51 +89,59 @@ export class ListofprojectsComponent implements AfterViewInit {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
+  changedDepartment(event: Event) {
+    const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
+    this.departmentFilter = selectDepartment;
+  }
+
   // Filtering 
   applyFilter(event: Event, type: string) {
 
     const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
-    const selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
+    let selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
     const selectCategory = (document.getElementById('filter-category') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
-
-      const titleFilterPredicate = (data: Project, search: string): boolean => {
-        return data.title.toLowerCase().includes(search.toLowerCase());
-      } 
-
-      const authorFilterPredicate = (data: Project, search: string): boolean => {
-        return data.author.toLowerCase().includes(search.toLowerCase());
-      } 
-      
-      const departmentFilterPredicate = (data: Project, selectDepartment: string): boolean => {
-        return data.program.department === selectDepartment || selectDepartment === '';
-      }
-
-      const programFilterPredicate = (data: Project, selectProgram: string): boolean => {
-        return data.program.program === selectProgram || selectProgram === '';
-      }
-
-      const categoryFilterPredicate = (data: Project, selectCategory: string): boolean => {
-        return data.category === selectCategory || selectCategory === '';
-      }
-
-      const filterPredicate = (data: Project): boolean => {
-        return (titleFilterPredicate(data, search) || authorFilterPredicate(data, search)) &&
-               departmentFilterPredicate(data, selectDepartment) &&
-               programFilterPredicate(data, selectProgram) &&
-               categoryFilterPredicate(data, selectCategory);
-      };
-      
-      this.dataSource.filterPredicate = filterPredicate;
-      if(type === 'department')
-        this.dataSource.filter = selectDepartment;
-      else if(type === 'program')
-        this.dataSource.filter = selectProgram;
-      else if(type === 'category')
-        this.dataSource.filter = selectCategory;
-      else if(type === 'search')
-        this.dataSource.filter = search;
     
+    if(type == 'department'){
+      this.departmentFilter = selectDepartment;
+      selectProgram = '';
+    }
+
+    const titleFilterPredicate = (data: Project, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    } 
+
+    const authorFilterPredicate = (data: Project, search: string): boolean => {
+      return data.author.toLowerCase().includes(search.toLowerCase());
+    } 
+    
+    const departmentFilterPredicate = (data: Project, selectDepartment: string): boolean => {
+      return data.program.department === selectDepartment || selectDepartment === '';
+    }
+
+    const programFilterPredicate = (data: Project, selectProgram: string): boolean => {
+      return data.program.program === selectProgram || selectProgram === '';
+    }
+
+    const categoryFilterPredicate = (data: Project, selectCategory: string): boolean => {
+      return data.category === selectCategory || selectCategory === '';
+    }
+
+    const filterPredicate = (data: Project): boolean => {
+      return (titleFilterPredicate(data, search) || authorFilterPredicate(data, search)) &&
+              departmentFilterPredicate(data, selectDepartment) &&
+              programFilterPredicate(data, selectProgram) &&
+              categoryFilterPredicate(data, selectCategory);
+    };
+
+    console.log('program: ' + selectProgram)
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = {
+      search, 
+      selectDepartment, 
+      selectProgram, 
+      selectCategory
+    };
   }
 
   showPopup: boolean = false;

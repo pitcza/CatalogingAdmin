@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class DetailsPopupComponent implements OnInit{
 
   protected image: any = null;
+  authors: any;
 
   ngOnInit(): void {
 
@@ -27,6 +28,8 @@ export class DetailsPopupComponent implements OnInit{
       console.log(error);
       this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
     });
+
+    console.log(this.data)
   }
 
   constructor(

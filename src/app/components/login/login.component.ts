@@ -31,9 +31,6 @@ export class LoginComponent implements AfterViewInit {
   
       // Get the form elements
       var elements = form.elements;
-  
-      // Create an object to store form values
-      // var formData: { [key: string]: any } = {};
 
       let formData = new FormData();
   
@@ -50,8 +47,16 @@ export class LoginComponent implements AfterViewInit {
       this.as.login(formData).subscribe({
         next: (res: any) => {
           localStorage.setItem('auth-token', res.token);
+          localStorage.setItem('name', res.displayName);
+          localStorage.setItem('role', res.role);
+
+          let time = new Date();
+          time.setMinutes(time.getMinutes() + 55);
+          localStorage.setItem('request-token', time.toISOString());
           this.router.navigate(['main']);
+
           // hindi na ba need alert
+          // hindi na siguro mas malinis tignan yan e
           const Toast = Swal.mixin({
             toast: true,
             position: "top-end",

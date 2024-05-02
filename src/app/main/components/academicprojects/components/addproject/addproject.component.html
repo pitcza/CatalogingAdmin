@@ -11,9 +11,9 @@
 
         <div class="addproject">
         
-            <form>
+            <form id="project-form">
                 <div class="input_field">
-                    <div class="input-row">
+                    <!-- <div class="input-row">
                         <div class="txt_field">
                             <select class="inputtxt" required name="department" id="college" [(ngModel)]="selectedOption1" (change)="onOption1Change()" [ngModelOptions]="{standalone: true}">
                                 <option *ngFor="let option of options1" [value]="option.value">{{ option.label }} </option>
@@ -34,6 +34,32 @@
                             </select>
                             <span></span>
                             <label class="labelline" for="category"> Category </label>
+                        </div> -->
+
+                    
+                    <div class="input-row">
+                        <div class="txt_field">
+                            <select class="inputtxt" id="filter-department" (change)="changedDepartment($event)">
+                                <option *ngFor="let x of departments; let i = index" [value] = "x" [selected]="i === 0">{{ x }}</option>
+                            </select>
+                            <span></span>
+                            <label class="labelline" for="college"> College </label>
+                        </div>
+                        <div class="txt_field">
+                            <select class="inputtxt" id="filter-program" (change)="changedDepartment($event)" name="program_id">        
+                                <ng-container *ngFor="let x of programs">
+                                    <option *ngIf="x.department == departmentFilter" [value] = "x.id">{{ x.program }}</option>
+                                </ng-container>
+                            </select>
+                            <span></span>
+                            <label class="labelline" for="program"> Program </label>
+                        </div>
+                        <div class="txt_field">
+                            <select class="inputtxt" id="category" name="category">
+                                <option *ngFor="let x of categories" [value] = "x" [selected]="programCategory === x">{{ x }}</option>
+                            </select>
+                            <span></span>
+                            <label class="labelline" for="college"> Category </label>
                         </div>
                     </div>
 
@@ -45,7 +71,7 @@
                         </div>
                     </div>
 
-                    <!-- CAN ADD MULTIPLE AUTHOR -->
+                    <!-- CAN ADD MULTIPLE AUTHORS -->
                     <div class="input-row">
                         <div class="multiple-author" *ngFor="let item of values; let i = index">
                             <div class="txt_field">
@@ -54,10 +80,10 @@
                                 <div class="labelline"> Author </div>
                             </div>
                             <p *ngIf="i === 0"> Add more AUTHOR if necessary </p>
-                            <button class="removebtn" *ngIf="i > 0" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
+                            <button type="button" class="removebtn" *ngIf="i > 0" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
                         </div>
                         <div class="addbtn">
-                            <button class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                            <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
                         </div>
                     </div>
 
@@ -116,9 +142,10 @@
 
                 <!-- BUTTONS -->
                 <div class="buttons">
-                    <a class="add" (click)="addBox()"> 
-                        <span> Add </span>
-                    </a>
+                    <!-- <a class="add" (click)="addBox()">  -->
+                        <input id="submit-button" class="add" type="submit" value="Add"> 
+                    <!-- </a> -->
+
                     <a class="cancel" (click)="cancelBox()"> 
                         <span> Cancel </span>
                     </a>

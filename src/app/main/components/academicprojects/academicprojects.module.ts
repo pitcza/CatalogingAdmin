@@ -23,7 +23,7 @@ import { DetailsPopupComponent } from './components/details-popup/details-popup.
     CommonModule,
     AcademicprojectsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class AcademicprojectsModule { }

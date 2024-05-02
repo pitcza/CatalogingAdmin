@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 
@@ -31,7 +33,11 @@ export class EditdetailsComponent implements OnInit{
   selectedOption2: string;
   selectedOption3: string;
 
-  constructor(private router: Router, private ref: MatDialogRef<EditdetailsComponent>, private buildr: FormBuilder,) {
+  constructor(
+    private router: Router, 
+    private ref: MatDialogRef<EditdetailsComponent>, 
+    private buildr: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
     this.selectedOption1 = ''; // Initialize selectedOption1 in the constructor
     this.selectedOption2 = '';
     this.selectedOption3 = '';
@@ -236,6 +242,7 @@ export class EditdetailsComponent implements OnInit{
   // DYNAMIC ADD MULTIPLE AUTHOR
   ngOnInit(): void {
     this.addvalue();
+    console.log(this.data.details)
   }
 
   values: { value: string }[] = [];
