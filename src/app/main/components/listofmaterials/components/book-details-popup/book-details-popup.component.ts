@@ -25,13 +25,13 @@ export class BookDetailsPopupComponent {
   protected image: any = null;
 
   ngOnInit(): void {
+    
     this.ds.getImage('book/image/' + this.data.details.id).subscribe({
       next: (res:any) => {
         this.image = URL.createObjectURL(res)
       },
       error: (err: any) => {
         this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
-        console.log(err)
       }
     });
   }

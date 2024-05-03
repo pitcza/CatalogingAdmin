@@ -200,17 +200,36 @@ export class AddprojectComponent implements OnInit{
           if (element.type === 'file' && element.files && element.files.length > 0) {
             formData.append(element.name, element.files[0]);
           } else if ((element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'DATE'
-          || element.tagName === 'TEXTAREA') && element.id != 'submit-button' && element.id != 'author') {
+          || element.tagName === 'TEXTAREA') && element.id != 'submit-button' && element.name != 'author') {
             formData.append(element.name, element.value);
             console.log(element.name + ': ' + element.value)
-          } else if (element.id == 'author') {
+          } else if (element.name == 'author') {
               formData.append('authors', JSON.stringify(this.values)); 
           }
       }
 
-      console.log(formData.get('category'))
+      console.log(formData.get('authors'))
       this.ds.post('projects/process', formData).subscribe({
-        next: (res: any) => console.log(res)
+        next: (res: any) => {
+          Swal.fire({
+            title: 'Success',
+            text: formData.get('title') + " has been added successfully",
+            icon: 'success',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+            timer: 5000
+          });
+        },
+        error:(err: any) => {
+          console.log(err);
+          Swal.fire({
+            title: 'Error',
+            text: "Oops an error occured",
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+          });
+        }
       })
 
     }); // end of event listener

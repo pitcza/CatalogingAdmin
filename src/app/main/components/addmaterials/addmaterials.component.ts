@@ -150,9 +150,6 @@ export class AddmaterialsComponent implements OnInit{
       // Get the form elements
       const elements = form.elements;
 
-      // Create an object to store form values
-      // var formData : { [key: string]: any } = {};
-
       let formData = new FormData();
   
       // Loop through each form element
@@ -161,7 +158,7 @@ export class AddmaterialsComponent implements OnInit{
   
           // Check if the element is an input field
           if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
-            if (element.id != 'submit' && element.value != ''){
+            if (element.type !== 'submit' && element.value !== ''){
 
               formData.append(element.name, element.value);
             }
@@ -170,6 +167,7 @@ export class AddmaterialsComponent implements OnInit{
 
       this.ds.post('articles/process',  formData).subscribe({
         next: (res: any) => {
+          console.log(res)
           Swal.fire({
             title: 'Success',
             text: formData.get('title') + " has been added successfully",
@@ -179,6 +177,7 @@ export class AddmaterialsComponent implements OnInit{
           });
         },
         error: (err: any) => {
+          console.log(err)
           Swal.fire({
             title: 'Error',
             text: "Oops an error occured",

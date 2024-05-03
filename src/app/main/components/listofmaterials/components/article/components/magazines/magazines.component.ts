@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -24,14 +24,18 @@ import { CommonModule } from '@angular/common';
     MatPaginatorModule, 
   ]
 })
-export class MagazinesComponent implements AfterViewInit {
+export class MagazinesComponent implements OnInit {
   displayedColumns: string[] = ['created_at', 'title', 'publisher', 'date_published', 'action'];
   dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  ngAfterViewInit() {
+  ngOnInit(): void {
+      this.getData();
+  }
+
+  getData() {
     this.ds.get('articles/type/magazine').subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<MagazineArticle>(res)
@@ -83,9 +87,9 @@ export class MagazinesComponent implements AfterViewInit {
   }
 
   // SWEETALERT ARCHIVE POP UP
-  archiveBox(){
+  archiveBox(id: number){
     Swal.fire({
-      title: "Archive Article",
+      title: "Archive Book",
       text: "Are you sure want to archive this article?",
       icon: "warning",
       showCancelButton: true,
@@ -95,14 +99,27 @@ export class MagazinesComponent implements AfterViewInit {
       cancelButtonColor: "#777777",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Article has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
+        this.ds.delete('articles/process/' + id).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Article has been safely archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+            });
+            this.getData();
+          },
+          error: (err: any) => {
+            Swal.fire({
+              title: "Error",
+              text: "Oops an error occured.",
+              icon: "error"
+            });
+            console.log(err);
+          }
         });
-      }
+      };
     });
   }
 

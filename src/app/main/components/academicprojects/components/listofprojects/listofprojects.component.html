@@ -31,11 +31,11 @@
 
                     <select id="filter-category" (change)="applyFilter($event, 'category')">
                         <option selected value=""> All Projects </option>
-                        <option value="thesis"> Thesis </option>
-                        <option value="capstone"> Capstone </option>
-                        <option value="research"> Research </option>
-                        <option value="dissertation"> Dissertation </option>
-                        <option value="feasibility"> Feasibility </option>
+                        <option value="Thesis"> Thesis </option>
+                        <option value="Capstone"> Capstone </option>
+                        <option value="Research"> Research </option>
+                        <option value="Dissertation"> Dissertation </option>
+                        <option value="Feasibility"> Feasibility </option>
                     </select>
                 </div>
 
@@ -94,15 +94,15 @@
                 <!-- Title Column -->
                 <ng-container matColumnDef="title">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Title </th>
-                    <td mat-cell *matCellDef="let project"> {{project.title}} </td>
+                    <td mat-cell *matCellDef="let project" class="left-align"> {{project.title}} </td>
                 </ng-container>
 
                 <!-- Author Column -->
                 <ng-container matColumnDef="author">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Author </th>
-                    <td mat-cell *matCellDef="let project"> 
+                    <td mat-cell *matCellDef="let project" class="left-align"> 
                         <ng-container *ngFor="let author of project.projectAuthors; let last = last">
-                            {{ author.name }} {{ !last ? ',' : '' }}
+                            {{ author.name }} {{ !last ? ',' : '' }}<br>
                         </ng-container> 
                     </td>
                 </ng-container>

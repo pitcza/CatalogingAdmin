@@ -38,7 +38,7 @@ import { filter } from 'rxjs';
 })
 
 export class BooksComponent implements OnInit {
-  displayedColumns: string[] = ['created_at', 'title', 'author', 'location', 'copyright', 'issue', 'action'];
+  displayedColumns: string[] = ['created_at', 'title', 'author', 'location', 'copyright', 'action'];
   dataSource:any = null;
   materials: any = null;
 
@@ -49,6 +49,7 @@ export class BooksComponent implements OnInit {
     this.ds.get('books').subscribe({
       next: (res: any) =>  {
         this.materials = res;
+        console.log(res)
         this.dataSource = new MatTableDataSource<BookElement, MatPaginator>(this.materials);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -205,7 +206,6 @@ export interface BookElement {
   author: string;
   location: any;
   copyright: Date;
-  issue: number;
   date_published: Date;
   volume: number;
   [key: string]: any;

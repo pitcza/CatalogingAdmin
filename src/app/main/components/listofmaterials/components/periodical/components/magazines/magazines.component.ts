@@ -91,8 +91,8 @@ export class MagazinesComponent implements OnInit {
   // SWEETALERT ARCHIVE POP UP
   archiveBox(id: number){
     Swal.fire({
-      title: "Archive Periodical",
-      text: "Are you sure want to archive this periodical?",
+      title: "Archive Magazine",
+      text: "Are you sure want to archive this magazine?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -105,7 +105,7 @@ export class MagazinesComponent implements OnInit {
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
-              text: "Periodical has been safely archived.",
+              text: "Magazine has been successfully archived.",
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
@@ -123,7 +123,6 @@ export class MagazinesComponent implements OnInit {
             });
           }
         })
-        
       }
     });
   }
