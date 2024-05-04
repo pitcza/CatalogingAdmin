@@ -38,7 +38,7 @@ import { filter } from 'rxjs';
 })
 
 export class BooksComponent implements OnInit {
-  displayedColumns: string[] = ['created_at', 'title', 'author', 'location', 'copyright', 'action'];
+  displayedColumns: string[] = ['title', 'author', 'location', 'copyright', 'action'];
   dataSource:any = null;
   materials: any = null;
 

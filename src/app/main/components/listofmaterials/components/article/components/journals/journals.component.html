@@ -21,16 +21,22 @@
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource">
 
-        <!-- Date Added Column -->
+        <!-- Date Added Column 
         <ng-container matColumnDef="created_at">
             <th mat-header-cell *matHeaderCellDef> Date Added </th>
             <td mat-cell *matCellDef="let element"> {{element.created_at | date : 'mediumDate'}} </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Title Column -->
         <ng-container matColumnDef="title">
             <th mat-header-cell *matHeaderCellDef> Journal Title </th>
             <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
+
+        <!-- Author Column -->
+        <ng-container matColumnDef="author">
+            <th mat-header-cell *matHeaderCellDef> Author </th>
+            <td mat-cell *matCellDef="let element"> {{element.author}} </td>
         </ng-container>
 
         <!-- Publisher Column -->

@@ -25,7 +25,7 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class MagazinesComponent implements OnInit {
-  displayedColumns: string[] = ['created_at', 'title', 'publisher', 'date_published', 'action'];
+  displayedColumns: string[] = ['title', 'author', 'publisher', 'date_published', 'action'];
   dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

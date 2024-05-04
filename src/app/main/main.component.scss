@@ -1,7 +1,7 @@
 
 body {
     transition: all 0.5s ease;
-    font-family: "Poppins";
+    font-family: "Montserrat";
 }
 
 /* HEADER */
@@ -87,7 +87,7 @@ body {
 
 .admin-tab a {
     display: flex;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 14px;
     padding: 10px 10px 10px 10px;
     text-decoration: none;
@@ -101,7 +101,7 @@ body {
 }
 
 .admin-tab a.active-link {
-    font-weight: 600;
+    font-weight: 700;
     color: var(--main-green);
 }
 
