@@ -20,7 +20,7 @@
 
 .table-filters select {
     background: var(--primary-color);
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     padding: 5px;
     font-size: 14px;
     font-weight: 400;
@@ -47,7 +47,7 @@
 
 
 .table-head input[type=text] {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     padding: 5px;
     font-size: 14px;
     font-weight: 400;
@@ -130,7 +130,7 @@ table {
 table,
 th,
 td {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     padding: 10px;
     text-align: center;
     border-bottom: 1.5px solid var(--table-border);
@@ -194,5 +194,5 @@ button i {
 }
 
 .swal2-confirm, .swal2-cancel {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
 }

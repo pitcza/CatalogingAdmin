@@ -13,6 +13,9 @@
                     <div class="details">
                         <div class="body-details">
                             <img alt="book image" [src]="image">
+                            <span>
+                                <h2> Price: </h2> <p> {{ data.details.price }} </p>
+                            </span>
                         </div>
 
                         <div class="body-details">
@@ -44,6 +47,9 @@
                             </span>
                             <span>
                                 <h2> Edition: </h2> <p> {{ data.details.edition != null ? data.details.edition : 'N/A' }} </p>
+                            </span>
+                            <span>
+                                <h2> Source of Fund: </h2> <p> {{ data.details.source }} </p>
                             </span>
                             <span>
                                 <h2> Date {{ data.details.source === 'Purchased' ? 'Purchased' : (data.details.source === 'Donated') ? 'Donated' : 'Acquired' }}: </h2> <p> 

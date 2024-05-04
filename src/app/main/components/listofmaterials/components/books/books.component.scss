@@ -17,7 +17,7 @@
 
 .table-filters select {
     background: var(--primary-color);
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     padding: 5px;
     font-size: 14px;
     font-weight: 400;
@@ -33,7 +33,7 @@
 }
 
 .table-head input[type=text] {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     padding: 5px;
     font-size: 14px;
     font-weight: 400;
@@ -115,7 +115,7 @@ table {
 table,
 th,
 td {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     font-size: 14px;
     padding: 10px;
     text-align: center;
@@ -134,8 +134,15 @@ table tr:hover{
     background-color: var(--table-hover);
 }
 
-table td:nth-child(2) {
+table td:nth-child(1) {
     text-align: left;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+table td:nth-child(2) {
+    min-width: 100px;
+    max-width: 300px;
 }
 
 table td:nth-child(7) {
@@ -189,7 +196,7 @@ tr {
 }
 
 .actions .tooltiptext {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     font-size: 14px;
     visibility: hidden;
     background-color: rgba(0, 0, 0, 0.9);

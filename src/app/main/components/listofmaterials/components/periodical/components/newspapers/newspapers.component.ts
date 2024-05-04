@@ -25,7 +25,7 @@ import { DataService } from '../../../../../../../services/data.service';
 })
 
 export class NewspapersComponent implements AfterViewInit {
-  displayedColumns: string[] = ['created_at', 'title', 'publisher', 'copyright', 'action'];
+  displayedColumns: string[] = ['title', 'author', 'publisher', 'copyright', 'action'];
   dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
