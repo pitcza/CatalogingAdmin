@@ -6,6 +6,7 @@ import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
+import { DataService } from '../../../../../services/data.service';
 
 interface MyOption {
   value: string;
@@ -37,7 +38,9 @@ export class EditdetailsComponent implements OnInit{
     private router: Router, 
     private ref: MatDialogRef<EditdetailsComponent>, 
     private buildr: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ds: DataService
+  ) {
     this.selectedOption1 = ''; // Initialize selectedOption1 in the constructor
     this.selectedOption2 = '';
     this.selectedOption3 = '';
@@ -260,23 +263,53 @@ export class EditdetailsComponent implements OnInit{
   }
 
   // SWEETALERT UPDATE POPUP
-  updateBox(){
-    Swal.fire({
-      title: "Update Project",
-      text: "Are you sure you want to update the project details?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'Cancel',
-      confirmButtonColor: "#31A463",
-      cancelButtonColor: "#777777",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.ref.close('Closed using function');
+  protected updateBox() {
+    var form = document.getElementById('edit-form') as HTMLFormElement;
+
+      // Get the form elements
+    const elements = form.elements;
+
+    // Create an object to store form values
+    // var formData : { [key: string]: any } = {};
+
+    let formData = new FormData();
+
+    // Loop through each form element
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i] as HTMLInputElement;
+
+      // Check if the element is an input field
+      if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
+
+        if (element.type !== 'file' && element.id !== 'submit' && element.value !== '') {
+          formData.append(element.name, element.value);
+        } else if (element.type === 'file' && element.files && element.files.length > 0) {
+          formData.append(element.name, element.files[0]);
+        }
+
+      }
+    }
+
+    formData.forEach((value, key) => {
+      console.log("%s: %s", key, value);
+    })
+
+    formData.append('_method', 'PUT');
+    this.ds.post('projects/process/' + this.data.details.id, formData).subscribe({
+      next: (res: any) => {
         Swal.fire({
           title: "Update successful!",
           text: "The changes have been saved.",
-          icon: "success",
+          icon: "success"
+        });
+        this.ref.close('Changed Data');
+      },
+      error:(err: any) => {
+        console.log(err);
+        Swal.fire({
+          title: 'Error',
+          text: "Oops an error occured",
+          icon: 'error',
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
         });

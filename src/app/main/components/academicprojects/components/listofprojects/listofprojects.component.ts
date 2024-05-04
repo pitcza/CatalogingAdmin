@@ -48,20 +48,44 @@ export class ListofprojectsComponent implements OnInit {
   @ViewChild(MatPaginator, {static:true}) paginatior !: MatPaginator;
   @ViewChild(MatSort, {static:true}) sort !: MatSort;
 
+  constructor(
+    private router: Router,
+    private paginatorIntl: MatPaginatorIntl, 
+    private elementRef: ElementRef, 
+    private changeDetectorRef: ChangeDetectorRef,
+    private dialog: MatDialog,
+    private ds: DataService
+  ) {
+    this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
+  }
+
   protected projects: any = null;
   protected dataSource!: any;
   protected programs: any;
   protected departments: any;
   protected departmentFilter = '';
+  protected categories: any;
 
   ngOnInit() {
+    this.getData();
+  }
 
+  getData() {
     this.ds.get('projects').subscribe((res: any) => {
       this.projects = res;
       console.log(res)
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      
+      // Extract unique categories from projects
+      const uniqueCategories = new Set<string>();
+      this.projects.forEach((project: any) => {
+          uniqueCategories.add(project.category);
+      });
+
+      // Convert the Set back to an array
+      this.categories = Array.from(uniqueCategories);
     });
 
     this.ds.get('programs').subscribe((res: any) => {
@@ -78,17 +102,6 @@ export class ListofprojectsComponent implements OnInit {
     })
   }
 
-  constructor(
-    private router: Router,
-    private paginatorIntl: MatPaginatorIntl, 
-    private elementRef: ElementRef, 
-    private changeDetectorRef: ChangeDetectorRef,
-    private dialog: MatDialog,
-    private ds: DataService
-  ) {
-    this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
-  }
-
   changedDepartment(event: Event) {
     const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
     this.departmentFilter = selectDepartment;
@@ -97,11 +110,13 @@ export class ListofprojectsComponent implements OnInit {
   // Filtering 
   applyFilter(event: Event, type: string) {
 
+    // get elements
     const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
     let selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
     const selectCategory = (document.getElementById('filter-category') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
     
+    // reset program filter upon department filter search
     if(type == 'department'){
       this.departmentFilter = selectDepartment;
       selectProgram = '';
@@ -112,7 +127,7 @@ export class ListofprojectsComponent implements OnInit {
     } 
 
     const authorFilterPredicate = (data: Project, search: string): boolean => {
-      return data.author.toLowerCase().includes(search.toLowerCase());
+      return data.projectAuthors.some((author: any) => author.name.toLowerCase().includes(search.toLowerCase()));
     } 
     
     const departmentFilterPredicate = (data: Project, selectDepartment: string): boolean => {
@@ -134,7 +149,6 @@ export class ListofprojectsComponent implements OnInit {
               categoryFilterPredicate(data, selectCategory);
     };
 
-    console.log('program: ' + selectProgram)
     this.dataSource.filterPredicate = filterPredicate;
     this.dataSource.filter = {
       search, 
@@ -183,10 +197,10 @@ export class ListofprojectsComponent implements OnInit {
   }
 
   // SWEETALERT ARCHIVE POP UP
-  archiveBox(){
+  archiveBox(id: number){
     Swal.fire({
-      title: "Archive Project",
-      text: "Are you sure want to archive this project?",
+      title: "Archive Academic Project",
+      text: "Are you sure want to archive this academic project?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -195,25 +209,34 @@ export class ListofprojectsComponent implements OnInit {
       cancelButtonColor: "#777777",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Project has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
+        this.ds.delete('projects/process/' + id).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Academic project has been safely archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+            });
+            this.getData();
+          },
+          error: (err: any) => {
+            Swal.fire({
+              title: "Error",
+              text: "Oops an error occured.",
+              icon: "error"
+            });
+            console.log(err);
+          }
         });
-      }
+      };
     });
   }
-
-
-  // SELECTION
-
 }
 
 export interface Project {
   created_at: string;
-  author: string;
+  projectAuthors: any;
   program: any;
   category: string;
   title: string;

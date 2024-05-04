@@ -31,11 +31,7 @@
 
                     <select id="filter-category" (change)="applyFilter($event, 'category')">
                         <option selected value=""> All Projects </option>
-                        <option value="Thesis"> Thesis </option>
-                        <option value="Capstone"> Capstone </option>
-                        <option value="Research"> Research </option>
-                        <option value="Dissertation"> Dissertation </option>
-                        <option value="Feasibility"> Feasibility </option>
+                        <option *ngFor="let x of categories" [value]="x"> {{ x }} </option>
                     </select>
                 </div>
 
@@ -132,7 +128,7 @@
                             <i class='bx bx-edit' ></i>
                             <span class="tooltiptext"> Edit </span>
                         </button>
-                        <button class="deletebtn" (click)="archiveBox()" (closedPopup)="closePopup()" mat-raised-button color="warn">
+                        <button class="deletebtn" (click)="archiveBox(project.id)" (closedPopup)="closePopup()" mat-raised-button color="warn">
                             <i class='bx bx-archive-in'></i>
                             <span class="tooltiptext"> Archive </span>
                         </button>

@@ -208,9 +208,9 @@ export class AddprojectComponent implements OnInit{
           }
       }
 
-      console.log(formData.get('authors'))
       this.ds.post('projects/process', formData).subscribe({
         next: (res: any) => {
+          console.log(res)
           Swal.fire({
             title: 'Success',
             text: formData.get('title') + " has been added successfully",

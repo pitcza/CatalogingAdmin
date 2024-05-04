@@ -29,6 +29,12 @@
                     <th mat-header-cell *matHeaderCellDef> Date </th>
                     <td mat-cell *matCellDef="let element"> {{element.create_date | date: 'mediumDate'}} </td>
                 </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.user.first_name }} {{ element.user.last_name}} </td>
+                </ng-container>
             
                 <!-- Log Column -->
                 <ng-container matColumnDef="log">
