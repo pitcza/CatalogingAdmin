@@ -4,7 +4,7 @@
             <div class="details-content">
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
-                    <h1> Sample Title Sample Title Sample Title </h1>
+                    <h1> {{ data.details.title }} </h1>
                     <button class="exit-button" (click)="closepopup()"> &times; </button>
                 </div>
                 
@@ -13,37 +13,37 @@
                     <div class="details">
                         <div class="body-details">
                             <span>
-                                <h2> Type of Material: </h2> <p> ha </p>
+                                <h2> Type of Material: </h2> <p> {{ data.details.type | titlecase }} </p>
                             </span>
                             <span>
-                                <h2> Language: </h2> <p> ha </p>
+                                <h2> Language: </h2> <p> {{ data.details.language | titlecase }} </p>
                             </span>
                             <span>
-                                <h2> Publisher: </h2> <p> ha </p>
+                                <h2> Publisher: </h2> <p> {{ data.details.publisher }} </p>
                             </span>
                             <span>
-                                <h2> Publication Date: </h2> <p> ha </p>
+                                <h2> Publication Date: </h2> <p> {{ data.details.date_published | date: 'mediumDate' }} </p>
                             </span>
                             <span>
-                                <h2> Subject: </h2> <p> ha </p>
+                                <h2> Subject: </h2> <p> {{ data.details.subject }} </p>
                             </span>
                         </div>
 
                         <div class="body-details">
                             <span>
-                                <h2> Author: </h2> <p> ha </p>
+                                <h2> Author: </h2> <p> {{ data.details.author }} </p>
                             </span>
                             <span>
-                                <h2> Volume: </h2> <p> ha </p>
+                                <h2> Volume: </h2> <p> {{ data.details.volume }} </p>
                             </span>
                             <span>
-                                <h2> Page: </h2> <p> ha </p>
+                                <h2> Pages: </h2> <p> {{ data.details.pages }} </p>
                             </span>
                             <span>
-                                <h2> Issue: </h2> <p> ha </p>
+                                <h2> Issue: </h2> <p> {{ data.details.issue }} </p>
                             </span>
                             <span>
-                                <h2> Remark: </h2> <p> ha </p>
+                                <h2> Remark: </h2> <p> {{ data.details.remark != null ? data.details.remark : 'N/A' }} </p>
                             </span>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                             <h2> Abstract: </h2>
                         </span>
                         <span>
-                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+                            <p> {{ data.details.abstract != null ? data.details.abstract : 'N/A' }} </p>
                         </span>
                     </div>
                     </div>

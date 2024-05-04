@@ -29,6 +29,7 @@ export class PerioDetailsComponent implements OnInit {
         this.image = URL.createObjectURL(res)
       },
       error: (err: any) => {
+        console.log(err)
         this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
       }
     });    

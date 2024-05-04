@@ -13,7 +13,6 @@
                     <div class="details">
                         <div class="body-details">
                             <img alt="periodical picture" [src]="image">
-                            <!-- <img alt="blog" src="https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png"> -->
                         </div>
 
                         <div class="body-details">
@@ -21,13 +20,13 @@
                                 <h2> Type of Material: </h2> <p> {{ data.details.type | titlecase}} </p>
                             </span>
                             <span>
-                                <h2> Language: </h2> <p> {{ data.details.language }} </p>
+                                <h2> Language: </h2> <p> {{ data.details.language | titlecase }} </p>
                             </span>
                             <span>
                                 <h2> Publisher: </h2> <p> {{ data.details.publisher }} </p>
                             </span>
                             <span>
-                                <h2> Publication Date: </h2> <p> {{ data.details.date_published }} </p>
+                                <h2> Publication Date: </h2> <p> {{ data.details.date_published | date: 'mediumDate' }} </p>
                             </span>
                             <span>
                                 <h2> Author: </h2> <p> {{ data.details.author }} </p>
@@ -45,10 +44,10 @@
                                 <h2> Issue: </h2> <p> {{ data.details.issue != null ? data.details.issue : 'N/A' }} </p>
                             </span>
                             <span>
-                                <h2> Remark: </h2> <p> {{ data.details.remark != null ? data.details.remark : 'N/A' }} </p>
+                                <h2> Date Received: </h2> <p> {{ data.details.receive_date | date: 'mediumDate' }} </p>
                             </span>
                             <span>
-                                <h2> Date Received: </h2> <p> {{ data.details.receive_date }} </p>
+                                <h2> Remark: </h2> <p> {{ data.details.remark != null ? data.details.remark : 'N/A' }} </p>
                             </span>
                         </div>
                     </div>

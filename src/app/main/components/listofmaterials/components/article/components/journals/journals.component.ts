@@ -79,11 +79,13 @@ export class JournalsComponent implements OnInit {
       exitAnimationDuration: '100ms',
       data: {
         title: title,
-        code: code
+        details: code
       }
     });
     _popup.afterClosed().subscribe(result => {
-      
+      if(result === 'Changed Data') {
+        this.getData();
+      }
     });
   }
 

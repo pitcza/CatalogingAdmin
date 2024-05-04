@@ -152,16 +152,14 @@ export class EditBookComponent implements OnInit{
     })
 
     formData.append('_method', 'PUT');
-    this.ds.post('books/process/' + this.data.details, formData).subscribe({
+    this.ds.post('books/process/' + this.data.details.id, formData).subscribe({
       next: (res: any) => {
-        console.log(res)
         Swal.fire({
           title: "Update successful!",
           text: "The changes have been saved.",
           icon: "success"
         });
-        this.ref.close('Closed using function');
-        this.router.navigate(['listofmaterials/books']);
+        this.ref.close('Changed Data');
       },
       error:(err: any) => {
         console.log(err);

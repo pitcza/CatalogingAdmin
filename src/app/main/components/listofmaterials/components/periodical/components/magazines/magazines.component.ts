@@ -84,7 +84,9 @@ export class MagazinesComponent implements OnInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      
+      if(result === 'Changed Data') {
+        this.getData();
+      }
     });
   }
 

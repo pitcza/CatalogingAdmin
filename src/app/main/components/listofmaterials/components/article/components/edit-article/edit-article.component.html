@@ -5,54 +5,54 @@
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
                     <h1> Edit Article Details </h1>
-                    <button class="exit-button" (click)="closepopup()"> &times; </button>
+                    <button class="exit-button" (click)="cancelBox()"> &times; </button>
                 </div>
 
                 <!-- BODY - DETAILS -->
                 <div class="detailsbody">
                     <div class="details">
-                        <form>
+                        <form id="edit-form">
                             <div class="input_field">
                                 <div class="input-row">
                                     <div class="txt_field_short">
                                         <select class="inputtxt" name="material_type">
-                                            <option value="magazine"> Magazine </option>
-                                            <option value="journal"> Journal </option>
-                                            <option value="newspaper"> Newspaper </option>
+                                            <option value="journal" [selected]="data.details.type === 'journal'"> Journal </option>
+                                            <option value="magazine" [selected]="data.details.type === 'magazine'"> Magazine </option>
+                                            <option value="newspaper" [selected]="data.details.type === 'newspaper'"> Newspaper </option>
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Type of Material </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="author">
+                                        <input class="inputtxt" type="text" name="author" [placeholder]="data.details.author" [value]="data.details.author">
                                         <span></span>
                                         <div class="labelline"> Author </div>
                                     </div>
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="title">
+                                        <input class="inputtxt" type="text" name="title" [placeholder]="data.details.title" [value]="data.details.title">
                                         <span></span>
                                         <div class="labelline"> Title </div>
                                     </div>
                                 </div>
                                 <div class="input-row">
                                     <div class="txtarea">
-                                        <textarea name="abstract"> </textarea>
+                                        <textarea name="abstract" [placeholder]="data.details.abstract" [value]="data.details.abstract"> </textarea>
                                         <span></span>
                                         <label class="labelline1"> Abstract </label>
                                     </div>
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="issue">
+                                        <input class="inputtxt" type="text" name="issue" [placeholder]="data.details.issue" [value]="data.details.issue">
                                         <span></span>
                                         <div class="labelline"> Issue </div>
                                     </div>
                                     <div class="txt_field">
                                         <select class="inputtxt" name="language">
-                                            <option value="english"> English </option>
-                                            <option value="tagalog"> Tagalog </option>
+                                            <option value="english" [selected]="data.details.language === 'english'"> English </option>
+                                            <option value="tagalog" [selected]="data.details.language === 'english'"> Tagalog </option>
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Language </div>
@@ -60,38 +60,38 @@
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="subject">
+                                        <input class="inputtxt" type="text" name="subject" [placeholder]="data.details.subject" [value]="data.details.subject">
                                         <span></span>
                                         <div class="labelline"> Subject </div>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="number" min="0" name="volume">
+                                        <input class="inputtxt" type="number" min="0" name="volume" [placeholder]="data.details.volume" [value]="data.details.volume">
                                         <span></span>
                                         <div class="labelline"> Volume </div>
                                     </div>
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="publisher">
+                                        <input class="inputtxt" type="text" name="publisher" [placeholder]="data.details.publisher" [value]="data.details.publisher">
                                         <span></span>
                                         <div class="labelline"> Publisher </div>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="date" name="date_published">
+                                        <input class="inputtxt" type="date" name="date_published" [value]="data.details.date_published">
                                         <span></span>
                                         <div class="datelabel"> Publication Date </div>
                                     </div> 
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="remarks">
+                                        <input class="inputtxt" type="text" name="remarks" [placeholder]="data.details.remarks" [value]="data.details.remarks">
                                         <span></span>
                                         <div class="labelline"> Remarks </div>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="text" name="page">
+                                        <input class="inputtxt" type="text" name="pages" [placeholder]="data.details.pages" [value]="data.details.pages">
                                         <span></span>
-                                        <div class="datelabel"> Page </div>
+                                        <div class="datelabel"> Pages </div>
                                     </div> 
                                 </div>
                             </div>

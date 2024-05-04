@@ -83,7 +83,9 @@ export class NewspapersComponent implements AfterViewInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      
+      if(result === 'Changed Data') {
+        this.getData();
+      }
     });
   }
 
