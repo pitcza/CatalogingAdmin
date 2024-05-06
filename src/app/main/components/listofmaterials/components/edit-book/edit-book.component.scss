@@ -217,7 +217,7 @@ h1 {
 }
 // date input 
 
-.txt_field_short .datelabel {
+.txt_field_short .datelabel, .txt_field_short .labelline1  {
     top: 7px;
     font-size: 12px;
     letter-spacing: 0.5px;
@@ -226,7 +226,7 @@ h1 {
     left: 10px;
 }
 
-.txt_field_short input[type="date"]:focus ~ .datelabel {
+.txt_field_short input[type="date"]:focus ~ .datelabel, .txt_field_short .inputtxt:focus ~ .labelline1 {
     color: var(--main-green);
 }
 // SHORT INPUT FIELD
