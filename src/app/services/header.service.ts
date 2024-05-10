@@ -11,7 +11,7 @@ export class HeaderService {
   public get() {
     const headers = new HttpHeaders({
       'Accept': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('auth-token')
+      'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
     });
 
     return headers;

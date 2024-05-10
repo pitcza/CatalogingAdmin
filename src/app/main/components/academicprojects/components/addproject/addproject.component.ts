@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild   } from '@angu
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { DataService } from '../../../../../services/data.service';
-import { filter } from 'rxjs';
+import { text } from 'stream/consumers';
 
 interface MyOption {
   value: string;
@@ -22,7 +22,6 @@ export class AddprojectComponent implements OnInit{
   departmentFilter = '';
   programFilter: any;
   programCategory: any;
-  categories: any;
 
   constructor(private router: Router,
     private elementRef: ElementRef,
@@ -45,52 +44,64 @@ export class AddprojectComponent implements OnInit{
 
         // Convert the Set back to an array
         this.departments = Array.from(uniqueDepartments);
-
-        
-        const uniqueCategories = new Set<string>();
-        this.programs.forEach((program: any) => {
-            uniqueCategories.add(program.category);
-        });
-
-        // Convert the Set back to an array
-        this.categories = Array.from(uniqueCategories);
       }
     })
-    
-    // DYNAMIC ADD MULTIPLE AUTHOR
-    this.values = this.inputValues.map(input => ({ ...input }));
-
     this.submit();
   }
 
-  inputValues: { value: string }[] = [{ value: "" }];
-  values: { value: string }[] = [];
+  values = [''];
 
   removevalue(i: any){
     this.values.splice(i, 1);
   }
 
   addvalue(){
-    if (this.inputValues.length <6) {
-    // Add a new input value to the inputValues array
-    this.inputValues.push({ value: "" });
-    // Update the values array with the current input values
-    this.values = this.inputValues.map(input => ({ ...input }));
+    if (this.values.length < 6) {
+      this.values.push('');
     }
+    console.log(this.values)
   }
 
+  updateValue(event: Event, i: number) {
+    let input = event.target as HTMLInputElement;
+    this.values[i] = input.value;
+    console.log(this.values)
+  }
   isMaxLimitReached(): boolean {
-    return this.inputValues.length >= 6;
+    return this.values.length >= 6;
+  }
+
+  authors: string[] = ['']; // Initialize with an empty author
+
+  addAuthor() {
+    this.authors = [...this.authors, '']; // Create a new array with the updated values
+  }
+
+  removeAuthor(index: number) {
+    this.authors.splice(index, 1);
+    this.authors = [...this.authors]; // Create a new array with the updated values
+  }
+
+  // Track by function to minimize re-renders
+  trackByIndex(index: number, item: any): number {
+    return index;
   }
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {
     const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
     this.departmentFilter = selectDepartment;
-
-    const selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
-    this.programFilter = selectProgram;
-
+    console.log(selectDepartment)
+    
+    this.programs.some((x: any) => {
+      if(x.department == this.departmentFilter) {
+        this.programCategory = x.category;
+        this.programFilter = x.id;
+        return true; 
+      }
+      return false; 
+    });
+    
     this.changeCategory();
   }
 
@@ -102,26 +113,17 @@ export class AddprojectComponent implements OnInit{
   }
 
   changeCategory(){
-    console.log(this.programFilter)
-    let tempCategory: any;
-    for(let x of this.programs) {
-      if(x.program === this.programFilter) {
-        tempCategory = x.category;
-        break;
-      }
-    }
 
-    let tempIndex: any;
-    for(let i = 0; i < this.categories.length; i++) {
-      if(this.categories[i] == tempCategory) {
-        tempIndex = i;
-        break;
+    this.programs.some((x: any) => {
+      if(x.id == this.programFilter) {
+        this.programCategory = x.category;
+        return true; 
       }
-    }
-
-    const selectCategory = document.getElementById('category') as HTMLSelectElement
-    selectCategory.selectedIndex = tempIndex;
+      return false; 
+    });
   }
+
+
   // KEYWORDS FUNCTION NA HINDI NAGF-FUNCTION
   // maxTags: number = 10;
   // tags: string[] = ["coding", "nepal"];
@@ -191,6 +193,11 @@ export class AddprojectComponent implements OnInit{
       const elements = form.elements;
 
       let formData = new FormData();
+
+      let fields = ['program_id', 'category', 'title', 'author', 'language', 'date_published', 'abstract'];
+      let valid = true;
+      let validFile = true;
+      let authorElements: any[] = [];
   
       // Loop through each form element
       for (let i = 0; i < elements.length; i++) {
@@ -198,41 +205,69 @@ export class AddprojectComponent implements OnInit{
         
           // Check if the element is an input field
           if (element.type === 'file' && element.files && element.files.length > 0) {
-            formData.append(element.name, element.files[0]);
-          } else if ((element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'DATE'
-          || element.tagName === 'TEXTAREA') && element.id != 'submit-button' && element.name != 'author') {
-            formData.append(element.name, element.value);
-            console.log(element.name + ': ' + element.value)
+            const file = element.files[0];
+            if(file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
+              formData.append(element.name, element.files[0]);
+            } else {
+              validFile = false;
+            }
           } else if (element.name == 'author') {
-              formData.append('authors', JSON.stringify(this.values)); 
-          }
+            authorElements.push(element.value.trim())
+            console.log(element.value)
+          } else if ((element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'DATE'
+          || element.tagName === 'TEXTAREA') && element.id != 'submit-button') {
+            formData.append(element.name, element.value);
+          } 
+          if(fields.includes(element.name) && element.value == '') {
+            valid = false;
+            element.style.borderColor = 'red';
+          } else 
+              element.style.borderColor = 'black';
       }
 
-      this.ds.post('projects/process', formData).subscribe({
-        next: (res: any) => {
-          console.log(res)
-          Swal.fire({
-            title: 'Success',
-            text: formData.get('title') + " has been added successfully",
-            icon: 'success',
-            confirmButtonText: 'Close',
-            confirmButtonColor: "#777777",
-            timer: 5000
-          });
-        },
-        error:(err: any) => {
-          console.log(err);
-          Swal.fire({
-            title: 'Error',
-            text: "Oops an error occured",
-            icon: 'error',
-            confirmButtonText: 'Close',
-            confirmButtonColor: "#777777",
-          });
-        }
-      })
+      formData.append('authors', JSON.stringify(authorElements));
 
-    }); // end of event listener
+      if(valid && validFile) {
+        this.ds.post('projects/process', formData).subscribe({
+          next: (res: any) => {
+            console.log(res)
+            Swal.fire({
+              title: 'Success',
+              text: formData.get('title') + " has been added successfully",
+              icon: 'success',
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              timer: 5000
+            });
+          },
+          error:(err: any) => {
+            Swal.fire({
+              title: 'Error',
+              text: "Oops an error occured",
+              icon: 'error',
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+            });
+          }
+        })
+      } else if(!validFile) {
+        Swal.fire({
+          title: 'Oops! Error on form',
+          text: 'Invalid image. Must be of type png, jpeg, or jpg.',
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+        });
+      } else {
+        Swal.fire({
+          title: 'Oops! Error on form',
+          text: 'Please check if required fields have values',
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+        });
+      }
+    });
 
   }
 

@@ -17,8 +17,8 @@ export class MainComponent implements OnInit, OnDestroy {
   ) { }
 
   timer: any;
-  name = localStorage.getItem('name');
-  role = localStorage.getItem('role');
+  name = sessionStorage.getItem('name');
+  role = sessionStorage.getItem('role');
 
   ngOnInit(): void {
 
@@ -27,9 +27,8 @@ export class MainComponent implements OnInit, OnDestroy {
       let currentTime = new Date();
       let newCurrentTime = currentTime.toISOString();
 
-      if (Date.parse(localStorage.getItem('request-token') || '0') <= Date.parse(newCurrentTime)) {
+      if (Date.parse(sessionStorage.getItem('request-token') || '0') <= Date.parse(newCurrentTime)) {
         this.refreshToken();
-        console.log('yeah')
       } 
     }, 60 * 1000)
   }
@@ -37,11 +36,11 @@ export class MainComponent implements OnInit, OnDestroy {
   protected refreshToken() {
     this.as.refresh().subscribe({
       next: (res: any) => {
-        localStorage.setItem('auth-token', res.token);
+        sessionStorage.setItem('auth-token', res.token);
 
         let time = new Date();
         time.setMinutes(time.getMinutes() + 55);
-        localStorage.setItem('request-token', time.toISOString());
+        sessionStorage.setItem('request-token', time.toISOString());
       },
       error: (err: any) => console.log(err)
     });

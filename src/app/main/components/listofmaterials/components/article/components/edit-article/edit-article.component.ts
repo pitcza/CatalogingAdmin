@@ -125,6 +125,9 @@ export class EditArticleComponent implements OnInit{
     // var formData : { [key: string]: any } = {};
 
     let formData = new FormData();
+    let valid = true;
+    const fields = ['title', 'author', 'copyright', 'pages', 'acquired_date', 'source_of_fund',
+      'location_id', 'price', 'call_number', 'copies'];
 
     // Loop through each form element
     for (let i = 0; i < elements.length; i++) {
@@ -133,7 +136,7 @@ export class EditArticleComponent implements OnInit{
       // Check if the element is an input field
       if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
 
-        if (element.type !== 'file' && element.id !== 'submit' && element.value !== '') {
+        if (element.type !== 'file' && element.id !== 'submit') {
           formData.append(element.name, element.value);
         } else if (element.type === 'file' && element.files && element.files.length > 0) {
           formData.append(element.name, element.files[0]);
@@ -142,30 +145,38 @@ export class EditArticleComponent implements OnInit{
       }
     }
 
-    formData.forEach((value, key) => {
-      console.log("%s: %s", key, value);
-    })
+    if(valid) {
 
-    formData.append('_method', 'PUT');
-    this.ds.post('articles/process/' + this.data.details.id, formData).subscribe({
-      next: (res: any) => {
-        Swal.fire({
-          title: "Update successful!",
-          text: "The changes have been saved.",
-          icon: "success"
-        });
-        this.ref.close('Changed Data');
-      },
-      error:(err: any) => {
-        console.log(err);
-        Swal.fire({
-          title: 'Error',
-          text: "Oops an error occured",
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-        });
-      }
+      formData.append('_method', 'PUT');
+      this.ds.post('articles/process/' + this.data.details.id, formData).subscribe({
+        next: (res: any) => {
+          Swal.fire({
+            title: "Update successful!",
+            text: "The changes have been saved.",
+            icon: "success"
+          });
+          this.ref.close('Changed Data');
+        },
+        error:(err: any) => {
+          console.log(err);
+          Swal.fire({
+            title: 'Error',
+            text: "Oops an error occured",
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+          });
+        }
+      });
+    
+  } else {
+    Swal.fire({
+      title: 'Oops! Error on form',
+      text: 'Please check if required fields have values',
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
     });
   }
+}
 }

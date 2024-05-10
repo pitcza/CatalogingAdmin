@@ -36,7 +36,10 @@
                     </div>
                     
                     <div class="entryarea2">
-                        <input type="date" name="copyright"> 
+                        <!-- <input type="date" name="copyright">  -->
+                        <select name="copyright" required>
+                            <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
+                        </select>
                         <span></span>
                         <div class="labelline2"> Copyright </div>
                     </div>
@@ -60,7 +63,7 @@
                     </div>
 
                     <div class="entryarea_7">
-                        <input type="text" required name="pages"> 
+                        <input type="number" required name="pages"> 
                         <span></span>
                         <div class="labelline_7"> Pages </div>
                     </div>
@@ -109,7 +112,7 @@
                         <div class="labelline_13"> Copies </div>
                     </div>
                     <div class="entryarea_14"> 
-                        <input type="file" required name="image_location" accept=".png, .jpeg, .jpg"> 
+                        <input type="file" required name="image_url" accept=".png, .jpeg, .jpg"> 
                         <div class="labelline_14"> Upload Image</div>
                     </div>
 
@@ -179,7 +182,10 @@
                     </div>
 
                     <div class="perioarea_7">
-                        <input type="number" value="2000" required name="copyright"> 
+                        <!-- <input type="number" value="2000" required name="copyright"> -->
+                        <select name="copyright">
+                            <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
+                        </select>
                         <span></span>
                         <div class="perioline_7"> Copyright </div>
                     </div>
@@ -191,7 +197,7 @@
                     </div>
 
                     <div class="perioarea_9">
-                        <input type="number" min="0" required name="Volume"> 
+                        <input type="number" min="0" required name="volume"> 
                         <span></span>
                         <div class="perioline_9"> Volume </div>
                     </div>
@@ -209,7 +215,7 @@
                     </div>
                     
                     <div class="perioarea_12"> 
-                        <input type="file" accept=".png, .jpg, .jpeg" required name="image_location"> 
+                        <input type="file" accept=".png, .jpg, .jpeg" required name="image_url"> 
                         <div class="perioline_12"> Upload Image</div>
                     </div>
 
@@ -253,7 +259,6 @@
                 <div class="artiarea_3">
                     <textarea name="abstract" rows="5" cols="33"> 
                     </textarea>
-                    <!-- <input type="text"  name="abstract"> --->
                     <span></span>
                     <div class="artiline_3"> Abstract </div>
                 </div>

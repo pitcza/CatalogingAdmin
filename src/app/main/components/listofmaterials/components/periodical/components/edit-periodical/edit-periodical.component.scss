@@ -111,7 +111,6 @@ h1 {
 
 .input-row .txt_field, .input-row .txt_field_short {
     position: relative;
-    border-bottom: 2px solid var(--cancel-btn);
     margin: 1.3rem 0;
 }
 
@@ -128,6 +127,7 @@ h1 {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     outline: none;
+    border-bottom: 2px solid var(--cancel-btn);
 }
 
 .txt_field .labelline, .txt_field_short .labelline {
@@ -145,10 +145,10 @@ h1 {
 .txt_field span::before {
     content: '';
     position: absolute;
-    top: 60px;
+    top: 59px;
     left: 0;
     width: 0%;
-    height: 2.5px;
+    height: 2px;
     background: var(--main-green);
     transition: .3s;
 }
@@ -187,10 +187,10 @@ h1 {
 .txt_field_short span::before{
     content: '';
     position: absolute;
-    top: 60px;
+    top: 59px;
     left: 0;
     width: 0%;
-    height: 2.5px;
+    height: 2px;
     background: var(--main-green);
     transition: .3s;
 }
