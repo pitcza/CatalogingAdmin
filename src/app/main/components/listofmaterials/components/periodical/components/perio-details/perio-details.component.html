@@ -12,7 +12,7 @@
                 <div class="detailsbody">
                     <div class="details">
                         <div class="body-details">
-                            <img alt="periodical picture" [src]="image">
+                            <img alt="book image" [src]="data.details.image != null ? data.details.image : errorImage">
                         </div>
 
                         <div class="body-details">

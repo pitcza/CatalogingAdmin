@@ -34,12 +34,12 @@
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="number" min="0" name="edition" [placeholder]="data.details.edition" [value]="data.details.edition">
+                                        <input class="inputtxt" type="number" min="0" name="edition" [value]="data.details.edition">
                                         <span></span>
                                         <div class="labelline"> Edition </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="number" min="0" name="volume" [placeholder]="data.details.volume" [value]="data.details.volume">
+                                        <input class="inputtxt" type="number" min="0" name="volume" [value]="data.details.volume">
                                         <span></span>
                                         <div class="labelline"> Volume </div>
                                     </div>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="date" min="0" name="copyright" [value]="data.details.copyright">
+                                        <input class="inputtxt" type="number" min="1950" name="copyright" [value]="data.details.copyright">
                                         <span></span>
                                         <div class="labelline"> Copyright </div>
                                     </div>
@@ -87,7 +87,7 @@
                                         <label class="labelline" for="fund"> Source of Fund </label>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="date" name="purchased_date" [value]="data.details.purchased_date">
+                                        <input class="inputtxt" type="date" name="acquired_date" [value]="data.details.acquired_date">
                                         <span></span>
                                         <div class="datelabel"> Date Purchased/Donated </div>
                                     </div> 
@@ -99,7 +99,7 @@
                                         <div class="labelline1"> Price </div>
                                     </div>
                                     <div class="txt_field"> 
-                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_location" style="padding-left: 110px;"> 
+                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;"> 
                                         <span></span>
                                         <div class="uploadlabel"> Upload Image </div>
                                     </div>

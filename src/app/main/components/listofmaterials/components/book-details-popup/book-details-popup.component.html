@@ -12,9 +12,9 @@
                 <div class="detailsbody">
                     <div class="details">
                         <div class="body-details">
-                            <img alt="book image" [src]="image">
+                            <img alt="book image" [src]="data.details.image != null ? data.details.image : errorImage">
                             <span>
-                                <h2> Price: </h2> <p> {{ data.details.price }} </p>
+                                <h2> Price: </h2> <p> ₱ {{ data.details.price }} </p>
                             </span>
                         </div>
 

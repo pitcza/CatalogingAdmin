@@ -5,64 +5,73 @@
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
                     <h1> Edit Project Details </h1>
-                    <button class="exit-button" (click)="closepopup()"> &times; </button>
+                    <button class="exit-button" (click)="cancelBox()"> &times; </button>
                 </div>
 
                 <!-- BODY - DETAILS -->
                 <div class="detailsbody">
                     <div class="details">
                         <form id="edit-form" enctype="multipart/form-data">
-                            <div class="input_field">
+                            <div class="input_field">                    
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <select class="inputtxt" required name="department" id="college" [(ngModel)]="selectedOption1" (change)="onOption1Change()" [ngModelOptions]="{standalone: true}">
-                                            <option *ngFor="let option of options1" [value]="option.value">{{ option.label }} </option>
+                                        <select class="inputtxt" id="filter-dept" (change)="changedDepartment($event)">
+                                            <ng-container *ngFor="let x of departments; let i = index">
+                                                <option [value]="x" [selected]="i === 0">{{ x }}</option>
+                                            </ng-container>
                                         </select>
                                         <span></span>
                                         <label class="labelline" for="college"> College </label>
                                     </div>
                                     <div class="txt_field">
-                                        <select class="inputtxt" required name="program_id" id="program" [(ngModel)]="selectedOption2" (change)="onOption2Change()" [ngModelOptions]="{standalone: true}">
-                                            <option *ngFor="let option of options2" [value]="option.value">{{ option.label }} </option>
+                                        <select class="inputtxt" id="filter-pro" (change)="changedProgram($event)" name="program_id">        
+                                            <ng-container *ngFor="let x of programs">
+                                                <option *ngIf="x.department == departmentFilter" [value] = "x.id">{{ x.program }}</option>
+                                            </ng-container>
                                         </select>
                                         <span></span>
                                         <label class="labelline" for="program"> Program </label>
                                     </div>
                                     <div class="txt_field">
-                                        <select class="inputtxt" required name="category" id="category" [(ngModel)]="selectedOption3" [ngModelOptions]="{standalone: true}">
-                                            <option *ngFor="let option of options3" [value]="option.value">{{ option.label }}</option>
-                                        </select>
+                                        <input class="inputtxt" type="text" name="category" [value]="programCategory" disabled>
                                         <span></span>
-                                        <label class="labelline" for="category"> Category </label>
+                                        <label class="labelline" for="college"> Category </label>
                                     </div>
                                 </div>
             
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="title" [placeholder]="data.details.title">
+                                        <input class="inputtxt" type="text" name="title" [value]="data.details.title" [placeholder]="data.details.title">
                                         <span></span>
                                         <div class="labelline"> Title </div>
                                     </div>
                                 </div>
             
                                 <!-- CAN ADD MULTIPLE AUTHOR -->
-                                <div id="author-inputs">
-                                    <div class="input-row">
+                                <div class="input-row">
+                                    <div class="multiple-author" *ngFor="let x of values; let i = index; trackBy: trackByIndex">
                                         <div class="txt_field">
-                                            <input type="text" class="inputtxt" name="author">
+                                            <input class="inputtxt" type="text" name="author" [value]="x">
                                             <span></span>
                                             <div class="labelline"> Author </div>
                                             <p> Add more AUTHOR if necessary </p>
                                         </div>
-                                        <button type="button" class="add-author" (click)="addAuthor()">Add</button>
+                                        <p *ngIf="values.length == 1"> Add more AUTHORS if necessary </p>
+                                        <button type="button" class="removebtn" *ngIf="values.length > 1" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
                                     </div>
+                                    <div class="addbtn">
+                                        <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                                    </div>
+                                    <!-- PWEDE BA ITO PAKIBABA HEHE KUNG KAYA -->
+                                    <!-- <p *ngIf="values.length == 6"> Maximum AUTHORS reached </p> -->
+
                                 </div>
             
                                 <div class="input-row">
                                     <div class="txt_field">
                                         <select class="inputtxt" id="language" name="language" required>
-                                            <option value="English"> FIL </option>
-                                            <option value="Tagalog"> FOR </option>
+                                            <option value="english" [selected]="data.details.language === 'english'"> English </option>
+                                            <option value="tagalog" [selected]="data.details.language === 'tagalog'"> Tagalog </option>
                                         </select>
                                         <span></span>
                                         <label class="labelline" for="language"> Language </label>
@@ -73,7 +82,7 @@
                                         <div class="datelabel"> Date Published </div>
                                     </div> 
                                     <div class="txt_field"> 
-                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_location" style="padding-left: 110px;"> 
+                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;"> 
                                         <span></span>
                                         <div class="uploadlabel"> Upload Image </div>
                                     </div>
@@ -81,7 +90,7 @@
             
                                 <div class="input-row">
                                     <div class="txtarea">
-                                        <textarea name="abstract" [placeholder]="data.details.abstract"></textarea>
+                                        <textarea name="abstract" [value]="data.details.abstract" [placeholder]="data.details.abstract"></textarea>
                                         <span></span>
                                         <label class="labelline1"> Abstract </label>
                                     </div>

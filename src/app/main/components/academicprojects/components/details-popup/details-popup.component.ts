@@ -13,23 +13,11 @@ import Swal from 'sweetalert2';
 })
 export class DetailsPopupComponent implements OnInit{
 
-  protected image: any = null;
+  errorImage = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
   authors: any;
 
   ngOnInit(): void {
 
-    this.ds.getImage('project/image/' + this.data.details.id).subscribe((data: Blob) => {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.image = e.target.result;
-      };
-      reader.readAsDataURL(data);
-    }, (error: any) => {
-      console.log(error);
-      this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
-    });
-
-    console.log(this.data)
   }
 
   constructor(

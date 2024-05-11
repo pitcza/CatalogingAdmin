@@ -21,18 +21,10 @@ export class PerioDetailsComponent implements OnInit {
   ) { }
 
   protected image: any;
+  errorImage = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
 
   ngOnInit(): void {
-    
-    this.ds.getImage('periodical/image/' + this.data.details.id).subscribe({
-      next: (res:any) => {
-        this.image = URL.createObjectURL(res)
-      },
-      error: (err: any) => {
-        console.log(err)
-        this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
-      }
-    });    
+     
   }
 
   closepopup() {

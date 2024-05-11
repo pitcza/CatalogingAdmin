@@ -12,6 +12,11 @@ import { CancelPopupComponent } from './components/cancel-popup/cancel-popup.com
 import { DeletePopupComponent } from './components/delete-popup/delete-popup.component';
 import { EditdetailsComponent } from './components/editdetails/editdetails.component';
 import { DetailsPopupComponent } from './components/details-popup/details-popup.component';
+import { MatIcon, MatIconModule, MatIconRegistry } from '@angular/material/icon';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatHint } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,10 @@ import { DetailsPopupComponent } from './components/details-popup/details-popup.
     AcademicprojectsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatHint
   ]
 })
 export class AcademicprojectsModule { }

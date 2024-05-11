@@ -198,6 +198,9 @@ export class ListofprojectsComponent implements OnInit {
     });
     _popup.afterClosed().subscribe(result => {
       this.redirectToListPage();
+      if(result === 'Changed Data') {
+        this.getData();
+      }
     });
   }
 

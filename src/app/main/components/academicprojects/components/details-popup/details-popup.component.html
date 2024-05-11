@@ -11,7 +11,7 @@
                 <div class="detailsbody">
                 <div class="details">
                     <div class="projectdetails">
-                        <img alt="project image" src="{{ image }}">
+                            <img alt="book image" [src]="data.details.image != null ? data.details.image : errorImage">
                         <span>
                             <h2> Date Published: </h2> <p> {{ data.details.date_published | date:'longDate' }} </p>
                         </span>
