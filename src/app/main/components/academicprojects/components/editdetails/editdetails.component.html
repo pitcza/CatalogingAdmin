@@ -46,18 +46,15 @@
                                 </div>
             
                                 <!-- CAN ADD MULTIPLE AUTHOR -->
-                                <div class="input-row">
-                                    <div class="multiple-author" *ngFor="let item of values; let i = index">
-                                        <div class="txt_field"> 
-                                            <input class="inputtxt" name="author" type="text" id="author" [(ngModel)]="item.value">
+                                <div id="author-inputs">
+                                    <div class="input-row">
+                                        <div class="txt_field">
+                                            <input type="text" class="inputtxt" name="author">
                                             <span></span>
                                             <div class="labelline"> Author </div>
+                                            <p> Add more AUTHOR if necessary </p>
                                         </div>
-                                        <p *ngIf="i === 0"> Add more AUTHOR if necessary </p>
-                                        <button class="removebtn" *ngIf="i > 0" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
-                                    </div>
-                                    <div class="addbtn">
-                                        <button class="add-author" (click)="addvalue()">ADD</button>
+                                        <button type="button" class="add-author" (click)="addAuthor()">Add</button>
                                     </div>
                                 </div>
             

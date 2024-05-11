@@ -168,6 +168,9 @@ input:focus{
     border: 0.5px solid var(--table-border);
 }
 
+ng-template {
+    display: contents;
+}
 /* table */
 
 table {

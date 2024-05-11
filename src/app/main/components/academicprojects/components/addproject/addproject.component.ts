@@ -56,32 +56,72 @@ export class AddprojectComponent implements OnInit{
         this.categories = Array.from(uniqueCategories);
       }
     })
-    
-    // DYNAMIC ADD MULTIPLE AUTHOR
-    this.values = this.inputValues.map(input => ({ ...input }));
 
     this.submit();
   }
 
-  inputValues: { value: string }[] = [{ value: "" }];
   values: { value: string }[] = [];
 
-  removevalue(i: any){
-    this.values.splice(i, 1);
-  }
 
-  addvalue(){
-    if (this.inputValues.length <6) {
-    // Add a new input value to the inputValues array
-    this.inputValues.push({ value: "" });
-    // Update the values array with the current input values
-    this.values = this.inputValues.map(input => ({ ...input }));
-    }
-  }
+  // ADD AUTHOR FUNCTION AND STYLE
+  addAuthor() {    
+    let input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.classList.add('inputtxt');
+    input.setAttribute('style', 'font-family: Montserrat; width: 100%; padding-top: 19px; padding-left: 10px; padding-right: 10px; height: 60px; font-size: 15px; border: none; background-color: var(--input); border-top-left-radius: 5px; border-top-right-radius: 5px; outline: none;  border-bottom: 2px solid var(--input-border);');
+    input.setAttribute('onmouseover', 'this.style.backgroundColor= "var(--input-hover)"');
+    input.setAttribute('onmouseout', 'this.style.backgroundColor= "var(--input)"');
 
-  isMaxLimitReached(): boolean {
-    return this.inputValues.length >= 6;
+    // if the input field is focused
+    input.addEventListener('focus', function() {
+      input.style.borderBottom = '2.5px solid var(--main-green)';
+      labelline.style.color = 'var(--main-green)';
+    });
+
+    input.addEventListener('blur', function() {
+      // if the input field is not focused
+      if (document.activeElement !== input) {
+          input.style.borderBottom = '2px solid var(--input-border)';
+          labelline.style.color = 'var(--input-border)';
+      }
+    });
+    
+    let i = document.createElement('i');
+    i.classList.add('bx', 'bx-x', 'removebtn');
+
+    // remove button
+    let remove = document.createElement('button');
+    remove.classList.add('removebtn');
+    remove.setAttribute('type', 'button');
+    remove.setAttribute('style', 'font-family: Montserrat; font-weight: 600; font-size: 35px; letter-spacing: 0.5px; margin-top: 1.3rem; height: 60px; width: 70px; background-color: var(--cancel-btn); color: var(--secondary-color); outline: none; border: none; border-radius: 5px; padding-top: 3px;')
+    remove.appendChild(i);
+
+    // author label
+    let labelline = document.createElement('label');
+    labelline.classList.add('labelline');
+    labelline.textContent = 'Author';
+    labelline.setAttribute('style', 'position: absolute; top: 7px; left: 10px; font-size: 12px; color: var(--input-border); letter-spacing: 0.5px;');
+
+    let author = document.createElement('div');
+    author.classList.add('txt_field');
+    author.setAttribute('style', 'flex-basis: 100%; position: relative; margin: 1.3rem 0;')
+    author.appendChild(input);
+    author.appendChild(labelline);
+
+    let row = document.createElement('div');
+    row.classList.add('input-row');
+    row.setAttribute('style', 'gap: 1.5rem; display: flex; justify-content: space-between;')
+    row.appendChild(author);
+    row.appendChild(remove);
+
+    let parent = document.getElementById('author-inputs');
+    parent?.appendChild(row);
+    
+    remove.addEventListener('click', function() {
+      parent?.removeChild(row);
+    })
   }
+  // END OF ADD AUTHOR FUNCTION AND STYLE
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {
@@ -122,60 +162,77 @@ export class AddprojectComponent implements OnInit{
     const selectCategory = document.getElementById('category') as HTMLSelectElement
     selectCategory.selectedIndex = tempIndex;
   }
-  // KEYWORDS FUNCTION NA HINDI NAGF-FUNCTION
-  // maxTags: number = 10;
-  // tags: string[] = ["coding", "nepal"];
 
-  // countTags() {
-  //   let tagNumb = document.querySelector(".details span");
-  //   if (tagNumb) {
-  //     tagNumb.textContent = String(this.maxTags - this.tags.length);
-  //   }
-  // }
+  // KEYWORDS FUNCTION NA HINDI NAGF-FUNCTION
+  // tags: string[] = [];
 
   // createTag() {
   //   let ul = document.querySelector("ul");
   //   if (ul) {
   //     ul.innerHTML = ''; // Clear existing content
   //     this.tags.slice().reverse().forEach(tag => {
-  //       let liTag = `<li>${tag} <i class="uit uit-multiply" (click)="remove('${tag}')"></i></li>`;
+  //       let liTag = `<li style='color: #333;
+  //       margin: 4px 3px;
+  //       list-style: none;
+  //       border-radius: 5px;
+  //       background: #F2F2F2;
+  //       padding: 5px 8px 5px 10px;
+  //       border: 1px solid #e3e1e1;'> ${tag} <i class="bx bx-x removekeyw" (click)="remove(tag)" style='height: 20px;
+  //       width: 20px;
+  //       color: #808080;
+  //       margin-left: 8px;
+  //       font-size: 12px;
+  //       cursor: pointer;
+  //       border-radius: 50%;
+  //       background: #dfdfdf;
+  //       justify-content: center;'></i> </li>`;
   //       ul!.insertAdjacentHTML("afterbegin", liTag); // Use 'ul!' to assert non-null
+
   //     });
-  //     this.countTags();
   //   } else {
   //     console.error("UL element not found");
   //   }
   // }
 
-  // remove(tag: string) {
-  //   let index = this.tags.indexOf(tag);
-  //   this.tags = [...this.tags.slice(0, index), ...this.tags.slice(index + 1)];
-  //   this.createTag();
+  // remove(tagToRemove: string) {
+  //   this.tags = this.tags.filter(tag => tag !== tagToRemove);
   // }
 
   // addTag(e: any) {
-  //   if (e.key == "Enter") {
-  //     let tag = e.target.value.replace(/\s+/g, ' ');
+  //   if (e.key == "Shift") {
+  //     let tag = e.target.value.replace(/\s+/g, '');
   //     if (tag.length > 1 && !this.tags.includes(tag)) {
-  //       if (this.tags.length < this.maxTags) {
-  //         tag.split(',').forEach((tag: string) => {
-  //           this.tags.push(tag);
-  //           this.createTag();
-  //         });
-  //       }
+  //       tag.split(',').forEach((tag: string) => {
+  //         this.tags.push(tag);
+  //         this.createTag();
+  //       });
   //     }
   //     e.target.value = "";
   //   }
   // }
 
-  // removeAll() {
-  //   this.tags.length = 0;
-  //   let ul = document.querySelector("ul");
-  //   if (ul) {
-  //     ul.querySelectorAll("li").forEach(li => li.remove());
+  //   removeAll() {
+  //     this.tags.length = 0;
+  //     let ul = document.querySelector("ul");
+  //     if (ul) {
+  //       ul.querySelectorAll("li").forEach(li => li.remove());
+  //     }
   //   }
-  //   this.countTags();
-  // }
+
+  tagInput: string = '';
+  tags: string[] = [];
+
+  addTag(e: any) {
+    if (e.key == ",") {
+    if (this.tagInput.trim() !== '') {
+      this.tags.push(this.tagInput.trim());
+      this.tagInput = ''; // Clear the input field after adding the tag
+    }
+  } }
+
+  removeTag(tagToRemove: string) {
+    this.tags = this.tags.filter(tag => tag !== tagToRemove);
+  }
 
 
   /* SUBMIT FORM */
@@ -210,6 +267,7 @@ export class AddprojectComponent implements OnInit{
 
       this.ds.post('projects/process', formData).subscribe({
         next: (res: any) => {
+          this.router.navigate(['main/academicprojects/listofprojects']); 
           console.log(res)
           Swal.fire({
             title: 'Success',

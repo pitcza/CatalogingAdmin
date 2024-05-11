@@ -242,20 +242,68 @@ export class EditdetailsComponent implements OnInit{
   }
 
 
-  // DYNAMIC ADD MULTIPLE AUTHOR
+  // ADD AUTHOR FUNCTION AND STYLE
+  addAuthor() {    
+    let input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.classList.add('inputtxt');
+    input.setAttribute('style', 'font-family: Montserrat; width: 100%; padding-top: 19px; padding-left: 10px; padding-right: 10px; height: 60px; font-size: 15px; border: none; background-color: var(--input); border-top-left-radius: 5px; border-top-right-radius: 5px; outline: none;  border-bottom: 2px solid var(--input-border);');
+    input.setAttribute('onmouseover', 'this.style.backgroundColor= "var(--input-hover)"');
+    input.setAttribute('onmouseout', 'this.style.backgroundColor= "var(--input)"');
+
+    // if the input field is focused
+    input.addEventListener('focus', function() {
+      input.style.borderBottom = '2.5px solid var(--main-green)';
+      labelline.style.color = 'var(--main-green)';
+    });
+
+    input.addEventListener('blur', function() {
+      // if the input field is not focused
+      if (document.activeElement !== input) {
+          input.style.borderBottom = '2px solid var(--input-border)';
+          labelline.style.color = 'var(--input-border)';
+      }
+    });
+    
+    let i = document.createElement('i');
+    i.classList.add('bx', 'bx-x', 'removebtn');
+
+    // remove button
+    let remove = document.createElement('button');
+    remove.classList.add('removebtn');
+    remove.setAttribute('type', 'button');
+    remove.setAttribute('style', 'font-family: Montserrat; font-weight: 600; font-size: 35px; letter-spacing: 0.5px; margin-top: 1.3rem; height: 60px; width: 70px; background-color: var(--cancel-btn); color: var(--secondary-color); outline: none; border: none; border-radius: 5px; padding-top: 3px;')
+    remove.appendChild(i);
+
+    // author label
+    let labelline = document.createElement('label');
+    labelline.classList.add('labelline');
+    labelline.textContent = 'Author';
+    labelline.setAttribute('style', 'position: absolute; top: 7px; left: 10px; font-size: 12px; color: var(--input-border); letter-spacing: 0.5px;');
+
+    let author = document.createElement('div');
+    author.classList.add('txt_field');
+    author.setAttribute('style', 'flex-basis: 100%; position: relative; margin: 1.3rem 0;')
+    author.appendChild(input);
+    author.appendChild(labelline);
+
+    let row = document.createElement('div');
+    row.classList.add('input-row');
+    row.setAttribute('style', 'gap: 1.5rem; display: flex; justify-content: space-between;')
+    row.appendChild(author);
+    row.appendChild(remove);
+
+    let parent = document.getElementById('author-inputs');
+    parent?.appendChild(row);
+    
+    remove.addEventListener('click', function() {
+      parent?.removeChild(row);
+    })
+  }
+  // END OF ADD AUTHOR FUNCTION AND STYLE
+
   ngOnInit(): void {
-    this.addvalue();
     console.log(this.data.details)
-  }
-
-  values: { value: string }[] = [];
-
-  removevalue(i: any){
-    this.values.splice(i, 1);
-  }
-
-  addvalue(){
-    this.values.push({value: "'di ko alam paano, comma na ba kapag marami tas pwede pa rin mag add?"});
   }
 
   closepopup() {

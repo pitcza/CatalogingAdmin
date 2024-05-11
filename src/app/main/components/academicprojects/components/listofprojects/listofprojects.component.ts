@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { AddprojectComponent } from '../addproject/addproject.component';
 import { DataService } from '../../../../../services/data.service';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-listofprojects',
@@ -30,10 +31,13 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule, 
     MatCardModule,
     MatSortModule,
-    CommonModule
+    CommonModule,
+    MatProgressSpinnerModule
   ],
 })
 export class ListofprojectsComponent implements OnInit {
+  isLoading: boolean = true;
+
   redirectToProjectForm() {
     // Programmatically navigate to another route
     this.router.navigate(['main/academicprojects/addproject']);
@@ -71,6 +75,7 @@ export class ListofprojectsComponent implements OnInit {
   }
 
   getData() {
+    this.isLoading = true;
     this.ds.get('projects').subscribe((res: any) => {
       this.projects = res;
       console.log(res)

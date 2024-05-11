@@ -71,7 +71,7 @@
                         </div>
                     </div>
 
-                    <!-- CAN ADD MULTIPLE AUTHORS -->
+                    <!-- CAN ADD MULTIPLE AUTHORS 
                     <div class="input-row">
                         <div class="multiple-author" *ngFor="let item of values; let i = index">
                             <div class="txt_field">
@@ -84,6 +84,18 @@
                         </div>
                         <div class="addbtn">
                             <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                        </div>
+                    </div> -->
+
+                    <div id="author-inputs">
+                        <div class="input-row">
+                            <div class="txt_field">
+                                <input type="text" class="inputtxt" name="author">
+                                <span></span>
+                                <div class="labelline"> Author </div>
+                                <p> Add more AUTHOR if necessary </p>
+                            </div>
+                            <button type="button" class="add-author" (click)="addAuthor()">Add</button>
                         </div>
                     </div>
 
@@ -123,6 +135,27 @@
                             <label class="labelline"> Keywords </label>
                         </div>
                     </div> -->
+
+                    <!-- <div class="input-row">
+                        <div class="txt_field">
+                            <input class="inputtxt" type="text" name="keywords" spellcheck="false" (keyup)="addTag($event)">
+                            <span></span>
+                            <ul></ul>
+                            <div class="labelline"> Keywords </div>
+                        </div>
+                        <div class="remove_all">
+                            <button class="removeall" (click)="removeAll()"> Remove All </button>
+                        </div>
+                    </div> -->
+
+                    <div class="input-row">
+                        <div class="txt_field">
+                            <input type="text" class="inputtxt" [(ngModel)]="tagInput" (click)="addTag(',')">
+                            <div class="tags">
+                            <span *ngFor="let tag of tags" class="tag">{{ tag }} <span class="remove-tag" (click)="removeTag(tag)">x</span></span>
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>

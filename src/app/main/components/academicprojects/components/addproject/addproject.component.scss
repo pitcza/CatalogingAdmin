@@ -98,13 +98,12 @@
     flex-basis: 100%;
 }
 
-.input-row .txt_field{
+.input-row .txt_field {
     position: relative;
-    border-bottom: 2px solid var(--input-border);
     margin: 1.3rem 0;
 }
 
-.txt_field .inputtxt {
+.txt_field .inputtxt, .txt_field input[type="date"] {
     font-family: 'Montserrat';
     width: 100%;
     padding-top: 19px;
@@ -117,6 +116,7 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     outline: none;
+    border-bottom: 2px solid var(--input-border);
 }
 
 .txt_field .labelline {
@@ -134,10 +134,10 @@
 .txt_field span::before{
     content: '';
     position: absolute;
-    top: 60px;
+    top: 58px;
     left: 0;
     width: 0%;
-    height: 2.3px;
+    height: 2.5px;
     background: var(--main-green);
     transition: .3s;
 }
@@ -187,11 +187,12 @@ option {
 // SELECT OPTION
 
 // ADD MULTIPLE AUTHOR
-.multiple-author p {
+.input-row p {
     position: absolute;
     bottom: 0;
     font-size: 12px;
     font-weight: 500;
+    margin-bottom: -18px;
     padding-left: 10px;
     opacity: 70%;
 }
@@ -236,21 +237,6 @@ option {
 // ADD MULTIPLE AUTHOR
 
 // INPUT DATE
-.txt_field input[type="date"] {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 60px;
-    font-size: 15px;
-    border: none;
-    background-color: var(--input);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
 .txt_field .datelabel {
     top: 7px;
     font-size: 12px;
@@ -290,7 +276,7 @@ input[type="file"]::file-selector-button {
     left: 0;
     margin-left: -0px;
     width: 100px;
-    height: 60px;
+    height: 58.5px;
     cursor: pointer;
     background-color: var(--main-green);
     border: none;
@@ -374,6 +360,24 @@ input[type="file"]::file-selector-button {
     border-radius: 5px;
 }
 
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 7px;
+    margin: 12px 0;
+    border-radius: 5px;
+    border: 1px solid #a6a6a6;
+}
+
+ul  li{
+    color: #333;
+    margin: 4px 3px;
+    list-style: none;
+    border-radius: 5px;
+    background: #F2F2F2;
+    padding: 5px 8px 5px 10px;
+    border: 1px solid #e3e1e1;
+  }
 
 // BUTTONS
 .buttons {
