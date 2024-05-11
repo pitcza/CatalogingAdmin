@@ -49,7 +49,6 @@ export class AddprojectComponent implements OnInit{
     this.submit();
   }
 
-  values = [''];
 
 
   // ADD AUTHOR FUNCTION AND STYLE
@@ -111,6 +110,12 @@ export class AddprojectComponent implements OnInit{
   //   })
 
   // }
+
+  values = [''];
+  
+  removevalue(i: any){
+    this.values.splice(i, 1);
+  }
 
   addvalue(){
     if (this.values.length < 6) {
