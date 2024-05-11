@@ -14,14 +14,14 @@
             <form id="project-form">
                 <div class="input_field">                    
                     <div class="input-row">
-                        <div class="txt_field">
+                        <div class="txt_field_short">
                             <select class="inputtxt" id="filter-department" (change)="changedDepartment($event)">
                                 <option *ngFor="let x of departments; let i = index" [value] = "x" [selected]="i === 0">{{ x }}</option>
                             </select>
                             <span></span>
                             <label class="labelline" for="college"> College </label>
                         </div>
-                        <div class="txt_field">
+                        <div class="txt_field_short">
                             <select class="inputtxt" id="filter-program" (change)="changedProgram($event)" name="program_id">        
                                 <ng-container *ngFor="let x of programs">
                                     <option *ngIf="x.department == departmentFilter" [value] = "x.id">{{ x.program }}</option>
@@ -33,7 +33,7 @@
                         <div class="txt_field">
                             <input class="inputtxt" type="text" name="category" [value]="programCategory" disabled>
                             <span></span>
-                            <label class="labelline" for="college"> Category </label>
+                            <label class="labelline1" for="college"> Category </label>
                         </div>
                     </div>
 
@@ -47,51 +47,27 @@
 
                     <!-- CAN ADD MULTIPLE AUTHORS -->
                     <div class="input-row">
-                        <div class="multiple-author" *ngFor="let x of values; let i = index; trackBy: trackByIndex">
-                            <div class="txt_field">
-                                <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
-                                <span></span>
-                                <div class="labelline"> Author </div>
+                        <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
+                            <div class="multiple-author">
+                                <div class="txt_field">
+                                    <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
+                                    <span></span>
+                                    <div class="labelline"> Author </div>
+                                </div>
+                                <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
+                                    <i class='bx bx-x'></i>
+                                </button>
                             </div>
-                            <p *ngIf="values.length == 1"> Add more AUTHOR if necessary </p>
-                            <button type="button" class="removebtn" *ngIf="values.length > 1" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
-                        </div>
+                        </ng-container>
                         <div class="addbtn">
                             <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
                         </div>
-                        <!-- PWEDE BA ITO PAKIBABA HEHE KUNG KAYA -->
-                        <!-- <p *ngIf="values.length == 6"> Maximum AUTHORS reached </p> -->
+                    
+                        <!-- Display message based on the number of input fields -->
+                        <p *ngIf="values.length < 6">Add more AUTHOR if necessary</p>
+                        <p *ngIf="values.length === 6">Maximum AUTHORS reached</p>
+                    
                     </div>
-
-                    <!-- <div class="input-row">
-                        <div id="multiple-author">
-                            <div class="txt_field">
-                                <input class="inputtxt" type="text" name="author">
-                                <span></span>
-                                <div class="labelline"> Author </div>
-                            </div>
-                        </div>
-                        <div class="addbtn">
-                            <button type="button" class="add-author" (click)="addAuthor()">Add</button>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="input-row">
-                        <div id="multiple-author">
-                          <div *ngFor="let author of authors; let i = index; trackBy: trackByIndex" class="txt_field">
-                            <input class="inputtxt" type="text" name="author" [(ngModel)]="authors[i]">
-                            <span></span>
-                            <div class="labelline">Author</div>
-                            <button type="button" class="removebtn" (click)="removeAuthor(i)">
-                              <i class='bx bx-x'></i>
-                            </button>
-                          </div>
-                        </div>
-                        <div class="addbtn">
-                          <button type="button" class="add-author" (click)="addAuthor()">Add</button>
-                        </div>
-                      </div> -->
-                      
 
                     <div class="input-row">
                         <div class="txt_field">
@@ -122,49 +98,8 @@
                         </div>
                     </div>
 
-                    <!-- <div class="input-row"> KEYWORDS ULIT
-                        <div class="txt_field" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-                            <input class="inputtxt" type="text" onkeyup="multiSearchKeyup(this)">
-                            <span></span>
-                            <label class="labelline"> Keywords </label>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="input-row">
-                        <div class="txt_field">
-                            <input class="inputtxt" type="text" name="keywords" spellcheck="false" (keyup)="addTag($event)">
-                            <span></span>
-                            <ul></ul>
-                            <div class="labelline"> Keywords </div>
-                        </div>
-                        <div class="remove_all">
-                            <button class="removeall" (click)="removeAll()"> Remove All </button>
-                        </div>
-                    </div> -->
-
-                    <div class="input-row">
-                        <div class="txt_field">
-                            <input type="text" class="inputtxt" [(ngModel)]="tagInput" (click)="addTag(',')">
-                            <div class="tags">
-                            <span *ngFor="let tag of tags" class="tag">{{ tag }} <span class="remove-tag" (click)="removeTag(tag)">x</span></span>
-                            </div>
-                        </div>
-                    </div>
-
 
                 </div>
-
-                 <!-- KEYWORDS NA AYAW GUMANA  
-                    <div class="input-row">
-                        <div class="txt_field">
-                            <input class="inputtxt" type="text" name="keywords" spellcheck="false" (keyup)="addTag($event)">
-                            <span></span>
-                            <div class="labelline"> Keywords </div>
-                        </div>
-                        <div class="remove_all">
-                            <button class="removeall" (click)="removeAll()"> Remove All </button>
-                        </div>
-                    </div> -->
 
 
                 <!-- BUTTONS -->

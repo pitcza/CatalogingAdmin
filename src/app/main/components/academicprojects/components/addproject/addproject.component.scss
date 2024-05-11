@@ -98,12 +98,12 @@
     flex-basis: 100%;
 }
 
-.input-row .txt_field {
+.input-row .txt_field, .input-row .txt_field_short {
     position: relative;
     margin: 1.3rem 0;
 }
 
-.txt_field .inputtxt, .txt_field input[type="date"] {
+.txt_field .inputtxt, .txt_field_short .inputtxt, .txt_field input[type="date"] {
     font-family: 'Montserrat';
     width: 100%;
     padding-top: 19px;
@@ -119,7 +119,7 @@
     border-bottom: 2px solid var(--input-border);
 }
 
-.txt_field .labelline {
+.txt_field .labelline, .txt_field_short .labelline {
     font-family: 'Montserrat';
     position: absolute;
     top: 50%;
@@ -168,6 +168,60 @@
     width: 100%;
 }
 
+// SHORT INPUT FIELD
+.input-row .txt_field_short {
+    flex-basis: 60%;
+}
+
+.txt_field_short span::before{
+    content: '';
+    position: absolute;
+    top: 58px;
+    left: 0;
+    width: 0%;
+    height: 2.5px;
+    background: var(--main-green);
+    transition: .3s;
+}
+
+.txt_field_short .inputtxt:hover{
+    background-color: var(--input-hover);
+}
+
+.txt_field_short .inputtxt:valid ~ .labelline {
+    top: 17px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+}
+
+.txt_field_short .inputtxt:focus ~ .labelline {
+    top: 17px;
+    font-size: 12px;
+    color: var(--main-green);
+    letter-spacing: 0.5px;
+}
+
+.txt_field_short .inputtxt:focus ~ span::before {
+    width: 100%;
+}
+// SHORT INPUT FIELD
+
+// INPUT DATE
+.txt_field .datelabel, .txt_field .labelline1 {
+    top: 7px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--input-border);
+    position: absolute;
+    left: 10px;
+}
+
+.txt_field input[type="date"]:focus ~ .datelabel, .txt_field .inputtxt:focus ~ .labelline1 {
+    color: var(--main-green);
+}
+// INPUT DATE 
+
 // SELECT OPTION
 select {
     -webkit-appearance: none;
@@ -189,10 +243,9 @@ option {
 // ADD MULTIPLE AUTHOR
 .input-row p {
     position: absolute;
-    bottom: 0;
+    padding-top: 85px;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: -18px;
     padding-left: 10px;
     opacity: 70%;
 }
@@ -235,21 +288,6 @@ option {
     cursor: pointer;
 }
 // ADD MULTIPLE AUTHOR
-
-// INPUT DATE
-.txt_field .datelabel {
-    top: 7px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: var(--input-border);
-    position: absolute;
-    left: 10px;
-}
-
-.txt_field input[type="date"]:focus ~ .datelabel {
-    color: var(--main-green);
-}
-// INPUT DATE 
 
 // INPUT FILE LABEL AND BUTTON
 .txt_field .uploadlabel {
@@ -343,41 +381,6 @@ input[type="file"]::file-selector-button {
     letter-spacing: 0.5px;
 }
 // TEXTAREA
-
-// KEYWORDS NA WALA
-.input-row .removeall {
-    font-family: 'Montserrat';
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    margin-top: 1.3rem;
-    height: 60px;
-    width: 70px;
-    background-color: var(--main-green);
-    color: var(--primary-color);
-    outline: none;
-    border: none;
-    border-radius: 5px;
-}
-
-ul {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 7px;
-    margin: 12px 0;
-    border-radius: 5px;
-    border: 1px solid #a6a6a6;
-}
-
-ul  li{
-    color: #333;
-    margin: 4px 3px;
-    list-style: none;
-    border-radius: 5px;
-    background: #F2F2F2;
-    padding: 5px 8px 5px 10px;
-    border: 1px solid #e3e1e1;
-  }
 
 // BUTTONS
 .buttons {

@@ -4,19 +4,13 @@ import Swal from 'sweetalert2';
 import { DataService } from '../../../../../services/data.service';
 import { text } from 'stream/consumers';
 
-interface MyOption {
-  value: string;
-  label: string;
-}
-
 @Component({
   selector: 'app-addproject',
   templateUrl: './addproject.component.html',
   styleUrl: './addproject.component.scss'
 })
 
-export class AddprojectComponent implements OnInit{
-
+export class AddprojectComponent implements OnInit {
   programs: any;
   departments: any;
   departmentFilter = '';
@@ -24,7 +18,6 @@ export class AddprojectComponent implements OnInit{
   programCategory: any;
 
   constructor(private router: Router,
-    private elementRef: ElementRef,
     private ds: DataService
   ) { }
 
@@ -35,7 +28,6 @@ export class AddprojectComponent implements OnInit{
         this.departmentFilter = res[0].department;
         this.programFilter = res[0].program;
         this.programCategory = res[0].category;
-
         // Extract unique department names from programs
         const uniqueDepartments = new Set<string>();
         this.programs.forEach((program: any) => {
@@ -48,7 +40,6 @@ export class AddprojectComponent implements OnInit{
     })
     this.submit();
   }
-
 
 
   // ADD AUTHOR FUNCTION AND STYLE
@@ -112,7 +103,7 @@ export class AddprojectComponent implements OnInit{
   // }
 
   values = [''];
-  
+
   removevalue(i: any){
     this.values.splice(i, 1);
   }
@@ -149,7 +140,6 @@ export class AddprojectComponent implements OnInit{
   trackByIndex(index: number, item: any): number {
     return index;
   }
-  // END OF ADD AUTHOR FUNCTION AND STYLE
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {
@@ -186,78 +176,6 @@ export class AddprojectComponent implements OnInit{
       return false; 
     });
   }
-
-  // KEYWORDS FUNCTION NA HINDI NAGF-FUNCTION
-  // tags: string[] = [];
-
-  // createTag() {
-  //   let ul = document.querySelector("ul");
-  //   if (ul) {
-  //     ul.innerHTML = ''; // Clear existing content
-  //     this.tags.slice().reverse().forEach(tag => {
-  //       let liTag = `<li style='color: #333;
-  //       margin: 4px 3px;
-  //       list-style: none;
-  //       border-radius: 5px;
-  //       background: #F2F2F2;
-  //       padding: 5px 8px 5px 10px;
-  //       border: 1px solid #e3e1e1;'> ${tag} <i class="bx bx-x removekeyw" (click)="remove(tag)" style='height: 20px;
-  //       width: 20px;
-  //       color: #808080;
-  //       margin-left: 8px;
-  //       font-size: 12px;
-  //       cursor: pointer;
-  //       border-radius: 50%;
-  //       background: #dfdfdf;
-  //       justify-content: center;'></i> </li>`;
-  //       ul!.insertAdjacentHTML("afterbegin", liTag); // Use 'ul!' to assert non-null
-
-  //     });
-  //   } else {
-  //     console.error("UL element not found");
-  //   }
-  // }
-
-  // remove(tagToRemove: string) {
-  //   this.tags = this.tags.filter(tag => tag !== tagToRemove);
-  // }
-
-  // addTag(e: any) {
-  //   if (e.key == "Shift") {
-  //     let tag = e.target.value.replace(/\s+/g, '');
-  //     if (tag.length > 1 && !this.tags.includes(tag)) {
-  //       tag.split(',').forEach((tag: string) => {
-  //         this.tags.push(tag);
-  //         this.createTag();
-  //       });
-  //     }
-  //     e.target.value = "";
-  //   }
-  // }
-
-  //   removeAll() {
-  //     this.tags.length = 0;
-  //     let ul = document.querySelector("ul");
-  //     if (ul) {
-  //       ul.querySelectorAll("li").forEach(li => li.remove());
-  //     }
-  //   }
-
-  tagInput: string = '';
-  tags: string[] = [];
-
-  addTag(e: any) {
-    if (e.key == ",") {
-    if (this.tagInput.trim() !== '') {
-      this.tags.push(this.tagInput.trim());
-      this.tagInput = ''; // Clear the input field after adding the tag
-    }
-  } }
-
-  removeTag(tagToRemove: string) {
-    this.tags = this.tags.filter(tag => tag !== tagToRemove);
-  }
-
 
   /* SUBMIT FORM */
   submit() {
@@ -309,6 +227,7 @@ export class AddprojectComponent implements OnInit{
       if(valid && validFile) {
         this.ds.post('projects/process', formData).subscribe({
           next: (res: any) => {
+            this.router.navigate(['main/academicprojects/listofprojects']); // para diretso list? or tanggalin hehe
             console.log(res)
             Swal.fire({
               title: 'Success',
