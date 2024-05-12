@@ -2,27 +2,30 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ReportsRoutingModule } from './reports-routing.module';
-import { BooksComponent } from './components/books/books.component';
-import { JournalsComponent } from './components/journals/journals.component';
-import { MagazinesComponent } from './components/magazines/magazines.component';
-import { ArticlesComponent } from './components/articles/articles.component';
-import { NewspapersComponent } from './components/newspapers/newspapers.component';
 
 import { MatTableModule } from '@angular/material/table';
+import { BooksComponent } from './components/material-report/components/books/books.component';
+import { ArticlesComponent } from './components/material-report/components/articles/articles.component';
+import { JournalsComponent } from './components/material-report/components/journals/journals.component';
+import { MagazinesComponent } from './components/material-report/components/magazines/magazines.component';
+import { NewspapersComponent } from './components/material-report/components/newspapers/newspapers.component';
 
 
+import { AcademicReportComponent } from './components/academic-report/academic-report.component';
+import { MaterialReportComponent } from './components/material-report/material-report.component';
+import { AcademicReportModule } from './components/academic-report/academic-report.module';
+import { DashboardComponent } from './components/academic-report/components/acad-gc/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
-    // JournalsComponent,
-    // MagazinesComponent,
-    // ArticlesComponent,
-    // NewspapersComponent, 
+
   ],
+
   imports: [
     CommonModule,
     ReportsRoutingModule, 
-    MatTableModule, 
+    MatTableModule
   ]
 })
 export class ReportsModule { }
+

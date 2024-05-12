@@ -1,20 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BooksComponent } from './components/books/books.component';
-import { ArticlesComponent } from './components/articles/articles.component';
-import { JournalsComponent } from './components/journals/journals.component';
-import { MagazinesComponent } from './components/magazines/magazines.component';
-import { NewspapersComponent } from './components/newspapers/newspapers.component';
+import { MaterialReportComponent } from './components/material-report/material-report.component';
+import { BooksComponent } from './components/material-report/components/books/books.component';
+import { ArticlesComponent } from './components/material-report/components/articles/articles.component';
+import { JournalsComponent } from './components/material-report/components/journals/journals.component';
+import { MagazinesComponent } from './components/material-report/components/magazines/magazines.component';
+import { NewspapersComponent } from './components/material-report/components/newspapers/newspapers.component';
+import { AcademicReportComponent } from './components/academic-report/academic-report.component';
+import { DashboardComponent } from './components/academic-report/components/acad-gc/dashboard/dashboard.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'books', pathMatch: 'full' },
-  { path: 'books', component: BooksComponent},
-  { path: 'articles', component: ArticlesComponent},
-  { path: 'journals', component: JournalsComponent},
-  { path: 'magazines', component: MagazinesComponent},
-  { path: 'newspapers', component: NewspapersComponent}
+  { path: '', redirectTo: 'material-report', pathMatch: 'full' },
+  { path: 'material-report', 
+  component: MaterialReportComponent, 
+  children: [{
+    path:'', 
+    loadChildren: ()=>import('../reports/components/material-report/material-report.module').then((m)=>m.MaterialReportModule)
+  }]
+},
+  { path: 'academic-report',
+  component: AcademicReportComponent, 
+  children: [{
+    path:'', 
+    loadChildren: ()=>import('../reports/components/academic-report/academic-report.module').then((m)=>m.AcademicReportModule)
+  }]
+}, 
 ];
 
 @NgModule({

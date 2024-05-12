@@ -13,7 +13,7 @@ import { PeriodicalModule } from './components/periodical/periodical.module';
 
 import { ArticleComponent } from './components/article/article.component';
 import { ArticleModule } from './components/article/article.module';
-import { MagazinesComponent } from '../reports/components/magazines/magazines.component';
+import { MagazinesComponent } from '../reports/components/material-report/components/magazines/magazines.component';
 
 @NgModule({
   declarations: [
