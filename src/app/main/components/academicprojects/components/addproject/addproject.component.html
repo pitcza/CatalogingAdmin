@@ -11,29 +11,29 @@
 
         <div class="addproject">
         
-            <form>
-                <div class="input_field">
+            <form id="project-form">
+                <div class="input_field">                    
                     <div class="input-row">
-                        <div class="txt_field">
-                            <select class="inputtxt" required name="department" id="college" [(ngModel)]="selectedOption1" (change)="onOption1Change()" [ngModelOptions]="{standalone: true}">
-                                <option *ngFor="let option of options1" [value]="option.value">{{ option.label }} </option>
+                        <div class="txt_field_short">
+                            <select class="inputtxt" id="filter-department" (change)="changedDepartment($event)">
+                                <option *ngFor="let x of departments; let i = index" [value] = "x" [selected]="i === 0">{{ x }}</option>
                             </select>
                             <span></span>
                             <label class="labelline" for="college"> College </label>
                         </div>
-                        <div class="txt_field">
-                            <select class="inputtxt" required name="program_id" id="program" [(ngModel)]="selectedOption2" (change)="onOption2Change()" [ngModelOptions]="{standalone: true}">
-                                <option *ngFor="let option of options2" [value]="option.value">{{ option.label }} </option>
+                        <div class="txt_field_short">
+                            <select class="inputtxt" id="filter-program" (change)="changedProgram($event)" name="program_id">        
+                                <ng-container *ngFor="let x of programs">
+                                    <option *ngIf="x.department == departmentFilter" [value] = "x.id">{{ x.program }}</option>
+                                </ng-container>
                             </select>
                             <span></span>
                             <label class="labelline" for="program"> Program </label>
                         </div>
                         <div class="txt_field">
-                            <select class="inputtxt" required name="category" id="category" [(ngModel)]="selectedOption3" [ngModelOptions]="{standalone: true}">
-                                <option *ngFor="let option of options3" [value]="option.value">{{ option.label }}</option>
-                            </select>
+                            <input class="inputtxt" type="text" name="category" [value]="programCategory" disabled>
                             <span></span>
-                            <label class="labelline" for="category"> Category </label>
+                            <label class="labelline1" for="college"> Category </label>
                         </div>
                     </div>
 
@@ -45,38 +45,46 @@
                         </div>
                     </div>
 
-                    <!-- CAN ADD MULTIPLE AUTHOR -->
+                    <!-- CAN ADD MULTIPLE AUTHORS -->
                     <div class="input-row">
-                        <div class="multiple-author" *ngFor="let item of values; let i = index">
-                            <div class="txt_field">
-                                <input class="inputtxt" type="text" name="author" [(ngModel)]="item.value">
-                                <span></span>
-                                <div class="labelline"> Author </div>
+                        <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
+                            <div class="multiple-author">
+                                <div class="txt_field">
+                                    <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
+                                    <span></span>
+                                    <div class="labelline"> Author </div>
+                                </div>
+                                <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
+                                    <i class='bx bx-x'></i>
+                                </button>
                             </div>
-                            <p *ngIf="i === 0"> Add more AUTHOR if necessary </p>
-                            <button class="removebtn" *ngIf="i > 0" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
-                        </div>
+                        </ng-container>
                         <div class="addbtn">
-                            <button class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                            <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
                         </div>
+                    
+                        <!-- Display message based on the number of input fields -->
+                        <p *ngIf="values.length < 6">Add more AUTHOR if necessary</p>
+                        <p *ngIf="values.length === 6">Maximum AUTHORS reached</p>
+                    
                     </div>
 
                     <div class="input-row">
                         <div class="txt_field">
                             <select class="inputtxt" id="language" name="language" required>
-                                <option value="English"> FIL </option>
-                                <option value="Tagalog"> FOR </option>
+                                <option value="english"> English </option>
+                                <option value="tagalog"> Tagalog </option>
                             </select>
                             <span></span>
                             <label class="labelline" for="language"> Language </label>
                         </div>
                         <div class="txt_field">
-                            <input class="inputtxt" type="date" id="datepub" name="date_published" required>
+                            <input class="inputtxt" type="date" id="datepub" name="date_published" required>                              
                             <span></span>
                             <div class="datelabel"> Date Published </div>
                         </div> 
                         <div class="txt_field"> 
-                            <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_location" style="padding-left: 110px;"> 
+                            <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;"> 
                             <span></span>
                             <div class="uploadlabel"> Upload Image </div>
                         </div>
@@ -84,41 +92,22 @@
 
                     <div class="input-row">
                         <div class="txtarea">
-                            <textarea name="abstract" placeholder="Project abstract..."> </textarea>
+                            <textarea name="abstract"> </textarea>
                             <span></span>
                             <label class="labelline1"> Abstract </label>
                         </div>
                     </div>
 
-                    <!-- <div class="input-row"> KEYWORDS ULIT
-                        <div class="txt_field" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-                            <input class="inputtxt" type="text" onkeyup="multiSearchKeyup(this)">
-                            <span></span>
-                            <label class="labelline"> Keywords </label>
-                        </div>
-                    </div> -->
-
 
                 </div>
-
-                 <!-- KEYWORDS NA AYAW GUMANA  
-                    <div class="input-row">
-                        <div class="txt_field">
-                            <input class="inputtxt" type="text" name="keywords" spellcheck="false" (keyup)="addTag($event)">
-                            <span></span>
-                            <div class="labelline"> Keywords </div>
-                        </div>
-                        <div class="remove_all">
-                            <button class="removeall" (click)="removeAll()"> Remove All </button>
-                        </div>
-                    </div> -->
 
 
                 <!-- BUTTONS -->
                 <div class="buttons">
-                    <a class="add" (click)="addBox()"> 
-                        <span> Add </span>
-                    </a>
+                    <!-- <a class="add" (click)="addBox()">  -->
+                        <input id="submit-button" class="add" type="submit" value="Add"> 
+                    <!-- </a> -->
+
                     <a class="cancel" (click)="cancelBox()"> 
                         <span> Cancel </span>
                     </a>

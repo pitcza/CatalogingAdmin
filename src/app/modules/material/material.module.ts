@@ -27,7 +27,8 @@ const MatModules = [
   MatCardModule,
   MatProgressSpinnerModule, 
   MatSortModule,
-  MatSort
+  MatSort,
+  MatProgressSpinnerModule
 ]
 
 @NgModule({

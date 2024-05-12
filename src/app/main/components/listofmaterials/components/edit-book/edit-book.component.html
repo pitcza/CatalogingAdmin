@@ -5,7 +5,7 @@
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
                     <h1> Edit Book Details </h1>
-                    <button class="exit-button" (click)="closepopup()"> &times; </button>
+                    <button class="exit-button" (click)="cancelBox()"> &times; </button>
                 </div>
 
                 <!-- BODY - DETAILS -->
@@ -15,19 +15,19 @@
                             <div class="input_field">
                                 <div class="input-row">
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="number" min="0" name="id" [value]="data.details.id">
+                                        <input class="inputtxt" type="number" min="0" name="id" [placeholder]="data.details.id" [value]="data.details.id">
                                         <span></span>
                                         <div class="labelline"> Accession No. </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="author" [value]="data.details.author">
+                                        <input class="inputtxt" type="text" name="author" [placeholder]="data.details.author" [value]="data.details.author">
                                         <span></span>
                                         <div class="labelline"> Author </div>
                                     </div>
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="title" [value]="data.details.title">
+                                        <input class="inputtxt" type="text" name="title" [placeholder]="data.details.title" [value]="data.details.title">
                                         <span></span>
                                         <div class="labelline"> Title </div>
                                     </div>
@@ -44,7 +44,7 @@
                                         <div class="labelline"> Volume </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="number" min="0" name="pages" [value]="data.details.pages">
+                                        <input class="inputtxt" type="number" min="0" name="pages" [placeholder]="data.details.pages" [value]="data.details.pages">
                                         <span></span>
                                         <div class="labelline"> Pages </div>
                                     </div>
@@ -59,46 +59,47 @@
                                         <div class="labelline"> Location </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="call_number" [value]="data.details.call_number">
+                                        <input class="inputtxt" type="text" name="call_number" [placeholder]="data.details.call_number" [value]="data.details.call_number">
                                         <span></span>
                                         <div class="labelline"> Call Number </div>
                                     </div>
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="number" min="0" name="copyright" [value]="data.details.copyright">
+                                        <input class="inputtxt" type="number" min="1950" name="copyright" [value]="data.details.copyright">
                                         <span></span>
                                         <div class="labelline"> Copyright </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" min="0" name="remarks" [value]="data.details.remark">
+                                        <input class="inputtxt" type="text" min="0" name="remarks" [placeholder]="data.details.remarks" [value]="data.details.remark">
                                         <span></span>
                                         <div class="labelline"> Remarks </div>
                                     </div>
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <select class="inputtxt" id="language" name="fund" required>
-                                            <option value="English"> Purchased </option>
-                                            <option value="Tagalog"> Donated </option>
+                                        <select class="inputtxt" id="language" name="source_of_fund" required>
+                                            <option value="Purchased"> Purchased </option>
+                                            <option value="Donated"> Donated </option>
+                                            <option value="Replacement"> Replacement </option>
                                         </select>
                                         <span></span>
                                         <label class="labelline" for="fund"> Source of Fund </label>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="date" name="purchased_date" [value]="data.details.purchased_date">
+                                        <input class="inputtxt" type="date" name="acquired_date" [value]="data.details.acquired_date">
                                         <span></span>
                                         <div class="datelabel"> Date Purchased/Donated </div>
                                     </div> 
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="number" min="0" name="price">
+                                        <input class="inputtxt" type="number" min="0" name="price" [placeholder]="data.details.price" [value]="data.details.price">
                                         <span></span>
-                                        <div class="labelline"> Price </div>
+                                        <div class="labelline1"> Price </div>
                                     </div>
                                     <div class="txt_field"> 
-                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_location" style="padding-left: 110px;"> 
+                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;"> 
                                         <span></span>
                                         <div class="uploadlabel"> Upload Image </div>
                                     </div>

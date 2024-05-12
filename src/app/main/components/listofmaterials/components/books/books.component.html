@@ -29,11 +29,11 @@
             <div class="mat-elevation-z8">
                 <table mat-table [dataSource]="dataSource" matSort>
             
-                <!-- Date Added Column -->
+                <!-- Date Added Column 
                 <ng-container matColumnDef="created_at">
                     <th mat-header-cell *matHeaderCellDef="" mat-sort-header> Date Added </th>
                     <td mat-cell *matCellDef="let element"> {{element.created_at | date: 'mediumDate'}} </td>
-                </ng-container>
+                </ng-container> -->
             
                 <!-- Title Column -->
                 <ng-container matColumnDef="title">
@@ -56,16 +56,7 @@
                 <!-- Copyright Column -->
                 <ng-container matColumnDef="copyright">
                     <th mat-header-cell *matHeaderCellDef> Copyright </th>
-                    <td mat-cell *matCellDef="let element"> {{element.copyright}} </td>
-                </ng-container>
-        
-                <!-- Issue Column -->
-                <ng-container matColumnDef="issue">
-                    <th mat-header-cell *matHeaderCellDef> Issue </th>
-                    <td mat-cell *matCellDef="let dataSource">
-                        <span *ngIf="dataSource.issue == null; else hasIssue">N/A</span>
-                        <ng-template #hasIssue>{{ dataSource.issue }}</ng-template>
-                    </td>
+                    <td mat-cell *matCellDef="let element"> {{element.copyright }} </td>
                 </ng-container>
         
                 <!-- Action Column -->
@@ -86,7 +77,9 @@
                                 pages: element.pages,
                                 edition: element.edition,
                                 remark: element.remarks,
-                                purchased_date: element.purchased_date
+                                acquired_date: element.acquired_date,
+                                source_of_fund: element.source_of_fund,
+                                price: element.price
                             }
                         )">
                             <i class='bx bx-edit' ></i>
@@ -99,6 +92,7 @@
                         <button class="detailsbtn" (click)="detailsPopup(
                             {
                                 id: element.id,
+                                image: element.image_url,
                                 title: element.title,
                                 location: element.location.location + ': ' + element.location.full_location,
                                 call_number: element.call_number,
@@ -109,7 +103,9 @@
                                 pages: element.pages,
                                 edition: element.edition,
                                 remark: element.remarks,
-                                purchased_date: element.purchased_date
+                                source: element.source_of_fund,
+                                price: element.price,
+                                acquired_date: element.acquired_date
                             }
                             )" (closedPopup)="closePopup()">
                             <i class='bx bx-detail' ></i>

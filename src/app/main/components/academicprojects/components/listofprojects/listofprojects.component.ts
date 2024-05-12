@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { AddprojectComponent } from '../addproject/addproject.component';
 import { DataService } from '../../../../../services/data.service';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-listofprojects',
@@ -30,10 +31,13 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule, 
     MatCardModule,
     MatSortModule,
-    CommonModule
+    CommonModule,
+    MatProgressSpinnerModule
   ],
 })
-export class ListofprojectsComponent implements AfterViewInit {
+export class ListofprojectsComponent implements OnInit {
+  isLoading: boolean = true;
+
   redirectToProjectForm() {
     // Programmatically navigate to another route
     this.router.navigate(['main/academicprojects/addproject']);
@@ -48,19 +52,6 @@ export class ListofprojectsComponent implements AfterViewInit {
   @ViewChild(MatPaginator, {static:true}) paginatior !: MatPaginator;
   @ViewChild(MatSort, {static:true}) sort !: MatSort;
 
-  protected projects: any = null;
-  protected dataSource!: any;
-
-  ngAfterViewInit() {
-
-    this.ds.get('projects').subscribe((res: any) => {
-      this.projects = res;
-      this.dataSource = new MatTableDataSource(this.projects);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    });
-  }
-
   constructor(
     private router: Router,
     private paginatorIntl: MatPaginatorIntl, 
@@ -72,51 +63,104 @@ export class ListofprojectsComponent implements AfterViewInit {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
+  protected projects: any = null;
+  protected dataSource!: any;
+  protected programs: any;
+  protected departments: any;
+  protected departmentFilter = '';
+  protected categories: any;
+
+  ngOnInit() {
+    this.getData();
+  }
+
+  getData() {
+    this.isLoading = true;
+    this.ds.get('projects').subscribe((res: any) => {
+      this.projects = res;
+      console.log(res)
+      this.dataSource = new MatTableDataSource(this.projects);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      
+      // Extract unique categories from projects
+      const uniqueCategories = new Set<string>();
+      this.projects.forEach((project: any) => {
+          uniqueCategories.add(project.category);
+      });
+
+      // Convert the Set back to an array
+      this.categories = Array.from(uniqueCategories);
+    });
+
+    this.ds.get('programs').subscribe((res: any) => {
+      this.programs = res;
+
+      // Extract unique department names from programs
+      const uniqueDepartments = new Set<string>();
+      this.programs.forEach((program: any) => {
+          uniqueDepartments.add(program.department);
+      });
+
+      // Convert the Set back to an array
+      this.departments = Array.from(uniqueDepartments);
+    })
+  }
+
+  changedDepartment(event: Event) {
+    const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
+    this.departmentFilter = selectDepartment;
+  }
+
   // Filtering 
   applyFilter(event: Event, type: string) {
 
+    // get elements
     const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
-    const selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
+    let selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
     const selectCategory = (document.getElementById('filter-category') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
-
-      const titleFilterPredicate = (data: Project, search: string): boolean => {
-        return data.title.toLowerCase().includes(search.toLowerCase());
-      } 
-
-      const authorFilterPredicate = (data: Project, search: string): boolean => {
-        return data.author.toLowerCase().includes(search.toLowerCase());
-      } 
-      
-      const departmentFilterPredicate = (data: Project, selectDepartment: string): boolean => {
-        return data.program.department === selectDepartment || selectDepartment === '';
-      }
-
-      const programFilterPredicate = (data: Project, selectProgram: string): boolean => {
-        return data.program.program === selectProgram || selectProgram === '';
-      }
-
-      const categoryFilterPredicate = (data: Project, selectCategory: string): boolean => {
-        return data.category === selectCategory || selectCategory === '';
-      }
-
-      const filterPredicate = (data: Project): boolean => {
-        return (titleFilterPredicate(data, search) || authorFilterPredicate(data, search)) &&
-               departmentFilterPredicate(data, selectDepartment) &&
-               programFilterPredicate(data, selectProgram) &&
-               categoryFilterPredicate(data, selectCategory);
-      };
-      
-      this.dataSource.filterPredicate = filterPredicate;
-      if(type === 'department')
-        this.dataSource.filter = selectDepartment;
-      else if(type === 'program')
-        this.dataSource.filter = selectProgram;
-      else if(type === 'category')
-        this.dataSource.filter = selectCategory;
-      else if(type === 'search')
-        this.dataSource.filter = search;
     
+    // reset program filter upon department filter search
+    if(type == 'department'){
+      this.departmentFilter = selectDepartment;
+      selectProgram = '';
+    }
+
+    const titleFilterPredicate = (data: Project, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    } 
+
+    const authorFilterPredicate = (data: Project, search: string): boolean => {
+      return data.projectAuthors.some((author: any) => author.name.toLowerCase().includes(search.toLowerCase()));
+    } 
+    
+    const departmentFilterPredicate = (data: Project, selectDepartment: string): boolean => {
+      return data.program.department === selectDepartment || selectDepartment === '';
+    }
+
+    const programFilterPredicate = (data: Project, selectProgram: string): boolean => {
+      return data.program.program === selectProgram || selectProgram === '';
+    }
+
+    const categoryFilterPredicate = (data: Project, selectCategory: string): boolean => {
+      return data.category === selectCategory || selectCategory === '';
+    }
+
+    const filterPredicate = (data: Project): boolean => {
+      return (titleFilterPredicate(data, search) || authorFilterPredicate(data, search)) &&
+              departmentFilterPredicate(data, selectDepartment) &&
+              programFilterPredicate(data, selectProgram) &&
+              categoryFilterPredicate(data, selectCategory);
+    };
+
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = {
+      search, 
+      selectDepartment, 
+      selectProgram, 
+      selectCategory
+    };
   }
 
   showPopup: boolean = false;
@@ -154,14 +198,17 @@ export class ListofprojectsComponent implements AfterViewInit {
     });
     _popup.afterClosed().subscribe(result => {
       this.redirectToListPage();
+      if(result === 'Changed Data') {
+        this.getData();
+      }
     });
   }
 
   // SWEETALERT ARCHIVE POP UP
-  archiveBox(){
+  archiveBox(id: number){
     Swal.fire({
-      title: "Archive Project",
-      text: "Are you sure want to archive this project?",
+      title: "Archive Academic Project",
+      text: "Are you sure want to archive this academic project?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -170,25 +217,34 @@ export class ListofprojectsComponent implements AfterViewInit {
       cancelButtonColor: "#777777",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Project has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
+        this.ds.delete('projects/process/' + id).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Academic project has been safely archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+            });
+            this.getData();
+          },
+          error: (err: any) => {
+            Swal.fire({
+              title: "Error",
+              text: "Oops an error occured.",
+              icon: "error"
+            });
+            console.log(err);
+          }
         });
-      }
+      };
     });
   }
-
-
-  // SELECTION
-
 }
 
 export interface Project {
   created_at: string;
-  author: string;
+  projectAuthors: any;
   program: any;
   category: string;
   title: string;

@@ -12,14 +12,17 @@
                 <div class="detailsbody">
                     <div class="details">
                         <div class="body-details">
-                            <img [src]="image">
-                            
-                            <!-- <img alt="blog" src="https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png"> -->
+                            <img alt="book image" [src]="data.details.image != null ? data.details.image : errorImage">
+                            <span>
+                                <h2> Price: </h2> <p> ₱ {{ data.details.price }} </p>
+                            </span>
                         </div>
 
                         <div class="body-details">
                             <span>
-                                <h2> Accession Number: </h2> <p> {{ data.details.id }} </p>
+                                <h2> Accession Number: </h2> <p> 
+                                    {{ data.details.id < 10 ? '000' : (data.details.id < 100) ? '00' : (data.details.id < 1000) ? '0' : '' }}{{ data.details.id }}
+                                </p>
                             </span>
                             <span>
                                 <h2> Author: </h2> <p> {{ data.details.author }} </p>
@@ -34,7 +37,7 @@
                                 <h2> Copyright: </h2> <p> {{ data.details.copyright }} </p>
                             </span>
                             <span>
-                                <h2> Publication Date: </h2> <p> {{ data.details.date_published }} </p>
+                                <h2> Publication Date: </h2> <p> {{ data.details.date_published | date:'mediumDate'}} </p>
                             </span>
                             <span>
                                 <h2> Volume: </h2> <p> {{ data.details.volume != null ? data.details.volume : 'N/A' }} </p>
@@ -46,10 +49,16 @@
                                 <h2> Edition: </h2> <p> {{ data.details.edition != null ? data.details.edition : 'N/A' }} </p>
                             </span>
                             <span>
-                                <h2> Remark: </h2> <p> {{ data.details.remarks != null ? data.details.remarks : 'N/A' }} </p>
+                                <h2> Source of Fund: </h2> <p> {{ data.details.source }} </p>
                             </span>
                             <span>
-                                <h2> Date Purchased/Donated: </h2> <p> {{ data.details.purchased_date }} </p>
+                                <h2> Date {{ data.details.source === 'Purchased' ? 'Purchased' : (data.details.source === 'Donated') ? 'Donated' : 'Acquired' }}: </h2> <p> 
+                                    <ng-container *ngIf="data.details.acquired_date != null"> {{ data.details.acquired_date | date: 'mediumDate' }} </ng-container>
+                                    <ng-container *ngIf="data.details.acquired_date === null"> N/A </ng-container>
+                                </p>
+                            </span>
+                            <span>
+                                <h2> Remark: </h2> <p> {{ data.details.remark != null ? data.details.remark : 'N/A' }} </p>
                             </span>
                         </div>
                     </div>

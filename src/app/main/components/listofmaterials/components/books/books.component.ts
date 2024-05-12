@@ -38,7 +38,7 @@ import { filter } from 'rxjs';
 })
 
 export class BooksComponent implements OnInit {
-  displayedColumns: string[] = ['created_at', 'title', 'author', 'location', 'copyright', 'issue', 'action'];
+  displayedColumns: string[] = ['title', 'author', 'location', 'copyright', 'action'];
   dataSource:any = null;
   materials: any = null;
 
@@ -46,20 +46,7 @@ export class BooksComponent implements OnInit {
   @ViewChild(MatSort, {static:true}) sort!: MatSort;
 
   ngOnInit() {
-    this.ds.get('books').subscribe({
-      next: (res: any) =>  {
-        this.materials = res;
-        this.dataSource = new MatTableDataSource<BookElement, MatPaginator>(this.materials);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      },
-      error: (err: any) => console.log(err)
-    });
-
-    this.ds.get('books/locations').subscribe({
-      next: (res: any) => this.locations = res,
-      error: (err: any) => console.log(err)
-    });
+    this.getData();
   }
 
   constructor(
@@ -78,7 +65,13 @@ export class BooksComponent implements OnInit {
 
   protected getData() {
     this.ds.get('books').subscribe({
-      next: (res: any) => this.dataSource = new MatTableDataSource(res),
+      next: (res: any) =>  {
+        this.materials = res;
+        console.log(res)
+        this.dataSource = new MatTableDataSource<BookElement, MatPaginator>(this.materials);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      },
       error: (err: any) => console.log(err)
     });
 
@@ -86,7 +79,6 @@ export class BooksComponent implements OnInit {
       next: (res: any) => this.locations = res,
       error: (err: any) => console.log(err)
     });
-
   }
 
   // Filtering 
@@ -180,7 +172,6 @@ export class BooksComponent implements OnInit {
   }
 
   Openpopup(data: any, title: any,component:any) {
-    console.log(data)
     var _popup = this.dialog.open(component, {
       width: '40%',
       enterAnimationDuration: '100ms',
@@ -192,11 +183,11 @@ export class BooksComponent implements OnInit {
     });
     _popup.afterClosed().subscribe(result => {
       this.redirectToListPage();
+      if(result == 'Changed Data') {
+        this.getData()
+      }
     });
   }
-
-
-
 }
 
 export interface BookElement {
@@ -205,7 +196,6 @@ export interface BookElement {
   author: string;
   location: any;
   copyright: Date;
-  issue: number;
   date_published: Date;
   volume: number;
   [key: string]: any;

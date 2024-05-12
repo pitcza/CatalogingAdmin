@@ -25,7 +25,7 @@ import { DataService } from '../../../../../../../services/data.service';
 })
 
 export class NewspapersComponent implements AfterViewInit {
-  displayedColumns: string[] = ['created_at', 'title', 'publisher', 'copyright', 'action'];
+  displayedColumns: string[] = ['title', 'author', 'publisher', 'copyright', 'action'];
   dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,12 +33,7 @@ export class NewspapersComponent implements AfterViewInit {
   @ViewChild(MatSort) sort !: MatSort;
 
   ngAfterViewInit() {
-    this.ds.get('periodicals/type/journal').subscribe({
-      next: (res: any) => {
-        this.dataSource = new MatTableDataSource<Newspaper>(res)
-        this.dataSource.paginator = this.paginator;
-      }
-    })
+    this.getData();
   }
 
   constructor(
@@ -50,6 +45,15 @@ export class NewspapersComponent implements AfterViewInit {
     private ds: DataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
+  }
+
+  getData() {
+    this.ds.get('periodicals/type/newspaper').subscribe({
+      next: (res: any) => {
+        this.dataSource = new MatTableDataSource<Newspaper>(res)
+        this.dataSource.paginator = this.paginator;
+      }
+    })
   }
 
   // POP UPS FUNCTION
@@ -79,15 +83,17 @@ export class NewspapersComponent implements AfterViewInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      
+      if(result === 'Changed Data') {
+        this.getData();
+      }
     });
   }
 
   // SWEETALERT ARCHIVE POP UP
-  archiveBox(){
+  archiveBox(id: number){
     Swal.fire({
-      title: "Archive Periodical",
-      text: "Are you sure want to archive this periodical?",
+      title: "Archive Newspaper",
+      text: "Are you sure want to archive this newspaper?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -96,13 +102,28 @@ export class NewspapersComponent implements AfterViewInit {
       cancelButtonColor: "#777777",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Periodical has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-        });
+        this.ds.delete('periodicals/process/' + id).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Newspaper has been successfully archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+            });
+            this.getData();
+          },
+          error: (err: any) => {
+            console.log(err)
+            Swal.fire({
+              title: "Archive Error!",
+              text: "Please try again later.",
+              icon: "error",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+            });
+          }
+        })
       }
     });
   }

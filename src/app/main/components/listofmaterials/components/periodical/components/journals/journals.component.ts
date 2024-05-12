@@ -24,7 +24,7 @@ import { DataService } from '../../../../../../../services/data.service';
 })
 
 export class JournalsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['created_at', 'title', 'publisher', 'copyright', 'action'];
+  displayedColumns: string[] = ['title', 'author', 'publisher', 'copyright', 'action'];
   dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -84,15 +84,17 @@ export class JournalsComponent implements AfterViewInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      
+      if(result === 'Changed Data') {
+        this.getData();
+      }
     });
   }
 
   // SWEETALERT ARCHIVE POP UP
   archiveBox(id: number){
     Swal.fire({
-      title: "Archive Periodical",
-      text: "Are you sure want to archive this periodical?",
+      title: "Archive Journal",
+      text: "Are you sure want to archive this journal?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -105,7 +107,7 @@ export class JournalsComponent implements AfterViewInit {
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
-              text: "Periodical has been safely archived.",
+              text: "Journal has been successfully archived.",
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
@@ -123,7 +125,6 @@ export class JournalsComponent implements AfterViewInit {
             });
           }
         })
-        
       }
     });
   }

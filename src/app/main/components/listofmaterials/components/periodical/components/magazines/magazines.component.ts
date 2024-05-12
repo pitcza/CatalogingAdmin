@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PerioDetailsComponent } from '../perio-details/perio-details.component';
 import { DataService } from '../../../../../../../services/data.service';
-//import { SharedDataService } from '../../../../../../../services/shared-data.service';
 
 @Component({
   selector: 'app-magazines',
@@ -25,7 +24,7 @@ import { DataService } from '../../../../../../../services/data.service';
 })
 
 export class MagazinesComponent implements OnInit {
-  displayedColumns: string[] = ['created_at', 'title', 'publisher', 'copyright', 'action'];
+  displayedColumns: string[] = ['title', 'author', 'publisher', 'copyright', 'action'];
   dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -43,7 +42,6 @@ export class MagazinesComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
     private ds: DataService,
-    //private shared: SharedDataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
@@ -86,15 +84,17 @@ export class MagazinesComponent implements OnInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      
+      if(result === 'Changed Data') {
+        this.getData();
+      }
     });
   }
 
   // SWEETALERT ARCHIVE POP UP
   archiveBox(id: number){
     Swal.fire({
-      title: "Archive Periodical",
-      text: "Are you sure want to archive this periodical?",
+      title: "Archive Magazine",
+      text: "Are you sure want to archive this magazine?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -107,7 +107,7 @@ export class MagazinesComponent implements OnInit {
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
-              text: "Periodical has been safely archived.",
+              text: "Magazine has been successfully archived.",
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
@@ -125,7 +125,6 @@ export class MagazinesComponent implements OnInit {
             });
           }
         })
-        
       }
     });
   }

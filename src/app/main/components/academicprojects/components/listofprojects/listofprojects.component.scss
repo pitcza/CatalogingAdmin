@@ -68,7 +68,7 @@
 
 .table-filters select {
     background: var(--primary-color);
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     padding: 5px;
     font-size: 14px;
     font-weight: 500;
@@ -97,7 +97,7 @@
 //SELECT OPTION
 
 .table-head input[type=text] {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     padding: 5px;
     font-size: 14px;
     font-weight: 400;
@@ -168,6 +168,9 @@ input:focus{
     border: 0.5px solid var(--table-border);
 }
 
+ng-template {
+    display: contents;
+}
 /* table */
 
 table {
@@ -178,7 +181,7 @@ table {
 table,
 th,
 td {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     font-size: 14px;
     padding: 10px;
     text-align: center;
@@ -199,7 +202,12 @@ table tr:hover{
     background-color: rgb(243, 243, 243);
 }
 
+table td:nth-child(2) {
+    max-width: 150px;
+}
+
 table td:nth-child(3) {
+    min-width: 300px;
     max-width: 400px;
 }
 
@@ -209,6 +217,10 @@ table td:nth-child(4) {
 
 table td:nth-child(6) {
     min-width: 150px;
+}
+
+.left-align {
+    text-align: left;
 }
 
 .actions button {
@@ -259,7 +271,7 @@ tr {
 }
 
 .actions .tooltiptext {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     font-size: 14px;
     visibility: hidden;
     background-color: rgba(0, 0, 0, 0.9);

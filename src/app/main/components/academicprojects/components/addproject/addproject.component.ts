@@ -1,11 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild   } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild   } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
-interface MyOption {
-  value: string;
-  label: string;
-}
+import { DataService } from '../../../../../services/data.service';
+import { text } from 'stream/consumers';
 
 @Component({
   selector: 'app-addproject',
@@ -13,309 +10,264 @@ interface MyOption {
   styleUrl: './addproject.component.scss'
 })
 
-export class AddprojectComponent {
-  // FOR COLLEGE, PROGRAM, AND CATEGORY OF THE PROJECT
-  options1 = [
-    { value: 'CCS', label: 'CCS' },
-    { value: 'CBA', label: 'CBA' },
-    { value: 'CEAS', label: 'CEAS' },
-    { value: 'CAHS', label: 'CAHS' },
-    { value: 'CHTM', label: 'CHTM' },
-  ];
-
-  options2: MyOption[] = [];
-  options3: MyOption[] = [];
-
-  selectedOption1: string;
-  selectedOption2: string;
-  selectedOption3: string;
+export class AddprojectComponent implements OnInit {
+  programs: any;
+  departments: any;
+  departmentFilter = '';
+  programFilter: any;
+  programCategory: any;
 
   constructor(private router: Router,
-    private elementRef: ElementRef
-  ) {
-    this.selectedOption1 = ''; // Initialize selectedOption1 in the constructor
-    this.selectedOption2 = '';
-    this.selectedOption3 = '';
-  }
+    private ds: DataService
+  ) { }
 
-  onOption1Change() {
-    // Logic for populating PROGRAM based on COLLEGE DEPARTMENT
-
-    // CCS -------------------------------------------------
-    if (this.selectedOption1 === 'CCS') {
-      this.options2 = [
-        { value: 'BSCS', label: 'BSCS' },
-        { value: 'BSIT', label: 'BSIT' },
-        { value: 'BSEMC', label: 'BSEMC' },
-        { value: 'ACT', label: 'ACT' },
-      ];
-    }
-    // CBA -------------------------------------------------
-    else if (this.selectedOption1 === 'CBA') {
-      this.options2 = [
-        { value: 'BSA', label: 'BSA' },
-        { value: 'BSCA', label: 'BSCA' },
-        { value: 'BSBA-FM', label: 'BSBA-FM' },
-        { value: 'BSBA-MKT', label: 'BSBA-MKT' },
-        { value: 'BSBA-HRM', label: 'BSBA-HRM' },
-      ];
-    }
-    // CEAS -------------------------------------------------
-    else if (this.selectedOption1 === 'CEAS') {
-      this.options2 = [
-        { value: 'BACOMM', label: 'BACOMM' },
-        { value: 'BEED', label: 'BEED' },
-        { value: 'BPED', label: 'BPED' },
-        { value: 'BCAED', label: 'BCAED' },
-        { value: 'BECED', label: 'BECED' },
-        { value: 'BSED-ENG', label: 'BSED-ENG' },
-        { value: 'BSED-FIL', label: 'BSED-FIL' },
-        { value: 'BSED-MATH', label: 'BSED-MATH' },
-        { value: 'BSED-SCI', label: 'BSED-SCI' },
-        { value: 'BSED-SOC', label: 'BSED-SOC' }
-      ];
-    }
-    // CAHS -------------------------------------------------
-    else if (this.selectedOption1 === 'CAHS') {
-      this.options2 = [
-        { value: 'BSM', label: 'BSM' },
-        { value: 'BSN', label: 'BSN' }
-      ];
-    }
-    // CHTM -------------------------------------------------
-    else if (this.selectedOption1 === 'CHTM') {
-      this.options2 = [
-        { value: 'BSHM', label: 'BSHM' },
-        { value: 'BSTM', label: 'BSTM' }
-      ];
-    } 
-    
-    else {
-      this.options2 = [];
-    }
-
-    this.selectedOption2 = '';
-    this.options3 = []; // Reset options3 when the first select menu changes
-    this.selectedOption3 = ''; // Reset selectedOption3 when the first select menu changes
-  }
-
-
-  onOption2Change() {
-    // Logic for populating PROJECT TYPE based on COLLEGE PROGRAM
-
-    // CCS PROGRAMS -------------------------------------------------
-    if (this.selectedOption2 === 'BSCS') {
-      this.options3 = [
-        { value: 'Thesis', label: 'Thesis' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSIT') {
-      this.options3 = [
-        { value: 'Capstone', label: 'Capstone' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSEMC') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'ACT') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    // CBA PROGRAMS -------------------------------------------------
-    else if (this.selectedOption2 === 'BSA') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSCA') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSBA-FM') {
-      this.options3 = [
-        { value: 'Feasibility', label: 'Feasibility' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSBA-MKT') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSBA-HRM') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-
-    // CEAS PROGRAMS -------------------------------------------------
-    else if (this.selectedOption2 === 'BACOMM') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BEED') {
-      this.options3 = [
-        { value: 'Classroom Based Action Research', label: 'Classroom Based Action Research' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BPED') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BCAED') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BECED') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BSED-ENG') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BSED-FIL') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BSED-MATH') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BSED-SCI') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-    else if (this.selectedOption2 === 'BSED-SOC') {
-      this.options3 = [
-        { value: '', label: '' }
-      ];
-    }
-
-    // CAHS PROGRAMS -------------------------------------------------
-    else if (this.selectedOption2 === 'BSN') {
-      this.options3 = [
-        { value: 'Case Presentation', label: 'Case Presentation' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSM') {
-      this.options3 = [
-        { value: 'Case Presentation', label: 'Case Presentation' }
-      ];
-    }
-    // CHTM PROGRAMS -------------------------------------------------
-    else if (this.selectedOption2 === 'BSTM') {
-      this.options3 = [
-        { value: 'Thesis', label: 'Thesis' }
-      ];
-    } 
-    else if (this.selectedOption2 === 'BSHM') {
-      this.options3 = [
-        { value: 'Thesis', label: 'Thesis' }
-      ];
-    } 
-
-    else {
-      this.options3 = [];
-    }
-
-    this.selectedOption3 = '';
-  }
-
-
-  // DYNAMIC ADD MULTIPLE AUTHOR
   ngOnInit() {
-    this.values = this.inputValues.map(input => ({ ...input }));
+    this.ds.get('programs').subscribe({
+      next: (res: any) => {
+        this.programs = res;
+        this.departmentFilter = res[0].department;
+        this.programFilter = res[0].program;
+        this.programCategory = res[0].category;
+        // Extract unique department names from programs
+        const uniqueDepartments = new Set<string>();
+        this.programs.forEach((program: any) => {
+            uniqueDepartments.add(program.department);
+        });
+
+        // Convert the Set back to an array
+        this.departments = Array.from(uniqueDepartments);
+      }
+    })
+    this.submit();
   }
 
-  inputValues: { value: string }[] = [{ value: "" }];
-  values: { value: string }[] = [];
+
+  // ADD AUTHOR FUNCTION AND STYLE
+  // addAuthor() {    
+  //   let input = document.createElement('input');
+  //   input.setAttribute('type', 'text');
+  //   input.classList.add('inputtxt');
+  //   input.setAttribute('style', 'font-family: Montserrat; width: 100%; padding-top: 19px; padding-left: 10px; padding-right: 10px; height: 60px; font-size: 15px; border: none; background-color: var(--input); border-top-left-radius: 5px; border-top-right-radius: 5px; outline: none;  border-bottom: 2px solid var(--input-border);');
+  //   input.setAttribute('onmouseover', 'this.style.backgroundColor= "var(--input-hover)"');
+  //   input.setAttribute('onmouseout', 'this.style.backgroundColor= "var(--input)"');
+
+  //   // if the input field is focused
+  //   input.addEventListener('focus', function() {
+  //     input.style.borderBottom = '2.5px solid var(--main-green)';
+  //     labelline.style.color = 'var(--main-green)';
+  //   });
+
+  //   input.addEventListener('blur', function() {
+  //     // if the input field is not focused
+  //     if (document.activeElement !== input) {
+  //         input.style.borderBottom = '2px solid var(--input-border)';
+  //         labelline.style.color = 'var(--input-border)';
+  //     }
+  //   });
+    
+  //   let i = document.createElement('i');
+  //   i.classList.add('bx', 'bx-x', 'removebtn');
+
+  //   // remove button
+  //   let remove = document.createElement('button');
+  //   remove.classList.add('removebtn');
+  //   remove.setAttribute('type', 'button');
+  //   remove.setAttribute('style', 'font-family: Montserrat; font-weight: 600; font-size: 35px; letter-spacing: 0.5px; margin-top: 1.3rem; height: 60px; width: 70px; background-color: var(--cancel-btn); color: var(--secondary-color); outline: none; border: none; border-radius: 5px; padding-top: 3px;')
+  //   remove.appendChild(i);
+
+  //   // author label
+  //   let labelline = document.createElement('label');
+  //   labelline.classList.add('labelline');
+  //   labelline.textContent = 'Author';
+  //   labelline.setAttribute('style', 'position: absolute; top: 7px; left: 10px; font-size: 12px; color: var(--input-border); letter-spacing: 0.5px;');
+
+  //   let author = document.createElement('div');
+  //   author.classList.add('txt_field');
+  //   author.setAttribute('style', 'flex-basis: 100%; position: relative; margin: 1.3rem 0;')
+  //   author.appendChild(input);
+  //   author.appendChild(labelline);
+
+  //   let row = document.createElement('div');
+  //   row.classList.add('input-row');
+  //   row.setAttribute('style', 'gap: 1.5rem; display: flex; justify-content: space-between;')
+  //   row.appendChild(author);
+  //   row.appendChild(remove);
+
+  //   let parent = document.getElementById('author-inputs');
+  //   parent?.appendChild(row);
+    
+  //   remove.addEventListener('click', function() {
+  //     parent?.removeChild(row);
+  //   })
+
+  // }
+
+  values = [''];
 
   removevalue(i: any){
     this.values.splice(i, 1);
   }
 
   addvalue(){
-    if (this.inputValues.length <6) {
-    // Add a new input value to the inputValues array
-    this.inputValues.push({ value: "" });
-    // Update the values array with the current input values
-    this.values = this.inputValues.map(input => ({ ...input }));
+    if (this.values.length < 6) {
+      this.values.push('');
     }
+    console.log(this.values)
   }
 
+  updateValue(event: Event, i: number) {
+    let input = event.target as HTMLInputElement;
+    this.values[i] = input.value;
+    console.log(this.values)
+  }
+  
   isMaxLimitReached(): boolean {
-    return this.inputValues.length >= 6;
+    return this.values.length >= 6;
   }
 
-  // KEYWORDS FUNCTION NA HINDI NAGF-FUNCTION
-  // maxTags: number = 10;
-  // tags: string[] = ["coding", "nepal"];
+  authors: string[] = ['']; // Initialize with an empty author
 
-  // countTags() {
-  //   let tagNumb = document.querySelector(".details span");
-  //   if (tagNumb) {
-  //     tagNumb.textContent = String(this.maxTags - this.tags.length);
-  //   }
-  // }
+  addAuthor() {
+    this.authors = [...this.authors, '']; // Create a new array with the updated values
+  }
 
-  // createTag() {
-  //   let ul = document.querySelector("ul");
-  //   if (ul) {
-  //     ul.innerHTML = ''; // Clear existing content
-  //     this.tags.slice().reverse().forEach(tag => {
-  //       let liTag = `<li>${tag} <i class="uit uit-multiply" (click)="remove('${tag}')"></i></li>`;
-  //       ul!.insertAdjacentHTML("afterbegin", liTag); // Use 'ul!' to assert non-null
-  //     });
-  //     this.countTags();
-  //   } else {
-  //     console.error("UL element not found");
-  //   }
-  // }
+  removeAuthor(index: number) {
+    this.authors.splice(index, 1);
+    this.authors = [...this.authors]; // Create a new array with the updated values
+  }
 
-  // remove(tag: string) {
-  //   let index = this.tags.indexOf(tag);
-  //   this.tags = [...this.tags.slice(0, index), ...this.tags.slice(index + 1)];
-  //   this.createTag();
-  // }
+  // Track by function to minimize re-renders
+  trackByIndex(index: number, item: any): number {
+    return index;
+  }
 
-  // addTag(e: any) {
-  //   if (e.key == "Enter") {
-  //     let tag = e.target.value.replace(/\s+/g, ' ');
-  //     if (tag.length > 1 && !this.tags.includes(tag)) {
-  //       if (this.tags.length < this.maxTags) {
-  //         tag.split(',').forEach((tag: string) => {
-  //           this.tags.push(tag);
-  //           this.createTag();
-  //         });
-  //       }
-  //     }
-  //     e.target.value = "";
-  //   }
-  // }
+  // PROGRAM FILTERING
+  changedDepartment(event: Event) {
+    const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
+    this.departmentFilter = selectDepartment;
+    console.log(selectDepartment)
+    
+    this.programs.some((x: any) => {
+      if(x.department == this.departmentFilter) {
+        this.programCategory = x.category;
+        this.programFilter = x.id;
+        return true; 
+      }
+      return false; 
+    });
+    
+    this.changeCategory();
+  }
 
-  // removeAll() {
-  //   this.tags.length = 0;
-  //   let ul = document.querySelector("ul");
-  //   if (ul) {
-  //     ul.querySelectorAll("li").forEach(li => li.remove());
-  //   }
-  //   this.countTags();
-  // }
+  changedProgram(event: Event) {
+    const selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
+    this.programFilter = selectProgram;
 
+    this.changeCategory();
+  }
 
+  changeCategory(){
 
+    this.programs.some((x: any) => {
+      if(x.id == this.programFilter) {
+        this.programCategory = x.category;
+        return true; 
+      }
+      return false; 
+    });
+  }
+
+  /* SUBMIT FORM */
+  submit() {
+    var form = document.getElementById('project-form') as HTMLFormElement;
+
+    form.addEventListener('submit', (event) => {
+
+      // Prevent the default form submission behavior
+      event.preventDefault();
+  
+      // Get the form elements
+      const elements = form.elements;
+
+      let formData = new FormData();
+
+      let fields = ['program_id', 'category', 'title', 'author', 'language', 'date_published', 'abstract'];
+      let valid = true;
+      let validFile = true;
+      let authorElements: any[] = [];
+  
+      // Loop through each form element
+      for (let i = 0; i < elements.length; i++) {
+          var element = elements[i] as HTMLInputElement;
+        
+          // Check if the element is an input field
+          if (element.type === 'file' && element.files && element.files.length > 0) {
+            const file = element.files[0];
+            if(file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
+              formData.append(element.name, element.files[0]);
+            } else {
+              validFile = false;
+            }
+          } else if (element.name == 'author') {
+            authorElements.push(element.value.trim())
+            console.log(element.value)
+          } else if ((element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'DATE'
+          || element.tagName === 'TEXTAREA') && element.id != 'submit-button') {
+            formData.append(element.name, element.value);
+          } 
+          if(fields.includes(element.name) && element.value == '') {
+            valid = false;
+            element.style.borderColor = 'red';
+          } else 
+              element.style.borderColor = 'black';
+      }
+
+      formData.append('authors', JSON.stringify(authorElements));
+
+      if(valid && validFile) {
+        this.ds.post('projects/process', formData).subscribe({
+          next: (res: any) => {
+            this.router.navigate(['main/academicprojects/listofprojects']); // para diretso list? or tanggalin hehe
+            console.log(res)
+            Swal.fire({
+              title: 'Success',
+              text: formData.get('title') + " has been added successfully",
+              icon: 'success',
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              timer: 5000
+            });
+          },
+          error:(err: any) => {
+            Swal.fire({
+              title: 'Error',
+              text: "Oops an error occured",
+              icon: 'error',
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+            });
+          }
+        })
+      } else if(!validFile) {
+        Swal.fire({
+          title: 'Oops! Error on form',
+          text: 'Invalid image. Must be of type png, jpeg, or jpg.',
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+        });
+      } else {
+        Swal.fire({
+          title: 'Oops! Error on form',
+          text: 'Please check if required fields have values',
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+        });
+      }
+    });
+
+  }
 
   // POP UP FUNCTION CONTENT
   showPopup: boolean = false;

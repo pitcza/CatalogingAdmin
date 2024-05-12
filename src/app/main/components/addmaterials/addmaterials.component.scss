@@ -405,42 +405,66 @@ a {
 
 /* Bottom Line when hover */ 
 
-.entryarea2 span::before {
-    content: '';
+// .entryarea2 span::before {
+//     content: '';
+//     position: absolute;
+//     margin-top: 134px;
+//     margin-left: 76px;
+//     width: 20.2%;
+//     height: 2.5px;
+//     transition: .3s;
+// }
+
+// .entryarea2 input:focus ~ span::before {
+//     width: 20.2%;
+//     margin-top: 134px;
+//     margin-left: 76px;
+//     transition: .3s;
+//     background: #31A463;
+// }
+
+// /* Change Bg color when Hover */ 
+
+// .entryarea2 input:hover{
+//     background-color: #ececec;
+// }
+
+// /* Label float */ 
+
+// .entryarea2 input:valid ~ .labelline2{
+//     margin-top: 92px;
+//     font-size: 12px;
+//     letter-spacing: 0.5px;
+// }
+
+// .entryarea2 input:focus ~ .labelline2 {
+//     margin-top: 92px;
+//     font-size: 12px;
+//     color: #31A463;
+//     letter-spacing: 0.5px;
+// }
+
+.entryarea2 select {
     position: absolute;
-    margin-top: 134px;
-    margin-left: 76px;
     width: 20.2%;
-    height: 2.5px;
-    transition: .3s;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top:77px;
+    margin-left: 75px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
 }
 
-.entryarea2 input:focus ~ span::before {
-    width: 20.2%;
-    margin-top: 134px;
-    margin-left: 76px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea2 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.entryarea2 input:valid ~ .labelline2{
+.labelline2{
     margin-top: 92px;
     font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.entryarea2 input:focus ~ .labelline2 {
-    margin-top: 92px;
-    font-size: 12px;
-    color: #31A463;
     letter-spacing: 0.5px;
 }
 
@@ -1217,7 +1241,7 @@ a {
 
 input[type="file"]::file-selector-button {
     border-radius: 4px;
-    font-family: Poppins;
+    font-family: Montserrat;
     color: #ffffff;
     padding: 0 16px;
     height: 55px;
@@ -1234,7 +1258,7 @@ input[type="file"]::file-selector-button {
 
 .bookbtn > input {
 	display: block;
-    font-family: Poppins;
+    font-family: Montserrat;
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 600;
@@ -1251,7 +1275,7 @@ input[type="file"]::file-selector-button {
 
 .bookbtn > input:hover {
 	display: block;
-    font-family: Poppins;
+    font-family: Montserrat;
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 600;
@@ -1784,7 +1808,7 @@ input[type="file"]::file-selector-button {
 
 // Perio - Copyright 
 
-.perioarea_7 input {
+.perioarea_7 select {
     position: absolute;
     width: 20.2%;
     padding-top: 19px;
@@ -1804,55 +1828,56 @@ input[type="file"]::file-selector-button {
 
 .perioline_7 {
     position: absolute;
-    margin-top: 314px;
+    margin-top: 302px;
     margin-left: 92px;
     color: #44474E;
     transform: translateY(-50%);
-    font-size: 15px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
     pointer-events: none;
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+// /* Bottom Line when hover */ 
 
-.perioarea_7 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 342px;
-    margin-left: 76px;
-    width: 20.2%;
-    height: 2.5px;
-    transition: .3s;
-}
+// .perioarea_7 span::before {
+//     content: '';
+//     position: absolute;
+//     margin-top: 342px;
+//     margin-left: 76px;
+//     width: 20.2%;
+//     height: 2.5px;
+//     transition: .3s;
+// }
 
-.perioarea_7 input:focus ~ span::before {
-    width: 20.2%;
-    margin-top: 342px;
-    margin-left: 76px;
-    transition: .3s;
-    background: #31A463;
-}
+// .perioarea_7 input:focus ~ span::before {
+//     width: 20.2%;
+//     margin-top: 342px;
+//     margin-left: 76px;
+//     transition: .3s;
+//     background: #31A463;
+// }
 
-/* Change Bg color when Hover */ 
+// /* Change Bg color when Hover */ 
 
-.perioarea_7 input:hover{
-    background-color: #ececec;
-}
+// .perioarea_7 input:hover{
+//     background-color: #ececec;
+// }
 
-/* Label float */ 
+// /* Label float */ 
 
-.perioarea_7 input:valid ~ .perioline_7 {
-    margin-top: 302px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
+// .perioarea_7 input:valid ~ .perioline_7 {
+//     margin-top: 302px;
+//     font-size: 12px;
+//     letter-spacing: 0.5px;
+// }
 
-.perioarea_7 input:focus ~ .perioline_7 {
-    margin-top: 302px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
+// .perioarea_7 input:focus ~ .perioline_7 {
+//     margin-top: 302px;
+//     font-size: 12px;
+//     color: #31A463;
+//     letter-spacing: 0.5px;
+// }
 
 // Perio - Publisher 
 
@@ -2176,7 +2201,7 @@ input[type="file"]::file-selector-button {
 
 input[type="file"]::file-selector-button {
     border-radius: 4px;
-    font-family: Poppins;
+    font-family: Montserrat;
     color: #ffffff;
     padding: 0 16px;
     height: 55px;
@@ -2192,7 +2217,7 @@ input[type="file"]::file-selector-button {
 
 .periobtn > input {
 	display: block;
-    font-family: Poppins;
+    font-family: Montserrat;
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 600;
@@ -2209,7 +2234,7 @@ input[type="file"]::file-selector-button {
 
 .periobtn > input:hover {
 	display: block;
-    font-family: Poppins;
+    font-family: Montserrat;
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 600;
@@ -3107,7 +3132,7 @@ input[type="file"]::file-selector-button {
 
 .artibtn > input {
 	display: block;
-    font-family: Poppins;
+    font-family: Montserrat;
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 600;
@@ -3124,7 +3149,7 @@ input[type="file"]::file-selector-button {
 
 .artibtn > input:hover {
 	display: block;
-    font-family: Poppins;
+    font-family: Montserrat;
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 600;

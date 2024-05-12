@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 import Swal from 'sweetalert2';
-import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -18,30 +17,31 @@ export class MainComponent implements OnInit, OnDestroy {
   ) { }
 
   timer: any;
-  user: any;
+  name = sessionStorage.getItem('name');
+  role = sessionStorage.getItem('role');
 
   ngOnInit(): void {
 
-    this.as.user().subscribe({
-      next: (res: any) => this.user = res
-    });
-
     // Refresh user token every 55 minutes (under construction)
     this.timer = setInterval(() => {
-      let timer = parseInt(localStorage.getItem('timer') || '0', 10);
-      timer = timer + 1;
-      if(timer >=  55 * 60) {
+      let currentTime = new Date();
+      let newCurrentTime = currentTime.toISOString();
+
+      if (Date.parse(sessionStorage.getItem('request-token') || '0') <= Date.parse(newCurrentTime)) {
         this.refreshToken();
-        localStorage.setItem('timer', '0');
-      } else {
-        localStorage.setItem('timer', timer.toString());
       } 
-    }, 1000);
+    }, 60 * 1000)
   }
   
   protected refreshToken() {
     this.as.refresh().subscribe({
-      next: (res: any) => localStorage.setItem('auth-token', res.token),
+      next: (res: any) => {
+        sessionStorage.setItem('auth-token', res.token);
+
+        let time = new Date();
+        time.setMinutes(time.getMinutes() + 55);
+        sessionStorage.setItem('request-token', time.toISOString());
+      },
       error: (err: any) => console.log(err)
     });
   }
@@ -59,7 +59,7 @@ export class MainComponent implements OnInit, OnDestroy {
  protected logout() {
     this.as.logout().subscribe({
       next: (res: any) => {
-        localStorage.clear();
+        sessionStorage.clear();
         this.router.navigate(['login']); 
         const Toast = Swal.mixin({
           toast: true,

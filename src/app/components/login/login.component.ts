@@ -31,9 +31,6 @@ export class LoginComponent implements AfterViewInit {
   
       // Get the form elements
       var elements = form.elements;
-  
-      // Create an object to store form values
-      // var formData: { [key: string]: any } = {};
 
       let formData = new FormData();
   
@@ -49,27 +46,24 @@ export class LoginComponent implements AfterViewInit {
 
       this.as.login(formData).subscribe({
         next: (res: any) => {
-          localStorage.setItem('auth-token', res.token);
           this.router.navigate(['main']);
-          // hindi na ba need alert
           const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 2500,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            }
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Signed in successfully"
-          });
-        },
-      });
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Signed in successfully"
+        });
+        }
+      }) 
     }); 
   }
-  
 }

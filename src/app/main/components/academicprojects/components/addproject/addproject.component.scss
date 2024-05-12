@@ -63,7 +63,7 @@
 
 // KEYWORDS
 // .input-column2 input {
-//     font-family: 'Poppins';
+//     font-family: 'Montserrat';
 //     position: absolute;
 //     width: 1025px;
 //     height: 50px;
@@ -98,14 +98,13 @@
     flex-basis: 100%;
 }
 
-.input-row .txt_field{
+.input-row .txt_field, .input-row .txt_field_short {
     position: relative;
-    border-bottom: 2px solid var(--input-border);
     margin: 1.3rem 0;
 }
 
-.txt_field .inputtxt {
-    font-family: 'Poppins';
+.txt_field .inputtxt, .txt_field_short .inputtxt, .txt_field input[type="date"] {
+    font-family: 'Montserrat';
     width: 100%;
     padding-top: 19px;
     padding-left: 10px;
@@ -117,10 +116,11 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     outline: none;
+    border-bottom: 2px solid var(--input-border);
 }
 
-.txt_field .labelline {
-    font-family: 'Poppins';
+.txt_field .labelline, .txt_field_short .labelline {
+    font-family: 'Montserrat';
     position: absolute;
     top: 50%;
     left: 10px;
@@ -134,10 +134,10 @@
 .txt_field span::before{
     content: '';
     position: absolute;
-    top: 60px;
+    top: 58px;
     left: 0;
     width: 0%;
-    height: 2.3px;
+    height: 2.5px;
     background: var(--main-green);
     transition: .3s;
 }
@@ -168,6 +168,60 @@
     width: 100%;
 }
 
+// SHORT INPUT FIELD
+.input-row .txt_field_short {
+    flex-basis: 60%;
+}
+
+.txt_field_short span::before{
+    content: '';
+    position: absolute;
+    top: 58px;
+    left: 0;
+    width: 0%;
+    height: 2.5px;
+    background: var(--main-green);
+    transition: .3s;
+}
+
+.txt_field_short .inputtxt:hover{
+    background-color: var(--input-hover);
+}
+
+.txt_field_short .inputtxt:valid ~ .labelline {
+    top: 17px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--cancel-btn);
+}
+
+.txt_field_short .inputtxt:focus ~ .labelline {
+    top: 17px;
+    font-size: 12px;
+    color: var(--main-green);
+    letter-spacing: 0.5px;
+}
+
+.txt_field_short .inputtxt:focus ~ span::before {
+    width: 100%;
+}
+// SHORT INPUT FIELD
+
+// INPUT DATE
+.txt_field .datelabel, .txt_field .labelline1 {
+    top: 7px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--input-border);
+    position: absolute;
+    left: 10px;
+}
+
+.txt_field input[type="date"]:focus ~ .datelabel, .txt_field .inputtxt:focus ~ .labelline1 {
+    color: var(--main-green);
+}
+// INPUT DATE 
+
 // SELECT OPTION
 select {
     -webkit-appearance: none;
@@ -187,9 +241,9 @@ option {
 // SELECT OPTION
 
 // ADD MULTIPLE AUTHOR
-.multiple-author p {
+.input-row p {
     position: absolute;
-    bottom: 0;
+    padding-top: 85px;
     font-size: 12px;
     font-weight: 500;
     padding-left: 10px;
@@ -206,7 +260,7 @@ option {
 }
 
 .input-row .add-author {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     font-weight: 500;
     font-size: 14px;
     letter-spacing: 0.5px;
@@ -235,36 +289,6 @@ option {
 }
 // ADD MULTIPLE AUTHOR
 
-// INPUT DATE
-.txt_field input[type="date"] {
-    font-family: 'Poppins';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 60px;
-    font-size: 15px;
-    border: none;
-    background-color: var(--input);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.txt_field .datelabel {
-    top: 7px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: var(--input-border);
-    position: absolute;
-    left: 10px;
-}
-
-.txt_field input[type="date"]:focus ~ .datelabel {
-    color: var(--main-green);
-}
-// INPUT DATE 
-
 // INPUT FILE LABEL AND BUTTON
 .txt_field .uploadlabel {
     position: absolute;
@@ -283,14 +307,14 @@ option {
 
 input[type="file"]::file-selector-button {
     border-top-left-radius: 5px;
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     color: var(--primary-color);
     position: absolute;
     top: 0;
     left: 0;
     margin-left: -0px;
     width: 100px;
-    height: 60px;
+    height: 58.5px;
     cursor: pointer;
     background-color: var(--main-green);
     border: none;
@@ -307,7 +331,7 @@ input[type="file"]::file-selector-button {
 }
 
 .txtarea textarea {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     width: 100%;
     height: 200px;
     padding-top: 29px;
@@ -323,7 +347,7 @@ input[type="file"]::file-selector-button {
 }
 
 .txtarea .labelline1 {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     position: absolute;
     top: 60%;
     left: 10px;
@@ -358,23 +382,6 @@ input[type="file"]::file-selector-button {
 }
 // TEXTAREA
 
-// KEYWORDS NA WALA
-.input-row .removeall {
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    margin-top: 1.3rem;
-    height: 60px;
-    width: 70px;
-    background-color: var(--main-green);
-    color: var(--primary-color);
-    outline: none;
-    border: none;
-    border-radius: 5px;
-}
-
-
 // BUTTONS
 .buttons {
     display: flex;
@@ -383,7 +390,8 @@ input[type="file"]::file-selector-button {
     left: 0;
 }
 
-.buttons a {
+.buttons a, .buttons input {
+    border: none;
     padding: 10px;
     text-align: center;
     font-weight: 600;

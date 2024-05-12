@@ -22,18 +22,11 @@ export class BookDetailsPopupComponent {
     private router: Router
   ) { }
 
-  protected image: any = null;
+  protected image: any;
+  errorImage = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
 
   ngOnInit(): void {
-    this.ds.getImage('book/image/' + this.data.details.id).subscribe({
-      next: (res:any) => {
-        this.image = URL.createObjectURL(res)
-      },
-      error: (err: any) => {
-        this.image = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
-        console.log(err)
-      }
-    });
+    
   }
 
   closepopup() {
@@ -62,8 +55,7 @@ export class BookDetailsPopupComponent {
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
             });
-            this.ref.close('Closed using function');
-            this.router.navigate(['listofmaterials/books']);
+            this.ref.close('Changed Data');
           },
           error: (err: any) => {
             Swal.fire({

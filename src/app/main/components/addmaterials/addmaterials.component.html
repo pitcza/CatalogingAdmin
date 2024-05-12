@@ -36,7 +36,10 @@
                     </div>
                     
                     <div class="entryarea2">
-                        <input type="number" min="0" required name="copyright"> 
+                        <!-- <input type="date" name="copyright">  -->
+                        <select name="copyright" required>
+                            <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
+                        </select>
                         <span></span>
                         <div class="labelline2"> Copyright </div>
                     </div>
@@ -60,22 +63,22 @@
                     </div>
 
                     <div class="entryarea_7">
-                        <input type="text" required name="pages"> 
+                        <input type="number" required name="pages"> 
                         <span></span>
                         <div class="labelline_7"> Pages </div>
                     </div>
 
                     <div class="entryarea_8">
-                        <input type="date" required name="purchased_date"> 
+                        <input type="date" required name="acquired_date"> 
                         <span></span>
                         <div class="labelline_8"> Date Purchased/Donated </div>
                     </div>
 
                     <div class="entryarea_9">
-                        <select id="funds" name="fund">
-                            <option value=""> </option>
-                            <option value="donated"> Donated </option>
-                            <option value="purchased"> Purchased </option>
+                        <select id="funds" name="source_of_fund">
+                            <option value="Donated"> Donated </option>
+                            <option value="Purchased" selected> Purchased </option>
+                            <option value="Replacement"> Replacement </option>
                         </select>
                         <span></span>
                         <div class="labelline_9"> Source of Fund  </div>
@@ -98,18 +101,18 @@
                     </div>
 
                     <div class="entryarea_12">
-                        <input type="number" required name="call_number"> 
+                        <input type="text" required name="call_number"> 
                         <span></span>
                         <div class="labelline_12"> Call Number </div>
                     </div>
 
                     <div class="entryarea_13">
-                        <input type="number" required min="0" name="copies"> 
+                        <input type="number" required min="1" name="copies" value="1"> 
                         <span></span>
                         <div class="labelline_13"> Copies </div>
                     </div>
                     <div class="entryarea_14"> 
-                        <input type="file" required name="image_location"> 
+                        <input type="file" required name="image_url" accept=".png, .jpeg, .jpg"> 
                         <div class="labelline_14"> Upload Image</div>
                     </div>
 
@@ -131,8 +134,8 @@
 
                     <div class="perioarea"> 
                         <select id="type" name="material_type">
+                            <option value="journal" selected> Journal </option>
                             <option value="magazine"> Magazine </option>
-                            <option value="journal"> Journal </option>
                             <option value="newspaper"> Newspaper </option>
                         </select>
                         <span></span>
@@ -179,7 +182,10 @@
                     </div>
 
                     <div class="perioarea_7">
-                        <input type="text" required name="copyright"> 
+                        <!-- <input type="number" value="2000" required name="copyright"> -->
+                        <select name="copyright">
+                            <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
+                        </select>
                         <span></span>
                         <div class="perioline_7"> Copyright </div>
                     </div>
@@ -191,7 +197,7 @@
                     </div>
 
                     <div class="perioarea_9">
-                        <input type="number" min="0" required name="Volume"> 
+                        <input type="number" min="0" required name="volume"> 
                         <span></span>
                         <div class="perioline_9"> Volume </div>
                     </div>
@@ -209,7 +215,7 @@
                     </div>
                     
                     <div class="perioarea_12"> 
-                        <input type="file" required name="image_location"> 
+                        <input type="file" accept=".png, .jpg, .jpeg" required name="image_url"> 
                         <div class="perioline_12"> Upload Image</div>
                     </div>
 
@@ -230,8 +236,8 @@
 
                 <div class="artiarea"> 
                     <select id="type" name="material_type">
+                        <option value="journal" selected> Journal </option>
                         <option value="magazine"> Magazine </option>
-                        <option value="journal"> Journal </option>
                         <option value="newspaper"> Newspaper </option>
                     </select>
                     <span></span>
@@ -253,7 +259,6 @@
                 <div class="artiarea_3">
                     <textarea name="abstract" rows="5" cols="33"> 
                     </textarea>
-                    <!-- <input type="text"  name="abstract"> --->
                     <span></span>
                     <div class="artiline_3"> Abstract </div>
                 </div>

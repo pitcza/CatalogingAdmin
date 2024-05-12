@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class ActivitylogComponent implements OnInit {
-  displayedColumns: string[] = ['create_date', 'log', 'action', 'logtime'];
+  displayedColumns: string[] = ['create_date', 'logtime', 'name', 'log', 'action'];
   protected dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

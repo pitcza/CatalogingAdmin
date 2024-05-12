@@ -44,7 +44,7 @@
 }
 
 .input-group input[type="date"] {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     width: 200px;
     height: 35px;
     outline: none;
@@ -125,7 +125,7 @@
 
 .table-filters select {
     background: var(--primary-color);
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     padding: 5px;
     font-size: 14px;
     font-weight: 400;
@@ -141,7 +141,7 @@
 }
 
 .table-head input[type=text] {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     padding: 5px;
     font-size: 14px;
     font-weight: 400;
@@ -230,7 +230,7 @@ table {
 table,
 th,
 td {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     font-size: 14px;
     padding: 15px;
     margin-bottom: 10px;
@@ -249,24 +249,27 @@ table tr:hover{
     background-color: var(--secondary-color);
 }
 
-.action span h1, p, h2 {
-    color: var(--primary-color);
-    background-color: var(--main-green);
-    text-align: center;
-    padding: 2px;
-    border-radius: 30px;
-}
-
 table td:nth-child(1) {
-    width: 200px;
+    min-width: 100px;
+    max-width: 100px;
 }
 
 table td:nth-child(2) {
-    text-align: left;
+    min-width: 100px;
+    max-width: 100px;
 }
 
 table td:nth-child(3) {
-    width: 200px;
+    max-width: 200px;
+}
+
+table td:nth-child(4) {
+    text-align: left;
+    min-width: 300px;
+}
+
+table td:nth-child(5) {
+    min-width: 150px;
 }
 
 mat-paginator {
