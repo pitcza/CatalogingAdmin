@@ -22,7 +22,7 @@
 }
 
 .header a h2 {
-    margin-top: -12px;
+    margin-top: -15px;
     font-size: 15px;
 
 }
@@ -227,5 +227,43 @@
     margin-top: 5px;
     font-size: 15px;
     font-weight: 500;
+}
+
+/******************************** PRINTBTN ******************************************/
+
+.printbtn {
+    background-color: var(--primary-color);
+    color: var(--main-green);
+    font-size: 17px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    margin-left: 20px;
+    padding: 5px;
+    margin-top: 5px;
+    border: none;
+}
+
+.printbtn .print {
+    background-color: transparent;
+    color: var(--main-green);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.printbtn .print-icon {
+    margin-right: 3px;
+    font-size: 17px;
+}
+
+a {
+    font-size: 16px;
+    font-family: 'poppins';
+    font-weight: 500;
+}
+
+hr {
+    width: 94.5%;
+    margin-left: 25px;
 }
 

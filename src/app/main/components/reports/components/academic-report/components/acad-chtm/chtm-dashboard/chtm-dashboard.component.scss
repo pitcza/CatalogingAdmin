@@ -22,7 +22,7 @@
 }
 
 .header a h2 {
-    margin-top: -12px;
+    margin-top: -15px;
     font-size: 15px;
 
 }
@@ -112,100 +112,43 @@
     font-weight: 500;
 }
 
-/**************************** TABLE ***************************************/ 
+/******************************** PRINTBTN ******************************************/
 
-.table-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.table-filters {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.table-filters select {
-    background: var(--primary-color);
+.printbtn {
+    background-color: var(--primary-color);
+    color: var(--main-green);
+    font-size: 17px;
     font-family: 'Poppins';
+    font-weight: 500;
+    margin-left: 20px;
     padding: 5px;
-    font-size: 14px;
-    font-weight: 400;
-    width: 12em;
-    height: 2.5em;
-    border: 1px solid var(--table-border);
-    border-radius: 7px;
+    margin-top: 5px;
+    border: none;
 }
 
-.table-filters option {
-    padding: 30px;
-    margin: 30px;
+.printbtn .print {
+    background-color: transparent;
+    color: var(--main-green);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-@media screen and (max-width: 600px) {
-    .table-head .search-container {
-    float: none;
-    }
-    .table-head a, .table-head input[type=text], .topnav .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-    }
-    .table-head input[type=text] {
-    border: 1px solid #ccc;  
-    }
+.printbtn .print-icon {
+    margin-right: 3px;
+    font-size: 17px;
 }
 
-.table-content {
-    border-radius: 5px;
-    padding: 20px;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    margin-top: 25px;
-    background: var(--secondary-color);
-    width: 100%;
-    height: auto;
-    margin-bottom: 30px;
-    box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.322);
-    border: 0.5px solid var(--table-border);
+a {
+    font-size: 16px;
+    font-family: 'poppins';
+    font-weight: 500;
 }
 
-/* table */
-
-table {
-    border-radius: 5px;
-    font-size: 14px;
-    border: 1px solid var(--table-border);
+hr {
+    width: 94.5%;
+    margin-left: 25px;
 }
 
-table,
-th,
-td {
-    font-family: 'Poppins';
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1.5px solid var(--table-border);
-}
-
-th {
-    background-color: var(--main-green) !important;
-    color: white;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-}
-
-
-table tr:hover{
-    background-color: var(--table-hover);
-}
-
-table td:nth-child(2) {
-    text-align: left;
-}
 
 

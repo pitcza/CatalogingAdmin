@@ -22,7 +22,7 @@
 }
 
 .header a h2 {
-    margin-top: -12px;
+    margin-top: -15px;
     font-size: 15px;
 
 }
@@ -52,6 +52,7 @@
     cursor: pointer;
     text-decoration: none;
 }
+
 
 .cards {
     padding: 15px 0;
@@ -177,16 +178,40 @@
 
 /******************************** PRINTBTN ******************************************/
 
-.print .printbtn {
+.printbtn {
     background-color: var(--primary-color);
     color: var(--main-green);
     font-size: 17px;
     font-family: 'Poppins';
     font-weight: 500;
-    margin-left: 1100px;
+    margin-left: 1129px;
     padding: 5px;
-    margin-top: 5px;
+    margin-top: -35px;
     border: none;
+}
+
+.printbtn .print {
+    background-color: transparent;
+    color: var(--main-green);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.printbtn .print-icon {
+    margin-right: 3px;
+    font-size: 17px;
+}
+
+a {
+    font-size: 16px;
+    font-family: 'poppins';
+    font-weight: 500;
+}
+
+hr {
+    width: 94.5%;
+    margin-left: 25px;
 }
 
 /******************************** DROPDOWN ******************************************/ 
@@ -304,11 +329,4 @@
     background-color: var(--main-green);
     color: var(--primary-color);
 }
-
-hr {
-    width: 94.5%;
-    margin-left: 25px;
-}
-
-/**************************** TABLE ***************************************/ 
 
