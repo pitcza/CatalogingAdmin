@@ -216,12 +216,6 @@ option {
 }
 
 // ADD MULTIPLE AUTHOR CONTENT
-.wrap {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
 .author-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -374,12 +368,6 @@ input[type="file"]::file-selector-button {
 }
 
 // KEYWORDS CONTENT
-.wrap {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
 .keywords-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -484,3 +472,13 @@ input[type="file"]::file-selector-button {
     background-color: var(--cancel-hover);
 }
 // END OF BUTTONS //
+
+// RESPONSIVE EWAN //
+@media screen and (max-width: 1020px) {
+    #no-add-function {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        column-gap: 1.5rem;
+        width: 100%;
+    }
+}
