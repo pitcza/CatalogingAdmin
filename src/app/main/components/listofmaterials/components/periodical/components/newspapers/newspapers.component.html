@@ -1,14 +1,11 @@
 <main>
+    <!-- HEAD -->
     <div class="table-head">
         <div class="table-filters">
-            <select id="filter">
-                <option selected value="All Publishers"> All Publishers </option>
-                <option> Sample </option>
-                <option> Sample </option>
-                <option> Sample </option>
-            </select>
 
         </div>
+
+        <!-- SEARCH BAR -->
         <div class="search-container">
             <form action="/action_page.php">
                 <input type="text" placeholder="Search..." name="search">
@@ -17,14 +14,9 @@
         </div>
     </div>
 
+    <!-- TABLE -->
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource">
-    
-        <!-- Date Added Column 
-        <ng-container matColumnDef="created_at">
-            <th mat-header-cell *matHeaderCellDef> Date Added </th>
-            <td mat-cell *matCellDef="let element"> {{element.created_at | date: 'mediumDate'}} </td>
-        </ng-container> -->
     
         <!-- Title Column -->
         <ng-container matColumnDef="title">
@@ -50,9 +42,9 @@
             <td mat-cell *matCellDef="let element"> {{element.copyright}} </td>
         </ng-container>
 
-        <!-- Action Column -->
+        <!-- Actions Column -->
         <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action</th>
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell class="actions" *matCellDef="let element">
     
                 <button class="editbtn" (click)="editPopup({

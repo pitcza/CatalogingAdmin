@@ -11,7 +11,7 @@
                 <div class="detailsbody">
                 <div class="details">
                     <div class="projectdetails">
-                            <img alt="book image" [src]="data.details.image != null ? data.details.image : errorImage">
+                            <img alt="project image" [src]="data.details.image != null ? data.details.image : errorImage">
                         <span>
                             <h2> Date Published: </h2> <p> {{ data.details.date_published | date:'longDate' }} </p>
                         </span>
@@ -44,6 +44,9 @@
                         </span>
                         <span>
                             <p> {{ data.details.abstract }} </p>
+                        </span>
+                        <span>
+                            <h2> Keywords: </h2> <p> try, try, try, try ulit, ewan, try </p>
                         </span>
                     </div>
                 </div>

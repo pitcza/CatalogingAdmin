@@ -127,11 +127,52 @@ export class EditdetailsComponent implements OnInit{
     return this.values.length >= 6;
   }
 
+  // ----- KEYWORDS FUNTION ----- //
+  tags = [''];
+
+  removetag(i: any){
+    this.tags.splice(i, 1);
+  }
+
+  addtag(){
+    if (this.tags.length < 10) {
+      this.tags.push('');
+    }
+    console.log(this.tags)
+  }
+
+  updateTag(event: Event, j: number) {
+    let input = event.target as HTMLInputElement;
+    this.tags[j] = input.value;
+    console.log(this.tags)
+  }
+
+  TagMaxLimitReached(): boolean {
+    return this.values.length >= 10;
+  }
+
+  keywords: string[] = ['']; // Initialize with an empty author
+
+  addKeyword() {
+    this.keywords = [...this.keywords, '']; // Create a new array with the updated values
+  }
+
+  removeKeyword(index: number) {
+    this.keywords.splice(index, 1);
+    this.keywords = [...this.keywords]; // Create a new array with the updated values
+  }
+
+  // Track by function to minimize re-renders
+  trackByIndexTag(index: number, item: any): number {
+    return index;
+  }
+  // ----- END OF KEYWORDS FUNTION ----- // paano siya nga makukuha yng data
+
   closepopup() {
     this.ref.close('Closed using function');
   }
 
-  // SWEETALERT UPDATE POPUP
+  // UPDATE POPUP
   protected updateBox() {
     var form = document.getElementById('edit-form') as HTMLFormElement;
 
@@ -171,7 +212,7 @@ export class EditdetailsComponent implements OnInit{
           title: "Update successful!",
           text: "The changes have been saved.",
           icon: "success",
-          confirmButtonColor: "#777777",
+          confirmButtonColor: "#31A463",
         });
         this.ref.close('Changed Data');
       },
@@ -188,7 +229,7 @@ export class EditdetailsComponent implements OnInit{
     });
   }
 
-  // SWEETALERT ARCHIVE POPUP
+  // ARCHIVE POPUP
   archiveBox(){
     Swal.fire({
       title: "Archive Project",

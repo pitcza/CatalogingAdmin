@@ -114,7 +114,6 @@ export class BooksComponent implements OnInit {
   }
 
   // SWEETALERT ARCHIVE POPUP
-
   archiveBox(id: any){
     Swal.fire({
       title: "Archive Book",

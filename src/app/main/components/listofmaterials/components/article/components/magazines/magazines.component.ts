@@ -56,7 +56,7 @@ export class MagazinesComponent implements OnInit {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
-  // POP UPS FUNCTION
+  // POP UPS
   showPopup: boolean = false;
 
   closePopup() {
@@ -88,7 +88,7 @@ export class MagazinesComponent implements OnInit {
     });
   }
 
-  // SWEETALERT ARCHIVE POP UP
+  // ARCHIVE POP UP
   archiveBox(id: number){
     Swal.fire({
       title: "Archive Book",
@@ -123,15 +123,11 @@ export class MagazinesComponent implements OnInit {
         });
       };
     });
-  }
-
-
-  // DATA FOR FILTERING
-  
+  }  
 
 }
 
-// SAMPLE DATA FOR TABLE
+// DATA FOR TABLE
 export interface MagazineArticle {
   created_at: string;
   title: string;

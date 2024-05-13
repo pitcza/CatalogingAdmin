@@ -10,18 +10,12 @@ import Swal from 'sweetalert2';
 
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PerioDetailsComponent } from '../perio-details/perio-details.component';
-import { DataSource } from '@angular/cdk/collections';
 import { DataService } from '../../../../../../../services/data.service';
 
 @Component({
   selector: 'app-newspapers',
   templateUrl: './newspapers.component.html',
   styleUrl: './newspapers.component.scss',
-  // standalone: true,
-  // imports: [
-  //   MatTableModule,
-  //   MatPaginatorModule
-  // ]
 })
 
 export class NewspapersComponent implements AfterViewInit {
@@ -56,8 +50,7 @@ export class NewspapersComponent implements AfterViewInit {
     })
   }
 
-  // POP UPS FUNCTION
-
+  // POP UPS
   showPopup: boolean = false;
 
   closePopup() {
@@ -89,7 +82,7 @@ export class NewspapersComponent implements AfterViewInit {
     });
   }
 
-  // SWEETALERT ARCHIVE POP UP
+  // ARCHIVE POP UP
   archiveBox(id: number){
     Swal.fire({
       title: "Archive Newspaper",
@@ -126,15 +119,9 @@ export class NewspapersComponent implements AfterViewInit {
         })
       }
     });
-  }
-
-
-  // DATA FOR FILTERING
-  
+  }  
 
 }
-
-// SAMPLE DATA FOR TABLES
 
 export interface Newspaper {
   created_at: string;

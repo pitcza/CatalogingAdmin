@@ -3,37 +3,30 @@
 
 <main>
     <div class="content">
-        
         <div class="table-content">
 
+            <!-- HEAD -->
             <div class="table-head">
-
                 <div class="table-filters">
-                    <select id="filter" (change)="applyFilter($event, 'filter')">
+                    <!-- <select id="filter" (change)="applyFilter($event, 'filter')">
                         <option selected value=""> All Locations </option>
                         <option *ngFor="let x of locations" [value]="x.location"> {{ x.location }} </option>
-                    </select>
-
+                    </select> -->
                 </div>
 
+                <!-- SEARCH BAR -->
                 <div class="search-container">
                     <form action="/action_page.php">
                     <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
-                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <button type="submit" disabled><i class="fa fa-search"></i></button>
                     </form>
                 </div>
 
             </div>
               
-              
+            <!-- TABLE -->
             <div class="mat-elevation-z8">
                 <table mat-table [dataSource]="dataSource" matSort>
-            
-                <!-- Date Added Column 
-                <ng-container matColumnDef="created_at">
-                    <th mat-header-cell *matHeaderCellDef="" mat-sort-header> Date Added </th>
-                    <td mat-cell *matCellDef="let element"> {{element.created_at | date: 'mediumDate'}} </td>
-                </ng-container> -->
             
                 <!-- Title Column -->
                 <ng-container matColumnDef="title">
@@ -59,7 +52,7 @@
                     <td mat-cell *matCellDef="let element"> {{element.copyright }} </td>
                 </ng-container>
         
-                <!-- Action Column -->
+                <!-- Actions Column -->
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef> Action</th>
                     <td mat-cell class="actions" *matCellDef="let element">
@@ -123,8 +116,6 @@
                 </mat-paginator>
             </div>   
             
-            
         </div>
-
     </div>
 </main>

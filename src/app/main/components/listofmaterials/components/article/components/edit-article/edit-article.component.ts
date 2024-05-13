@@ -32,32 +32,7 @@ export class EditArticleComponent implements OnInit{
     this.ref.close('Closed using function');
   }
 
-  // SWEETALERT UPDATE POPUP
-  // updateBox(){
-  //   Swal.fire({
-  //     title: "Update Details",
-  //     text: "Are you sure you want to update the article details?",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Yes',
-  //     cancelButtonText: 'Cancel',
-  //     confirmButtonColor: "#31A463",
-  //     cancelButtonColor: "#777777",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       this.ref.close('Closed using function');
-  //       Swal.fire({
-  //         title: "Update successful!",
-  //         text: "The changes have been saved.",
-  //         icon: "success",
-  //         confirmButtonText: 'Close',
-  //         confirmButtonColor: "#777777",
-  //       });
-  //     }
-  //   });
-  // }
-
-  // SWEETALERT ARCHIVE POPUP
+  // ARCHIVE POPUP
   archiveBox(){
     Swal.fire({
       title: "Archive Article",
@@ -153,7 +128,8 @@ export class EditArticleComponent implements OnInit{
           Swal.fire({
             title: "Update successful!",
             text: "The changes have been saved.",
-            icon: "success"
+            icon: "success",
+            confirmButtonColor: "#31A463",
           });
           this.ref.close('Changed Data');
         },

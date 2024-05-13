@@ -167,7 +167,8 @@ export class EditBookComponent implements OnInit{
           Swal.fire({
             title: "Update successful!",
             text: "The changes have been saved.",
-            icon: "success"
+            icon: "success",
+            confirmButtonColor: "#31A463",
           });
           this.ref.close('Changed Data');
         },

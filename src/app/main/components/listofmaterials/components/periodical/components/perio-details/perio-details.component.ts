@@ -11,6 +11,7 @@ import { DataService } from '../../../../../../../services/data.service';
   templateUrl: './perio-details.component.html',
   styleUrl: './perio-details.component.scss'
 })
+
 export class PerioDetailsComponent implements OnInit {
   constructor(
     private ref: MatDialogRef<PerioDetailsComponent>, 
@@ -31,7 +32,7 @@ export class PerioDetailsComponent implements OnInit {
     this.ref.close('Closed using function');
   }
 
-  // SWEETALERT ARCHIVE POP UP
+  // ARCHIVE POP UP
   archiveBox(){
     Swal.fire({
       title: "Archive Periodical",

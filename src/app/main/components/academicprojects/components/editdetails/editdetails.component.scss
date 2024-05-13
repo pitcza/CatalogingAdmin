@@ -22,7 +22,7 @@
     overflow-y: auto;
 }
 
-// SCROLLBAR 
+// SCROLLBAR //
 .details-content::-webkit-scrollbar {
     width: 7px;
 }
@@ -41,7 +41,7 @@
 .details-content::-webkit-scrollbar-thumb:hover {
     background-color: var(--table-darkhover);
 }
-// SCROLLBAR
+// END OF SCROLLBAR //
 
 .detailsbody {
     height: auto; /* Adjust the height as needed */
@@ -53,7 +53,7 @@
     padding-bottom: 10px;
 }
 
-// POPUP HEADER SCSS
+// POPUP HEADER //
 .detailsheader {
     display: flex;
     padding: 20px 30px 30px;
@@ -62,12 +62,12 @@
     background-color: var(--main-green);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    z-index: 1;
+    z-index: 2;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.192);
     padding-bottom: 15px;
 }
 
-/* EXIT BUTTON */
+// EXIT BUTTON
 .exit-button {
     position: relative;
     top: 0;
@@ -83,6 +83,7 @@
     color: var(--secondary-color);
 }
 
+// HEADER TITLE
 h1 {
     color: var(--primary-color);
     padding-top: 5px;
@@ -91,9 +92,9 @@ h1 {
     font-size: 25px;
     text-align: left;
 }
-// END OF POPUP HEADER SCSS
+// END OF POPUP HEADER //
 
-// FORMS INPUT SCSS
+// ----- FORMS INPUT CONTENT ----- //
 .input_field {
     padding-bottom: 30px;
 }
@@ -113,6 +114,7 @@ h1 {
     margin: 1.3rem 0;
 }
 
+// MAIN INPUT STYLE
 .txt_field .inputtxt, .txt_field_short .inputtxt, .txt_field input[type="date"] {
     font-family: 'Montserrat';
     width: 100%;
@@ -215,7 +217,6 @@ h1 {
 .txt_field_short .inputtxt:focus ~ span::before {
     width: 100%;
 }
-// SHORT INPUT FIELD
 
 // SELECT OPTION
 select {
@@ -233,9 +234,22 @@ select {
 option {
     background-color: var(--primary-color);
 }
-// SELECT OPTION
 
-// ADD MULTIPLE AUTHOR
+// ADD MULTIPLE AUTHOR STYLE CONTENTS
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.author-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    column-gap: 1.5rem;
+    width: 100%;
+    z-index: 1;
+}
+
 .input-row p {
     position: absolute;
     padding-top: 85px;
@@ -268,24 +282,35 @@ option {
     outline: none;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-row .add-author:hover {
+    background-color: var(--green-hover);
 }
 
 .input-row .removebtn {
-    position: absolute;
-    font-size: 30px;
-    color: var(--cancel-btn);
-    background-color: transparent;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    top: 0;
-    right: 0;
-    margin: 35px 10px 0 0;
-    cursor: pointer;
+    display: none;
 }
-// ADD MULTIPLE AUTHOR
 
-// INPUT DATE
+.input-row .multiple-author:hover {
+    .removebtn {
+        display: flex;
+        position: absolute;
+        font-size: 30px;
+        color: var(--cancel-btn);
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        top: 0;
+        right: 0;
+        margin: 35px 10px 0 0;
+        cursor: pointer;
+    }
+}
+
+// LABEL IF NAKATAAS AGAD
 .txt_field .datelabel, .txt_field .labelline1 {
     top: 7px;
     font-size: 12px;
@@ -295,10 +320,9 @@ option {
     left: 10px;
 }
 
-.txt_field input[type="date"]:focus ~ .datelabel, .txt_field .inputtxt:focus ~ .labelline1 {
+.txt_field input[type="date"]:focus ~ .datelabel, .txt_field input[type="file"]:focus ~ .uploadlabel, .txt_field .inputtxt:focus ~ .labelline1 {
     color: var(--main-green);
 }
-// INPUT DATE 
 
 // INPUT FILE LABEL AND BUTTON
 .txt_field .uploadlabel {
@@ -310,10 +334,6 @@ option {
     color: var(--input-border);
     position: absolute;
     left: 10px;
-}
-
-.txt_field input[type="file"]:focus ~ .uploadlabel {
-    color: var(--main-green);
 }
 
 input[type="file"]::file-selector-button {
@@ -332,13 +352,13 @@ input[type="file"]::file-selector-button {
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
     transition: background-color 200ms;
 }
-// INPUT FILE LABEL AND BUTTON
 
 // TEXTAREA
 .input-row .txtarea {
     flex-basis: 100%;
     position: relative;
     margin-top: 1.5rem;
+    margin-bottom: 1.3rem;
 }
 
 .txtarea textarea {
@@ -391,8 +411,79 @@ input[type="file"]::file-selector-button {
     color: var(--main-green);
     letter-spacing: 0.5px;
 }
-// TEXTAREA
 
+// KEYWORDS CONTENT
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.keywords-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    column-gap: 1.5rem;
+    width: 100%;
+    z-index: 1;
+}
+
+.input-row #keywords {
+    position: absolute;
+    padding-top: 85px;
+    font-size: 12px;
+    font-weight: 500;
+    padding-left: 10px;
+    opacity: 70%;
+}
+
+.input-row .keywords {
+    position: relative;
+    flex-basis: 100%;
+}
+
+.input-row .add-keyword {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-top: 1.3rem;
+    height: 60px;
+    width: 70px;
+    background-color: var(--main-green);
+    color: var(--primary-color);
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-row .add-keyword:hover {
+    background-color: var(--green-hover);
+}
+
+.input-row .removetag {
+    display: none;
+}
+
+.input-row .keywords:hover {
+    .removetag {
+        display: flex;
+        position: absolute;
+        font-size: 30px;
+        color: var(--cancel-btn);
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        top: 0;
+        right: 0;
+        margin: 35px 10px 0 0;
+        cursor: pointer;
+    }
+}
+// ----- END OF FORMS INPUT CONTENT ----- //
+
+// BUTTONS //
 .button-container {
     margin: 10px 30px 30px 0px;
     display: flex;
@@ -407,7 +498,17 @@ input[type="file"]::file-selector-button {
     border-radius: 5px;
     font-weight: 400;
     width: 100px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
+    box-shadow: 0px 3px 3px rgba(37, 37, 37, 0.322);
+    transition: .3s;
+    transform: translate(0px, 0px);
+}
+
+.button-container button:hover {
+    box-shadow: 0px 8px 15px -10px rgb(125, 125, 125);
+    transform: translate(0px, -1px);
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .update-btn {
@@ -438,3 +539,4 @@ input[type="file"]::file-selector-button {
 .cancel-btn:hover {
     background-color: var(--cancel-hover);
 }
+// END OF BUTTONS //

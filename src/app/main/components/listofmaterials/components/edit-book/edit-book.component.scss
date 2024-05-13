@@ -1,4 +1,4 @@
-/* CONTAINER */
+// CONTAINER //
 .container {
     position: fixed;
     top: 0;
@@ -23,28 +23,7 @@
     overflow-y: auto;
 }
 
-// SCROLLBAR 
-.details-content::-webkit-scrollbar {
-    width: 7px;
-}
-
-.details-content::-webkit-scrollbar-thumb {
-    background-color: var(--table-border);
-    border-radius: 5px;
-}
-
-.details-content::-webkit-scrollbar-track {
-    background-color: var(--primary-color); 
-    margin-top: 90px;
-    margin-bottom: 10px;
-}
-
-.details-content::-webkit-scrollbar-thumb:hover {
-    background-color: var(--table-darkhover);
-}
-// SCROLLBAR
-
-
+// BODY
 .detailsbody {
     height: auto; /* Adjust the height as needed */
     justify-content: center; 
@@ -55,6 +34,7 @@
     padding-bottom: 10px;
 }
 
+// HEADER
 .detailsheader {
     display: flex;
     padding: 20px 30px 30px;
@@ -68,7 +48,7 @@
     padding-bottom: 15px;
 }
 
-/* EXIT BUTTON */
+// EXIT BUTTON
 .exit-button {
     position: relative;
     top: 0;
@@ -92,8 +72,30 @@ h1 {
     font-size: 25px;
     text-align: left;
 }
+// END OF CONTAINER //
 
-// FORMS INPUT SCSS
+// SCROLLBAR //
+.details-content::-webkit-scrollbar {
+    width: 7px;
+}
+
+.details-content::-webkit-scrollbar-thumb {
+    background-color: var(--table-border);
+    border-radius: 5px;
+}
+
+.details-content::-webkit-scrollbar-track {
+    background-color: var(--primary-color); 
+    margin-top: 90px;
+    margin-bottom: 10px;
+}
+
+.details-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--table-darkhover);
+}
+// END OF SCROLLBAR //
+
+// ----- FORMS INPUT CONTENT ----- //
 .input_field {
     padding-bottom: 30px;
 }
@@ -113,6 +115,7 @@ h1 {
     margin: 1.3rem 0;
 }
 
+// MAIN INPUT STYLE
 .txt_field .inputtxt, .txt_field_short .inputtxt, .txt_field input[type="date"] {
     font-family: 'Montserrat';
     width: 100%;
@@ -141,13 +144,13 @@ h1 {
     transition: .3s;
 }
 
-.txt_field span::before {
+.txt_field span::before, .txt_field_short span::before {
     content: '';
     position: absolute;
-    top: 59px;
+    top: 58px;
     left: 0;
     width: 0%;
-    height: 2px;
+    height: 2.5px;
     background: var(--main-green);
     transition: .3s;
 }
@@ -183,17 +186,6 @@ h1 {
     flex-basis: 47%;
 }
 
-.txt_field_short span::before{
-    content: '';
-    position: absolute;
-    top: 59px;
-    left: 0;
-    width: 0%;
-    height: 2.5px;
-    background: var(--main-green);
-    transition: .3s;
-}
-
 .txt_field_short .inputtxt:hover{
     background-color: var(--input-hover);
 }
@@ -214,9 +206,9 @@ h1 {
 
 .txt_field_short .inputtxt:focus ~ span::before {
     width: 100%;
-}
-// date input 
+} 
 
+// LABEL IF NAKATAAS NA AGAD
 .txt_field_short .datelabel, .txt_field_short .labelline1  {
     top: 7px;
     font-size: 12px;
@@ -226,10 +218,9 @@ h1 {
     left: 10px;
 }
 
-.txt_field_short input[type="date"]:focus ~ .datelabel, .txt_field_short .inputtxt:focus ~ .labelline1 {
+.txt_field_short input[type="date"]:focus ~ .datelabel, .txt_field input[type="file"]:focus ~ .uploadlabel, .txt_field_short .inputtxt:focus ~ .labelline1 {
     color: var(--main-green);
 }
-// SHORT INPUT FIELD
 
 // SELECT OPTION
 select {
@@ -247,14 +238,28 @@ select {
 option {
     background-color: var(--primary-color);
 }
-// SELECT OPTION
 
-// ADD MULTIPLE AUTHOR
-.multiple-author p {
+// ADD MULTIPLE AUTHOR STYLE CONTENTS
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.author-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    column-gap: 1.5rem;
+    width: 100%;
+    z-index: 1;
+}
+
+.input-row p {
     position: absolute;
-    bottom: 0;
+    padding-top: 85px;
     font-size: 12px;
     font-weight: 500;
+    margin-bottom: -18px;
     padding-left: 10px;
     opacity: 70%;
 }
@@ -284,34 +289,25 @@ option {
 }
 
 .input-row .removebtn {
-    position: absolute;
-    font-size: 30px;
-    color: var(--cancel-btn);
-    background-color: transparent;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    top: 0;
-    right: 0;
-    margin: 35px 10px 0 0;
-    cursor: pointer;
-}
-// ADD MULTIPLE AUTHOR
-
-// INPUT DATE
-.txt_field .datelabel {
-    top: 7px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: var(--cancel-btn);
-    position: absolute;
-    left: 10px;
+    display: none;
 }
 
-.txt_field input[type="date"]:focus ~ .datelabel {
-    color: var(--main-green);
+.input-row .multiple-author:hover {
+    .removebtn {
+        display: flex;
+        position: absolute;
+        font-size: 30px;
+        color: var(--cancel-btn);
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        top: 0;
+        right: 0;
+        margin: 35px 10px 0 0;
+        cursor: pointer;
+    }
 }
-// INPUT DATE 
 
 // INPUT FILE LABEL AND BUTTON
 .txt_field .uploadlabel {
@@ -325,10 +321,6 @@ option {
     left: 10px;
 }
 
-.txt_field input[type="file"]:focus ~ .uploadlabel {
-    color: var(--main-green);
-}
-
 input[type="file"]::file-selector-button {
     border-top-left-radius: 5px;
     font-family: 'Montserrat';
@@ -338,76 +330,18 @@ input[type="file"]::file-selector-button {
     left: 0;
     margin-left: -0px;
     width: 100px;
-    height: 60px;
+    height: 58.5px;
     cursor: pointer;
     background-color: var(--main-green);
     border: none;
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
     transition: background-color 200ms;
 }
-// INPUT FILE LABEL AND BUTTON
+// ----- END FORMS INPUT CONTENT ----- //
 
-// TEXTAREA
-.input-row .txtarea {
-    flex-basis: 100%;
-    position: relative;
-    margin-top: 1.5rem;
-}
-
-.txtarea textarea {
-    font-family: 'Montserrat';
-    width: 100%;
-    height: 200px;
-    padding-top: 29px;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 15px;
-    border: none;
-    background-color: var(--input);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-    border-bottom: 2px solid var(--cancel-btn);
-}
-
-.txtarea .labelline1 {
-    font-family: 'Montserrat';
-    position: absolute;
-    top: 60%;
-    left: 10px;
-    color: var(--cancel-btn);
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-.txtarea textarea:focus {
-    content: '';
-    border-bottom: 2.5px solid var(--main-green);
-}
-
-.txtarea textarea:hover{
-    background-color: var(--input-hover);
-}
-
-.txtarea textarea:valid ~ .labelline1 {
-    top: 17px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: var(--cancel-btn);
-}
-
-.txtarea textarea:focus ~ .labelline1 {
-    top: 17px;
-    font-size: 12px;
-    color: var(--main-green);
-    letter-spacing: 0.5px;
-}
-// TEXTAREA
-
+// BUTTONS //
 .button-container {
-    margin: -30px 30px 30px 0px;
+    margin: -10px 30px 30px 0px;
     display: flex;
     justify-content: flex-end;
 }
@@ -420,7 +354,17 @@ input[type="file"]::file-selector-button {
     border-radius: 5px;
     font-weight: 400;
     width: 100px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
+    box-shadow: 0px 3px 3px rgba(37, 37, 37, 0.322);
+    transition: .3s;
+    transform: translate(0px, 0px);
+}
+
+.button-container button:hover {
+    box-shadow: 0px 8px 15px -10px rgb(125, 125, 125);
+    transform: translate(0px, -1px);
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .update-btn {
@@ -451,3 +395,4 @@ input[type="file"]::file-selector-button {
 .cancel-btn:hover {
     background-color: var(--cancel-hover);
 }
+// END OF BUTTONS //

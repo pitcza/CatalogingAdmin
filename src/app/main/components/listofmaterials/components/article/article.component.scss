@@ -1,4 +1,4 @@
-/* PERIODICALS TAB BUTTON */
+// ARTICLE TABS BUTTON //
 .tabbed {
 	padding-bottom: 10px;
 }
@@ -6,7 +6,7 @@
 .tabs {
     padding-left: 5px;
     margin-top: 20px;
-    margin-bottom: 11px;
+    margin-bottom: 12px;
 	display: block;
 	align-items: stretch;
 	list-style: none;
@@ -30,20 +30,24 @@
 	cursor: pointer;	
 	transition: all 0.3s;
     border-bottom: 3px solid var(--black);
+    transition: .3s;
 }
 
 .tab:hover {
 	color: var(--main-green);
     border-bottom: 3px solid var(--main-green);
+    background-color: var(--secondary-color);
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
 }
 
 .tabs a.active-link {
     color: var(--main-green);
     border-bottom: 3px solid var(--main-green);
 }
-// END OF TABS BUTTON
+// END OF TABS BUTTON //
 
-// TABLE ROUTER OUTLET STYLE
+// TABLE ROUTER OUTLET STYLE //
 .table-content {
     border-radius: 5px;
     padding: 20px;

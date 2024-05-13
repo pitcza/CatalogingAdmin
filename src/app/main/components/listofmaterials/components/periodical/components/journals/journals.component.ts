@@ -16,11 +16,6 @@ import { DataService } from '../../../../../../../services/data.service';
   selector: 'app-journals',
   templateUrl: './journals.component.html',
   styleUrl: './journals.component.scss',
-  // standalone: true,
-  // imports: [
-  //   MatTableModule,
-  //   MatPaginatorModule
-  // ]
 })
 
 export class JournalsComponent implements AfterViewInit {
@@ -56,8 +51,7 @@ export class JournalsComponent implements AfterViewInit {
     })
   }
 
-  // POP UPS FUNCTION
-
+  // POP UPS
   showPopup: boolean = false;
 
   closePopup() {
@@ -127,15 +121,8 @@ export class JournalsComponent implements AfterViewInit {
         })
       }
     });
-  }
-
-
-  // DATA FOR FILTERING
-  
-
+  }  
 }
-
-// SAMPLE DATA FOR TABLES
 
 export interface Journal {
   created_at: string;

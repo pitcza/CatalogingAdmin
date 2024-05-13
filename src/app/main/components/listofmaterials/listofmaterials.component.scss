@@ -1,26 +1,25 @@
-/* MAIN PADDING */
+/* MAIN PADDING FOR RESPONSIVE */
 main {
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 20px;
+    margin-top: 10px;
+    margin-left: 70px;
+    margin-right: 20px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1220px) {
     main {
-        margin-left: 0px;
+        margin-top: 10px;
+        margin-left: 220px;
+        margin-right: 20px;
     }
 }
 /* END OF MAIN PADDING */
 
-.content {
-    justify-content: center;
-    align-items: center;
-    padding-right: 20px;
-}
-
 /* DROPDOWN CONTENT */
 .dropbtn {
-    background-color: var(--primary-color);
+    background-color: transparent;
     color: var(--main-green);
     font-family: 'Montserrat';
     font-weight: 500;
@@ -83,6 +82,7 @@ main {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    font-weight: 500;
 }
 
 .dropdown-content .books {
