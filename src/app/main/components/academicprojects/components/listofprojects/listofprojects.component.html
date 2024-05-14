@@ -77,13 +77,13 @@
         
                 <!-- Title Column -->
                 <ng-container matColumnDef="title">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Title </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="" class="tbl-header"> Title </th>
                     <td mat-cell *matCellDef="let project" class="left-align"> {{project.title}} </td>
                 </ng-container>
 
                 <!-- Author Column -->
                 <ng-container matColumnDef="author">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Author/s </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="" class="tbl-header2"> Author/s </th>
                     <td mat-cell *matCellDef="let project" class="left-align"> 
                         <ng-container *ngFor="let x of project.authors; let last = last">
                             {{ x }}{{ x != last ? ', ' : '' }}<br>
@@ -93,7 +93,7 @@
         
                 <!-- Date Published Column -->
                 <ng-container matColumnDef="date_published">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Date Published </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="" class="tbl-header3"> Date Published </th>
                     <td mat-cell *matCellDef="let project"> {{project.date_published | date: 'mediumDate'}} </td>
                 </ng-container>
         

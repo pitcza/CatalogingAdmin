@@ -109,6 +109,13 @@ export class JournalsComponent implements OnInit {
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.ds.delete('articles/process/' + id).subscribe({
@@ -119,6 +126,7 @@ export class JournalsComponent implements OnInit {
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false,
             });
             this.getData();
           },
@@ -126,7 +134,8 @@ export class JournalsComponent implements OnInit {
             Swal.fire({
               title: "Error",
               text: "Oops an error occured.",
-              icon: "error"
+              icon: "error",
+              scrollbarPadding: false,
             });
             console.log(err);
           }

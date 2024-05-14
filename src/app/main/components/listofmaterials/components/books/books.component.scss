@@ -113,6 +113,19 @@ td {
     border-bottom: 1.5px solid var(--table-border);
 }
 
+.tbl-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    padding-left:30px;
+}
+
+.tbl-header2 {
+    height: 60px;
+    padding-left: 120px;
+}
+
 th {
     background-color: var(--main-green) !important;
     color: white;

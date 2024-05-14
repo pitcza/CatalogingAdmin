@@ -104,6 +104,13 @@ export class JournalsComponent implements OnInit {
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.ds.delete('periodicals/process/' + id).subscribe({
@@ -114,6 +121,7 @@ export class JournalsComponent implements OnInit {
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false,
             });
             this.getData();
           },
@@ -125,6 +133,7 @@ export class JournalsComponent implements OnInit {
               icon: "error",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false,
             });
           }
         })

@@ -40,6 +40,13 @@ export class DetailsPopupComponent implements OnInit{
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         this.ref.close('Closed using function');
@@ -49,8 +56,10 @@ export class DetailsPopupComponent implements OnInit{
           icon: "success",
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          timer: 5000,
         });
       }
     });
-}
+  }
 }

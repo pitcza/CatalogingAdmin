@@ -25,13 +25,11 @@ import { filter } from 'rxjs';
   styleUrl: './books.component.scss',
   standalone: true,
   imports: [
-    MatFormFieldModule,
     MatCardModule,
     MatTableModule, 
     MatPaginatorModule, 
     MatFormFieldModule, 
     MatSortModule,
-    MatCardModule,
     DatePipe,
     CommonModule
   ],
@@ -115,6 +113,13 @@ export class BooksComponent implements OnInit {
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         this.ds.delete('books/process/' + id).subscribe({
@@ -125,6 +130,7 @@ export class BooksComponent implements OnInit {
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false
             });
             this.getData();
           },
@@ -132,7 +138,8 @@ export class BooksComponent implements OnInit {
             Swal.fire({
               title: "Error",
               text: "Oops an error occured.",
-              icon: "error"
+              icon: "error",
+              scrollbarPadding: false
             });
             console.log(err);
           }

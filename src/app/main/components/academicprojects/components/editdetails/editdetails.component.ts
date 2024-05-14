@@ -6,7 +6,7 @@ import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
-import { DataService } from '../../../../../../services/data.service';
+import { DataService } from '../../../../../services/data.service';
 
 @Component({
   selector: 'app-editdetails',
@@ -212,6 +212,14 @@ export class EditdetailsComponent implements OnInit{
           text: "The changes have been saved.",
           icon: "success",
           confirmButtonColor: "#31A463",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          timer: 5000
         });
         this.ref.close('Changed Data');
       },
@@ -223,6 +231,13 @@ export class EditdetailsComponent implements OnInit{
           icon: 'error',
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
         });
       }
     });
@@ -239,6 +254,13 @@ export class EditdetailsComponent implements OnInit{
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         this.ref.close('Closed using function');
@@ -248,6 +270,7 @@ export class EditdetailsComponent implements OnInit{
           icon: "success",
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
+          scrollbarPadding: false,
         });
       }
     });
@@ -264,6 +287,13 @@ export class EditdetailsComponent implements OnInit{
       cancelButtonText: 'No',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     }).then((result) => {
       if (result.isConfirmed) {
           this.ref.close('Closed using function');
@@ -273,6 +303,7 @@ export class EditdetailsComponent implements OnInit{
             showConfirmButton: false,
             timer: 2500,
             timerProgressBar: true,
+            scrollbarPadding: false,
             didOpen: (toast) => {
               toast.onmouseenter = Swal.stopTimer;
               toast.onmouseleave = Swal.resumeTimer;
@@ -280,7 +311,7 @@ export class EditdetailsComponent implements OnInit{
           });
           Toast.fire({
             icon: "error",
-            title: "Changes not saved."
+            title: "Changes not saved.",
           });
       }
     });

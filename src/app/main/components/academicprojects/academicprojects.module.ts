@@ -8,7 +8,7 @@ import { ListofprojectsComponent } from './components/listofprojects/listofproje
 import { AddprojectComponent } from './components/addproject/addproject.component';
 
 // POP UPS
-import { EditdetailsComponent } from './components/details-popup/editdetails/editdetails.component';
+import { EditdetailsComponent } from './components/editdetails/editdetails.component';
 import { DetailsPopupComponent } from './components/details-popup/details-popup.component';
 
 import { MatIcon, MatIconModule, MatIconRegistry } from '@angular/material/icon';

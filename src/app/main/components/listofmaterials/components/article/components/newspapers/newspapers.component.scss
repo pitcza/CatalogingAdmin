@@ -6,6 +6,25 @@
     margin-bottom: 20px;
 }
 
+// TABLE FILTERS
+.table-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-filters select {
+    background: var(--primary-color);
+    font-family: 'Montserrat';
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    width: 12em;
+    height: 2.5em;
+    border: 1px solid var(--table-border);
+    border-radius: 7px;
+}
+
 // SEARCH BAR
 .table-head input[type=text] {
     font-family: 'Montserrat';

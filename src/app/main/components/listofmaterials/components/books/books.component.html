@@ -7,11 +7,12 @@
 
             <!-- HEAD -->
             <div class="table-head">
+                <!-- TABLE FILTERS -->
                 <div class="table-filters">
-                    <!-- <select id="filter" (change)="applyFilter($event, 'filter')">
+                    <select id="filter" (change)="applyFilter($event, 'filter')">
                         <option selected value=""> All Locations </option>
                         <option *ngFor="let x of locations" [value]="x.location"> {{ x.location }} </option>
-                    </select> -->
+                    </select>
                 </div>
 
                 <!-- SEARCH BAR -->
@@ -30,13 +31,13 @@
             
                 <!-- Title Column -->
                 <ng-container matColumnDef="title">
-                    <th mat-header-cell *matHeaderCellDef="" mat-sort-header> Book Title </th>
+                    <th mat-header-cell *matHeaderCellDef="" mat-sort-header class="tbl-header"> Book Title </th>
                     <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                 </ng-container>
             
                 <!-- Author Column -->
                 <ng-container matColumnDef="author">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Author </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="" class="tbl-header2"> Author </th>
                     <td mat-cell *matCellDef="let element"> 
                         <ng-container *ngFor="let x of element.authors; let last = last">
                             {{ x }}{{ x != last ? ', ' : '' }}<br>

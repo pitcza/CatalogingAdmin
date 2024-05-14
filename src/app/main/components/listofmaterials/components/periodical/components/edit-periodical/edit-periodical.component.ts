@@ -39,6 +39,13 @@ export class EditPeriodicalComponent {
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.ref.close('Closed using function');
@@ -48,6 +55,8 @@ export class EditPeriodicalComponent {
           icon: "success",
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          timer: 5000,
         });
       }
     });
@@ -64,6 +73,13 @@ export class EditPeriodicalComponent {
       cancelButtonText: 'No',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     }).then((result) => {
       if (result.isConfirmed) {
           this.ref.close('Closed using function');
@@ -134,6 +150,14 @@ export class EditPeriodicalComponent {
             text: "The changes have been saved.",
             icon: "success",
             confirmButtonColor: "#31A463",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            timer: 5000,
           });
           this.ref.close('Changed Data');
         },
@@ -145,6 +169,7 @@ export class EditPeriodicalComponent {
             icon: 'error',
             confirmButtonText: 'Close',
             confirmButtonColor: "#777777",
+            scrollbarPadding: false,
           });
         }
       });
@@ -155,6 +180,7 @@ export class EditPeriodicalComponent {
         icon: 'error',
         confirmButtonText: 'Close',
         confirmButtonColor: "#777777",
+        scrollbarPadding: false,
       });
     } else {
       Swal.fire({
@@ -163,6 +189,7 @@ export class EditPeriodicalComponent {
         icon: 'error',
         confirmButtonText: 'Close',
         confirmButtonColor: "#777777",
+        scrollbarPadding: false,
       });
     }
   }

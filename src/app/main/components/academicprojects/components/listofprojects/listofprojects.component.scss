@@ -177,12 +177,37 @@ td {
     justify-content: center;
 }
 
+.tbl-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    padding-left:30px;
+}
+
+.tbl-header2 {
+    justify-content: space-evenly;
+    align-items: center;
+    height: 60px;
+    padding-left: 40px;
+}
+
+.tbl-header3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    min-height: 60px;
+    padding-left: 30px;
+}
+
 th {
     background-color: var(--main-green) !important;
     color: white;
     font-weight: 600;
     letter-spacing: 0.8px;
     justify-content: center;
+    height: 60px;
 }
 
 table tr:hover{

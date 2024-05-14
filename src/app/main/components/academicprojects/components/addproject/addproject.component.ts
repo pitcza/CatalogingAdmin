@@ -217,6 +217,13 @@ export class AddprojectComponent implements OnInit {
               text: formData.get('title') + " has been added successfully",
               icon: 'success',
               confirmButtonColor: "#31A463",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
               timer: 5000
             });
           },
@@ -227,6 +234,13 @@ export class AddprojectComponent implements OnInit {
               icon: 'error',
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              }
             });
           }
         })
@@ -237,6 +251,13 @@ export class AddprojectComponent implements OnInit {
           icon: 'error',
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
         });
       } else {
         Swal.fire({
@@ -245,6 +266,13 @@ export class AddprojectComponent implements OnInit {
           icon: 'error',
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
         });
       }
     });
@@ -258,25 +286,6 @@ export class AddprojectComponent implements OnInit {
     this.showPopup = this.showPopup;
   }
 
-  addBox() {
-    this.router.navigate(['main/academicprojects/listofprojects']); 
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      }
-    });
-    Toast.fire({
-      icon: "success",
-      title: "Project Successfully Added."
-    });
-  }
-
   cancelBox(){
     Swal.fire({
       title: "Are you sure you want to cancel?",
@@ -287,6 +296,13 @@ export class AddprojectComponent implements OnInit {
       cancelButtonText: 'No',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     }).then((result) => {
       if (result.isConfirmed) {
           this.router.navigate(['main/academicprojects/listofprojects']); 

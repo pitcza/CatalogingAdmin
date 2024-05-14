@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 
-import { EditdetailsComponent } from '../details-popup/editdetails/editdetails.component';
+import { EditdetailsComponent } from '../editdetails/editdetails.component';
 import { DetailsPopupComponent } from '../details-popup/details-popup.component';
 import Swal from 'sweetalert2';
 
@@ -78,6 +78,7 @@ export class ListofprojectsComponent implements OnInit {
     this.isLoading = true;
     this.ds.get('projects').subscribe((res: any) => {
       this.projects = res;
+      console.log(this.projects)
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -217,6 +218,7 @@ export class ListofprojectsComponent implements OnInit {
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
       position: 'center',
+      scrollbarPadding: false,
       willOpen: () => {
         document.body.style.overflowY = 'scroll';
       },
@@ -233,6 +235,7 @@ export class ListofprojectsComponent implements OnInit {
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false
             });
             this.getData();
           },
