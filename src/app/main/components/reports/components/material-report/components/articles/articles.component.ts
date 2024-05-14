@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data.service';
+import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
 
 
@@ -18,7 +19,7 @@ import { filter } from 'rxjs';
   styleUrls: ['./articles.component.scss'],
   standalone: true,
   imports: [
-
+    CommonModule,
     MatPaginatorModule,
     MatTableModule,
     MatFormFieldModule,
@@ -27,11 +28,10 @@ import { filter } from 'rxjs';
   ],
 })
 export class ArticlesComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'author', 'publisher', 'publication' ];
+  displayedColumns: string[] = ['id', 'title', 'authors', 'publication'];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
   title: any;
   authors: any;
@@ -39,9 +39,7 @@ export class ArticlesComponent implements OnInit {
   publication: any;
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getData();
   }
 
   constructor(
@@ -56,9 +54,11 @@ export class ArticlesComponent implements OnInit {
   }
 
   protected getData() {
-    this.ds.get('books').subscribe({
+    this.ds.get('articles').subscribe({
       next: (res: any) => {
-        return res;
+        this.dataSource = new MatTableDataSource<PeriodicElement>(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     })
     return [];
@@ -104,14 +104,10 @@ export class ArticlesComponent implements OnInit {
 }
 
 export interface PeriodicElement {
+  id: number;
   title: string;
   author: string;
   publisher: string;
   publication: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {title: 'One Piece', author: 'Eiichiro Oda', publisher: 'dunno', publication: '2021'}, 
-  ];
-
 

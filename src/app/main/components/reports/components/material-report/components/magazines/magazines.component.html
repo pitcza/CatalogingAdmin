@@ -34,7 +34,7 @@
                         </ng-container>
                     </td>
                 </ng-container>
-            
+
                 <!-- Copyright Column -->
                 <ng-container matColumnDef="copyright">
                     <th mat-header-cell *matHeaderCellDef> Copyright </th>
@@ -44,13 +44,16 @@
                 <!-- Date Received Column -->
                 <ng-container matColumnDef="received">
                     <th mat-header-cell *matHeaderCellDef> Date Received </th>
-                    <td mat-cell *matCellDef="let element"> {{element.accession}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.receive_date}} </td>
                 </ng-container>
         
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
 
+                <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
             </div>   
         </div>
     </div>

@@ -19,6 +19,12 @@
             <div class="mat-elevation-z8">
                 <table mat-table [dataSource]="dataSource">
             
+                <!-- Accession Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> Article Accession </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
                 <!-- Title Column -->
                 <ng-container matColumnDef="title">
                     <th mat-header-cell *matHeaderCellDef> Title </th>
@@ -26,21 +32,19 @@
                 </ng-container>
 
                 <!-- Author Column -->
-                <ng-container matColumnDef="author">
-                    <th mat-header-cell *matHeaderCellDef> Author </th>
-                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-                </ng-container>
-            
-                <!-- Publisher Column -->
-                <ng-container matColumnDef="publisher">
-                    <th mat-header-cell *matHeaderCellDef> Publisher </th>
-                    <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+                <ng-container matColumnDef="authors">
+                    <th mat-header-cell *matHeaderCellDef> Author/s </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <ng-container *ngFor="let x of element.authors; let last = last">
+                            {{ x }}{{ x != last ? ', ' : '' }}<br>
+                        </ng-container>
+                    </td>
                 </ng-container>
             
                 <!-- Publication Date Column -->
                 <ng-container matColumnDef="publication">
                     <th mat-header-cell *matHeaderCellDef> Publication Date  </th>
-                    <td mat-cell *matCellDef="let element"> {{element.copyright}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.date_published}} </td>
                 </ng-container>
         
 
@@ -48,6 +52,9 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
 
+                <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
             </div>   
         </div>
     </div>
