@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data.service';
+import { filter } from 'rxjs';
 
 
 @Component({
@@ -32,6 +33,10 @@ export class ArticlesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
+  title: any;
+  authors: any;
+  publisher: any;
+  publication: any;
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
@@ -57,6 +62,44 @@ export class ArticlesComponent implements OnInit {
       }
     })
     return [];
+  }
+  // Filtering 
+  applyFilter(event: Event, type: string) {
+
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+      const titleFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
+        return data.title.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const authorFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const publisherFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
+        return data.publisher.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const publicationFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
+        return data.publication.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const filterPredicate = (data: ArticlesComponent): boolean => {
+        return (titleFilterPredicate(data, search) ||
+               authorFilterPredicate(data, search));
+               publisherFilterPredicate(data, search);
+               publicationFilterPredicate(data, search);
+
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter = search;
   }
 }
 

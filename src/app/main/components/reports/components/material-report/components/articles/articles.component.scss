@@ -5,46 +5,15 @@
 
 }
 
+/********************************** SEARCH ****************************************/
+
 .table-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+    margin-left: 882px;
 }
-
-.table-filters {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.table-filters select {
-    background: var(--primary-color);
-    font-family: 'Montserrat';
-    padding: 5px;
-    font-size: 14px;
-    font-weight: 400;
-    width: 12em;
-    height: 2.5em;
-    border: 1px solid var(--table-border);
-    border-radius: 7px;
-}
-
-.table-filters option {
-    padding: 30px;
-    margin: 30px;
-}
-
-
-
-
-
-
-
-
-
-
-
 
 .table-head input[type=text] {
     font-family: 'Montserrat';
@@ -81,12 +50,9 @@ input:focus{
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
     font-size: 16px;
-    cursor: pointer;
+    cursor: default;
 }
 
-.table-head .search-container button:hover {
-    background: var(--green-hover);
-}
 
 @media screen and (max-width: 600px) {
     .table-head .search-container {

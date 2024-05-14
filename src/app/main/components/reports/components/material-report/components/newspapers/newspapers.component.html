@@ -4,6 +4,14 @@
         <div class="table-content">
 
             <div class="table-head">
+                
+                <!-- SEARCH BAR -->
+                <div class="search-container">
+                    <form>
+                    <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
+                    <button ><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
 
             </div>
               

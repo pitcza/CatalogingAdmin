@@ -11,6 +11,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data.service';
 import { CommonModule } from '@angular/common';
 import { get } from 'http';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-books',
@@ -26,12 +27,16 @@ import { get } from 'http';
     MatSortModule
   ],
 })
+
 export class BooksComponent implements OnInit {
   displayedColumns: string[] = ['id', 'booktitle', 'author', 'location', 'copyright'];
-  dataSource : any;
+  dataSource : any = null;
+  materials : any = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort !: MatSort;
+  title: any;
+  authors: any;
 
   ngOnInit(): void {
     this.getData();
@@ -48,14 +53,41 @@ export class BooksComponent implements OnInit {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
+  protected books: any = null;
+
   protected getData() {
     this.ds.get('books').subscribe({
       next: (res: any) => {
-        this.dataSource = new MatTableDataSource<PeriodicElement>(res);
+        this.materials = res;
+        this.dataSource = new MatTableDataSource<BooksComponent, MatPaginator>(this.materials);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
     })
+  }
+
+  // Filtering 
+  applyFilter(event: Event, type: string) {
+
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+      const titleFilterPredicate = (data: BooksComponent, search: string): boolean => {
+        return data.title.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const authorFilterPredicate = (data: BooksComponent, search: string): boolean => {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const filterPredicate = (data: BooksComponent): boolean => {
+        return (titleFilterPredicate(data, search) ||
+               authorFilterPredicate(data, search)) 
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter = search;
   }
 }
 

@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data.service';
 import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-newspapers',
@@ -33,6 +34,11 @@ export class NewspapersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
+  title: any;
+  authors: any;
+  copyright: string | undefined;
+  received: string | undefined;
+
 
   ngOnInit(): void {
     this.getData();
@@ -58,6 +64,46 @@ export class NewspapersComponent implements OnInit {
       }
     })
   }
+
+  // FILTER DATA
+  applyFilter(event: Event, type: string) {
+
+    const select = (document.getElementById('filter') as HTMLSelectElement).value;
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+    console.log(select, search)
+      const titleFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
+        return data.title.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const authorFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const copyrightFilterPredicate = (data: NewspapersComponent, select: string): boolean => {
+        return data.copyright === select || select === '';
+      }
+
+      const receivedFilterPredicate = (data: NewspapersComponent, select: string): boolean => {
+        return data.received === select || select === '';
+      }
+
+      const filterPredicate = (data: NewspapersComponent): boolean => {
+        return (titleFilterPredicate(data, search) ||
+               authorFilterPredicate(data, search)) &&
+               copyrightFilterPredicate(data, select);
+               receivedFilterPredicate(data, select)
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter = {
+        search, 
+        select
+      };    
+  }
+
 }
 
 export interface PeriodicElement {

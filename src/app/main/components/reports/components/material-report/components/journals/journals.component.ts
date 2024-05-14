@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data.service';
 import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-journals',
@@ -27,11 +28,15 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class JournalsComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'author', 'copyright', 'received' ];
+  displayedColumns: string[] = ['title', 'authors', 'copyright', 'received' ];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
+  title: any;
+  authors: any;
+  copyright: string | undefined;
+  received: string | undefined;
 
   ngOnInit(): void {
     this.getData();
@@ -49,13 +54,51 @@ export class JournalsComponent implements OnInit {
   }
 
   protected getData() {
-    this.ds.get('periodicals/type/journal').subscribe({
+    this.ds.get('journals').subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<PeriodicElement>(res);
         // this.dataSource.paginator = this.paginator;
         // this.dataSource.sort = this.sort;
       }
     })
+  }
+  // FILTER DATA
+  applyFilter(event: Event, type: string) {
+
+    const select = (document.getElementById('filter') as HTMLSelectElement).value;
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+    console.log(select, search)
+      const titleFilterPredicate = (data: JournalsComponent, search: string): boolean => {
+        return data.title.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const authorFilterPredicate = (data: JournalsComponent, search: string): boolean => {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const copyrightFilterPredicate = (data: JournalsComponent, select: string): boolean => {
+        return data.copyright === select || select === '';
+      }
+
+      const receivedFilterPredicate = (data: JournalsComponent, select: string): boolean => {
+        return data.received === select || select === '';
+      }
+
+      const filterPredicate = (data: JournalsComponent): boolean => {
+        return (titleFilterPredicate(data, search) ||
+               authorFilterPredicate(data, search)) &&
+               copyrightFilterPredicate(data, select);
+               receivedFilterPredicate(data, select)
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter = {
+        search, 
+        select
+      };    
   }
 }
 
