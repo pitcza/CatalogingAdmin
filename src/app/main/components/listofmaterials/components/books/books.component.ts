@@ -66,8 +66,7 @@ export class BooksComponent implements OnInit {
   protected getData() {
     this.ds.get('books').subscribe({
       next: (res: any) =>  {
-        this.materials = res;
-        console.log(res)
+        this.materials = res;        
         this.dataSource = new MatTableDataSource<BookElement, MatPaginator>(this.materials);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -87,14 +86,18 @@ export class BooksComponent implements OnInit {
     const select = (document.getElementById('filter') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
 
+    console.log(select, search)
+
       const titleFilterPredicate = (data: BookElement, search: string): boolean => {
         return data.title.toLowerCase().includes(search.toLowerCase());
       }
 
       const authorFilterPredicate = (data: BookElement, search: string): boolean => {
-        return data.author.toLowerCase().includes(search.toLowerCase());
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
       }
-      
+
       const locationFilterPredicate = (data: BookElement, select: string): boolean => {
         return data.location.location === select || select === '';
       }
@@ -106,11 +109,10 @@ export class BooksComponent implements OnInit {
       };
       
       this.dataSource.filterPredicate = filterPredicate;
-      if(type === 'filter')
-        this.dataSource.filter = select;
-      else if(type === 'search')
-        this.dataSource.filter = search;
-    
+      this.dataSource.filter = {
+        search, 
+        select
+      };    
   }
 
   // SWEETALERT ARCHIVE POPUP
@@ -193,7 +195,7 @@ export class BooksComponent implements OnInit {
 export interface BookElement {
   created_at: Date;
   title: string;
-  author: string;
+  authors: any;
   location: any;
   copyright: Date;
   date_published: Date;

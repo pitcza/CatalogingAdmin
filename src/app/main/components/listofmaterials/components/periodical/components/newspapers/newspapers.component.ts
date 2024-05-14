@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -16,23 +16,19 @@ import { DataService } from '../../../../../../../services/data.service';
 @Component({
   selector: 'app-newspapers',
   templateUrl: './newspapers.component.html',
-  styleUrl: './newspapers.component.scss',
-  // standalone: true,
-  // imports: [
-  //   MatTableModule,
-  //   MatPaginatorModule
-  // ]
+  styleUrl: './newspapers.component.scss'
 })
 
-export class NewspapersComponent implements AfterViewInit {
+export class NewspapersComponent implements OnInit {
   displayedColumns: string[] = ['title', 'author', 'publisher', 'copyright', 'action'];
   dataSource: any;
+  publishers: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.getData();
   }
 
@@ -52,6 +48,14 @@ export class NewspapersComponent implements AfterViewInit {
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<Newspaper>(res)
         this.dataSource.paginator = this.paginator;
+
+        const publishers = new Set<string>();
+        res.forEach((x: any) => {
+            publishers.add(x.publisher);
+        });
+
+        // Convert the Set back to an array
+        this.publishers = Array.from(publishers);
       }
     })
   }
@@ -128,9 +132,39 @@ export class NewspapersComponent implements AfterViewInit {
     });
   }
 
+  // FILTER DATA
+  applyFilter(event: Event, type: string) {
 
-  // DATA FOR FILTERING
-  
+    const select = (document.getElementById('filter') as HTMLSelectElement).value;
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+    console.log(select, search)
+      const titleFilterPredicate = (data: Newspaper, search: string): boolean => {
+        return data.title.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const authorFilterPredicate = (data: Newspaper, search: string): boolean => {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const publisherFilterPredicate = (data: Newspaper, select: string): boolean => {
+        return data.publisher === select || select === '';
+      }
+
+      const filterPredicate = (data: Newspaper): boolean => {
+        return (titleFilterPredicate(data, search) ||
+               authorFilterPredicate(data, search)) &&
+               publisherFilterPredicate(data, select);
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter = {
+        search, 
+        select
+      };    
+  }
 
 }
 
@@ -139,6 +173,7 @@ export class NewspapersComponent implements AfterViewInit {
 export interface Newspaper {
   created_at: string;
   title: string;
+  authors: any;
   publisher: string;
   copyright: string;
   action: string;

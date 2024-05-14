@@ -16,16 +16,12 @@ import { DataService } from '../../../../../../../services/data.service';
   selector: 'app-magazines',
   templateUrl: './magazines.component.html',
   styleUrl: './magazines.component.scss',
-  // standalone: true,
-  // imports: [
-  //   MatTableModule,
-  //   MatPaginatorModule
-  // ]
 })
 
 export class MagazinesComponent implements OnInit {
   displayedColumns: string[] = ['title', 'author', 'publisher', 'copyright', 'action'];
   dataSource: any;
+  publishers: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
@@ -49,13 +45,21 @@ export class MagazinesComponent implements OnInit {
   getData() {
     this.ds.get('periodicals/type/magazine').subscribe({
       next: (res: any) => {
-        console.log(res)
         this.dataSource = new MatTableDataSource<Magazine>(res)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
+        const publishers = new Set<string>();
+        res.forEach((x: any) => {
+            publishers.add(x.publisher);
+        });
+
+        // Convert the Set back to an array
+        this.publishers = Array.from(publishers);
       }
     })
   }
+  
   // POP UPS FUNCTION
 
   showPopup: boolean = false;
@@ -129,9 +133,39 @@ export class MagazinesComponent implements OnInit {
     });
   }
 
+// FILTER DATA
+applyFilter(event: Event, type: string) {
 
-  // DATA FOR FILTERING
-  
+  const select = (document.getElementById('filter') as HTMLSelectElement).value;
+  const search = (document.getElementById('search') as HTMLInputElement).value;
+
+  console.log(select, search)
+    const titleFilterPredicate = (data: Magazine, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: Magazine, search: string): boolean => {
+      return data.authors.some((x: any) => {
+        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+      });
+    }
+
+    const publisherFilterPredicate = (data: Magazine, select: string): boolean => {
+      return data.publisher === select || select === '';
+    }
+
+    const filterPredicate = (data: Magazine): boolean => {
+      return (titleFilterPredicate(data, search) ||
+             authorFilterPredicate(data, search)) &&
+             publisherFilterPredicate(data, select);
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = {
+      search, 
+      select
+    };    
+}
 
 }
 
@@ -139,6 +173,7 @@ export class MagazinesComponent implements OnInit {
 
 export interface Magazine {
   created_at: string;
+  authors: any;
   type: string;
   title: string;
   publisher: string;

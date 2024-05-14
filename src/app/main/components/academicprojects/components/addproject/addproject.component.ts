@@ -210,7 +210,6 @@ export class AddprojectComponent implements OnInit {
             }
           } else if (element.name == 'author') {
             authorElements.push(element.value.trim())
-            console.log(element.value)
           } else if ((element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'DATE'
           || element.tagName === 'TEXTAREA') && element.id != 'submit-button') {
             formData.append(element.name, element.value);
@@ -223,6 +222,10 @@ export class AddprojectComponent implements OnInit {
       }
 
       formData.append('authors', JSON.stringify(authorElements));
+
+      let keywords = ['drama', 'action', 'awesome']
+      formData.append('keywords', JSON.stringify(keywords));
+      console.log(formData.get('keywords'), formData.get('authors'));
 
       if(valid && validFile) {
         this.ds.post('projects/process', formData).subscribe({

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 import Swal from 'sweetalert2';
+import { deepStrictEqual } from 'assert';
 
 @Component({
   selector: 'app-main',
@@ -21,6 +22,12 @@ export class MainComponent implements OnInit, OnDestroy {
   role = sessionStorage.getItem('role');
 
   ngOnInit(): void {
+
+    // CHECK IF USER IS AUTHENTICATED
+    this.as.user().subscribe({
+      next: (res: any) => { },
+      error: (err: any) => { }
+    })
 
     // Refresh user token every 55 minutes (under construction)
     this.timer = setInterval(() => {

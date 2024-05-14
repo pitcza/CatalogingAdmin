@@ -7,8 +7,9 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-magazines',
@@ -16,7 +17,8 @@ import { DataService } from '../../../../../../../services/data.service';
   styleUrls: ['./magazines.component.scss'],
   standalone: true,
   imports: [
-
+    CommonModule,
+    MatSortModule,
     MatPaginatorModule,
     MatTableModule,
     MatFormFieldModule,
@@ -25,7 +27,7 @@ import { DataService } from '../../../../../../../services/data.service';
   ],
 })
 export class MagazinesComponent implements OnInit {
-  displayedColumns: string[] = ['accession', 'title', 'author', 'copyright', ];
+  displayedColumns: string[] = ['id', 'title', 'author', 'copyright', ];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,9 +35,7 @@ export class MagazinesComponent implements OnInit {
   @ViewChild(MatSort) sort !: MatSort;
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getData();
   }
 
   constructor(
@@ -50,22 +50,20 @@ export class MagazinesComponent implements OnInit {
   }
 
   protected getData() {
-    this.ds.get('books').subscribe({
+    this.ds.get('periodicals/type/journal').subscribe({
       next: (res: any) => {
-        return res;
+        console.log(res)
+        this.dataSource = new MatTableDataSource<PeriodicElement>(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     })
-    return [];
   }
 }
 
 export interface PeriodicElement {
-  accession: string;
+  id: string;
   title: string;
-  author: string;
+  authors: string;
   copyright: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {accession: '2001', title: 'One Piece', author: 'Eiichiro Oda', copyright: '1999',}, 
-  ];

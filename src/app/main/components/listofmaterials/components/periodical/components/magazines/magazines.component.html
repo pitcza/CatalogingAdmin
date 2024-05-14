@@ -1,17 +1,15 @@
 <main>
     <div class="table-head">
         <div class="table-filters">
-            <select id="filter">
-                <option selected value="All Publishers"> All Publishers </option>
-                <option> Sample </option>
-                <option> Sample </option>
-                <option> Sample </option>
+            <select id="filter" (change)="applyFilter($event, 'publisher')">
+                <option selected value=""> All Publishers </option>
+                <option *ngFor="let publisher of publishers" [value]="publisher"> {{ publisher }} </option>
             </select>
 
         </div>
         <div class="search-container">
-            <form action="/action_page.php">
-                <input type="text" placeholder="Search..." name="search">
+            <form>
+                <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'publisher')">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
@@ -35,7 +33,11 @@
         <!-- Author Column -->
         <ng-container matColumnDef="author">
             <th mat-header-cell *matHeaderCellDef> Author </th>
-            <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+            <td mat-cell *matCellDef="let element">
+                <ng-container *ngFor="let x of element.authors; let last = last">
+                    {{ x }}{{ x != last ? ', ' : '' }}<br>
+                </ng-container>
+            </td>
         </ng-container>
     
         <!-- Publisher Column -->

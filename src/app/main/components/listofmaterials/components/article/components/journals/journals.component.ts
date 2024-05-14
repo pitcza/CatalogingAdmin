@@ -28,6 +28,7 @@ import { DataService } from '../../../../../../../services/data.service';
 export class JournalsComponent implements OnInit {
   displayedColumns: string[] = ['title', 'author', 'publisher', 'date_published', 'action'];
   dataSource: any;
+  publishers: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -42,6 +43,14 @@ export class JournalsComponent implements OnInit {
         this.dataSource = new MatTableDataSource<JournalArticle>(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        
+        const publishers = new Set<string>();
+        res.forEach((x: any) => {
+            publishers.add(x.publisher);
+        });
+
+        // Convert the Set back to an array
+        this.publishers = Array.from(publishers);
       }
     })
   }
@@ -126,9 +135,39 @@ export class JournalsComponent implements OnInit {
     });
   }
 
+  // FILTER DATA
+  applyFilter(event: Event, type: string) {
 
-  // DATA FOR FILTERING
-  
+    const select = (document.getElementById('filter') as HTMLSelectElement).value;
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+    console.log(select, search)
+      const titleFilterPredicate = (data: JournalArticle, search: string): boolean => {
+        return data.title.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const authorFilterPredicate = (data: JournalArticle, search: string): boolean => {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const publisherFilterPredicate = (data: JournalArticle, select: string): boolean => {
+        return data.publisher === select || select === '';
+      }
+
+      const filterPredicate = (data: JournalArticle): boolean => {
+        return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search)) &&
+              publisherFilterPredicate(data, select);
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter = {
+        search, 
+        select
+      };    
+  }
 
 }
 
@@ -136,6 +175,7 @@ export class JournalsComponent implements OnInit {
 export interface JournalArticle {
   created_at: string;
   title: string;
+  authors: any;
   publisher: string;
   date_published: string;
   action: string;
