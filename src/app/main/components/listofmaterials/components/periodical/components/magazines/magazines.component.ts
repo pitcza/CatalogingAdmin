@@ -62,6 +62,7 @@ export class MagazinesComponent implements OnInit {
   
   // POP UPS FUNCTION
 
+  // POP UPS 
   showPopup: boolean = false;
 
   closePopup() {
@@ -94,7 +95,7 @@ export class MagazinesComponent implements OnInit {
     });
   }
 
-  // SWEETALERT ARCHIVE POP UP
+  // ARCHIVE POP UP
   archiveBox(id: number){
     Swal.fire({
       title: "Archive Magazine",
@@ -131,7 +132,7 @@ export class MagazinesComponent implements OnInit {
         })
       }
     });
-  }
+  }  
 
 // FILTER DATA
 applyFilter(event: Event, type: string) {
@@ -168,8 +169,6 @@ applyFilter(event: Event, type: string) {
 }
 
 }
-
-// SAMPLE DATA FOR TABLES
 
 export interface Magazine {
   created_at: string;

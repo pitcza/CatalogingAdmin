@@ -1,4 +1,5 @@
 <main>
+    <!-- HEAD -->
     <div class="table-head">
         <div class="table-filters">
             <select id="filter" (change)="applyFilter($event, 'publisher')">
@@ -7,6 +8,8 @@
             </select>
 
         </div>
+
+        <!-- SEARCH BAR -->
         <div class="search-container">
             <form>
                 <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'publisher')">
@@ -15,6 +18,7 @@
         </div>
     </div>
 
+    <!-- TABLE -->
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource">
     
@@ -46,9 +50,9 @@
             <td mat-cell *matCellDef="let element"> {{element.copyright}} </td>
         </ng-container>
 
-        <!-- Action Column -->
+        <!-- Actions Column -->
         <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action</th>
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell class="actions" *matCellDef="let element">
     
                 <button class="editbtn" (click)="editPopup({

@@ -1,0 +1,14 @@
+/* MAIN PADDING FOR RESPONSIVE */
+main {
+    justify-content: center;
+    align-items: center;
+    margin-left: 70px;
+}
+
+@media screen and (min-width: 1220px) {
+    main {
+        margin-top: 10px;
+        margin-left: 220px;
+    }
+}
+/* END OF MAIN PADDING */

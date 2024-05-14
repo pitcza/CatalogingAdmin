@@ -60,8 +60,7 @@ export class JournalsComponent implements OnInit {
     })
   }
 
-  // POP UPS FUNCTION
-
+  // POP UPS
   showPopup: boolean = false;
 
   closePopup() {
@@ -169,8 +168,6 @@ export class JournalsComponent implements OnInit {
   }
 
 }
-
-// SAMPLE DATA FOR TABLES
 
 export interface Journal {
   created_at: string;

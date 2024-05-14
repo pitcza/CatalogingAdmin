@@ -48,7 +48,8 @@
                                 </div>
             
                                 <!-- CAN ADD MULTIPLE AUTHOR -->
-                                <div class="input-row">
+                                <div class="input-row" id="wrap">
+                                    <div class="author-container">
                                     <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
                                         <div class="multiple-author">
                                             <div class="txt_field">
@@ -59,6 +60,7 @@
                                             <button type="button" class="removebtn" *ngIf="values.length > 1" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
                                         </div>
                                     </ng-container>
+                                    </div>
                                     <div class="addbtn">
                                         <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
                                     </div>
@@ -98,6 +100,30 @@
                                     </div>
                                 </div>
             
+                                <!-- KEYWORDS -->
+                    <div class="input-row">
+                        <div class="keywords-container">
+                        <ng-container *ngFor="let x of tags; let j = index; trackBy: trackByIndexTag">
+                            <div class="keywords">
+                                <div class="txt_field">
+                                    <input class="inputtxt" type="text" name="keywords" (input)="updateTag($event, j)" [value]="x">
+                                    <span></span>
+                                    <div class="labelline"> Keyword </div>
+                                </div>
+                                <button type="button" class="removetag" (click)="removetag(j)" *ngIf="tags.length > 1">
+                                    <i class='bx bx-x'></i>
+                                </button>
+                            </div>
+                        </ng-container>
+                        </div>
+                        <div class="addbtn">
+                            <button type="button" class="add-keyword" (click)="addtag()" [disabled]="TagMaxLimitReached()">ADD</button>
+                        </div>
+                    
+                        <!-- Display message based on the number of input fields -->
+                        <p *ngIf="tags.length < 10"> Add multiple KEYWORDS </p>
+                        <p *ngIf="tags.length === 10"> Maximum KEYWORDS reached </p>                  
+                    </div>
             
                             </div>
                         </form>
