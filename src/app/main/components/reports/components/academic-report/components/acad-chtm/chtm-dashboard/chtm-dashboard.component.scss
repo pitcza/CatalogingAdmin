@@ -62,7 +62,7 @@
 }
 
 .cards .card {
-    width: 44%;
+    width: 350px;
     height: 100px;
     background-color: #31A463;
     color: #fff;
@@ -74,6 +74,7 @@
     justify-content: space-evenly;
     border-radius: 10px;
     border: #31A463;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .icon-case1 img {
@@ -84,6 +85,13 @@
 }
 
 .icon-case2 img {
+    height: 80px;
+    width: 75px;
+    margin-top: 8px;
+    margin-left: 5px;
+}
+
+.icon-case3 img {
     height: 65px;
     width: 65px;
     margin-top: 8px;

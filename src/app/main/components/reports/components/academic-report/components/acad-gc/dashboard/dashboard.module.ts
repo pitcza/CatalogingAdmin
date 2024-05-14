@@ -15,7 +15,6 @@ import { CahsComponent } from '../../acad-cahs/cahs/cahs.component';
 @NgModule({
   declarations: [
     DashboardComponent, 
-    ChtmComponent, 
   ],
   
   imports: [

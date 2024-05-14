@@ -25,7 +25,7 @@ import { DataService } from '../../../../../../../../services/data.service';
   ], 
 })
 export class GcComponent implements OnInit {
-  displayedColumns: string[] = ['department', 'type', 'title', 'publish', 'added'];
+  displayedColumns: string[] = ['department', 'type', 'title', 'published', 'added'];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -63,9 +63,9 @@ export interface PeriodicElement {
   department: string,
   type: string;
   title: string;
-  publish: string;
+  published: string;
   added: string;
 }
 const ELEMENT_DATA: PeriodicElement[] = [
-  {department: '1001', type: 'One Piece', title: 'Eiichiro Oda', publish: 'FIL', added: '1999'}, 
+  {department: '1001', type: 'One Piece', title: 'Eiichiro Oda', published: 'FIL', added: '1999'}, 
 ];

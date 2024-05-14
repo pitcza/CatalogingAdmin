@@ -26,7 +26,7 @@ import { DataService } from '../../../../../../../services/data.service';
   ],
 })
 export class ArticlesComponent implements OnInit {
-  displayedColumns: string[] = ['accession', 'title', 'author', 'copyright', ];
+  displayedColumns: string[] = ['title', 'author', 'publisher', 'publication' ];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -61,14 +61,14 @@ export class ArticlesComponent implements OnInit {
 }
 
 export interface PeriodicElement {
-  accession: string;
   title: string;
   author: string;
-  copyright: string;
+  publisher: string;
+  publication: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {accession: '2001', title: 'One Piece', author: 'Eiichiro Oda', copyright: '1999',}, 
+  {title: 'One Piece', author: 'Eiichiro Oda', publisher: 'dunno', publication: '2021'}, 
   ];
 
 

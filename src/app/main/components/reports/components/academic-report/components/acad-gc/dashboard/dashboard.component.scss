@@ -74,6 +74,7 @@
     justify-content: space-evenly;
     border-radius: 10px;
     border: #31A463;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .cards .card1 {
@@ -89,6 +90,7 @@
     justify-content: space-evenly;
     border-radius: 10px;
     border: #31A463;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .cards .card1:hover {
@@ -106,6 +108,7 @@
     justify-content: space-evenly;
     border-radius: 10px;
     border: #31A463;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .icon-case1 img {
@@ -161,14 +164,14 @@
     font-weight: 500;
 }
 
-.cards .card1 h1 {
+.cards .card1 .box1 h1 {
     margin-left: 58px;
     font-size: 30px;
 }
  
-.cards .card1 h3 {
+.cards .card1 .box1 h3 {
     margin-left: 10px;
-    margin-top: 5px;
+    margin-top: -7px;
     font-size: 15px;
     font-weight: 500;
 }
@@ -186,6 +189,7 @@
     justify-content: space-evenly;
     border-radius: 10px;
     border: #31A463;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .cards .card2:hover {
@@ -203,28 +207,17 @@
     justify-content: space-evenly;
     border-radius: 10px;
     border: #31A463;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
-
 
 .cards .card2 .box1 h1 {
     margin-left: 58px;
     font-size: 30px;
 }
-
-.cards .card2 h1 {
-    margin-left: 58px;
-    font-size: 30px;
-}
-
-.cards .card2 .box2 h1 {
-    margin-left: 58px;
-    font-size: 30px;
-}
  
-.cards .card2 h3 {
+.cards .card2 .box1 h3 {
     margin-left: 10px;
-    margin-top: 5px;
+    margin-top: -7px;
     font-size: 15px;
     font-weight: 500;
 }
