@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class ArticlesComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'title', 'authors', 'copyright'];
+  displayedColumns: string[] = ['id', 'title', 'authors', 'publication'];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
