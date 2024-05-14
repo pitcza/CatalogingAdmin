@@ -12,9 +12,6 @@
         <!-- SEARCH BAR -->
         <div class="search-container">
             <form>
-                <input type="text" placeholder="Search..." name="search">
-                <button type="submit" disabled><i class="fa fa-search"></i></button>
-            <form>
                 <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'publisher')">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>

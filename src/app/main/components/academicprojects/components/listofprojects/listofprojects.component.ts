@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 
-import { EditdetailsComponent } from '../editdetails/editdetails.component';
+import { EditdetailsComponent } from '../details-popup/editdetails/editdetails.component';
 import { DetailsPopupComponent } from '../details-popup/details-popup.component';
 import Swal from 'sweetalert2';
 

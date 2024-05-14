@@ -2,6 +2,15 @@
     padding-top: 10px;
 }
 
+
+.mat-header-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    padding-left:30px;
+}
+
 // TABLE HEAD CONTENTS
 .table-head {
     display: flex;

@@ -83,10 +83,7 @@ export class BooksComponent implements OnInit {
   // Filtering 
   applyFilter(event: Event, type: string) {
 
-    const select = (document.getElementById('filter') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
-
-    console.log(select, search)
 
       const titleFilterPredicate = (data: BookElement, search: string): boolean => {
         return data.title.toLowerCase().includes(search.toLowerCase());
@@ -98,21 +95,13 @@ export class BooksComponent implements OnInit {
         });
       }
 
-      const locationFilterPredicate = (data: BookElement, select: string): boolean => {
-        return data.location.location === select || select === '';
-      }
-
       const filterPredicate = (data: BookElement): boolean => {
         return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search)) &&
-               locationFilterPredicate(data, select);
+               authorFilterPredicate(data, search)) 
       };
       
       this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = {
-        search, 
-        select
-      };    
+      this.dataSource.filter = search;
   }
 
   // SWEETALERT ARCHIVE POPUP

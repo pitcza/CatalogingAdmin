@@ -6,7 +6,7 @@ import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
-import { DataService } from '../../../../../services/data.service';
+import { DataService } from '../../../../../../services/data.service';
 
 @Component({
   selector: 'app-editdetails',
@@ -127,7 +127,7 @@ export class EditdetailsComponent implements OnInit{
     return this.values.length >= 6;
   }
 
-  // ----- KEYWORDS FUNTION ----- //
+  // ----- KEYWORDS FUNCTION ----- //
   tags = [''];
 
   removetag(i: any){
@@ -138,7 +138,6 @@ export class EditdetailsComponent implements OnInit{
     if (this.tags.length < 10) {
       this.tags.push('');
     }
-    console.log(this.tags)
   }
 
   updateTag(event: Event, j: number) {

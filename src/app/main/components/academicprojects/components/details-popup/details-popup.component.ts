@@ -14,10 +14,9 @@ import Swal from 'sweetalert2';
 export class DetailsPopupComponent implements OnInit{
 
   errorImage = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
-  authors: any;
 
   ngOnInit(): void {
-
+    console.log(this.data.details.authors)
   }
 
   constructor(
