@@ -11,7 +11,7 @@
                 <div class="detailsbody">
                 <div class="details">
                     <div class="projectdetails">
-                            <img alt="book image" [src]="data.details.image != null ? data.details.image : errorImage">
+                            <img alt="project image" [src]="data.details.image != null ? data.details.image : errorImage">
                         <span>
                             <h2> Date Published: </h2> <p> {{ data.details.date_published | date:'longDate' }} </p>
                         </span>
@@ -24,7 +24,7 @@
                         <span>
                             <h2> Authors: </h2> 
                             <p> <ng-container *ngFor="let x of data.details.authors; let last = last;">
-                                {{ x.name }} {{ !last ? ',' : '' }} <br>
+                                {{ x     }} {{ !last ? ',' : '' }} <br>
                             </ng-container></p>
                         </span>
                         <span>
@@ -44,6 +44,9 @@
                         </span>
                         <span>
                             <p> {{ data.details.abstract }} </p>
+                        </span>
+                        <span>
+                            <h2> Keywords: </h2> <p> try, try, try, try ulit, ewan, try </p>
                         </span>
                     </div>
                 </div>

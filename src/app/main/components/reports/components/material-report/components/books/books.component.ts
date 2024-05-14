@@ -7,8 +7,10 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data.service';
+import { CommonModule } from '@angular/common';
+import { get } from 'http';
 
 @Component({
   selector: 'app-books',
@@ -16,26 +18,23 @@ import { DataService } from '../../../../../../../services/data.service';
   styleUrls: ['./books.component.scss'], 
   standalone: true,
   imports: [
-
+    CommonModule,
     MatPaginatorModule,
     MatTableModule,
     MatFormFieldModule,
-    MatCardModule
-
+    MatCardModule,
+    MatSortModule
   ],
 })
 export class BooksComponent implements OnInit {
-  displayedColumns: string[] = ['accession', 'booktitle', 'author', 'location', 'copyright'];
+  displayedColumns: string[] = ['id', 'booktitle', 'author', 'location', 'copyright'];
   dataSource : any;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatPaginator) paginatior !: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort !: MatSort;
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getData();
   }
 
   constructor(
@@ -52,22 +51,19 @@ export class BooksComponent implements OnInit {
   protected getData() {
     this.ds.get('books').subscribe({
       next: (res: any) => {
-        return res;
+        this.dataSource = new MatTableDataSource<PeriodicElement>(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     })
-    return [];
   }
 }
 
 export interface PeriodicElement {
-  accession: string,
-  booktitle: string;
+  id: number,
+  title: string;
   author: string;
   location: string;
   copyright: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {accession: '1001', booktitle: 'One Piece', author: 'Eiichiro Oda', location: 'FIL', copyright: '1999'}, 
-  ];
 

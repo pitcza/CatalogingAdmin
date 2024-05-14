@@ -53,8 +53,8 @@ export class AddmaterialsComponent implements OnInit{
         const element = elements[i] as HTMLInputElement;
 
         // Check if the element is an input field
-        if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
-            if (element.type !== 'file' && element.id !== 'submit' && element.value !== '') {
+        if (element.tagName === 'INPUT' || element.tagName === 'SELECT' && element.id !== 'submit') {
+            if (element.type !== 'file'  && element.value !== '') {
               formData.append(element.name, element.value);
             } else if (element.type === 'file' && element.files && element.files.length > 0) {
               const file = element.files[0];

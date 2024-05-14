@@ -27,6 +27,7 @@ import { CommonModule } from '@angular/common';
 export class MagazinesComponent implements OnInit {
   displayedColumns: string[] = ['title', 'author', 'publisher', 'date_published', 'action'];
   dataSource: any;
+  publishers: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -41,6 +42,14 @@ export class MagazinesComponent implements OnInit {
         this.dataSource = new MatTableDataSource<MagazineArticle>(res)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        
+        const publishers = new Set<string>();
+        res.forEach((x: any) => {
+            publishers.add(x.publisher);
+        });
+
+        // Convert the Set back to an array
+        this.publishers = Array.from(publishers);
       }
     })
   }
@@ -56,7 +65,7 @@ export class MagazinesComponent implements OnInit {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
-  // POP UPS FUNCTION
+  // POP UPS
   showPopup: boolean = false;
 
   closePopup() {
@@ -88,7 +97,7 @@ export class MagazinesComponent implements OnInit {
     });
   }
 
-  // SWEETALERT ARCHIVE POP UP
+  // ARCHIVE POP UP
   archiveBox(id: number){
     Swal.fire({
       title: "Archive Book",
@@ -99,6 +108,13 @@ export class MagazinesComponent implements OnInit {
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.ds.delete('articles/process/' + id).subscribe({
@@ -109,6 +125,7 @@ export class MagazinesComponent implements OnInit {
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false,
             });
             this.getData();
           },
@@ -116,25 +133,57 @@ export class MagazinesComponent implements OnInit {
             Swal.fire({
               title: "Error",
               text: "Oops an error occured.",
-              icon: "error"
+              icon: "error",
+              scrollbarPadding: false,
             });
             console.log(err);
           }
         });
       };
     });
-  }
+  }  
 
+// FILTER DATA
+applyFilter(event: Event, type: string) {
 
-  // DATA FOR FILTERING
-  
+  const select = (document.getElementById('filter') as HTMLSelectElement).value;
+  const search = (document.getElementById('search') as HTMLInputElement).value;
+
+  console.log(select, search)
+    const titleFilterPredicate = (data: MagazineArticle, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: MagazineArticle, search: string): boolean => {
+      return data.authors.some((x: any) => {
+        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+      });
+    }
+
+    const publisherFilterPredicate = (data: MagazineArticle, select: string): boolean => {
+      return data.publisher === select || select === '';
+    }
+
+    const filterPredicate = (data: MagazineArticle): boolean => {
+      return (titleFilterPredicate(data, search) ||
+             authorFilterPredicate(data, search)) &&
+             publisherFilterPredicate(data, select);
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = {
+      search, 
+      select
+    };    
+}
 
 }
 
-// SAMPLE DATA FOR TABLE
+// DATA FOR TABLE
 export interface MagazineArticle {
   created_at: string;
   title: string;
+  authors: any;
   publisher: string;
   date_published: string;
   action: string;

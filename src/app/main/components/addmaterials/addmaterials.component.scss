@@ -1,23 +1,23 @@
-/* MAIN PADDING */
-// .main-content {
-//     justify-content: center;
-//     align-items: center;
-//     padding: 20px;
-//     margin-left: 70px;
-//     margin-right: 20px;
-// }
+/* MAIN PADDING  FOR RESPONSIVE */
+.main-content {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-left: 70px;
+    margin-right: 20px;
+}
 
-// @media screen and (min-width: 768px) {
-//     .main-content {
-//         margin-left: 220px;
-//         margin-right: 20px;
-//     }
-// }
+@media screen and (min-width: 1220px) {
+    .main-content {
+        margin-left: 190px;
+        margin-right: 20px;
+    }
+}
 /* END OF MAIN PADDING */
 
 /* Tabs */  
 .page-content {
-	max-width: 95%; 
+	max-width: 100%; 
 	margin: 5px 15px; 
 	background: #ffffff;
 }

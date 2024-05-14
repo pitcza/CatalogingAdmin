@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -16,22 +16,18 @@ import { DataService } from '../../../../../../../services/data.service';
   selector: 'app-journals',
   templateUrl: './journals.component.html',
   styleUrl: './journals.component.scss',
-  // standalone: true,
-  // imports: [
-  //   MatTableModule,
-  //   MatPaginatorModule
-  // ]
 })
 
-export class JournalsComponent implements AfterViewInit {
+export class JournalsComponent implements OnInit {
   displayedColumns: string[] = ['title', 'author', 'publisher', 'copyright', 'action'];
   dataSource: any;
+  publishers: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.getData();
   }
 
@@ -52,12 +48,19 @@ export class JournalsComponent implements AfterViewInit {
         this.dataSource = new MatTableDataSource<Journal>(res)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      }
+
+        const publishers = new Set<string>();
+        res.forEach((x: any) => {
+            publishers.add(x.publisher);
+        });
+
+        // Convert the Set back to an array
+        this.publishers = Array.from(publishers);
+        }
     })
   }
 
-  // POP UPS FUNCTION
-
+  // POP UPS
   showPopup: boolean = false;
 
   closePopup() {
@@ -101,6 +104,13 @@ export class JournalsComponent implements AfterViewInit {
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.ds.delete('periodicals/process/' + id).subscribe({
@@ -111,6 +121,7 @@ export class JournalsComponent implements AfterViewInit {
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false,
             });
             this.getData();
           },
@@ -122,6 +133,7 @@ export class JournalsComponent implements AfterViewInit {
               icon: "error",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false,
             });
           }
         })
@@ -130,16 +142,46 @@ export class JournalsComponent implements AfterViewInit {
   }
 
 
-  // DATA FOR FILTERING
-  
+  // FILTER DATA
+  applyFilter(event: Event, type: string) {
+
+    const select = (document.getElementById('filter') as HTMLSelectElement).value;
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+    console.log(select, search)
+      const titleFilterPredicate = (data: Journal, search: string): boolean => {
+        return data.title.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const authorFilterPredicate = (data: Journal, search: string): boolean => {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const publisherFilterPredicate = (data: Journal, select: string): boolean => {
+        return data.publisher === select || select === '';
+      }
+
+      const filterPredicate = (data: Journal): boolean => {
+        return (titleFilterPredicate(data, search) ||
+               authorFilterPredicate(data, search)) &&
+               publisherFilterPredicate(data, select);
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter = {
+        search, 
+        select
+      };    
+  }
 
 }
-
-// SAMPLE DATA FOR TABLES
 
 export interface Journal {
   created_at: string;
   title: string;
+  authors: any;
   publisher: string;
   copyright: string;
   action: string;

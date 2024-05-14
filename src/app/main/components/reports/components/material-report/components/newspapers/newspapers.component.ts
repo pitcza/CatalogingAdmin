@@ -7,8 +7,9 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-newspapers',
@@ -16,7 +17,8 @@ import { DataService } from '../../../../../../../services/data.service';
   styleUrls: ['./newspapers.component.scss'],
   standalone: true,
   imports: [
-
+    CommonModule,
+    MatSortModule,
     MatPaginatorModule,
     MatTableModule,
     MatFormFieldModule,
@@ -33,9 +35,7 @@ export class NewspapersComponent implements OnInit {
   @ViewChild(MatSort) sort !: MatSort;
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getData();
   }
 
   constructor(
@@ -50,12 +50,13 @@ export class NewspapersComponent implements OnInit {
   }
 
   protected getData() {
-    this.ds.get('books').subscribe({
+    this.ds.get('periodicals/type/newspaper').subscribe({
       next: (res: any) => {
-        return res;
+        this.dataSource = new MatTableDataSource<PeriodicElement>(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     })
-    return [];
   }
 }
 
@@ -65,8 +66,3 @@ export interface PeriodicElement {
   copyright: string;
   received: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {title: 'One Piece', author: 'Eiichiro Oda', copyright: '1999', received: '2024'}, 
-  ];
-

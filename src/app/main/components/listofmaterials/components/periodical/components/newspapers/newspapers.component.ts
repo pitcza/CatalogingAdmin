@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -10,29 +10,24 @@ import Swal from 'sweetalert2';
 
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PerioDetailsComponent } from '../perio-details/perio-details.component';
-import { DataSource } from '@angular/cdk/collections';
 import { DataService } from '../../../../../../../services/data.service';
 
 @Component({
   selector: 'app-newspapers',
   templateUrl: './newspapers.component.html',
-  styleUrl: './newspapers.component.scss',
-  // standalone: true,
-  // imports: [
-  //   MatTableModule,
-  //   MatPaginatorModule
-  // ]
+  styleUrl: './newspapers.component.scss'
 })
 
-export class NewspapersComponent implements AfterViewInit {
+export class NewspapersComponent implements OnInit {
   displayedColumns: string[] = ['title', 'author', 'publisher', 'copyright', 'action'];
   dataSource: any;
+  publishers: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.getData();
   }
 
@@ -52,12 +47,19 @@ export class NewspapersComponent implements AfterViewInit {
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<Newspaper>(res)
         this.dataSource.paginator = this.paginator;
+
+        const publishers = new Set<string>();
+        res.forEach((x: any) => {
+            publishers.add(x.publisher);
+        });
+
+        // Convert the Set back to an array
+        this.publishers = Array.from(publishers);
       }
     })
   }
 
-  // POP UPS FUNCTION
-
+  // POP UPS
   showPopup: boolean = false;
 
   closePopup() {
@@ -89,7 +91,7 @@ export class NewspapersComponent implements AfterViewInit {
     });
   }
 
-  // SWEETALERT ARCHIVE POP UP
+  // ARCHIVE POP UP
   archiveBox(id: number){
     Swal.fire({
       title: "Archive Newspaper",
@@ -100,6 +102,13 @@ export class NewspapersComponent implements AfterViewInit {
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.ds.delete('periodicals/process/' + id).subscribe({
@@ -110,6 +119,7 @@ export class NewspapersComponent implements AfterViewInit {
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false,
             });
             this.getData();
           },
@@ -121,24 +131,54 @@ export class NewspapersComponent implements AfterViewInit {
               icon: "error",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false,
             });
           }
         })
       }
     });
+  }  
+
+  // FILTER DATA
+  applyFilter(event: Event, type: string) {
+
+    const select = (document.getElementById('filter') as HTMLSelectElement).value;
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+    console.log(select, search)
+      const titleFilterPredicate = (data: Newspaper, search: string): boolean => {
+        return data.title.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const authorFilterPredicate = (data: Newspaper, search: string): boolean => {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const publisherFilterPredicate = (data: Newspaper, select: string): boolean => {
+        return data.publisher === select || select === '';
+      }
+
+      const filterPredicate = (data: Newspaper): boolean => {
+        return (titleFilterPredicate(data, search) ||
+               authorFilterPredicate(data, search)) &&
+               publisherFilterPredicate(data, select);
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter = {
+        search, 
+        select
+      };    
   }
 
-
-  // DATA FOR FILTERING
-  
-
 }
-
-// SAMPLE DATA FOR TABLES
 
 export interface Newspaper {
   created_at: string;
   title: string;
+  authors: any;
   publisher: string;
   copyright: string;
   action: string;

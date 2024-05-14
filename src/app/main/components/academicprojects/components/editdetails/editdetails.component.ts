@@ -127,11 +127,51 @@ export class EditdetailsComponent implements OnInit{
     return this.values.length >= 6;
   }
 
+  // ----- KEYWORDS FUNCTION ----- //
+  tags = [''];
+
+  removetag(i: any){
+    this.tags.splice(i, 1);
+  }
+
+  addtag(){
+    if (this.tags.length < 10) {
+      this.tags.push('');
+    }
+  }
+
+  updateTag(event: Event, j: number) {
+    let input = event.target as HTMLInputElement;
+    this.tags[j] = input.value;
+    console.log(this.tags)
+  }
+
+  TagMaxLimitReached(): boolean {
+    return this.values.length >= 10;
+  }
+
+  keywords: string[] = ['']; // Initialize with an empty author
+
+  addKeyword() {
+    this.keywords = [...this.keywords, '']; // Create a new array with the updated values
+  }
+
+  removeKeyword(index: number) {
+    this.keywords.splice(index, 1);
+    this.keywords = [...this.keywords]; // Create a new array with the updated values
+  }
+
+  // Track by function to minimize re-renders
+  trackByIndexTag(index: number, item: any): number {
+    return index;
+  }
+  // ----- END OF KEYWORDS FUNTION ----- // paano siya nga makukuha yng data
+
   closepopup() {
     this.ref.close('Closed using function');
   }
 
-  // SWEETALERT UPDATE POPUP
+  // UPDATE POPUP
   protected updateBox() {
     var form = document.getElementById('edit-form') as HTMLFormElement;
 
@@ -171,7 +211,15 @@ export class EditdetailsComponent implements OnInit{
           title: "Update successful!",
           text: "The changes have been saved.",
           icon: "success",
-          confirmButtonColor: "#777777",
+          confirmButtonColor: "#31A463",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          timer: 5000
         });
         this.ref.close('Changed Data');
       },
@@ -183,12 +231,19 @@ export class EditdetailsComponent implements OnInit{
           icon: 'error',
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
         });
       }
     });
   }
 
-  // SWEETALERT ARCHIVE POPUP
+  // ARCHIVE POPUP
   archiveBox(){
     Swal.fire({
       title: "Archive Project",
@@ -199,6 +254,13 @@ export class EditdetailsComponent implements OnInit{
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         this.ref.close('Closed using function');
@@ -208,6 +270,7 @@ export class EditdetailsComponent implements OnInit{
           icon: "success",
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
+          scrollbarPadding: false,
         });
       }
     });
@@ -224,6 +287,13 @@ export class EditdetailsComponent implements OnInit{
       cancelButtonText: 'No',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     }).then((result) => {
       if (result.isConfirmed) {
           this.ref.close('Closed using function');
@@ -233,6 +303,7 @@ export class EditdetailsComponent implements OnInit{
             showConfirmButton: false,
             timer: 2500,
             timerProgressBar: true,
+            scrollbarPadding: false,
             didOpen: (toast) => {
               toast.onmouseenter = Swal.stopTimer;
               toast.onmouseleave = Swal.resumeTimer;
@@ -240,7 +311,7 @@ export class EditdetailsComponent implements OnInit{
           });
           Toast.fire({
             icon: "error",
-            title: "Changes not saved."
+            title: "Changes not saved.",
           });
       }
     });

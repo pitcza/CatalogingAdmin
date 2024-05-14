@@ -32,32 +32,7 @@ export class EditArticleComponent implements OnInit{
     this.ref.close('Closed using function');
   }
 
-  // SWEETALERT UPDATE POPUP
-  // updateBox(){
-  //   Swal.fire({
-  //     title: "Update Details",
-  //     text: "Are you sure you want to update the article details?",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Yes',
-  //     cancelButtonText: 'Cancel',
-  //     confirmButtonColor: "#31A463",
-  //     cancelButtonColor: "#777777",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       this.ref.close('Closed using function');
-  //       Swal.fire({
-  //         title: "Update successful!",
-  //         text: "The changes have been saved.",
-  //         icon: "success",
-  //         confirmButtonText: 'Close',
-  //         confirmButtonColor: "#777777",
-  //       });
-  //     }
-  //   });
-  // }
-
-  // SWEETALERT ARCHIVE POPUP
+  // ARCHIVE POPUP
   archiveBox(){
     Swal.fire({
       title: "Archive Article",
@@ -68,6 +43,13 @@ export class EditArticleComponent implements OnInit{
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.ref.close('Closed using function');
@@ -77,6 +59,8 @@ export class EditArticleComponent implements OnInit{
           icon: "success",
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          timer: 5000,
         });
       }
     });
@@ -93,6 +77,13 @@ export class EditArticleComponent implements OnInit{
       cancelButtonText: 'No',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     }).then((result) => {
       if (result.isConfirmed) {
           this.ref.close('Closed using function');
@@ -153,7 +144,16 @@ export class EditArticleComponent implements OnInit{
           Swal.fire({
             title: "Update successful!",
             text: "The changes have been saved.",
-            icon: "success"
+            icon: "success",
+            confirmButtonColor: "#31A463",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            timer: 5000,
           });
           this.ref.close('Changed Data');
         },
@@ -165,6 +165,13 @@ export class EditArticleComponent implements OnInit{
             icon: 'error',
             confirmButtonText: 'Close',
             confirmButtonColor: "#777777",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            },
           });
         }
       });
@@ -176,6 +183,13 @@ export class EditArticleComponent implements OnInit{
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     });
   }
 }

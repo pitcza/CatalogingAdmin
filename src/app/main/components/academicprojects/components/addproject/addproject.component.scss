@@ -24,31 +24,30 @@
     color: white;
     top: 0;
     border-radius: 50px;
-    padding-left: 5px;
     font-size: 16px;
     width: 150px;
     height: 40px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.322);
+    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
     transition: .3s;
+    transform: translate(0px, 0px);
 }
 
 .head a {
-    padding: 8px;
+    padding: 10px;
     text-align: center;
     align-items: center;
 }
 
 .head .list:hover {
     box-shadow: 0px 8px 15px -10px rgb(125, 125, 125);
+    transform: translate(0px, -2px);
     background: var(--green-hover);
     cursor: pointer;
     text-decoration: none;
 }
-/* HEAD CONTENT */
+/* END OF HEAD CONTENT */
 
-
-/* FORM CONTENT */
-
+/* FORM CONTENT CONTAINER */
 .addproject {
     justify-content: center;
     padding: 40px 60px 40px 60px; 
@@ -61,29 +60,7 @@
     margin-bottom: 30px;
 }
 
-// KEYWORDS
-// .input-column2 input {
-//     font-family: 'Montserrat';
-//     position: absolute;
-//     width: 1025px;
-//     height: 50px;
-//     outline: none;
-//     font-size: 15px;
-//     padding: 10px;
-//     margin-top: 10px;
-//     margin-bottom: 20px;
-//     border-radius: 5px;
-//     border: 1px solid #000;
-//     background: transparent;
-//     transition: 0.1s ease;
-// }
-
-// .input-column2 .multi-item {
-//     position: relative;
-//     display: inline;
-// }
-
-// FORMS INPUT SCSS
+// ----- FORM INPUT SCSS ----- //
 .input_field {
     padding-bottom: 30px;
 }
@@ -98,6 +75,7 @@
     flex-basis: 100%;
 }
 
+// MAIN INPUT STYLE
 .input-row .txt_field, .input-row .txt_field_short {
     position: relative;
     margin: 1.3rem 0;
@@ -205,9 +183,8 @@
 .txt_field_short .inputtxt:focus ~ span::before {
     width: 100%;
 }
-// SHORT INPUT FIELD
 
-// INPUT DATE
+// LABEL IF NAKATAAS NA AGAD
 .txt_field .datelabel, .txt_field .labelline1 {
     top: 7px;
     font-size: 12px;
@@ -217,10 +194,9 @@
     left: 10px;
 }
 
-.txt_field input[type="date"]:focus ~ .datelabel, .txt_field .inputtxt:focus ~ .labelline1 {
+.txt_field input[type="date"]:focus ~ .datelabel, .txt_field input[type="file"]:focus ~ .uploadlabel, .txt_field .inputtxt:focus ~ .labelline1 {
     color: var(--main-green);
 }
-// INPUT DATE 
 
 // SELECT OPTION
 select {
@@ -238,9 +214,16 @@ select {
 option {
     background-color: var(--primary-color);
 }
-// SELECT OPTION
 
-// ADD MULTIPLE AUTHOR
+// ADD MULTIPLE AUTHOR CONTENT
+.author-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    column-gap: 1.5rem;
+    width: 100%;
+    z-index: 1;
+}
+
 .input-row p {
     position: absolute;
     padding-top: 85px;
@@ -253,10 +236,6 @@ option {
 .input-row .multiple-author {
     position: relative;
     flex-basis: 100%;
-}
-
-.txt_field #author {
-    padding-right: 45px;
 }
 
 .input-row .add-author {
@@ -272,22 +251,33 @@ option {
     outline: none;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-row .add-author:hover {
+    background-color: var(--green-hover);
 }
 
 .input-row .removebtn {
-    position: absolute;
-    font-size: 30px;
-    color: var(--cancel-btn);
-    background-color: transparent;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    top: 0;
-    right: 0;
-    margin: 35px 10px 0 0;
-    cursor: pointer;
+    display: none;
 }
-// ADD MULTIPLE AUTHOR
+
+.input-row .multiple-author:hover {
+    .removebtn {
+        display: flex;
+        position: absolute;
+        font-size: 30px;
+        color: var(--cancel-btn);
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        top: 0;
+        right: 0;
+        margin: 35px 10px 0 0;
+        cursor: pointer;
+    }
+}
 
 // INPUT FILE LABEL AND BUTTON
 .txt_field .uploadlabel {
@@ -299,10 +289,6 @@ option {
     color: var(--input-border);
     position: absolute;
     left: 10px;
-}
-
-.txt_field input[type="file"]:focus ~ .uploadlabel {
-    color: var(--main-green);
 }
 
 input[type="file"]::file-selector-button {
@@ -321,13 +307,13 @@ input[type="file"]::file-selector-button {
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
     transition: background-color 200ms;
 }
-// INPUT FILE LABEL AND BUTTON
 
-// TEXTAREA
+// TEXTAREA 
 .input-row .txtarea {
     flex-basis: 100%;
     position: relative;
     margin-top: 1.5rem;
+    margin-bottom: 1.3rem;
 }
 
 .txtarea textarea {
@@ -380,9 +366,73 @@ input[type="file"]::file-selector-button {
     color: var(--main-green);
     letter-spacing: 0.5px;
 }
-// TEXTAREA
 
-// BUTTONS
+// KEYWORDS CONTENT
+.keywords-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    column-gap: 1.5rem;
+    width: 100%;
+    z-index: 1;
+}
+
+.input-row #keywords {
+    position: absolute;
+    padding-top: 85px;
+    font-size: 12px;
+    font-weight: 500;
+    padding-left: 10px;
+    opacity: 70%;
+}
+
+.input-row .keywords {
+    position: relative;
+    flex-basis: 100%;
+}
+
+.input-row .add-keyword {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-top: 1.3rem;
+    height: 60px;
+    width: 70px;
+    background-color: var(--main-green);
+    color: var(--primary-color);
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-row .add-keyword:hover {
+    background-color: var(--green-hover);
+}
+
+.input-row .removetag {
+    display: none;
+}
+
+.input-row .keywords:hover {
+    .removetag {
+        display: flex;
+        position: absolute;
+        font-size: 30px;
+        color: var(--cancel-btn);
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        top: 0;
+        right: 0;
+        margin: 35px 10px 0 0;
+        cursor: pointer;
+    }
+}
+// ----- END OF FORM INPUT SCSS ----- //
+
+// BUTTONS //
 .buttons {
     display: flex;
     justify-content: center;
@@ -406,7 +456,6 @@ input[type="file"]::file-selector-button {
     cursor: pointer;
 }
 
-
 .buttons .add {
     background-color: var(--main-green);
 }
@@ -421,4 +470,15 @@ input[type="file"]::file-selector-button {
 
 .buttons .cancel:hover {
     background-color: var(--cancel-hover);
+}
+// END OF BUTTONS //
+
+// RESPONSIVE EWAN //
+@media screen and (max-width: 1020px) {
+    #no-add-function {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        column-gap: 1.5rem;
+        width: 100%;
+    }
 }

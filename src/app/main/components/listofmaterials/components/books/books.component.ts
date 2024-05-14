@@ -25,13 +25,11 @@ import { filter } from 'rxjs';
   styleUrl: './books.component.scss',
   standalone: true,
   imports: [
-    MatFormFieldModule,
     MatCardModule,
     MatTableModule, 
     MatPaginatorModule, 
     MatFormFieldModule, 
     MatSortModule,
-    MatCardModule,
     DatePipe,
     CommonModule
   ],
@@ -66,8 +64,7 @@ export class BooksComponent implements OnInit {
   protected getData() {
     this.ds.get('books').subscribe({
       next: (res: any) =>  {
-        this.materials = res;
-        console.log(res)
+        this.materials = res;        
         this.dataSource = new MatTableDataSource<BookElement, MatPaginator>(this.materials);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -84,7 +81,6 @@ export class BooksComponent implements OnInit {
   // Filtering 
   applyFilter(event: Event, type: string) {
 
-    const select = (document.getElementById('filter') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
 
       const titleFilterPredicate = (data: BookElement, search: string): boolean => {
@@ -92,29 +88,21 @@ export class BooksComponent implements OnInit {
       }
 
       const authorFilterPredicate = (data: BookElement, search: string): boolean => {
-        return data.author.toLowerCase().includes(search.toLowerCase());
-      }
-      
-      const locationFilterPredicate = (data: BookElement, select: string): boolean => {
-        return data.location.location === select || select === '';
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
       }
 
       const filterPredicate = (data: BookElement): boolean => {
         return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search)) &&
-               locationFilterPredicate(data, select);
+               authorFilterPredicate(data, search)) 
       };
       
       this.dataSource.filterPredicate = filterPredicate;
-      if(type === 'filter')
-        this.dataSource.filter = select;
-      else if(type === 'search')
-        this.dataSource.filter = search;
-    
+      this.dataSource.filter = search;
   }
 
   // SWEETALERT ARCHIVE POPUP
-
   archiveBox(id: any){
     Swal.fire({
       title: "Archive Book",
@@ -125,6 +113,13 @@ export class BooksComponent implements OnInit {
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         this.ds.delete('books/process/' + id).subscribe({
@@ -135,6 +130,7 @@ export class BooksComponent implements OnInit {
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false
             });
             this.getData();
           },
@@ -142,7 +138,8 @@ export class BooksComponent implements OnInit {
             Swal.fire({
               title: "Error",
               text: "Oops an error occured.",
-              icon: "error"
+              icon: "error",
+              scrollbarPadding: false
             });
             console.log(err);
           }
@@ -193,7 +190,7 @@ export class BooksComponent implements OnInit {
 export interface BookElement {
   created_at: Date;
   title: string;
-  author: string;
+  authors: any;
   location: any;
   copyright: Date;
   date_published: Date;

@@ -78,7 +78,7 @@ export class ListofprojectsComponent implements OnInit {
     this.isLoading = true;
     this.ds.get('projects').subscribe((res: any) => {
       this.projects = res;
-      console.log(res)
+      console.log(this.projects)
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -128,11 +128,13 @@ export class ListofprojectsComponent implements OnInit {
     }
 
     const titleFilterPredicate = (data: Project, search: string): boolean => {
-      return data.title.toLowerCase().includes(search.toLowerCase());
+      return data.title.toLowerCase().trim().includes(search.toLowerCase().trim());
     } 
 
     const authorFilterPredicate = (data: Project, search: string): boolean => {
-      return data.projectAuthors.some((author: any) => author.name.toLowerCase().includes(search.toLowerCase()));
+      return data.authors.some((x: any) => {
+        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+      });
     } 
     
     const departmentFilterPredicate = (data: Project, selectDepartment: string): boolean => {
@@ -215,6 +217,14 @@ export class ListofprojectsComponent implements OnInit {
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      position: 'center',
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         this.ds.delete('projects/process/' + id).subscribe({
@@ -225,6 +235,7 @@ export class ListofprojectsComponent implements OnInit {
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false
             });
             this.getData();
           },
@@ -244,7 +255,7 @@ export class ListofprojectsComponent implements OnInit {
 
 export interface Project {
   created_at: string;
-  projectAuthors: any;
+  authors: any;
   program: any;
   category: string;
   title: string;

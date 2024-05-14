@@ -1,25 +1,21 @@
-/* MAIN PADDING */
-// main {
-//     justify-content: center;
-//     align-items: center;
-//     padding: 20px;
-//     margin-left: 70px;
-// }
-
-// @media screen and (min-width: 768px) {
-//     main {
-//         margin-left: 220px;
-//     }
-// }
-/* END OF MAIN PADDING */
-
-.content {
-  justify-content: center;
-  align-items: center;
-  padding: 10px 30px 20px 20px;
+/* MAIN PADDING FOR RESPONSIVE */
+main {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-left: 70px;
+    margin-right: 20px;
 }
 
-/* HEAD CONTENT */
+@media screen and (min-width: 1220px) {
+    main {
+        margin-left: 220px;
+        margin-right: 20px;
+    }
+}
+/* END OF MAIN PADDING */
+
+// HEAD CONTENT //
 .head {
     display: flex;
     justify-content: space-between;
@@ -27,10 +23,12 @@
 }
 
 .head h1 {
+    margin-top: 10px;
     font-weight: 700;
     font-size: 25px;
 }
 
+// DATE FILTER
 .datefilter {
     gap: 1rem;
     display: flex;
@@ -90,115 +88,6 @@
     background-color: var(--red-hover);
 }
 
-
-
-.head a {
-    text-align: center;
-    align-items: center;
-    padding-top: 5px;
-}
-
-.historylogs {
-    border-radius: 5px;
-    padding: 30px;
-    margin-top: 30px;
-    background: var(--primary-color);
-    width: 100%;
-    height: auto;
-    margin-bottom: 50px;
-    box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.322);
-    border: 0.5px solid var(--table-border);
-}
-
-.table-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.table-filters {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.table-filters select {
-    background: var(--primary-color);
-    font-family: 'Montserrat';
-    padding: 5px;
-    font-size: 14px;
-    font-weight: 400;
-    width: 12em;
-    height: 2.5em;
-    border: 1px solid var(--table-border);
-    border-radius: 7px;
-}
-
-.table-filters option {
-    padding: 30px;
-    margin: 30px;
-}
-
-.table-head input[type=text] {
-    font-family: 'Montserrat';
-    padding: 5px;
-    font-size: 14px;
-    font-weight: 400;
-    width: 250px;
-    padding: 12px 16px;
-    height: 2.3em;
-    border: none;
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
-}
-
-input:focus{
-    outline: none;
-}
-
-.table-head .search-container {
-    display: flex;
-    align-items: center;
-    border-radius: 7px;
-    height: 2.5em;
-    border: 1px solid var(--table-border);
-    background-color: var(--primary-color);
-}
-
-.table-head .search-container button {
-    height: 2.5em;
-    width: 2.5em;
-    border: 1px solid var(--table-border);
-    background: var(--main-green);
-    color: var(--primary-color);
-    border-top-right-radius: 7px;
-    border-bottom-right-radius: 7px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.table-head .search-container button:hover {
-    background: var(--green-hover);
-}
-
-@media screen and (max-width: 600px) {
-    .table-head .search-container {
-    float: none;
-    }
-    .table-head a, .table-head input[type=text], .topnav .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-    }
-    .table-head input[type=text] {
-    border: 1px solid #ccc;  
-    }
-}
-
 /*
 .table-content {
     border-radius: 5px;
@@ -216,12 +105,11 @@ input:focus{
 */
 
 .table-content {
-    margin-top: 25px;
+    margin-top: 20px;
     margin-bottom: 30px;
 }
 
-/* table */
-
+// TABLE STYLE CONTENT //
 table {
     border-radius: 5px;
     border: 1px solid var(--table-border);
@@ -250,17 +138,18 @@ table tr:hover{
 }
 
 table td:nth-child(1) {
-    min-width: 100px;
-    max-width: 100px;
+    width: 150px;
+    max-width: 200px;
 }
 
 table td:nth-child(2) {
-    min-width: 100px;
-    max-width: 100px;
+    width: 100px;
+    max-width: 150px;
 }
 
 table td:nth-child(3) {
-    max-width: 200px;
+    min-width: 200px;
+    max-width: 300px;
 }
 
 table td:nth-child(4) {
@@ -275,6 +164,7 @@ table td:nth-child(5) {
 mat-paginator {
     background-color: var(--primary-color);
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 16px;
     border: 1px solid var(--table-border);
 }
+// END OF TABLE STYLE CONTENT //

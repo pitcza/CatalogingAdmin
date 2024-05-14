@@ -12,6 +12,14 @@
     margin-bottom: 20px;
 }
 
+.tbl-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    padding-left:30px;
+}
+
 @media screen and (max-width: 600px) {
     .table-head .search-container {
     float: none;

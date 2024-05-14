@@ -44,6 +44,13 @@ export class BookDetailsPopupComponent {
       cancelButtonText: 'Cancel',
       confirmButtonColor: "#AB0E0E",
       cancelButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.ds.delete('books/process/' + this.data.details.id).subscribe({
@@ -54,6 +61,8 @@ export class BookDetailsPopupComponent {
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              timer: 5000
             });
             this.ref.close('Changed Data');
           },
@@ -61,7 +70,14 @@ export class BookDetailsPopupComponent {
             Swal.fire({
               title: "Error",
               text: "Oops an error occured.",
-              icon: "error"
+              icon: "error",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
             });
             console.log(err);
           }
