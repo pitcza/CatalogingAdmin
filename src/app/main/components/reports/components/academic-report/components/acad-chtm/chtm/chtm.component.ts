@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { DataService } from '../../../..../../../../../../../services/data.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-chtm',
@@ -25,6 +26,10 @@ import { DataService } from '../../../..../../../../../../../services/data.servi
   ],
 })
 export class ChtmComponent implements OnInit {
+  type: any;
+  title: any;
+  published: any;
+  added: any;
   navigateToAbout() {
   throw new Error('Method not implemented.');
   }
@@ -60,7 +65,47 @@ export class ChtmComponent implements OnInit {
       })
       return [];
     }
+    // Filtering 
+  applyFilter(event: Event, type: string) {
+
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+      const typeFilterPredicate = (data: ChtmComponent, search: string): boolean => {
+        return data.type.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const titleFilterPredicate = (data: ChtmComponent, search: string): boolean => {
+        return data.title.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const publishedFilterPredicate = (data: ChtmComponent, search: string): boolean => {
+        return data.published.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const addedFilterPredicate = (data: ChtmComponent, search: string): boolean => {
+        return data.added.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const filterPredicate = (data: ChtmComponent): boolean => {
+        return (typeFilterPredicate(data, search) ||
+                titleFilterPredicate(data, search));
+                publishedFilterPredicate(data, search);
+                addedFilterPredicate(data, search);
+
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter = search;
   }
+}
 
   export interface PeriodicElement {
     type: string,

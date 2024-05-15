@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { DataService } from '../../../../../../../../services/data.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-gc',
@@ -16,7 +17,7 @@ import { DataService } from '../../../../../../../../services/data.service';
   styleUrls: ['./gc.component.scss'],
   standalone: true, 
   imports: [
-
+    
     MatPaginatorModule,
     MatTableModule,
     MatFormFieldModule,
@@ -31,6 +32,11 @@ export class GcComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
+  department: any;
+  type: any;
+  published: any;
+  added: any;
+  title: any;
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
@@ -56,6 +62,51 @@ export class GcComponent implements OnInit {
       }
     })
     return [];
+  }
+  // Filtering 
+  applyFilter(event: Event, type: string) {
+
+    const search = (document.getElementById('search') as HTMLInputElement).value;
+
+      const departmentFilterPredicate = (data: GcComponent, search: string): boolean => {
+        return data.department.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const typeFilterPredicate = (data: GcComponent, search: string): boolean => {
+        return data.type.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const titleFilterPredicate = (data: GcComponent, search: string): boolean => {
+        return data.title.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const publishedFilterPredicate = (data: GcComponent, search: string): boolean => {
+        return data.published.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const addedFilterPredicate = (data: GcComponent, search: string): boolean => {
+        return data.added.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      }
+
+      const filterPredicate = (data: GcComponent): boolean => {
+        return (departmentFilterPredicate(data, search) ||
+               typeFilterPredicate(data, search));
+               titleFilterPredicate(data, search);
+               publishedFilterPredicate(data, search);
+               addedFilterPredicate(data, search);
+
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter = search;
   }
 }
 
