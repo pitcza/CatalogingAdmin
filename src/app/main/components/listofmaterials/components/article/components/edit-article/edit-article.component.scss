@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 999;
 }
 
 .details-content {
@@ -23,7 +23,18 @@
     overflow-y: auto;
 }
 
-// HEADER //
+// BODY
+.detailsbody {
+    height: auto; /* Adjust the height as needed */
+    justify-content: center; 
+}
+
+.details {
+    padding: 100px 50px 30px 55px;
+    padding-bottom: 10px;
+}
+
+// HEADER
 .detailsheader {
     display: flex;
     padding: 20px 30px 30px;
@@ -35,9 +46,10 @@
     z-index: 1;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.192);
     padding-bottom: 15px;
+    z-index: 3;
 }
 
-// CLOSE BUTTON
+// EXIT BUTTON
 .exit-button {
     position: relative;
     top: 0;
@@ -61,7 +73,7 @@ h1 {
     font-size: 25px;
     text-align: left;
 }
-// END OF HEADER //
+// END OF CONTAINER //
 
 // SCROLLBAR //
 .details-content::-webkit-scrollbar {
@@ -84,17 +96,6 @@ h1 {
 }
 // END OF SCROLLBAR //
 
-// BODY DETAILS //
-.detailsbody {
-    height: auto; /* Adjust the height as needed */
-    justify-content: center; 
-}
-
-.details {
-    padding: 100px 50px 30px 55px;
-    padding-bottom: 30px;
-}
-
 // ----- FORMS INPUT CONTENT ----- //
 .input_field {
     padding-bottom: 30px;
@@ -110,13 +111,13 @@ h1 {
     flex-basis: 100%;
 }
 
-.input-row .txt_field, .input-row .txt_field_short {
+.input-row .txt_field, .input-row .txt_field_short, .input-row .txt_field_shorter {
     position: relative;
     margin: 1.3rem 0;
 }
 
-// MAIN INPUT FIELD
-.txt_field .inputtxt, .txt_field_short .inputtxt, .txt_field input[type="date"] {
+// MAIN INPUT STYLE
+.txt_field .inputtxt, .txt_field_short .inputtxt, .txt_field_shorter .inputtxt, .txt_field input[type="date"] {
     font-family: 'Montserrat';
     width: 100%;
     padding-top: 19px;
@@ -129,22 +130,22 @@ h1 {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     outline: none;
-    border-bottom: 2px solid var(--input-border);
+    border-bottom: 2px solid var(--cancel-btn);
 }
 
-.txt_field .labelline, .txt_field_short .labelline {
+.txt_field .labelline, .txt_field_short .labelline, .txt_field_shorter .labelline {
     font-family: 'Montserrat';
     position: absolute;
     top: 50%;
     left: 10px;
-    color: var(--input-border);
+    color: var(--cancel-btn);
     transform: translateY(-50%);
     font-size: 15px;
     pointer-events: none;
     transition: .3s;
 }
 
-.txt_field span::before, .txt_field_short span::before {
+.txt_field span::before, .txt_field_short span::before, .txt_field_shorter span::before {
     content: '';
     position: absolute;
     top: 58px;
@@ -186,30 +187,100 @@ h1 {
     flex-basis: 47%;
 }
 
-.txt_field_short .inputtxt:hover{
+.input-row .txt_field_shorter {
+    flex-basis: 25%;
+}
+
+.txt_field_short .inputtxt:hover, .txt_field_shorter .inputtxt:hover{
     background-color: var(--input-hover);
 }
 
-.txt_field_short .inputtxt:valid ~ .labelline {
+.txt_field_short .inputtxt:valid ~ .labelline, .txt_field_shorter .inputtxt:valid ~ .labelline {
     top: 17px;
     font-size: 12px;
     letter-spacing: 0.5px;
     color: var(--cancel-btn);
 }
 
-.txt_field_short .inputtxt:focus ~ .labelline {
-    top: 17px;
-    font-size: 12px;
+.txt_field_short .inputtxt:focus ~ .labelline, .txt_field_shorter .inputtxt:focus ~ .labelline {
     color: var(--main-green);
-    letter-spacing: 0.5px;
 }
 
-.txt_field_short .inputtxt:focus ~ span::before {
+.txt_field_short .inputtxt:focus ~ span::before, .txt_field_shorter .inputtxt:focus ~ span::before {
     width: 100%;
+} 
+
+// ADD MULTIPLE AUTHOR STYLE CONTENTS
+.author-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    column-gap: 1.5rem;
+    width: 100%;
+    z-index: 1;
 }
 
-// LABEL IF NAKATAAS AGAD
-.txt_field .datelabel, .txt_field_short .datelabel {
+.input-row p {
+    position: absolute;
+    padding-top: 85px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: -18px;
+    padding-left: 10px;
+    opacity: 70%;
+}
+
+.input-row .multiple-author {
+    position: relative;
+    flex-basis: 100%;
+}
+
+.txt_field #author {
+    padding-right: 45px;
+}
+
+.input-row .add-author {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-top: 1.3rem;
+    height: 60px;
+    width: 70px;
+    background-color: var(--main-green);
+    color: var(--primary-color);
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-row .add-author:hover {
+    background-color: var(--green-hover);
+}
+
+.input-row .removebtn {
+    display: none;
+}
+
+.input-row .multiple-author:hover {
+    .removebtn {
+        display: flex;
+        position: absolute;
+        font-size: 30px;
+        color: var(--cancel-btn);
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        top: 0;
+        right: 0;
+        margin: 35px 10px 0 0;
+        cursor: pointer;
+    }
+}
+
+// LABEL IF NAKATAAS NA AGAD
+.txt_field_short .datelabel, .txt_field_short .labelline1  {
     top: 7px;
     font-size: 12px;
     letter-spacing: 0.5px;
@@ -218,7 +289,7 @@ h1 {
     left: 10px;
 }
 
-.txt_field input[type="date"]:focus ~ .datelabel, .txt_field_short input[type="date"]:focus ~ .datelabel, .txt_field input[type="file"]:focus ~ .uploadlabel {
+.txt_field_short input[type="date"]:focus ~ .datelabel, .txt_field input[type="file"]:focus ~ .uploadlabel, .txt_field_short .inputtxt:focus ~ .labelline1 {
     color: var(--main-green);
 }
 
@@ -237,6 +308,70 @@ select {
 
 option {
     background-color: var(--primary-color);
+}
+
+// ADD MULTIPLE AUTHOR STYLE CONTENTS
+.author-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    column-gap: 1.5rem;
+    width: 100%;
+    z-index: 1;
+}
+
+.input-row p {
+    position: absolute;
+    padding-top: 85px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: -18px;
+    padding-left: 10px;
+    opacity: 70%;
+}
+
+.input-row .multiple-author {
+    position: relative;
+    flex-basis: 100%;
+}
+
+.txt_field #author {
+    padding-right: 45px;
+}
+
+.input-row .add-author {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-top: 1.3rem;
+    height: 60px;
+    width: 70px;
+    background-color: var(--main-green);
+    color: var(--primary-color);
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+.input-row .removebtn {
+    display: none;
+}
+
+.input-row .multiple-author:hover {
+    .removebtn {
+        display: flex;
+        position: absolute;
+        font-size: 30px;
+        color: var(--cancel-btn);
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        top: 0;
+        right: 0;
+        margin: 35px 10px 0 0;
+        cursor: pointer;
+    }
 }
 
 // INPUT FILE LABEL AND BUTTON
@@ -260,7 +395,7 @@ input[type="file"]::file-selector-button {
     left: 0;
     margin-left: -0px;
     width: 100px;
-    height: 60px;
+    height: 58.5px;
     cursor: pointer;
     background-color: var(--main-green);
     border: none;
@@ -268,12 +403,12 @@ input[type="file"]::file-selector-button {
     transition: background-color 200ms;
 }
 
-// TEXTAREA
+// TEXTAREA 
 .input-row .txtarea {
     flex-basis: 100%;
     position: relative;
     margin-top: 1.5rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.3rem;
 }
 
 .txtarea textarea {
@@ -317,17 +452,20 @@ input[type="file"]::file-selector-button {
     top: 17px;
     font-size: 12px;
     letter-spacing: 0.5px;
-    color: var(--cancel-btn);
+    color: var(--input-border);
 }
 
 .txtarea textarea:focus ~ .labelline1 {
+    top: 17px;
+    font-size: 12px;
     color: var(--main-green);
+    letter-spacing: 0.5px;
 }
-// ----- END OF FORMS INPUT CONTENT ----- //
+// ----- END FORMS INPUT CONTENT ----- //
 
 // BUTTONS //
 .button-container {
-    margin: -30px 30px 30px 0px;
+    margin: -10px 30px 30px 0px;
     display: flex;
     justify-content: flex-end;
 }

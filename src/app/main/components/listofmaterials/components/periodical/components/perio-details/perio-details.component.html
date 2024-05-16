@@ -20,16 +20,13 @@
                                 <h2> Type of Material: </h2> <p> {{ data.details.type | titlecase}} </p>
                             </span>
                             <span>
-                                <h2> Language: </h2> <p> {{ data.details.language | titlecase }} </p>
+                                <h2> Author: </h2> <p> {{ data.details.author }} </p>
                             </span>
                             <span>
                                 <h2> Publisher: </h2> <p> {{ data.details.publisher }} </p>
                             </span>
                             <span>
                                 <h2> Publication Date: </h2> <p> {{ data.details.date_published | date: 'mediumDate' }} </p>
-                            </span>
-                            <span>
-                                <h2> Author: </h2> <p> {{ data.details.author }} </p>
                             </span>
                             <span>
                                 <h2> Copyright: </h2> <p> {{ data.details.copyright }} </p>
@@ -42,6 +39,9 @@
                             </span>
                             <span>
                                 <h2> Issue: </h2> <p> {{ data.details.issue != null ? data.details.issue : 'N/A' }} </p>
+                            </span>
+                            <span>
+                                <h2> Language: </h2> <p> {{ data.details.language | titlecase }} </p>
                             </span>
                             <span>
                                 <h2> Date Received: </h2> <p> {{ data.details.receive_date | date: 'mediumDate' }} </p>
