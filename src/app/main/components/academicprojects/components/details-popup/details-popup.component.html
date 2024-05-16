@@ -9,51 +9,55 @@
                 </div>
                 
                 <div class="detailsbody">
-                <div class="details">
-                    <div class="projectdetails">
-                            <img alt="project image" [src]="data.details.image != null ? data.details.image : errorImage">
-                        <span>
-                            <h2> Date Published: </h2> <p> {{ data.details.date_published | date:'longDate' }} </p>
-                        </span>
+                <div class="body">
+                    <div class="details">
+                        <div class="projectdetails">
+                            <img class="cover" alt="project image" [src]="data.details.image != null ? data.details.image : errorImage">
+                        </div>
+
+                        <div class="projectdetails">
+                            <span class="prj-title">
+                                <h2> Title: </h2> <p> {{ data.details.title }} </p>
+                            </span>
+                            <span>
+                                <h2> Authors: </h2> 
+                                <p> <ng-container *ngFor="let x of data.details.authors; let last = last;">
+                                    {{ x     }} {{ !last ? ',' : '' }} <br>
+                                </ng-container></p>
+                            </span>
+                            <span>
+                                <h2> Date Published: </h2> <p> {{ data.details.date_published | date:'longDate' }} </p>
+                            </span>
+                            <span>
+                                <h2> College: </h2> <p> {{ data.details.department }} </p>
+                            </span>
+                            <span>
+                                <h2> Program: </h2> <p> {{ data.details.program }} </p>
+                            </span>
+                            <span>
+                                <h2> Category: </h2> <p> {{ data.details.category | titlecase }} </p>
+                            </span>
+                            <span>
+                                <h2> Language: </h2> <p> {{ data.details.language }} </p>
+                            </span>
+                            <span>
+                                <h2> Abstract: </h2>
+                            </span>
+                            <span>
+                                <p> {{ data.details.abstract }}</p>
+                            </span>
+                            <span>
+                                <h2> Keywords: </h2> <p> try, try, try, try ulit, ewan, try </p>
+                            </span>
+                        </div>
                     </div>
 
-                    <div class="projectdetails">
-                        <span>
-                            <h2> Title: </h2> <p> {{ data.details.title }} </p>
-                        </span>
-                        <span>
-                            <h2> Authors: </h2> 
-                            <p> <ng-container *ngFor="let x of data.details.authors; let last = last;">
-                                {{ x     }} {{ !last ? ',' : '' }} <br>
-                            </ng-container></p>
-                        </span>
-                        <span>
-                            <h2> College: </h2> <p> {{ data.details.department }} </p>
-                        </span>
-                        <span>
-                            <h2> Program: </h2> <p> {{ data.details.program }} </p>
-                        </span>
-                        <span>
-                            <h2> Category: </h2> <p> {{ data.details.category | titlecase }} </p>
-                        </span>
-                        <span>
-                            <h2> Language: </h2> <p> {{ data.details.language }} </p>
-                        </span>
-                        <span>
-                            <h2> Abstract: </h2>
-                        </span>
-                        <span>
-                            <p> {{ data.details.abstract }} </p>
-                        </span>
-                        <span>
-                            <h2> Keywords: </h2> <p> try, try, try, try ulit, ewan, try </p>
-                        </span>
+                </div>
+
+                    <div class="button-container">
+                        <!--<button class="edit-btn"> Edit </button>-->
+                        <button class="delete-btn" (click)="archiveBox()"> Archive </button>
                     </div>
-                </div>
-                <div class="button-container">
-                    <!--<button class="edit-btn"> Edit </button>-->
-                    <button class="delete-btn" (click)="archiveBox()"> Archive </button>
-                </div>
                 
                 </div>
     

@@ -143,7 +143,7 @@ h1 {
     transition: .3s;
 }
 
-.txt_field span::before{
+.txt_field span::before, .txt_field_short span::before{
     content: '';
     position: absolute;
     top: 58px;
@@ -183,17 +183,6 @@ h1 {
 // SHORT INPUT FIELD
 .input-row .txt_field_short {
     flex-basis: 50%;
-}
-
-.txt_field_short span::before{
-    content: '';
-    position: absolute;
-    top: 58px;
-    left: 0;
-    width: 0%;
-    height: 2.5px;
-    background: var(--main-green);
-    transition: .3s;
 }
 
 .txt_field_short .inputtxt:hover{
@@ -353,7 +342,7 @@ input[type="file"]::file-selector-button {
     transition: background-color 200ms;
 }
 
-// TEXTAREA
+// TEXTAREA 
 .input-row .txtarea {
     flex-basis: 100%;
     position: relative;
@@ -413,12 +402,6 @@ input[type="file"]::file-selector-button {
 }
 
 // KEYWORDS CONTENT
-.wrap {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
 .keywords-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
