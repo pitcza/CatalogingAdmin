@@ -46,6 +46,7 @@
     z-index: 1;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.192);
     padding-bottom: 15px;
+    z-index: 3;
 }
 
 // EXIT BUTTON
@@ -110,13 +111,13 @@ h1 {
     flex-basis: 100%;
 }
 
-.input-row .txt_field, .input-row .txt_field_short {
+.input-row .txt_field, .input-row .txt_field_short, .input-row .txt_field_shorter {
     position: relative;
     margin: 1.3rem 0;
 }
 
 // MAIN INPUT STYLE
-.txt_field .inputtxt, .txt_field_short .inputtxt, .txt_field input[type="date"] {
+.txt_field .inputtxt, .txt_field_short .inputtxt, .txt_field_shorter .inputtxt, .txt_field input[type="date"] {
     font-family: 'Montserrat';
     width: 100%;
     padding-top: 19px;
@@ -132,7 +133,7 @@ h1 {
     border-bottom: 2px solid var(--cancel-btn);
 }
 
-.txt_field .labelline, .txt_field_short .labelline {
+.txt_field .labelline, .txt_field_short .labelline, .txt_field_shorter .labelline {
     font-family: 'Montserrat';
     position: absolute;
     top: 50%;
@@ -144,7 +145,7 @@ h1 {
     transition: .3s;
 }
 
-.txt_field span::before, .txt_field_short span::before {
+.txt_field span::before, .txt_field_short span::before, .txt_field_shorter span::before {
     content: '';
     position: absolute;
     top: 58px;
@@ -186,27 +187,97 @@ h1 {
     flex-basis: 47%;
 }
 
-.txt_field_short .inputtxt:hover{
+.input-row .txt_field_shorter {
+    flex-basis: 25%;
+}
+
+.txt_field_short .inputtxt:hover, .txt_field_shorter .inputtxt:hover{
     background-color: var(--input-hover);
 }
 
-.txt_field_short .inputtxt:valid ~ .labelline {
+.txt_field_short .inputtxt:valid ~ .labelline, .txt_field_shorter .inputtxt:valid ~ .labelline {
     top: 17px;
     font-size: 12px;
     letter-spacing: 0.5px;
     color: var(--cancel-btn);
 }
 
-.txt_field_short .inputtxt:focus ~ .labelline {
-    top: 17px;
-    font-size: 12px;
+.txt_field_short .inputtxt:focus ~ .labelline, .txt_field_shorter .inputtxt:focus ~ .labelline {
     color: var(--main-green);
-    letter-spacing: 0.5px;
 }
 
-.txt_field_short .inputtxt:focus ~ span::before {
+.txt_field_short .inputtxt:focus ~ span::before, .txt_field_shorter .inputtxt:focus ~ span::before {
     width: 100%;
 } 
+
+// ADD MULTIPLE AUTHOR STYLE CONTENTS
+.author-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    column-gap: 1.5rem;
+    width: 100%;
+    z-index: 1;
+}
+
+.input-row p {
+    position: absolute;
+    padding-top: 85px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: -18px;
+    padding-left: 10px;
+    opacity: 70%;
+}
+
+.input-row .multiple-author {
+    position: relative;
+    flex-basis: 100%;
+}
+
+.txt_field #author {
+    padding-right: 45px;
+}
+
+.input-row .add-author {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-top: 1.3rem;
+    height: 60px;
+    width: 70px;
+    background-color: var(--main-green);
+    color: var(--primary-color);
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-row .add-author:hover {
+    background-color: var(--green-hover);
+}
+
+.input-row .removebtn {
+    display: none;
+}
+
+.input-row .multiple-author:hover {
+    .removebtn {
+        display: flex;
+        position: absolute;
+        font-size: 30px;
+        color: var(--cancel-btn);
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        top: 0;
+        right: 0;
+        margin: 35px 10px 0 0;
+        cursor: pointer;
+    }
+}
 
 // LABEL IF NAKATAAS NA AGAD
 .txt_field_short .datelabel, .txt_field_short .labelline1  {

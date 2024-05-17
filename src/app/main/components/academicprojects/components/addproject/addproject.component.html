@@ -14,6 +14,11 @@
             <form id="project-form">
                 <div class="input_field">                    
                     <div class="input-row" id="no-add-function">
+                        <!-- <div class="txt_field_short">
+                            <input class="inputtxt" type="text" name="id" required>
+                            <span></span>
+                            <div class="labelline"> Accession No. </div>
+                        </div> -->
                         <div class="txt_field_short">
                             <select class="inputtxt" id="filter-department" (change)="changedDepartment($event)">
                                 <option *ngFor="let x of departments; let i = index" [value] = "x" [selected]="i === 0">{{ x }}</option>
@@ -88,9 +93,22 @@
                         <div class="txt_field"> 
                             <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;"> 
                             <span></span>
-                            <div class="uploadlabel"> Upload Image </div>
+                            <div class="uploadlabel"> Project Cover </div>
                         </div>
                     </div>
+
+                    <!-- <div class="input-row" id="no-add-function">
+                        <div class="txt_field"> 
+                            <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="abstract_img" style="padding-left: 110px;"> 
+                            <span></span>
+                            <div class="uploadlabel"> Abstract </div>
+                        </div>
+                        <div class="txt_field"> 
+                            <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;"> 
+                            <span></span>
+                            <div class="uploadlabel"> Project Cover </div>
+                        </div>
+                    </div> -->
 
                     <div class="input-row">
                         <div class="txtarea">

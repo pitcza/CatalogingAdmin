@@ -22,7 +22,7 @@ export class PerioDetailsComponent implements OnInit {
   ) { }
 
   protected image: any;
-  errorImage = 'https://raw.githubusercontent.com/pitcza/sampleimages/main/NoImage.png';
+  errorImage = '../../../../../../assets/images/NoImage.png';
 
   ngOnInit(): void {
      

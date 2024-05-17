@@ -29,63 +29,78 @@ main {
 }
 
 // DATE FILTER
-.datefilter {
-    gap: 1rem;
+.input-row {
     display: flex;
-    justify-content: space-between;
-    width: 600px;
-    justify-content: center
+    justify-content: center;
+    column-gap: 1rem;
+    margin-top: 5px;
 }
 
-.datefilter .input-group {
-    flex-basis: 30%;
+.input-row .txt_field {
+    flex-basis: 100%;
 }
 
-.input-group input[type="date"] {
+.input-row .txt_field {
+    
+    position: relative;
+    margin: 0.1rem 0;
+}
+
+.txt_field {
+	font-size: 0.75rem;
+	font-weight: 400;
+	display: block;
+	margin-bottom: 0.2rem;
+    height: 2.5rem;
+	color: black;
+	border: 1px solid var(--table-border);
+	padding: 0.5rem 0.75rem;
+	border-radius: 10px;
+    display: flex;
+}
+
+label {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
     font-family: 'Montserrat';
-    width: 200px;
-    height: 35px;
-    outline: none;
-    font-size: 15px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-} 
-
-.labelline {
-    font-size: 13px;
-    color: #000000;
-    margin-left: 5px;
-    transition: 0.2s ease;
-}
-
-.head .filter {
-    margin-top: 20px;
-    align-items: center;
-    text-decoration: none;
-    color: white;
-    border-radius: 7px;
-    font-size: 16px;
-    width: 100px;
-    height: 35px;
-}
-
-#applyfilter {
+    color: var(--primary-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: -0px;
+    width: 80px;
+    height: 2.4rem;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: default;
     background-color: var(--main-green);
+    border: none;
+    transition: background-color 200ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#applyfilter:hover {
-    background-color: var(--green-hover);
+input {
+	font-family: 'Montserrat';
+	border: none;
+	border-radius: 0.25rem;
+	border: 1px solid transparent;
+	line-height: 1.5rem;
+    padding-left: 75px;
+	font-size: 1rem;
+	color: black;
+	width: 100%;
 }
 
-#resetfilter {
-    background-color: var(--red);
-}
-
-#resetfilter:hover {
-    background-color: var(--red-hover);
+input:focus {outline: none;}
+#ui-datepicker-div {
+	background-color: #fff;
+	box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
+	margin-top: 0.25rem;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
 }
 
 /*
@@ -133,7 +148,7 @@ th {
     letter-spacing: 0.8px;
 }
 
-table tr:hover{
+table tr:hover {
     background-color: var(--secondary-color);
 }
 

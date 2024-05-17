@@ -110,6 +110,43 @@ export class EditBookComponent implements OnInit{
     });
   }
 
+  // ----- AUTHORS ----- //
+  values = [''];
+
+  // Track by function to minimize re-renders
+  trackByIndex(index: number, item: any): number {
+    return index;
+  }
+
+  removeAuthor(event: Event) {
+    let targetElement = event.target;
+
+    // Get the author div
+    let element = ((targetElement as HTMLElement).parentNode)?.parentNode;
+    element?.parentNode?.removeChild(element);
+  }
+
+  removevalue(i: any){
+    this.values.splice(i, 1);
+  }
+
+  addvalue(){
+    if (this.values.length < 3) {
+      this.values.push('');
+    }
+    console.log(this.values)
+  }
+
+  updateValue($event: Event, index: number) {
+    // this.values[index] = $event.target.value;
+    console.log($event)
+  }
+
+  isMaxLimitReached(): boolean {
+    return this.values.length >= 3;
+  }
+  // ----- END OF AUTHORS ----- //
+
   protected updateBook() {
     var form = document.getElementById('edit-form') as HTMLFormElement;
 

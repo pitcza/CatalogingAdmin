@@ -85,14 +85,39 @@ h1 {
 
 // BODY DETAILS //
 .detailsbody {
-    padding: 50px 30px 10px 30px;
+    padding: 90px 30px 10px 30px;
     height: auto; /* Adjust the height as needed */
 }
 
 .details {
     display: flex;
     justify-content: space-between;
-    padding-top: 50px;
+}
+
+.details .material-title {
+    text-align: left;
+    padding: 15px;
+}
+
+.mat-title {
+    display: flex;
+    justify-content: center;
+}
+
+.mat-title .material-title {
+    text-align: left;
+    padding: 15px;
+}
+
+.material-title span {
+    display: flex;
+    padding-bottom: 5px;
+}
+
+.material-title h2 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
 }
 
 img {
@@ -116,6 +141,8 @@ img {
     font-size: 15px;
     font-weight: bold;
     padding-right: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .body-details p {

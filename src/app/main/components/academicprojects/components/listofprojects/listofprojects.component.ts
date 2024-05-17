@@ -182,10 +182,14 @@ export class ListofprojectsComponent implements OnInit {
   // POP UPS
   editProject(code: any) {
     this.Openpopup(code, 'Edit Project',EditdetailsComponent);
+    const scrollPosition = window.scrollY;
+    window.scrollTo(0, scrollPosition);
   }
 
   detailsProject(details: any) {
     this.Openpopup(details, 'Project Detail',DetailsPopupComponent);
+    const scrollPosition = window.scrollY;
+    window.scrollTo(0, scrollPosition);
   }
 
   Openpopup(details: any, title: any,component:any) {
