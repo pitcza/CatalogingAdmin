@@ -2,28 +2,26 @@
 .main-content {
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    margin-left: 70px;
-    margin-right: 20px;
+    padding-left: 30px;
+    padding-right: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 @media screen and (min-width: 1220px) {
     .main-content {
-        margin-left: 190px;
-        margin-right: 20px;
+        margin-left: 200px;
+        margin-right: 0;
     }
 }
 /* END OF MAIN PADDING */
 
-/* Tabs */  
+
+/****************************************** Tabs ****************************************/  
 .page-content {
-	max-width: 100%; 
-	margin: 5px 15px; 
+	min-width: 100%; 
 	background: #ffffff;
-}
-a {
-	color: #21D4FD; 
-	transition: all 0.3s;
+
 }
 
 .tabbed {
@@ -40,8 +38,9 @@ a {
 	display: flex;
 	align-items: stretch;
 	list-style: none;
-    width: 93.5%; /*changed*/ 
-    margin-left: 48px; /*changed*/
+    max-width: 100%;  
+    margin-left: 50px;
+    margin-right: 30px;
 	border-bottom: 3.5px solid #000000;
 }
 
@@ -49,14 +48,17 @@ a {
 	display: flex;
 	align-items: stretch;
 	list-style: none;
-    width: 93.5%; /*changed*/
+    margin-left: 50px;
+    max-width: 100%;  
+    margin-right: 30px;
 	color: #31A463;
 }
 
 .tab {
     margin-top: 5px;
-    width: 35%; /*changed*/
+    width: 100%; 
 }
+
 .tab > label {
     color: #000000;
 	display: block;
@@ -88,6 +90,8 @@ a {
     border-top-right-radius: 20px;
 	background: #31A463;
 	color: #ffffff;
+    width: 100%;
+    
 }
 
 .tabbed [type="radio"]:nth-of-type(1):checked ~ .tab-content:nth-of-type(1),
@@ -98,67 +102,73 @@ a {
 
 .tab-content {
 	display: none;
+    min-width: 98%; 
 	color: #777;
 }
 
+/********************************************* Form *************************************/
+
 /* For the Form bg  */ 
-
-.bookcontainer {
+.container {
+    justify-content: center;
+    padding-top: 60px;
+    padding-left: 80px;
+    padding-right: 80px;
+    min-width: fit-content;
+    justify-content: space-between;
     border-radius: 10px;
     -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
     -moz-box-shadow: 0 0 3px 3px #EEEEEE;
     box-shadow: 0 0 3px 3px #EEEEEE;
-    height: 875px;
-    width: 1135px;
-    padding-bottom: 200px;
-    margin-top: 50px;
-    margin-left: 48px;
-}
-.periocontainer {
-    border-radius: 10px;
-    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
-    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
-    box-shadow: 0 0 3px 3px #EEEEEE;
-    height: 875px;
-    width: 1135px;
-    padding-bottom: 200px;
-    margin-top: 50px;
-    margin-left: 48px;
-}
-.articontainer {
-    border-radius: 10px;
-    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
-    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
-    box-shadow: 0 0 3px 3px #EEEEEE;
-    height: 900px;
-    width: 1135px;
-    padding-bottom: 200px;
+    height: 825px;
     margin-top: 50px;
     margin-left: 48px;
 }
 
-/*Form*/
+.arti-container {
+    justify-content: center;
+    padding-top: 60px;
+    padding-left: 80px;
+    padding-right: 80px;
+    min-width: fit-content;
+    justify-content: space-between;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
+    -moz-box-shadow: 0 0 3px 3px #EEEEEE;
+    box-shadow: 0 0 3px 3px #EEEEEE;
+    height: 885px;
+    margin-top: 50px;
+    margin-left: 48px;
+}
 
 .tab-content {
     width: 500px; 
 }
 
-// Book Accession   
+// Book - Accession
 
-.entryarea {
-    position: relative;
-    height: 200px;
-    line-height: 25px;
+.input-row {
+    column-gap: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1.3rem;
+    
+}
+
+.input-row .entryarea1 {
+    flex-basis: 100%;
+}
+
+.input-row .entryarea {
+    flex-basis: 50%;
 }
 
 .entryarea input {
-    position: absolute;
-    width: 27.5%;
+    font-family: 'Montserrat';
+    width: 100%;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 65px;
-    margin-left: 75px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -171,8 +181,8 @@ a {
 
 .labelline {
     position: absolute;
-    margin-top: 97px;
-    margin-left: 90px;
+    margin-top: -27px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -185,20 +195,21 @@ a {
 .entryarea span::before {
     content: '';
     position: absolute;
-    top: 122px;
-    left: 75px;
-    width: 27.5%;
+    margin-left: -325px;
+    margin-top: 57px;
+    width: 21.3%;
     height: 2px;
     transition: .3s;
 }
 
 .entryarea input:focus ~ span::before {
-    width: 27.5%;
-    top: 122px;
-    left: 75px;
+    margin-left: -325px;
+    width: 21.3%;
+    margin-top: 57px;
     transition: .3s;
     background: #31A463;
 }
+
 
 /* Change Bg color when Hover */ 
 
@@ -208,28 +219,25 @@ a {
 
 /* Label float */ 
 .entryarea input:valid ~ .labelline {
-    margin-top: 80px;
+    margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
   
 .entryarea input:focus ~ .labelline {
-    margin-top: 80px;
+    margin-top: -42px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
 }
 
-// Book - Author  
 
 .entryarea1 input {
-    position: absolute;
-    width: 55.8%;
+    font-family: 'Montserrat';
+    width: 100%;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 65px;
-    margin-left: 425px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -238,13 +246,12 @@ a {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     outline: none;
-
 }
 
 .labelline1 {
-    position:absolute;
-    margin-top: 97px;
-    margin-left: 440px;
+    position: absolute;
+    margin-top: -27px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -252,25 +259,24 @@ a {
     transition: .3s;
 }
 
-
 /* Bottom Line when hover */ 
 
 .entryarea1 span::before {
     content: '';
-    width: 56%;
-    margin-top: 0;
-    margin-left: 350px;
+    position: absolute;
+    margin-left: -652px;
+    margin-top: 57px;
+    width: 42.9%;
     height: 2px;
     transition: .3s;
-    position: absolute;
 }
 
 .entryarea1 input:focus ~ span::before {
-    width: 56%;
-    margin-top: 0;
-    margin-left: 350px;
+    margin-left: -652px;
+    width: 42.9%;
+    margin-top: 57px;
     transition: .3s;
-    background-color: #31A463;
+    background: #31A463;
 }
 
 
@@ -281,106 +287,38 @@ a {
 }
 
 /* Label float */ 
-
 .entryarea1 input:valid ~ .labelline1 {
-    margin-top: 80px;
+    margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
   
 .entryarea1 input:focus ~ .labelline1 {
-    margin-top: 80px;
+    margin-top: -42px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
 }
 
 
-// Book - Title 
+// Book - Author 
 
-.entryarea_2 input {
-    position: absolute;
-    width: 64.7%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: -28px;
-    margin-left: 75px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
+.author-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    width: 100%;
+    padding-top: 30px;
+    gap: 1.3rem;
+    z-index: 1;
 }
-
-.labelline_2 {
-    position: absolute;
-    top: 57%;
-    margin-left: 90px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-
-/* Bottom Line when hover */ 
-
-.entryarea_2 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 29px;
-    margin-left: 75px;
-    width: 64.7%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.entryarea_2 input:focus ~ span::before {
-    width: 64.7%;
-    margin-top: 29px;
-    margin-left: 75px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea_2 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.entryarea_2 input:valid ~ .labelline_2 {
-    margin-top: -17px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea_2 input:focus ~ .labelline_2 {
-    margin-top: -17px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-
-// Book - Copyright 
 
 .entryarea2 input {
     position: absolute;
-    width: 20.2%;
+    margin-top: -25px;
+    width: 100%;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 77px;
-    margin-left: 76px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -394,8 +332,430 @@ a {
 
 .labelline2 {
     position: absolute;
+    margin-top: 6px;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+
+/* Bottom Line when hover */ 
+
+.entryarea2 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 32px;
+    width: 100%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea2 input:focus ~ span::before {
+    width: 100%;
+    margin-top: 32px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea2 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+
+.entryarea2 input:valid ~ .labelline2 {
+    margin-top: -10px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea2 input:focus ~ .labelline2 {
+    margin-top: -10px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+.input-row p {
+    position: absolute;
+    padding-top: 72px;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 70%;
+
+}
+
+.input-row .multiple-author {
+    position: relative;
+    flex-basis: 100%;
+    margin-top: 5px;
+}
+
+.addbtn .add-author {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    height: 60px;
+    width: 70px;
+    background-color: var(--main-green);
+    color: var(--primary-color);
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.input-row .add-author:hover {
+    background-color: var(--green-hover);
+}
+
+.input-row .removebtn {
+    display: none;
+}
+
+.input-row .multiple-author:hover {
+    .removebtn {
+        position: absolute;
+        font-size: 30px;
+        color: var(--cancel-btn);
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        top: 0;
+        right: 0;
+        margin: 15px 10px 0 0;
+        cursor: pointer;
+    }
+}
+
+// Book - Copyright
+
+.input-row1 {
+    column-gap: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: -15px;
+    
+}
+
+.input-row1 .entryarea3, .input-row1 .entryarea4, .input-row1 .entryarea5 {
+    flex-basis: 100%;
+}
+
+.entryarea3 select{
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 30px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline3 {
+    position: absolute;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea3 span::before {
+    content: '';
+    position: absolute;
+    margin-left: -319px;
+    margin-top: 87px;
+    width: 21%;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea3 select:focus ~ span::before {
+    margin-left: -319px;
+    width: 21%;
+    margin-top: 87px;
+    transition: .3s;
+    background: #31A463;
+}
+
+
+
+/* Change Bg color when Hover */ 
+
+.entryarea3 select:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea3 select:valid ~ .labelline3 {
+    margin-top: -42px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea3 select:focus ~ .labelline3 {
+    margin-top: -42px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+
+// Books - Volume 
+
+.entryarea4 input {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    margin-top: 30px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline4 {
+    position: relative;
+    margin-top: -29px;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea4 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 87px;
+    width: 20.99%;
+    margin-left: -319px;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea4 input:focus ~ span::before {
+    width: 20.99%;
+    margin-left: -319px;
+    margin-top: 87px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea4 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea4 input:valid ~ .labelline4 {
+    margin-top: -45px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea4 input:focus ~ .labelline4 {
+    margin-top: -45px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Books - Edition  
+
+.entryarea5 input {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 30px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline5 {
+    position: absolute;
+    margin-top: -29px;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea5 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 87px;
+    width: 20.99%;
+    margin-left: -319px;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea5 input:focus ~ span::before {
+    width: 20.99%;
+    margin-left: -319px;
+    margin-top: 87px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea5 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea5 input:valid ~ .labelline5 {
+    font-size: 12px;
+    margin-top: -45px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea5 input:focus ~ .labelline5 {
+    font-size: 12px;
+    margin-top: -45px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Date Purchased 
+
+.input-row1 .entryarea6, .input-row1 .entryarea7 {
+    flex-basis: 100%;
+}
+
+.entryarea7 input{
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 50px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline7 {
+    position: absolute;
+    margin-left: 16px;
+    margin-top: -42px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+    letter-spacing: 0.5px;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea7 span::before {
+    content: '';
+    position: absolute;
     margin-top: 107px;
-    margin-left: 92px;
+    width: 20.99%;
+    margin-left: -319px;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea7 input:focus ~ span::before {
+    width: 20.99%;
+    margin-left: -319px;
+    margin-top: 107px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea7 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea7 input:valid ~ .labelline7 {
+    margin-top: -42px;
+    font-size: 12px;
+}
+  
+.entryarea7 input:focus ~ .labelline7 {
+    margin-top: -42px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Book - Remarks 
+
+.entryarea6 input {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    margin-top: 50px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline6 {
+    position: relative;
+    margin-top: -29px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -405,153 +765,57 @@ a {
 
 /* Bottom Line when hover */ 
 
-// .entryarea2 span::before {
-//     content: '';
-//     position: absolute;
-//     margin-top: 134px;
-//     margin-left: 76px;
-//     width: 20.2%;
-//     height: 2.5px;
-//     transition: .3s;
-// }
-
-// .entryarea2 input:focus ~ span::before {
-//     width: 20.2%;
-//     margin-top: 134px;
-//     margin-left: 76px;
-//     transition: .3s;
-//     background: #31A463;
-// }
-
-// /* Change Bg color when Hover */ 
-
-// .entryarea2 input:hover{
-//     background-color: #ececec;
-// }
-
-// /* Label float */ 
-
-// .entryarea2 input:valid ~ .labelline2{
-//     margin-top: 92px;
-//     font-size: 12px;
-//     letter-spacing: 0.5px;
-// }
-
-// .entryarea2 input:focus ~ .labelline2 {
-//     margin-top: 92px;
-//     font-size: 12px;
-//     color: #31A463;
-//     letter-spacing: 0.5px;
-// }
-
-.entryarea2 select {
-    position: absolute;
-    width: 20.2%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top:77px;
-    margin-left: 75px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline2{
-    margin-top: 92px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-// Book - Volume 
-
-.entryarea_4 input {
-    position: absolute;
-    width: 20.2%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 77px;
-    margin-left: 418px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.labelline_4 {
+.entryarea6 span::before {
+    content: '';
     position: absolute;
     margin-top: 107px;
-    margin-left: 432px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_4 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 134px;
-    margin-left: 418px;
-    width: 20.2%;
-    height: 2.5px;
+    width: 20.99%;
+    margin-left: -319px;
+    height: 2px;
     transition: .3s;
 }
 
-.entryarea_4 input:focus ~ span::before {
-    width: 20.2%;
-    margin-top: 134px;
-    margin-left: 418px;
+.entryarea6 input:focus ~ span::before {
+    width: 20.99%;
+    margin-left: -319px;
+    margin-top: 107px;
     transition: .3s;
     background: #31A463;
 }
 
 /* Change Bg color when Hover */ 
 
-.entryarea_4 input:hover{
+.entryarea6 input:hover{
     background-color: #ececec;
 }
 
 /* Label float */ 
-
-.entryarea_4 input:valid ~ .labelline_4 {
-    margin-top: 92px;
+.entryarea6 input:valid ~ .labelline6 {
+    margin-top: -45px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-
-.entryarea_4 input:focus ~ .labelline_4 {
-    margin-top: 92px;
+  
+.entryarea6 input:focus ~ .labelline6 {
+    margin-top: -45px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
 }
 
-// Book - Edition
+// Book - Source of fund 
 
-.entryarea_5 input {
-    position: absolute;
-    width: 20%;
+.input-row1 .entryarea8, .input-row1 .entryarea9 {
+    flex-basis: 100%;
+}
+
+.entryarea8 select{
+    font-family: 'Montserrat';
+    width: 100%;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 77px;
-    margin-left: 755px;
+    margin-top: 50px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -560,580 +824,55 @@ a {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     outline: none;
-
 }
 
-.labelline_5 {
+.labelline8 {
+    position: absolute;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea8 span::before {
+    content: '';
     position: absolute;
     margin-top: 107px;
-    margin-left: 770px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_5 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 134px;
-    margin-left: 755px;
-    width: 20%;
-    height: 2.5px;
+    width: 32.1%;
+    margin-left: -488px;
+    height: 2px;
     transition: .3s;
 }
 
-.entryarea_5 input:focus ~ span::before {
-    width: 20%;
-    margin-top: 134px;
-    margin-left: 755px;
+.entryarea8 select:focus ~ span::before {
+    width: 32.1%;
+    margin-left: -488px;
+    margin-top: 107px;
     transition: .3s;
     background: #31A463;
 }
 
+
+
 /* Change Bg color when Hover */ 
 
-.entryarea_5 input:hover{
+.entryarea8 select:hover{
     background-color: #ececec;
 }
 
 /* Label float */ 
-
-.entryarea_5 input:valid ~ .labelline_5 {
-    margin-top: 92px;
+.entryarea8 select:valid ~ .labelline8 {
+    margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-
-.entryarea_5 input:focus ~ .labelline_5 {
-    margin-top: 92px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Book - Remarks
-
-.entryarea_6 input {
-    position: absolute;
-    width: 20.2%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 180px;
-    margin-left: 76px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.labelline_6 {
-    position: absolute;
-    margin-top: 210px;
-    margin-left: 92px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_6 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 237px;
-    margin-left: 76px;
-    width: 20.2%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.entryarea_6 input:focus ~ span::before {
-    width: 20.2%;
-    margin-top: 237px;
-    margin-left: 76px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea_6 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.entryarea_6 input:valid ~ .labelline_6 {
-    margin-top: 195px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.entryarea_6 input:focus ~ .labelline_6 {
-    margin-top: 195px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Book - Pages
-
-.entryarea_7 input {
-    position: absolute;
-    width: 20.2%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 180px;
-    margin-left: 418px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.labelline_7 {
-    position: absolute;
-    margin-top: 210px;
-    margin-left: 432px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_7 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 237px;
-    margin-left: 418px;
-    width: 20.2%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.entryarea_7 input:focus ~ span::before {
-    width: 20.2%;
-    margin-top: 237px;
-    margin-left: 418px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea_7 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.entryarea_7 input:valid ~ .labelline_7 {
-    margin-top: 195px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.entryarea_7 input:focus ~ .labelline_7 {
-    margin-top: 195px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Book - Date Purchased/Donated 
-
-.entryarea_8 input {
-    position: absolute;
-    width: 20%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 180px;
-    margin-left: 755px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.labelline_8 {
-    position: absolute;
-    margin-top: 195px;
-    margin-left: 770px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_8 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 237px;
-    margin-left: 755px;
-    width: 20%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.entryarea_8 input:focus ~ span::before {
-    width: 20%;
-    margin-top: 237px;
-    margin-left: 755px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-
-.entryarea_8 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.entryarea_8 input:valid ~ .labelline_8 {
-    margin-top: 195px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.entryarea_8 input:focus ~ .labelline_8 {
-    margin-top: 195px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Book - Source of Fund 
-
-.entryarea_9 select {
-    position: absolute;
-    width: 31%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 285px;
-    margin-left: 75px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.labelline_9 {
-    position: absolute;
-    margin-top: 1px;
-    margin-left: 95px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-
-
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_9 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 342px;
-    margin-left: 75px;
-    width: 31%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.entryarea_9 select:focus ~ span::before {
-    width: 31%;
-    margin-top: 342px;
-    margin-left: 75px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea_9 select:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.entryarea_9 select:valid ~ .labelline_9 {
-    margin-top: 302px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.entryarea_9 select:focus ~ .labelline_9 {
-    margin-top: 302px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Book - Location 
-
-.entryarea_10 select {
-    position: absolute;
-    width: 31.5%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 285px;
-    margin-left: 580px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.labelline_10 {
-    position: absolute;
-    margin-top: 1px;
-    margin-left: 600px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_10 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 342px;
-    margin-left: 580px;
-    width: 31.5%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.entryarea_10 select:focus ~ span::before {
-    width: 31.5%;
-    margin-top: 342px;
-    margin-left: 580px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea_10 select:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.entryarea_10 select:valid ~ .labelline_10 {
-    margin-top: 302px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.entryarea_10 select:focus ~ .labelline_10 {
-    margin-top: 302px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Book - Price
-
-.entryarea_11 input {
-    position: absolute;
-    width: 20.2%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 388px;
-    margin-left: 76px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.labelline_11 {
-    position: absolute;
-    margin-top: 419px;
-    margin-left: 92px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_11 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 445px;
-    margin-left: 76px;
-    width: 20.2%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.entryarea_11 input:focus ~ span::before {
-    width: 20.2%;
-    margin-top: 445px;
-    margin-left: 76px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea_11 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.entryarea_11 input:valid ~ .labelline_11 {
-    margin-top: 403px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.entryarea_11 input:focus ~ .labelline_11 {
-    margin-top: 403px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Book - Call Number  
-
-.entryarea_12 input {
-    position: absolute;
-    width: 42%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 388px;
-    margin-left: 418px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.labelline_12 {
-    position: absolute;
-    margin-top: 419px;
-    margin-left: 433px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_12 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 445px;
-    margin-left: 418px;
-    width: 42%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.entryarea_12 input:focus ~ span::before {
-    width: 42%;
-    margin-top: 445px;
-    margin-left: 418px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea_12 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.entryarea_12 input:valid ~ .labelline_12 {
-    margin-top: 403px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.entryarea_12 input:focus ~ .labelline_12 {
-    margin-top: 403px;
+  
+.entryarea8 select:focus ~ .labelline8 {
+    margin-top: -42px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
@@ -1141,14 +880,17 @@ a {
 
 // Book - Copies 
 
-.entryarea_13 input {
-    position: absolute;
-    width: 31%;
+.input-row1 .entryarea10, .input-row1 .entryarea-10, .input-row1 .entryarea11 {
+    flex-basis: 50%;
+}
+
+.entryarea10 input {
+    font-family: 'Montserrat';
+    width: 100%;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 492px;
-    margin-left: 76px;
+    margin-top: 60px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -1157,13 +899,12 @@ a {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     outline: none;
-
 }
 
-.labelline_13 {
-    position: absolute;
-    margin-top: 524px;
-    margin-left: 92px;
+.labelline10 {
+    position: relative;
+    margin-top: -29px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -1173,64 +914,67 @@ a {
 
 /* Bottom Line when hover */ 
 
-.entryarea_13 span::before {
+.entryarea10 span::before {
     content: '';
     position: absolute;
-    margin-top: 549px;
-    margin-left: 76px;
-    width: 31%;
-    height: 2.5px;
+    margin-top: 117px;
+    width: 32.1%;
+    margin-left: -488px;
+    height: 2px;
     transition: .3s;
 }
 
-.entryarea_13 input:focus ~ span::before {
-    width: 31%;
-    margin-top: 549px;
-    margin-left: 76px;
+.entryarea10 input:focus ~ span::before {
+    width: 32.1%;
+    margin-left: -488px;
+    margin-top: 117px;
     transition: .3s;
     background: #31A463;
 }
 
 /* Change Bg color when Hover */ 
 
-.entryarea_13 input:hover{
+.entryarea10 input:hover{
     background-color: #ececec;
 }
 
 /* Label float */ 
-
-.entryarea_13 input:valid ~ .labelline_13 {
-    margin-top: 508px;
+.entryarea10 input:valid ~ .labelline10 {
+    margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-
-.entryarea_13 input:focus ~ .labelline_13 {
-    margin-top: 508px;
+  
+.entryarea10 input:focus ~ .labelline10 {
+    margin-top: -42px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
 }
 
-// Upload Image 
+// Pages 
 
-.entryarea_14 input {
-    position: absolute;
-    width: 31%;
-    height: 55px;
+.entryarea-10 input {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 60px;
+    height: 59px;
     font-size: 16px;
-    margin-top: 495px;
-    margin-left: 582px;
-    border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
 }
 
-.labelline_14 {
-    position: absolute;
-    margin-top: 482px;
-    margin-left: 585px;
+.labelline-10 {
+    position: relative;
+    margin-top: -29px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -1238,39 +982,105 @@ a {
     transition: .3s;
 }
 
+/* Bottom Line when hover */ 
+
+.entryarea-10 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 117px;
+    width: 32.1%;
+    margin-left: -488px;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea-10 input:focus ~ span::before {
+    width: 32.1%;
+    margin-left: -488px;
+    margin-top: 117px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea-10 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea-10 input:valid ~ .labelline-10 {
+    margin-top: -42px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea-10 input:focus ~ .labelline-10 {
+    margin-top: -42px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Upload Image
+
+.entryarea11 input {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-right: 10px;
+    margin-top: 59px;
+    height: 61px;
+    font-size: 16px;
+    background-color: #f6f6f6;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline11 {
+    position: absolute;
+    margin-top: -75px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
 
 input[type="file"]::file-selector-button {
-    border-radius: 4px;
-    font-family: Montserrat;
+    border-top-left-radius: 5px;
+    font-family: 'Montserrat';
     color: #ffffff;
-    padding: 0 16px;
-    height: 55px;
+    height: 60px;
     cursor: pointer;
     background-color: #31A463;
     border: 1px solid rgba(0, 0, 0, 0.16);
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
     margin-right: 16px;
     transition: background-color 200ms;
-  }
-
+}
 
 /* Book Submit Button */ 
 
 .bookbtn > input {
-	display: block;
-    font-family: Montserrat;
-    text-transform: uppercase;
-    font-size: 15px;
+    border: none;
+    position: absolute;
+    text-align: center;
     font-weight: 600;
-	width: 11%;
-	margin-top: 595px;
-    margin-left: 500px;
-	background-color: #31A463;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
     border-radius: 5px;
-	color: #ffffff;
-	padding:10px;
+    transform: translateX(-50%);
+    color: white;
+    background-color: #31A463;
+    text-decoration: none;
+    height: 40px;
+    margin-top: 50px;
+    width: 50%;
+    margin-left: 35%;
+    width: 155px;
+    font-size: 15px;
     cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
 }
 
 .bookbtn > input:hover {
@@ -1285,43 +1095,110 @@ input[type="file"]::file-selector-button {
 	background-color: #298f55;
     border-radius: 5px;
 	color: #ffffff;
-	padding:10px;
+	padding: 10px;
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.16);
 }
 
-/********************************* PERIO FORM **********************************************/ 
 
-// Type of Materials 
 
-.perioarea {
+/*************************** PERIO *********************************/
+
+.entryarea select {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline-1 {
+    position: absolute;
+    margin-top: -42px;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea span::before {
+    content: '';
+    position: absolute;
+    margin-left: -325px;
+    margin-top: 57px;
+    width: 21.3%;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea select:focus ~ span::before {
+    margin-left: -325px;
+    width: 21.3%;
+    margin-top: 57px;
+    transition: .3s;
+    background: #31A463;
+}
+
+
+/* Change Bg color when Hover */ 
+
+.entryarea select:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea select:valid ~ .labelline-1 {
+    margin-top: -42px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea select:focus ~ .labelline-1 {
+    margin-top: -42px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+// Article - Issue
+
+.input-row1 .entryarea_9 {
+    flex-basis: 100%;
+}
+
+.entryarea_9 input {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 50px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline_9 {
     position: relative;
-    height: 200px;
-    line-height: 25px;
-}
-
-.perioarea select {
-    position: absolute;
-    width: 27.5%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 65px;
-    margin-left: 75px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.perioline {
-    position: absolute;
-    margin-top: 97px;
-    margin-left: 90px;
+    margin-top: -29px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -1331,55 +1208,56 @@ input[type="file"]::file-selector-button {
 
 /* Bottom Line when hover */ 
 
-.perioarea span::before {
+.entryarea_9 span::before {
     content: '';
     position: absolute;
-    top: 122px;
-    left: 75px;
-    width: 27.5%;
+    margin-top: 108px;
+    width: 32.1%;
+    margin-left: -488px;
     height: 2px;
     transition: .3s;
-} 
+}
 
-.perioarea select:focus ~ span::before {
-    width: 27.5%;
-    top: 122px;
-    left: 75px;
+.entryarea_9 input:focus ~ span::before {
+    width: 32.1%;
+    margin-left: -488px;
+    margin-top: 108px;
     transition: .3s;
     background: #31A463;
 }
 
 /* Change Bg color when Hover */ 
 
-.perioarea select:hover {
+.entryarea_9 input:hover{
     background-color: #ececec;
 }
 
 /* Label float */ 
-
-.perioarea select:valid ~ .perioline {
-    margin-top: 80px;
+.entryarea_9 input:valid ~ .labelline_9 {
+    margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-
-.perioarea select:focus ~ .perioline {
-    margin-top: 80px;
+  
+.entryarea_9 input:focus ~ .labelline_9 {
+    margin-top: -42px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
 }
 
-// Perio - Author 
+/* Issue */ 
+.input-row1 .entryarea9, .input-row1 .entryarea9 select {
+    flex-basis: 100%;
+}
 
-.perioarea_1 input {
-    position: absolute;
-    width: 55.8%;
+.entryarea9 input {
+    font-family: 'Montserrat';
+    width: 100%;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 65px;
-    margin-left: 425px;
+    margin-top: 30px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -1390,897 +1268,10 @@ input[type="file"]::file-selector-button {
     outline: none;
 }
 
-.perioline_1 {
-    position:absolute;
-    margin-top: 97px;
-    margin-left: 440px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */  
-
-.perioarea_1 span::before {
-    content: '';
-    width: 56%;
-    margin-top: 0;
-    margin-left: 350px;
-    height: 2px;
-    transition: .3s;
-    position: absolute;
-}
-
-.perioarea_1 input:focus ~ span::before {
-    width: 56%;
-    margin-top: 0;
-    margin-left: 350px;
-    transition: .3s;
-    background-color: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.perioarea_1 input:hover {
-    background-color: #ececec; 
-}
-
-/* Label float */  
-
-.perioarea_1 input:valid ~ .perioline_1 {
-    margin-top: 80px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.perioarea_1 input:focus ~ .perioline_1 {
-    margin-top: 80px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Perio - Title 
-
-.perioarea_2 input {
-    position: absolute;
-    width: 64.7%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: -28px;
-    margin-left: 75px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.perioline_2 {
-    position: absolute;
-    top: 57%;
-    margin-left: 90px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.perioarea_2 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 29px;
-    margin-left: 75px;
-    width: 64.7%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.perioarea_2 input:focus ~ span::before {
-    width: 64.7%;
-    margin-top: 29px;
-    margin-left: 75px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */  
-
-.perioarea_2 input:hover {
-    background-color: #ececec;
-}
-
-/* Label float */  
-
-.perioarea_2 input:valid ~ .perioline_2 {
-    margin-top: -17px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.perioarea_2 input:focus ~ .perioline_2 {
-    margin-top: -17px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Perio - Issue 
-
-.perioarea_3 input {
-    position: absolute;
-    width: 31%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 77px;
-    margin-left: 75px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.perioline_3 {
-    position: absolute;
-    margin-top: 107px;
-    margin-left: 92px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-}
-
-/* Bottom Line when hover */  
-
-.perioarea_3 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 134px;
-    margin-left: 75px;
-    width: 31%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.perioarea_3 input:focus ~ span::before {
-    width: 31%;
-    margin-top: 134px;
-    margin-left: 75px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.perioarea_3 input:hover {
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.perioarea_3 input:valid ~ .perioline_3 {
-    margin-top: 92px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.perioarea_3 input:focus ~ .perioline_3 {
-    margin-top: 92px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Perio - Language 
-
-.perioarea_4 select {
-    position: absolute;
-    width: 31.5%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 77px;
-    margin-left: 580px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.perioline_4 {
-    position: absolute;
-    margin-top: 1px;
-    margin-left: 600px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-} 
-
-/* Bottom Line when hover */ 
-
-.perioarea_4 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 134px;
-    margin-left: 580px;
-    width: 31.5%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.perioarea_4 select:focus ~ span::before {
-    width: 31.5%;
-    margin-top: 134px;
-    margin-left: 580px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.perioarea_4 select:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.perioarea_4 select:valid ~ .perioline_4 {
-    margin-top: 92px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.perioarea_4 select:focus ~ .perioline_4 {
-    margin-top: 92px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Perio - Date Received 
-
-.perioarea_5 input {
-    position: absolute;
-    width: 31%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 180px;
-    margin-left: 75px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.perioline_5 {
-    position: absolute;
-    margin-top: 195px;
-    margin-left: 93px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-}
-
-/* Bottom Line when hover */ 
-
-.perioarea_5 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 237px;
-    margin-left: 75px;
-    width: 31%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.perioarea_5 input:focus ~ span::before {
-    width: 31%;
-    margin-top: 237px;
-    margin-left: 75px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.perioarea_5 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.perioarea_5 input:valid ~ .perioline_5 {
-    margin-top: 195px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.perioarea_5 input:focus ~ .perioline_5 {
-    margin-top: 195px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Perio - Publication Date 
-
-.perioarea_6 input {
-    position: absolute;
-    width: 31.5%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 180px;
-    margin-left: 580px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.perioline_6 {
-    position: absolute;
-    margin-top: 195px;
-    margin-left: 600px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-}
-
-/* Bottom Line when hover */ 
-
-.perioarea_6 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 237px;
-    margin-left: 580px;
-    width: 31.5%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.perioarea_6 input:focus ~ span::before {
-    width: 31.5%;
-    margin-top: 237px;
-    margin-left: 580px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.perioarea_6 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.perioarea_6 input:valid ~ .perioline_6 {
-    margin-top: 195px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.perioarea_6 input:focus ~ .perioline_6 {
-    margin-top: 195px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Perio - Copyright 
-
-.perioarea_7 select {
-    position: absolute;
-    width: 20.2%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 285px;
-    margin-left: 76px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-} 
-
-.perioline_7 {
-    position: absolute;
-    margin-top: 302px;
-    margin-left: 92px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-// /* Bottom Line when hover */ 
-
-// .perioarea_7 span::before {
-//     content: '';
-//     position: absolute;
-//     margin-top: 342px;
-//     margin-left: 76px;
-//     width: 20.2%;
-//     height: 2.5px;
-//     transition: .3s;
-// }
-
-// .perioarea_7 input:focus ~ span::before {
-//     width: 20.2%;
-//     margin-top: 342px;
-//     margin-left: 76px;
-//     transition: .3s;
-//     background: #31A463;
-// }
-
-// /* Change Bg color when Hover */ 
-
-// .perioarea_7 input:hover{
-//     background-color: #ececec;
-// }
-
-// /* Label float */ 
-
-// .perioarea_7 input:valid ~ .perioline_7 {
-//     margin-top: 302px;
-//     font-size: 12px;
-//     letter-spacing: 0.5px;
-// }
-
-// .perioarea_7 input:focus ~ .perioline_7 {
-//     margin-top: 302px;
-//     font-size: 12px;
-//     color: #31A463;
-//     letter-spacing: 0.5px;
-// }
-
-// Perio - Publisher 
-
-.perioarea_8 input {
-    position: absolute;
-    width: 20%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 285px;
-    margin-left: 420px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.perioline_8 {
-    position: absolute;
-    margin-top: 314px;
-    margin-left: 434px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-
-}
-
-/* Bottom Line when hover */ 
-
-.perioarea_8 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 342px;
-    margin-left: 420px;
-    width: 20%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.perioarea_8 input:focus ~ span::before {
-    width: 20%;
-    margin-top: 342px;
-    margin-left: 420px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.perioarea_8 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.perioarea_8 input:valid ~ .perioline_8 {
-    margin-top: 302px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.perioarea_8 input:focus ~ .perioline_8 {
-    margin-top: 302px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Perio - Volume 
-
-.perioarea_9 input {
-    position: absolute;
-    width: 20%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 285px;
-    margin-left: 755px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.perioline_9 {
-    position: absolute;
-    margin-top: 314px;
-    margin-left: 768px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-
-}
-
-/* Bottom Line when hover */ 
-
-.perioarea_9 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 342px;
-    margin-left: 755px;
-    width: 20%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.perioarea_9 input:focus ~ span::before {
-    width: 20%;
-    margin-top: 342px;
-    margin-left: 755px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.perioarea_9 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.perioarea_9 input:valid ~ .perioline_9 {
-    margin-top: 302px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.perioarea_9 input:focus ~ .perioline_9 {
-    margin-top: 302px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Perio - Remarks 
-
-.perioarea_10 input {
-    position: absolute;
-    width: 64.7%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 388px;
-    margin-left: 76px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.perioline_10 {
-    position: absolute;
-    margin-top: 419px;
-    margin-left: 92px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.perioarea_10 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 445px;
-    margin-left: 76px;
-    width: 64.7%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.perioarea_10 input:focus ~ span::before {
-    width: 64.7%;
-    margin-top: 445px;
-    margin-left: 76px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.perioarea_10 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.perioarea_10 input:valid ~ .perioline_10 {
-    margin-top: 405px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.perioarea_10 input:focus ~ .perioline_10 {
-    margin-top: 405px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Perio - Pages 
-
-.perioarea_11 input {
-    position: absolute;
-    width: 31%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 492px;
-    margin-left: 76px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.perioline_11 {
-    position: absolute;
-    margin-top: 524px;
-    margin-left: 92px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.perioarea_11 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 549px;
-    margin-left: 76px;
-    width: 31%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.perioarea_11 input:focus ~ span::before {
-    width: 31%;
-    margin-top: 549px;
-    margin-left: 76px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.perioarea_11 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.perioarea_11 input:valid ~ .perioline_11 {
-    margin-top: 510px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.perioarea_11 input:focus ~ .perioline_11 {
-    margin-top: 510px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Perio - Upload Image 
-
-.perioarea_12 input {
-    position: absolute;
-    width: 31%;
-    height: 55px;
-    font-size: 16px;
-    margin-top: 495px;
-    margin-left: 582px;
-    border-radius: 5px;
-    border: 1px solid #000;
-    background: transparent;
-    transition: 0.1s ease;
-}
-
-.perioline_12 {
-    position: absolute;
-    margin-top: 482px;
-    margin-left: 585px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-
-input[type="file"]::file-selector-button {
-    border-radius: 4px;
-    font-family: Montserrat;
-    color: #ffffff;
-    padding: 0 16px;
-    height: 55px;
-    cursor: pointer;
-    background-color: #31A463;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
-    margin-right: 16px;
-    transition: background-color 200ms;
-}
-
-/* Perio Submit Button */ 
-
-.periobtn > input {
-	display: block;
-    font-family: Montserrat;
-    text-transform: uppercase;
-    font-size: 15px;
-    font-weight: 600;
-	width: 11%;
-	margin-top: 595px;
-    margin-left: 500px;
-	background-color: #31A463;
-    border-radius: 5px;
-	color: #ffffff;
-	padding:10px;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-}
-
-.periobtn > input:hover {
-	display: block;
-    font-family: Montserrat;
-    text-transform: uppercase;
-    font-size: 15px;
-    font-weight: 600;
-	width: 11%;
-	margin-top: 595px;
-    margin-left: 500px;
-	background-color: #298f55;
-    border-radius: 5px;
-	color: #ffffff;
-	padding:10px;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-}
-
-/****************************** ARTICLE *********************************/
-
-// Type of Materials 
-
-.artiarea {
+.labelline9 {
     position: relative;
-    height: 200px;
-    line-height: 25px;
-}
-
-.artiarea select {
-    position: absolute;
-    width: 27.5%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 65px;
-    margin-left: 75px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.artiline {
-    position: absolute;
-    margin-top: 97px;
-    margin-left: 90px;
+    margin-top: -29px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -2290,55 +1281,53 @@ input[type="file"]::file-selector-button {
 
 /* Bottom Line when hover */ 
 
-.artiarea span::before {
+.entryarea9 span::before {
     content: '';
     position: absolute;
-    top: 122px;
-    left: 75px;
-    width: 27.5%;
+    margin-top: 87px;
+    width: 32.1%;
+    margin-left: -488px;
     height: 2px;
     transition: .3s;
-} 
+}
 
-.artiarea select:focus ~ span::before {
-    width: 27.5%;
-    top: 122px;
-    left: 75px;
+.entryarea9 input:focus ~ span::before {
+    width: 32.1%;
+    margin-left: -488px;
+    margin-top: 87px;
     transition: .3s;
     background: #31A463;
 }
 
 /* Change Bg color when Hover */ 
 
-.artiarea select:hover {
+.entryarea9 input:hover{
     background-color: #ececec;
 }
 
 /* Label float */ 
-
-.artiarea select:valid ~ .artiline {
-    margin-top: 80px;
+.entryarea9 input:valid ~ .labelline9 {
+    margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-
-.artiarea select:focus ~ .artiline {
-    margin-top: 80px;
+  
+.entryarea9 input:focus ~ .labelline9 {
+    margin-top: -42px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
 }
 
-// Arti - Author 
+/* Article - Language */ 
 
-.artiarea_1 input {
-    position: absolute;
-    width: 55.8%;
+.entryarea9 select {
+    font-family: 'Montserrat';
+    width: 100%;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 65px;
-    margin-left: 425px;
+    margin-top: 30px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -2349,10 +1338,10 @@ input[type="file"]::file-selector-button {
     outline: none;
 }
 
-.artiline_1 {
-    position:absolute;
-    margin-top: 97px;
-    margin-left: 440px;
+.labelline9 {
+    position: relative;
+    margin-top: -29px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -2360,57 +1349,59 @@ input[type="file"]::file-selector-button {
     transition: .3s;
 }
 
-/* Bottom Line when hover */  
+/* Bottom Line when hover */ 
 
-.artiarea_1 span::before {
+.entryarea9 span::before {
     content: '';
-    width: 56%;
-    margin-top: 0;
-    margin-left: 350px;
+    position: absolute;
+    margin-top: 88px;
+    width: 32.1%;
+    margin-left: -488px;
     height: 2px;
     transition: .3s;
-    position: absolute;
 }
 
-.artiarea_1 input:focus ~ span::before {
-    width: 56%;
-    margin-top: 0;
-    margin-left: 350px;
+.entryarea9 select:focus ~ span::before {
+    width: 32.1%;
+    margin-left: -488px;
+    margin-top: 88px;
     transition: .3s;
-    background-color: #31A463;
+    background: #31A463;
 }
 
 /* Change Bg color when Hover */ 
 
-.artiarea_1 input:hover {
-    background-color: #ececec; 
+.entryarea9 select:hover{
+    background-color: #ececec;
 }
 
-/* Label float */  
-
-.artiarea_1 input:valid ~ .artiline_1 {
-    margin-top: 80px;
+/* Label float */ 
+.entryarea9 select:valid ~ .labelline9 {
+    margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-
-.artiarea_1 input:focus ~ .artiline_1 {
-    margin-top: 80px;
+  
+.entryarea9 select:focus ~ .labelline9 {
+    margin-top: -42px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
 }
 
-// Arti - Title 
+// Date Published 
 
-.artiarea_2 input {
-    position: absolute;
-    width: 64.8%;
+.input-row1 .entryarea13 {
+    flex-basis: 100%;
+}
+
+.entryarea13 input {
+    font-family: 'Montserrat';
+    width: 100%;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: -28px;
-    margin-left: 75px;
+    margin-top: 60px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -2421,10 +1412,224 @@ input[type="file"]::file-selector-button {
     outline: none;
 }
 
-.artiline_2 {
+.labelline13 {
     position: absolute;
-    top: 57%;
-    margin-left: 90px;
+    margin-top: -42px;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea13 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 117px;
+    width: 32.1%;
+    margin-left: -488px;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea13 input:focus ~ span::before {
+    width: 32.1%;
+    margin-left: -488px;
+    margin-top: 117px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea13 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea13 input:valid ~ .labelline13 {
+    margin-top: -42px;
+    font-size: 12px;
+}
+  
+.entryarea13 input:focus ~ .labelline13 {
+    margin-top: -42px;
+    font-size: 12px;
+    color: #31A463;
+}
+
+// Date Published 
+
+.input-row1 .entryarea_13 {
+    flex-basis: 100%;
+}
+
+.entryarea_13 input {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 60px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline_13 {
+    position: absolute;
+    margin-top: -42px;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_13 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 118px;
+    margin-left: -995px;
+    width: 65.5%;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea_13 input:focus ~ span::before {
+    width: 65.5%;
+    margin-top: 118px;
+    margin-left: -995px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_13 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea_13 input:valid ~ .labelline_13 {
+    margin-top: -42px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea_13 input:focus ~ .labelline_13 {
+    margin-top: -42px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+.input-row1 .entryarea-3, .input-row1 .entryarea-4, .input-row1 .entryarea-5 {
+    flex-basis: 100%;
+}
+
+.entryarea-3 select{
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 50px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline-3 {
+    position: absolute;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea-3 span::before {
+    content: '';
+    position: absolute;
+    margin-left: -319px;
+    margin-top: 108px;
+    width: 21%;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea-3 select:focus ~ span::before {
+    margin-left: -319px;
+    width: 21%;
+    margin-top: 108px;
+    transition: .3s;
+    background: #31A463;
+}
+
+
+/* Change Bg color when Hover */ 
+
+.entryarea-3 select:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea-3 select:valid ~ .labelline-3 {
+    margin-top: -42px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea-3 select:focus ~ .labelline-3 {
+    margin-top: -42px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
+
+// Books - Volume 
+
+.entryarea-4 input {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    margin-top: 50px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline-4 {
+    position: relative;
+    margin-top: -29px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -2434,128 +1639,53 @@ input[type="file"]::file-selector-button {
 
 /* Bottom Line when hover */ 
 
-.artiarea_2 span::before {
+.entryarea-4 span::before {
     content: '';
     position: absolute;
-    margin-top: 29px;
-    margin-left: 75px;
-    width: 64.7%;
-    height: 2.5px;
+    margin-top: 108px;
+    width: 20.99%;
+    margin-left: -319px;
+    height: 2px;
     transition: .3s;
 }
 
-.artiarea_2 input:focus ~ span::before {
-    width: 64.7%;
-    margin-top: 29px;
-    margin-left: 75px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */  
-
-.artiarea_2 input:hover {
-    background-color: #ececec;
-}
-
-/* Label float */  
-
-.artiarea_2 input:valid ~ .artiline_2 {
-    margin-top: -17px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.artiarea_2 input:focus ~ .artiline_2 {
-    margin-top: -17px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Arti - Abstract 
-
-.artiarea_3 textarea {
-    position: absolute;
-    width: 64.8%;
-    padding-top: 39px;
-    padding-left: 17px;
-    padding-right: 10px;
-    margin-top: 77px;
-    margin-left: 75px;
-    height: 100px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.artiline_3 {
-    position: absolute;
-    margin-top: 93px;
-    margin-left: 95px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-}
-
-/* Bottom Line when hover */ 
-
-.artiarea_3 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 175px;
-    margin-left: 75px;
-    width: 64.8%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.artiarea_3 textarea:focus ~ span::before {
-    width: 64.8%;
-    margin-top: 175px;
-    margin-left: 75px;
+.entryarea-4 input:focus ~ span::before {
+    width: 20.99%;
+    margin-left: -319px;
+    margin-top: 108px;
     transition: .3s;
     background: #31A463;
 }
 
 /* Change Bg color when Hover */ 
 
-.artiarea_3 textarea:hover {
+.entryarea-4 input:hover{
     background-color: #ececec;
 }
 
 /* Label float */ 
-
-.artiarea_3 textarea:valid ~ .artiline_3 {
-    margin-top: 98px;
+.entryarea-4 input:valid ~ .labelline-4 {
+    margin-top: -45px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-
-.artiarea_3 textarea:focus ~ .artiline_3 {
-    margin-top: 98px;
+  
+.entryarea-4 input:focus ~ .labelline-4 {
+    margin-top: -45px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
 }
 
-// Arti - Language 
+// Books - Volume  
 
-.artiarea_4 select {
-    position: absolute;
-    width: 31%;
+.entryarea-5 input {
+    font-family: 'Montserrat';
+    width: 100%;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 220px;
-    margin-left: 75px;
+    margin-top: 50px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -2566,302 +1696,10 @@ input[type="file"]::file-selector-button {
     outline: none;
 }
 
-.artiline_4 {
+.labelline-5 {
     position: absolute;
-    margin-top: 235px;
-    margin-left: 92px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-}
-
-/* Bottom Line when hover */  
-
-.artiarea_4 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 277px;
-    margin-left: 75px;
-    width: 31%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.artiarea_4 select:focus ~ span::before {
-    width: 31%;
-    margin-top: 277px;
-    margin-left: 75px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.artiarea_4 select:hover {
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.artiarea_4 select:valid ~ .artiline_4 {
-    margin-top: 235px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.artiarea_4 select:focus ~ .artiline_4 {
-    margin-top: 235px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Arti - Issue 
-
-.artiarea_5 input {
-    position: absolute;
-    width: 31.5%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 220px;
-    margin-left: 580px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.artiline_5 {
-    position: absolute;
-    margin-top: 250px;
-    margin-left: 595px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-} 
-
-/* Bottom Line when hover */ 
-
-.artiarea_5 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 277px;
-    margin-left: 580px;
-    width: 31.5%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.artiarea_5 input:focus ~ span::before {
-    width: 31.5%;
-    margin-top: 277px;
-    margin-left: 580px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.artiarea_5 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.artiarea_5 input:valid ~ .artiline_5 {
-    margin-top: 235px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.artiarea_5 input:focus ~ .artiline_5 {
-    margin-top: 235px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Arti - Subject 
-
-.artiarea_6 input {
-    position: absolute;
-    width: 31%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 325px;
-    margin-left: 75px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.artiline_6 {
-    position: absolute;
-    margin-top: 355px;
-    margin-left: 90px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-}
-
-/* Bottom Line when hover */  
-
-.artiarea_6 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 382px;
-    margin-left: 75px;
-    width: 31%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.artiarea_6 input:focus ~ span::before {
-    width: 31%;
-    margin-top: 382px;
-    margin-left: 75px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.artiarea_6 input:hover {
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.artiarea_6 input:valid ~ .artiline_6 {
-    margin-top: 340px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.artiarea_6 input:focus ~ .artiline_6 {
-    margin-top: 340px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Arti - Volume 
-
-.artiarea_7 input {
-    position: absolute;
-    width: 31.5%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 325px;
-    margin-left: 580px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.artiline_7 {
-    position: absolute;
-    margin-top: 355px;
-    margin-left: 595px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-    letter-spacing: 0.5px;
-} 
-
-/* Bottom Line when hover */ 
-
-.artiarea_7 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 382px;
-    margin-left: 580px;
-    width: 31.5%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.artiarea_7 input:focus ~ span::before {
-    width: 31.5%;
-    margin-top: 382px;
-    margin-left: 580px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.artiarea_7 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.artiarea_7 input:valid ~ .artiline_7 {
-    margin-top: 340px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.artiarea_7 input:focus ~ .artiline_7 {
-    margin-top: 340px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Arti - Publisher 
-
-.artiarea_8 input {
-    position: absolute;
-    width: 20.2%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 430px;
-    margin-left: 76px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-} 
-
-.artiline_8 {
-    position: absolute;
-    margin-top: 460px;
-    margin-left: 92px;
+    margin-top: -29px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -2871,55 +1709,129 @@ input[type="file"]::file-selector-button {
 
 /* Bottom Line when hover */ 
 
-.artiarea_8 span::before {
+.entryarea-5 span::before {
     content: '';
     position: absolute;
-    margin-top: 487px;
-    margin-left: 76px;
-    width: 20.2%;
-    height: 2.5px;
+    margin-top: 108px;
+    width: 20.99%;
+    margin-left: -319px;
+    height: 2px;
     transition: .3s;
 }
 
-.artiarea_8 input:focus ~ span::before {
-    width: 20.2%;
-    margin-top: 487px;
-    margin-left: 76px;
+.entryarea-5 input:focus ~ span::before {
+    width: 20.99%;
+    margin-left: -319px;
+    margin-top: 108px;
     transition: .3s;
     background: #31A463;
 }
 
 /* Change Bg color when Hover */ 
 
-.artiarea_8 input:hover{
+.entryarea-5 input:hover{
     background-color: #ececec;
 }
 
 /* Label float */ 
-
-.artiarea_8 input:valid ~ .artiline_8 {
-    margin-top: 445px;
+.entryarea-5 input:valid ~ .labelline-5 {
     font-size: 12px;
+    margin-top: -45px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea-5 input:focus ~ .labelline-5 {
+    font-size: 12px;
+    margin-top: -45px;
+    color: #31A463;
     letter-spacing: 0.5px;
 }
 
-.artiarea_8 input:focus ~ .artiline_8 {
-    margin-top: 445px;
+// Avstract  
+
+.input-row1 .entryarea_14 {
+    flex-basis: 100%;
+}
+
+.entryarea_14 textarea {
+    font-family: 'Montserrat';
+    width: 100%;
+    height: 150px;
+    padding-top: 35px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 30px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline_14 {
+    position: absolute;
+    margin-top: -29px;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea_14 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 178px;
+    width: 65.5%;
+    margin-left: -995px;
+    height: 2px;
+    transition: .3s;
+}
+
+.entryarea_14 textarea:focus ~ span::before {
+    width: 65.5%;
+    margin-left: -995px;
+    margin-top: 178px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea_14 textarea:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea_14 textarea:valid ~ .labelline_14 {
+    margin-top: -135px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea_14 textarea:focus ~ .labelline_14 {
+    margin-top: -135px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
 }
 
-// Arti - Pages
+.input-row1 .entryarea15 {
+    flex-basis: 100%;
+}
 
-.artiarea_9 input {
-    position: absolute;
-    width: 20%;
+.entryarea15 input {
+    font-family: 'Montserrat';
+    width: 100%;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 430px;
-    margin-left: 420px;
+    margin-top: 60px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -2930,10 +1842,10 @@ input[type="file"]::file-selector-button {
     outline: none;
 }
 
-.artiline_9 {
-    position: absolute;
-    margin-top: 460px;
-    margin-left: 434px;
+.labelline15 {
+    position: relative;
+    margin-top: -29px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 15px;
@@ -2943,223 +1855,40 @@ input[type="file"]::file-selector-button {
 
 /* Bottom Line when hover */ 
 
-.artiarea_9 span::before {
+.entryarea15 span::before {
     content: '';
     position: absolute;
-    margin-top: 487px;
-    margin-left: 420px;
-    width: 20%;
-    height: 2.5px;
+    margin-top: 117px;
+    width: 32.1%;
+    margin-left: -488px;
+    height: 2px;
     transition: .3s;
 }
 
-.artiarea_9 input:focus ~ span::before {
-    width: 20%;
-    margin-top: 487px;
-    margin-left: 420px;
+.entryarea15 input:focus ~ span::before {
+    width: 32.1%;
+    margin-left: -488px;
+    margin-top: 117px;
     transition: .3s;
     background: #31A463;
 }
 
 /* Change Bg color when Hover */ 
 
-.artiarea_9 input:hover{
+.entryarea15 input:hover{
     background-color: #ececec;
 }
 
 /* Label float */ 
-
-.artiarea_9 input:valid ~ .artiline_9 {
-    margin-top: 445px;
+.entryarea15 input:valid ~ .labelline15 {
+    margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-
-.artiarea_9 input:focus ~ .artiline_9 {
-    margin-top: 445px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Arti - Publication Date 
-
-.artiarea_10 input {
-    position: absolute;
-    width: 20%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 430px;
-    margin-left: 755px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-
-}
-
-.artiline_10 {
-    position: absolute;
-    margin-top: 460px;
-    margin-left: 768px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-
-}
-
-/* Bottom Line when hover */ 
-
-.artiarea_10 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 487px;
-    margin-left: 755px;
-    width: 20%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.artiarea_10 input:focus ~ span::before {
-    width: 20%;
-    margin-top: 487px;
-    margin-left: 755px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.artiarea_10 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.artiarea_10 input:valid ~ .artiline_10 {
-    margin-top: 445px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.artiarea_10 input:focus ~ .artiline_10 {
-    margin-top: 445px;
+  
+.entryarea15 input:focus ~ .labelline15 {
+    margin-top: -42px;
     font-size: 12px;
     color: #31A463;
     letter-spacing: 0.5px;
-}
-
-// Arti - Remarks 
-
-.artiarea_11 input {
-    position: absolute;
-    width: 64.8%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 530px;
-    margin-left: 76px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.artiline_11 {
-    position: absolute;
-    margin-top: 560px;
-    margin-left: 92px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.artiarea_11 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 587px;
-    margin-left: 76px;
-    width: 64.8%;
-    height: 2.5px;
-    transition: .3s;
-}
-
-.artiarea_11 input:focus ~ span::before {
-    width: 64.8%;
-    margin-top: 587px;
-    margin-left: 76px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.artiarea_11 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-
-.artiarea_11 input:valid ~ .artiline_11 {
-    margin-top: 545px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.artiarea_11 input:focus ~ .artiline_11 {
-    margin-top: 545px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-/* Arti Submit Button */ 
-
-.artibtn > input {
-	display: block;
-    font-family: Montserrat;
-    text-transform: uppercase;
-    font-size: 15px;
-    font-weight: 600;
-	width: 11%;
-	margin-top: 625px;
-    margin-left: 500px;
-	background-color: #31A463;
-    border-radius: 5px;
-	color: #ffffff;
-	padding:10px;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-}
-
-.artibtn > input:hover {
-	display: block;
-    font-family: Montserrat;
-    text-transform: uppercase;
-    font-size: 15px;
-    font-weight: 600;
-	width: 11%;
-	margin-top: 625px;
-    margin-left: 500px;
-	background-color: #298f55;
-    border-radius: 5px;
-	color: #ffffff;
-	padding:10px;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
 }

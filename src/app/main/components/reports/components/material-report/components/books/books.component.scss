@@ -12,7 +12,6 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
-    margin-left: 882px;
 }
 
 .table-head input[type=text] {
@@ -33,6 +32,15 @@ input:focus{
 }
 
 .table-head .search-container {
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    height: 2.5em;
+    border: 1px solid var(--table-border);
+    background-color: var(--primary-color);
+}
+
+.table-head .date-picker {
     display: flex;
     align-items: center;
     border-radius: 7px;

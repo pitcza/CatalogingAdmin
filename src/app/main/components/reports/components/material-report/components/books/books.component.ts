@@ -10,6 +10,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data.service';
 import { CommonModule } from '@angular/common';
+
+import {provideNativeDateAdapter} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+
 import { get } from 'http';
 import { filter } from 'rxjs';
 
@@ -24,7 +29,8 @@ import { filter } from 'rxjs';
     MatTableModule,
     MatFormFieldModule,
     MatCardModule,
-    MatSortModule
+    MatSortModule, 
+    MatDatepickerModule
   ],
 })
 

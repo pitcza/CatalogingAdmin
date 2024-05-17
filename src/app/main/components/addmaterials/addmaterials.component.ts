@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild   } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../../../services/data.service';
+
 
 import Swal from 'sweetalert2';
 
@@ -27,6 +29,46 @@ export class AddmaterialsComponent implements OnInit{
       for(let i = 1990; i <= this.currentYear; i++) {
         this.year.push(i);
       }
+  }
+
+  // ----- MULTIPLE AUTHORS FUNCTION -----//
+  values = [''];
+
+  removevalue(i: any){
+    this.values.splice(i, 1);
+  }
+
+  addvalue(){
+    if (this.values.length < 3) {
+      this.values.push('');
+    }
+    console.log(this.values)
+  }
+
+  updateValue(event: Event, i: number) {
+    let input = event.target as HTMLInputElement;
+    this.values[i] = input.value;
+    console.log(this.values)
+  }
+  
+  isMaxLimitReached(): boolean {
+    return this.values.length >= 3;
+  }
+
+  authors: string[] = ['']; // Initialize with an empty author
+
+  addAuthor() {
+    this.authors = [...this.authors, '']; // Create a new array with the updated values
+  }
+
+  removeAuthor(index: number) {
+    this.authors.splice(index, 1);
+    this.authors = [...this.authors]; // Create a new array with the updated values
+  }
+
+  // Track by function to minimize re-renders
+  trackByIndex(index: number, item: any): number {
+    return index;
   }
 
   /* ============= BOOK SUBMISSION ============== */

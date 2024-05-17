@@ -7,8 +7,5 @@ import { Component } from '@angular/core';
 })
 
 export class MaterialReportComponent {
-redirectToAcademicReport() {
-throw new Error('Method not implemented.');
-}
 
 }
