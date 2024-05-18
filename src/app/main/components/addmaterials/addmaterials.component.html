@@ -14,22 +14,23 @@
 			<li class="tab"><label for="tab3">Articles</label></li>
 		</ul>
 		
-        <!--------- Books Tab --------->
+<!------------------------------ Books Tab ------------------------------------->
 
 		<div class="tab-content">
             <form id="book-form" enctype="multipart/form-data">
                 <div class="container">
+
                     <div class="input-row">
                         <div class="entryarea">
-                            <input type="text"  required name="id"> 
+                            <input type="text" required name="id"> 
                             <span></span>
                             <div class="labelline"> Accession No. </div>
                         </div>
 
-                        <div class="entryarea1  ">
+                        <div class="entryarea  ">
                             <input type="text" required name="title"> 
                             <span></span>
-                            <div class="labelline1"> Title</div>
+                            <div class="labelline"> Title</div>
                         </div>
                     </div>
 
@@ -73,15 +74,14 @@
                             <div class="labelline4"> Volume </div>
                         </div>
 
-                        <div class="entryarea5">
+                        <div class="entryarea4">
                             <input type="number" min="0" required name="edition"> 
                             <span></span>
-                            <div class="labelline5"> Edition </div>
+                            <div class="labelline4"> Edition </div>
                         </div>
                     </div>
 
                     <div class="input-row1">
-                        
                         <div class="entryarea6">
                             <input type="text" required name="remarks"> 
                             <span></span>
@@ -123,16 +123,17 @@
                     </div>
 
                     <div class="input-row1"> 
-                        <div class="entryarea_9">
+                        <div class="entryarea5">
+                            <span class="peso-sign">₱</span>
                             <input type="number" required name="price"> 
                             <span></span>
-                            <div class="labelline_9"> Price </div>
+                            <div class="labelline5"> Price </div>
                         </div>
     
-                        <div class="entryarea_9">
+                        <div class="entryarea9">
                             <input type="text" required name="call_number"> 
                             <span></span>
-                            <div class="labelline_9"> Call Number </div>
+                            <div class="labelline9"> Call Number </div>
                         </div>
                     </div>
 
@@ -148,8 +149,8 @@
                         </div>
                     </div>
 
-                    <div class="bookbtn">
-                        <input type="submit" value="Add" id="submit">
+                    <div class="book-btn">
+                        <input class= " button" type="submit" value="Add" id="submit">
                             <button></button>
                     </div>
                 </div>
@@ -163,22 +164,27 @@
 		<div class="tab-content">
             <form id="periodical-form" enctype="multipart/form-data">
                 <div class="container">
-
                     <div class="input-row">
-                        <div class="entryarea">
+                        <div class="entryarea1">
                             <select id="type" name="material_type">
                                 <option value="journal" selected> Journal </option>
                                 <option value="magazine"> Magazine </option>
                                 <option value="newspaper"> Newspaper </option>
                             </select>
                             <span></span>
-                            <div class="labelline-1"> Type of Material </div>
+                            <div class="labelline1"> Type of Material </div>
                         </div>
 
-                        <div class="entryarea1">
+                        <div class="entryarea">
+                            <input type="text" required name="id"> 
+                            <span></span>
+                            <div class="labelline"> Accession No. </div>
+                        </div>
+
+                        <div class="entryarea">
                             <input type="text" required name="title"> 
                             <span></span>
-                            <div class="labelline1"> Title</div>
+                            <div class="labelline"> Title</div>
                         </div>
                     </div>
 
@@ -214,65 +220,65 @@
                                 <div class="labelline9"> Issue </div>
                             </div>
         
-                            <div class="entryarea9">
+                            <div class="entryarea8">
                                 <select id="type" name="language">
                                     <option value="english"> English </option>
                                     <option value="tagalog"> Tagalog </option>
                                 </select>
                                 <span></span>
-                                <div class="labelline9"> Language </div>
+                                <div class="labelline8"> Language </div>
                             </div>
                         </div>
 
                         <div class="input-row1"> 
-                            <div class="entryarea13">
+                            <div class="entryarea7">
                                 <input type="date" required name="receive_date"> 
                                 <span></span>
-                            <div class="labelline13"> Date Received </div>
+                            <div class="labelline7"> Date Received </div>
                             </div>
         
-                            <div class="entryarea13">
+                            <div class="entryarea7">
                                 <input type="date" required name="date_published"> 
                                 <span></span> 
-                            <div class="labelline13"> Publication Date </div>
+                            <div class="labelline7"> Publication Date </div>
                             </div>
                         </div>
 
                         <div class="input-row1">
-                            <div class="entryarea-3"> 
+                            <div class="entryarea3"> 
                                 <select name="copyright" required>
                                     <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
                                 </select>
                                 <span></span>
-                                <div class="labelline-3"> Copyright </div>
+                                <div class="labelline3"> Copyright </div>
                             </div>
     
-                            <div class="entryarea-4">
+                            <div class="entryarea4">
                                 <input type="text" required name="publisher"> 
                                 <span></span>
-                            <div class="labelline-4"> Publisher </div>
+                            <div class="labelline4"> Publisher </div>
                             </div>
     
-                            <div class="entryarea-5">
+                            <div class="entryarea4">
                                 <input type="number" min="0" required name="volume"> 
                                 <span></span>
-                                <div class="labelline-5"> Volume </div>
+                                <div class="labelline4"> Volume </div>
                             </div>
                         </div>
 
                         <div class="input-row1"> 
-                            <div class="entryarea_13">
+                            <div class="entryarea6">
                                 <input type="text" min="0" required name="remarks"> 
                                 <span></span>
-                                <div class="labelline_13"> Remarks </div>
+                                <div class="labelline6"> Remarks </div>
                             </div>
                         </div>
 
                         <div class="input-row1"> 
-                            <div class="entryarea-10">
+                            <div class="entryarea9">
                                 <input type="number" required name="pages">
                                 <span></span>
-                                <div class="labelline-10"> Pages </div>
+                                <div class="labelline9"> Pages </div>
                             </div>
                             <div class="entryarea11"> 
                                 <input type="file" required name="image_url" accept=".png, .jpeg, .jpg"> 
@@ -280,8 +286,8 @@
                             </div>
                         </div>
     
-                        <div class="bookbtn">
-                            <input type="submit" value="Add" id="submit">
+                        <div class="perio-btn">
+                            <input class= " button" type="submit" value="Add" id="submit">
                         <button></button>
                         </div>
                 </div>
@@ -289,7 +295,7 @@
         </div>
 
     
-<!------------------------------ Article Tab ------------------------------------->
+<!------------------------------ Articles Tab ------------------------------------->
 
 
         <div class="tab-content">
@@ -297,20 +303,26 @@
                 <form id="article-form" enctype="multipart/form-data">
 
                 <div class="input-row">
-                    <div class="entryarea">
+                    <div class="entryarea1">
                         <select id="type" name="material_type">
                             <option value="journal" selected> Journal </option>
                             <option value="magazine"> Magazine </option>
                             <option value="newspaper"> Newspaper </option>
                         </select>
                         <span></span>
-                        <div class="labelline-1"> Type of Material </div>
+                        <div class="labelline1"> Type of Material </div>
                     </div>
 
-                    <div class="entryarea1">
+                    <div class="entryarea">
+                        <input type="text" required name="id"> 
+                        <span></span>
+                        <div class="labelline"> Accession No. </div>
+                    </div>
+
+                    <div class="entryarea">
                         <input type="text" required name="title"> 
                         <span></span>
-                        <div class="labelline1"> Title</div>
+                        <div class="labelline"> Title</div>
                     </div>
                 </div>
 
@@ -340,11 +352,11 @@
                     </div>
 
                     <div class="input-row1">
-                        <div class="entryarea_14">
+                        <div class="entryarea12">
                             <textarea name="abstract"> 
                             </textarea>
                             <span></span>
-                            <div class="labelline_14"> Abstract </div>
+                            <div class="labelline12"> Abstract </div>
                         </div>
                     </div>
 
@@ -355,27 +367,27 @@
                             <div class="labelline9"> Issue </div>
                         </div>
     
-                        <div class="entryarea9">
+                        <div class="entryarea8">
                             <select id="type" name="language">
                                 <option value="english"> English </option>
                                 <option value="tagalog"> Tagalog </option>
                             </select>
                             <span></span>
-                            <div class="labelline9"> Language </div>
+                            <div class="labelline8"> Language </div>
                         </div>
                     </div>
 
                     <div class="input-row1"> 
-                        <div class="entryarea15">
+                        <div class="entryarea9">
                             <input type="text" required name="subject"> 
                             <span></span>
-                            <div class="labelline15"> Subject </div>
+                            <div class="labelline9"> Subject </div>
                         </div>
     
-                        <div class="entryarea15">
+                        <div class="entryarea9">
                             <input type="number" min="0" required name="volume"> 
                             <span></span>
-                            <div class="labelline15"> Volume </div>
+                            <div class="labelline9"> Volume </div>
                         </div>
                     </div>
 
@@ -398,17 +410,17 @@
                             <div class="labelline7"> Publication Date </div>
                         </div>
                     </div>
-
+  
                     <div class="input-row1"> 
-                        <div class="entryarea_13">
+                        <div class="entryarea6">
                             <input type="text" min="0" required name="remarks"> 
                             <span></span>
-                            <div class="labelline_13"> Remarks </div>
+                            <div class="labelline6"> Remarks </div>
                         </div>
                     </div>
 
-                    <div class="bookbtn">
-                        <input type="submit" value="Add" id="submit">
+                    <div class="arti-btn">
+                        <input class= " button" type="submit" value="Add" id="submit">
                     <button></button>
                     </div>
 

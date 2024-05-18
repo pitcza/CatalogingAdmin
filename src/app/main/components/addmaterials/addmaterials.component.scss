@@ -18,6 +18,7 @@
 
 
 /****************************************** Tabs ****************************************/  
+
 .page-content {
 	min-width: 100%; 
 	background: #ffffff;
@@ -109,6 +110,7 @@
 /********************************************* Form *************************************/
 
 /* For the Form bg  */ 
+
 .container {
     justify-content: center;
     padding-top: 60px;
@@ -136,7 +138,7 @@
     -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
     -moz-box-shadow: 0 0 3px 3px #EEEEEE;
     box-shadow: 0 0 3px 3px #EEEEEE;
-    height: 885px;
+    height: 950px;
     margin-top: 50px;
     margin-left: 48px;
 }
@@ -145,22 +147,29 @@
     width: 500px; 
 }
 
-// Book - Accession
+/*************************************** FORM FIELDS *************************************/
+
+// Book - Accession, Title
+// Perio - Accession, Title
+// Arti - Accession, Title
 
 .input-row {
-    column-gap: 20px;
+    gap: 1.5rem;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 1.3rem;
-    
+}
+
+.input-row .entryarea {
+    flex-basis: 100%;
 }
 
 .input-row .entryarea1 {
     flex-basis: 100%;
 }
 
-.input-row .entryarea {
-    flex-basis: 50%;
+.input-row .entryarea, .input-row .entryarea1 {
+    position: relative;
+    margin: 1.3rem 0;
 }
 
 .entryarea input {
@@ -195,21 +204,20 @@
 .entryarea span::before {
     content: '';
     position: absolute;
-    margin-left: -325px;
+    left: 0;
     margin-top: 57px;
-    width: 21.3%;
-    height: 2px;
+    width:100%;
+    height: 2.5px;
     transition: .3s;
 }
 
 .entryarea input:focus ~ span::before {
-    margin-left: -325px;
-    width: 21.3%;
+    left: 0;
     margin-top: 57px;
+    width: 100%;
     transition: .3s;
     background: #31A463;
 }
-
 
 /* Change Bg color when Hover */ 
 
@@ -231,8 +239,9 @@
     letter-spacing: 0.5px;
 }
 
+// Perio, Arti - Type of materials 
 
-.entryarea1 input {
+.entryarea1 select {
     font-family: 'Montserrat';
     width: 100%;
     padding-top: 19px;
@@ -264,36 +273,35 @@
 .entryarea1 span::before {
     content: '';
     position: absolute;
-    margin-left: -652px;
+    left: 0;
     margin-top: 57px;
-    width: 42.9%;
-    height: 2px;
+    width: 100%;
+    height: 2.5px;
     transition: .3s;
 }
 
-.entryarea1 input:focus ~ span::before {
-    margin-left: -652px;
-    width: 42.9%;
+.entryarea1 select:focus ~ span::before {
+    left: 0;
     margin-top: 57px;
+    width: 100%;
     transition: .3s;
     background: #31A463;
 }
 
-
 /* Change Bg color when Hover */ 
 
-.entryarea1 input:hover{
+.entryarea1 select:hover{
     background-color: #ececec;
 }
 
 /* Label float */ 
-.entryarea1 input:valid ~ .labelline1 {
+.entryarea1 select:valid ~ .labelline1 {
     margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
   
-.entryarea1 input:focus ~ .labelline1 {
+.entryarea1 select:focus ~ .labelline1 {
     margin-top: -42px;
     font-size: 12px;
     color: #31A463;
@@ -301,7 +309,7 @@
 }
 
 
-// Book - Author 
+// Book, Perio, Arti - Author 
 
 .author-container {
     display: grid;
@@ -340,7 +348,6 @@
     pointer-events: none;
     transition: .3s;
 }
-
 
 /* Bottom Line when hover */ 
 
@@ -437,27 +444,29 @@
     }
 }
 
-// Book - Copyright
+// Book, Perio - Copyright
 
 .input-row1 {
-    column-gap: 20px;
+    gap: 1.5rem;
     display: flex;
     justify-content: space-between;
-    margin-top: -15px;
-    
 }
 
-.input-row1 .entryarea3, .input-row1 .entryarea4, .input-row1 .entryarea5 {
+.input-row1 .entryarea3, .input-row1 .entryarea4 {
     flex-basis: 100%;
+}
+
+.input-row1 .entryarea3, .input-row1 .entryarea4 {
+    position: relative;
 }
 
 .entryarea3 select{
     font-family: 'Montserrat';
     width: 100%;
+    margin-top: 30px;
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 30px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -483,22 +492,20 @@
 .entryarea3 span::before {
     content: '';
     position: absolute;
-    margin-left: -319px;
+    left: 0;
     margin-top: 87px;
-    width: 21%;
-    height: 2px;
+    width: 100%;
+    height: 2.5px;
     transition: .3s;
 }
 
 .entryarea3 select:focus ~ span::before {
-    margin-left: -319px;
-    width: 21%;
+    left: 0;
+    width: 100%;
     margin-top: 87px;
     transition: .3s;
     background: #31A463;
 }
-
-
 
 /* Change Bg color when Hover */ 
 
@@ -521,7 +528,8 @@
 }
 
 
-// Books - Volume 
+// Books - Volume, Edition 
+// Perio - Publisher, Volume 
 
 .entryarea4 input {
     font-family: 'Montserrat';
@@ -540,8 +548,8 @@
 }
 
 .labelline4 {
-    position: relative;
-    margin-top: -29px;
+    position: absolute;
+    margin-top: -27px;
     margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
@@ -555,16 +563,16 @@
 .entryarea4 span::before {
     content: '';
     position: absolute;
+    left: 0;
     margin-top: 87px;
-    width: 20.99%;
-    margin-left: -319px;
+    width: 100%;
     height: 2px;
     transition: .3s;
 }
 
 .entryarea4 input:focus ~ span::before {
-    width: 20.99%;
-    margin-left: -319px;
+    width: 100%;
+    left: 0;
     margin-top: 87px;
     transition: .3s;
     background: #31A463;
@@ -590,9 +598,106 @@
     letter-spacing: 0.5px;
 }
 
-// Books - Edition  
+// Book - Price
+
+.input-row1 .entryarea5 {
+    flex-basis: 100%;
+}
+
+.input-row1 .entryarea5 {
+    position: relative;
+}
 
 .entryarea5 input {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 35px;
+    padding-right: 10px;
+    margin-top: 30px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.entryarea5 .peso-sign {
+    position: absolute;
+    left: 15px; 
+    top: 77%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #000;
+    pointer-events: none; 
+}
+
+
+.labelline5 {
+    position: absolute;
+    margin-top: -42px;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea5 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 87px;
+    width: 100%;
+    left: 0;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea5 input:focus ~ span::before {
+    width: 100%;
+    left: 0;
+    margin-top: 87px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea5 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea5 input:valid ~ .labelline5 {
+    margin-top: -42px;
+    font-size: 12px;
+}
+  
+.entryarea5 input:focus ~ .labelline5 {
+    margin-top: -42px;
+    font-size: 12px;
+    color: #31A463;
+}
+
+// Book - Remarks, Pages
+// Perio - Publisher, Pages, Remarks 
+// Arti - Remarks 
+
+.input-row1 .entryarea6, .input-row1 .entryarea7 {
+    flex-basis: 100%;
+}
+
+.input-row1 .entryarea6, .input-row1 .entryarea7 {
+    position: relative;
+}
+
+.entryarea6 input{
     font-family: 'Montserrat';
     width: 100%;
     padding-top: 19px;
@@ -609,9 +714,9 @@
     outline: none;
 }
 
-.labelline5 {
+.labelline6 {
     position: absolute;
-    margin-top: -29px;
+    margin-top: -27px;
     margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
@@ -622,19 +727,19 @@
 
 /* Bottom Line when hover */ 
 
-.entryarea5 span::before {
+.entryarea6 span::before {
     content: '';
     position: absolute;
+    left: 0;
     margin-top: 87px;
-    width: 20.99%;
-    margin-left: -319px;
+    width: 100%;
     height: 2px;
     transition: .3s;
 }
 
-.entryarea5 input:focus ~ span::before {
-    width: 20.99%;
-    margin-left: -319px;
+.entryarea6 input:focus ~ span::before {
+    width: 100%;
+    left: 0;
     margin-top: 87px;
     transition: .3s;
     background: #31A463;
@@ -642,29 +747,25 @@
 
 /* Change Bg color when Hover */ 
 
-.entryarea5 input:hover{
+.entryarea6 input:hover{
     background-color: #ececec;
 }
 
 /* Label float */ 
-.entryarea5 input:valid ~ .labelline5 {
+.entryarea6 input:valid ~ .labelline6 {
+    margin-top: -42px;
     font-size: 12px;
-    margin-top: -45px;
-    letter-spacing: 0.5px;
 }
   
-.entryarea5 input:focus ~ .labelline5 {
+.entryarea6 input:focus ~ .labelline6 {
+    margin-top: -42px;
     font-size: 12px;
-    margin-top: -45px;
     color: #31A463;
     letter-spacing: 0.5px;
 }
 
-// Book - Date Purchased 
-
-.input-row1 .entryarea6, .input-row1 .entryarea7 {
-    flex-basis: 100%;
-}
+// Books - Purchased 
+// Perio - Publication
 
 .entryarea7 input{
     font-family: 'Montserrat';
@@ -672,7 +773,7 @@
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 50px;
+    margin-top: 30px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -685,14 +786,13 @@
 
 .labelline7 {
     position: absolute;
-    margin-left: 16px;
     margin-top: -42px;
+    margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
     font-size: 12px;
     pointer-events: none;
     transition: .3s;
-    letter-spacing: 0.5px;
 }
 
 /* Bottom Line when hover */ 
@@ -700,17 +800,17 @@
 .entryarea7 span::before {
     content: '';
     position: absolute;
-    margin-top: 107px;
-    width: 20.99%;
-    margin-left: -319px;
+    left: 0;
+    margin-top: 87px;
+    width: 100%;
     height: 2px;
     transition: .3s;
 }
 
 .entryarea7 input:focus ~ span::before {
-    width: 20.99%;
-    margin-left: -319px;
-    margin-top: 107px;
+    width: 100%;
+    left: 0;
+    margin-top: 87px;
     transition: .3s;
     background: #31A463;
 }
@@ -731,82 +831,19 @@
     margin-top: -42px;
     font-size: 12px;
     color: #31A463;
-    letter-spacing: 0.5px;
 }
 
-// Book - Remarks 
 
-.entryarea6 input {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    margin-top: 50px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
+// Book - Fund, Location 
+// Perio - Language, Recieved 
+// Arti - Language 
 
-.labelline6 {
-    position: relative;
-    margin-top: -29px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea6 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 107px;
-    width: 20.99%;
-    margin-left: -319px;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea6 input:focus ~ span::before {
-    width: 20.99%;
-    margin-left: -319px;
-    margin-top: 107px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea6 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea6 input:valid ~ .labelline6 {
-    margin-top: -45px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea6 input:focus ~ .labelline6 {
-    margin-top: -45px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Book - Source of fund 
-
-.input-row1 .entryarea8, .input-row1 .entryarea9 {
+.input-row1 .entryarea8 {
     flex-basis: 100%;
+}
+
+.input-row1 .entryarea8 {
+    position: relative;
 }
 
 .entryarea8 select{
@@ -815,7 +852,7 @@
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 50px;
+    margin-top: 30px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -841,22 +878,20 @@
 .entryarea8 span::before {
     content: '';
     position: absolute;
-    margin-top: 107px;
-    width: 32.1%;
-    margin-left: -488px;
-    height: 2px;
+    margin-top: 87px;
+    width: 100%;
+    left: 0;
+    height: 2.5px;
     transition: .3s;
 }
 
 .entryarea8 select:focus ~ span::before {
-    width: 32.1%;
-    margin-left: -488px;
-    margin-top: 107px;
+    width: 100%;
+    left: 0;
+    margin-top: 87px;
     transition: .3s;
     background: #31A463;
 }
-
-
 
 /* Change Bg color when Hover */ 
 
@@ -868,20 +903,101 @@
 .entryarea8 select:valid ~ .labelline8 {
     margin-top: -42px;
     font-size: 12px;
-    letter-spacing: 0.5px;
 }
   
 .entryarea8 select:focus ~ .labelline8 {
     margin-top: -42px;
     font-size: 12px;
     color: #31A463;
-    letter-spacing: 0.5px;
 }
+
+// Book -  Callnumber
+// Perio - Issue, Pages 
+// Arti -  Issue, Subject, Volume
+
+.input-row1 .entryarea9 {
+    flex-basis: 100%;
+}
+
+.input-row1 .entryarea9 {
+    position: relative;
+}
+
+.entryarea9 input {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-top: 30px;
+    height: 59px;
+    font-size: 16px;
+    border: none;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #44474E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+}
+
+.labelline9 {
+    position: absolute;
+    margin-top: -27px;
+    margin-left: 16px;
+    color: #44474E;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+/* Bottom Line when hover */ 
+
+.entryarea9 span::before {
+    content: '';
+    position: absolute;
+    margin-top: 87px;
+    width: 100%;
+    left: 0;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea9 input:focus ~ span::before {
+    width: 100%;
+    left: 0;
+    margin-top: 87px;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea9 input:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea9 input:valid ~ .labelline9 {
+    margin-top: -42px;
+    font-size: 12px;
+}
+  
+.entryarea9 input:focus ~ .labelline9 {
+    margin-top: -42px;
+    font-size: 12px;
+    color: #31A463;
+}
+
 
 // Book - Copies 
 
-.input-row1 .entryarea10, .input-row1 .entryarea-10, .input-row1 .entryarea11 {
-    flex-basis: 50%;
+.input-row1 .entryarea10, .input-row1 .entryarea11 {
+    flex-basis: 100%;
+}
+
+.input-row1 .entryarea10, .input-row1 .entryarea11 {
+    position: relative;
 }
 
 .entryarea10 input {
@@ -890,7 +1006,7 @@
     padding-top: 19px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-top: 60px;
+    margin-top: 30px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -902,12 +1018,11 @@
 }
 
 .labelline10 {
-    position: relative;
-    margin-top: -29px;
+    position: absolute;
     margin-left: 16px;
     color: #44474E;
     transform: translateY(-50%);
-    font-size: 15px;
+    font-size: 12px;
     pointer-events: none;
     transition: .3s;
 }
@@ -917,17 +1032,17 @@
 .entryarea10 span::before {
     content: '';
     position: absolute;
-    margin-top: 117px;
-    width: 32.1%;
-    margin-left: -488px;
-    height: 2px;
+    margin-top: 87px;
+    width: 100%;
+    left: 0;
+    height: 2.5px;
     transition: .3s;
 }
 
 .entryarea10 input:focus ~ span::before {
-    width: 32.1%;
-    margin-left: -488px;
-    margin-top: 117px;
+    width: 100%;
+    left: 0;
+    margin-top: 87px;
     transition: .3s;
     background: #31A463;
 }
@@ -952,15 +1067,12 @@
     letter-spacing: 0.5px;
 }
 
-// Pages 
+// Upload Image
 
-.entryarea-10 input {
+.entryarea11 input {
     font-family: 'Montserrat';
     width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 60px;
+    margin-top: 30px;
     height: 59px;
     font-size: 16px;
     border: none;
@@ -971,78 +1083,15 @@
     outline: none;
 }
 
-.labelline-10 {
-    position: relative;
-    margin-top: -29px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea-10 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 117px;
-    width: 32.1%;
-    margin-left: -488px;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea-10 input:focus ~ span::before {
-    width: 32.1%;
-    margin-left: -488px;
-    margin-top: 117px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea-10 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea-10 input:valid ~ .labelline-10 {
-    margin-top: -42px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea-10 input:focus ~ .labelline-10 {
-    margin-top: -42px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Upload Image
-
-.entryarea11 input {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-right: 10px;
-    margin-top: 59px;
-    height: 61px;
-    font-size: 16px;
-    background-color: #f6f6f6;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
 .labelline11 {
     position: absolute;
-    margin-top: -75px;
+    margin-top: -70px;
+    margin-left: 5px;
     color: #44474E;
     transform: translateY(-50%);
-    font-size: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 70%;
     pointer-events: none;
     transition: .3s;
 }
@@ -1051,7 +1100,9 @@ input[type="file"]::file-selector-button {
     border-top-left-radius: 5px;
     font-family: 'Montserrat';
     color: #ffffff;
-    height: 60px;
+    padding-top: 5px;
+    height: 59px;
+    font-size: 14px;
     cursor: pointer;
     background-color: #31A463;
     border: 1px solid rgba(0, 0, 0, 0.16);
@@ -1060,9 +1111,93 @@ input[type="file"]::file-selector-button {
     transition: background-color 200ms;
 }
 
+// Arti - Abstract  
+
+.input-row1 .entryarea12 {
+    flex-basis: 100%;
+    position: relative;
+    margin-top: 30px;
+ 
+}
+
+.entryarea12 textarea {
+    font-family: 'Montserrat';
+    width: 100%;
+    height: 200px;
+    padding-top: 29px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+    border: none;
+    background-color: var(--input);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+    border-bottom: 2px solid var(--input-border);
+    resize: none;
+}
+
+.labelline12 {
+    font-family: 'Montserrat';
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    color: var(--input-border);
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    transition: .3s;
+}
+
+.entryare12:focus {
+    content: '';
+    border-bottom: 2.5px solid var(--main-green);
+}
+
+
+/* Bottom Line when hover */ 
+
+.entryarea12 span::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    margin-top: 198px;
+    width: 100%;
+    height: 2.5px;
+    transition: .3s;
+}
+
+.entryarea12 textarea:focus ~ span::before {
+    left: 0;
+    margin-top: 198px;
+    width: 100%;
+    transition: .3s;
+    background: #31A463;
+}
+
+/* Change Bg color when Hover */ 
+
+.entryarea12 textarea:hover{
+    background-color: #ececec;
+}
+
+/* Label float */ 
+.entryarea12 textarea:valid ~ .labelline12 {
+    top: 14px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+  
+.entryarea12 textarea:focus ~ .labelline12 {
+    top: 14px;
+    font-size: 12px;
+    color: #31A463;
+    letter-spacing: 0.5px;
+}
+
 /* Book Submit Button */ 
 
-.bookbtn > input {
+.book-btn > input {
     border: none;
     position: absolute;
     text-align: center;
@@ -1074,821 +1209,58 @@ input[type="file"]::file-selector-button {
     color: white;
     background-color: #31A463;
     text-decoration: none;
-    height: 40px;
+    height: 50px;
     margin-top: 50px;
-    width: 50%;
+    width: 45%;
     margin-left: 35%;
     width: 155px;
     font-size: 15px;
     cursor: pointer;
 }
 
-.bookbtn > input:hover {
-	display: block;
-    font-family: Montserrat;
-    text-transform: uppercase;
-    font-size: 15px;
+
+/* Perio Submit Button */ 
+
+.perio-btn > input {
+    border: none;
+    position: absolute;
+    text-align: center;
     font-weight: 600;
-	width: 11%;
-	margin-top: 595px;
-    margin-left: 500px;
-	background-color: #298f55;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
     border-radius: 5px;
-	color: #ffffff;
-	padding: 10px;
+    transform: translateX(-50%);
+    color: white;
+    background-color: #31A463;
+    text-decoration: none;
+    height: 50px;
+    margin-top: 50px;
+    width: 45%;
+    margin-left: 35%;
+    width: 155px;
+    font-size: 15px;
     cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.16);
 }
 
+/* Arti Submit Button */ 
 
-
-/*************************** PERIO *********************************/
-
-.entryarea select {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    height: 59px;
-    font-size: 16px;
+.arti-btn > input {
     border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline-1 {
     position: absolute;
-    margin-top: -42px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea span::before {
-    content: '';
-    position: absolute;
-    margin-left: -325px;
-    margin-top: 57px;
-    width: 21.3%;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea select:focus ~ span::before {
-    margin-left: -325px;
-    width: 21.3%;
-    margin-top: 57px;
-    transition: .3s;
-    background: #31A463;
-}
-
-
-/* Change Bg color when Hover */ 
-
-.entryarea select:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea select:valid ~ .labelline-1 {
-    margin-top: -42px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea select:focus ~ .labelline-1 {
-    margin-top: -42px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Article - Issue
-
-.input-row1 .entryarea_9 {
-    flex-basis: 100%;
-}
-
-.entryarea_9 input {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 50px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline_9 {
-    position: relative;
-    margin-top: -29px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    border-radius: 5px;
+    transform: translateX(-50%);
+    color: white;
+    background-color: #31A463;
+    text-decoration: none;
+    height: 50px;
+    margin-top: 40px;
+    width: 45%;
+    margin-left: 35%;
+    width: 155px;
     font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_9 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 108px;
-    width: 32.1%;
-    margin-left: -488px;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea_9 input:focus ~ span::before {
-    width: 32.1%;
-    margin-left: -488px;
-    margin-top: 108px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea_9 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea_9 input:valid ~ .labelline_9 {
-    margin-top: -42px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea_9 input:focus ~ .labelline_9 {
-    margin-top: -42px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-/* Issue */ 
-.input-row1 .entryarea9, .input-row1 .entryarea9 select {
-    flex-basis: 100%;
-}
-
-.entryarea9 input {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 30px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline9 {
-    position: relative;
-    margin-top: -29px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea9 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 87px;
-    width: 32.1%;
-    margin-left: -488px;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea9 input:focus ~ span::before {
-    width: 32.1%;
-    margin-left: -488px;
-    margin-top: 87px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea9 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea9 input:valid ~ .labelline9 {
-    margin-top: -42px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea9 input:focus ~ .labelline9 {
-    margin-top: -42px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-/* Article - Language */ 
-
-.entryarea9 select {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 30px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline9 {
-    position: relative;
-    margin-top: -29px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea9 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 88px;
-    width: 32.1%;
-    margin-left: -488px;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea9 select:focus ~ span::before {
-    width: 32.1%;
-    margin-left: -488px;
-    margin-top: 88px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea9 select:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea9 select:valid ~ .labelline9 {
-    margin-top: -42px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea9 select:focus ~ .labelline9 {
-    margin-top: -42px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Date Published 
-
-.input-row1 .entryarea13 {
-    flex-basis: 100%;
-}
-
-.entryarea13 input {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 60px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline13 {
-    position: absolute;
-    margin-top: -42px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea13 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 117px;
-    width: 32.1%;
-    margin-left: -488px;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea13 input:focus ~ span::before {
-    width: 32.1%;
-    margin-left: -488px;
-    margin-top: 117px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea13 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea13 input:valid ~ .labelline13 {
-    margin-top: -42px;
-    font-size: 12px;
-}
-  
-.entryarea13 input:focus ~ .labelline13 {
-    margin-top: -42px;
-    font-size: 12px;
-    color: #31A463;
-}
-
-// Date Published 
-
-.input-row1 .entryarea_13 {
-    flex-basis: 100%;
-}
-
-.entryarea_13 input {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 60px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline_13 {
-    position: absolute;
-    margin-top: -42px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_13 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 118px;
-    margin-left: -995px;
-    width: 65.5%;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea_13 input:focus ~ span::before {
-    width: 65.5%;
-    margin-top: 118px;
-    margin-left: -995px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea_13 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea_13 input:valid ~ .labelline_13 {
-    margin-top: -42px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea_13 input:focus ~ .labelline_13 {
-    margin-top: -42px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-.input-row1 .entryarea-3, .input-row1 .entryarea-4, .input-row1 .entryarea-5 {
-    flex-basis: 100%;
-}
-
-.entryarea-3 select{
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 50px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline-3 {
-    position: absolute;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 12px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea-3 span::before {
-    content: '';
-    position: absolute;
-    margin-left: -319px;
-    margin-top: 108px;
-    width: 21%;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea-3 select:focus ~ span::before {
-    margin-left: -319px;
-    width: 21%;
-    margin-top: 108px;
-    transition: .3s;
-    background: #31A463;
-}
-
-
-/* Change Bg color when Hover */ 
-
-.entryarea-3 select:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea-3 select:valid ~ .labelline-3 {
-    margin-top: -42px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea-3 select:focus ~ .labelline-3 {
-    margin-top: -42px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-
-// Books - Volume 
-
-.entryarea-4 input {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    margin-top: 50px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline-4 {
-    position: relative;
-    margin-top: -29px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea-4 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 108px;
-    width: 20.99%;
-    margin-left: -319px;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea-4 input:focus ~ span::before {
-    width: 20.99%;
-    margin-left: -319px;
-    margin-top: 108px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea-4 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea-4 input:valid ~ .labelline-4 {
-    margin-top: -45px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea-4 input:focus ~ .labelline-4 {
-    margin-top: -45px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Books - Volume  
-
-.entryarea-5 input {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 50px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline-5 {
-    position: absolute;
-    margin-top: -29px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea-5 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 108px;
-    width: 20.99%;
-    margin-left: -319px;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea-5 input:focus ~ span::before {
-    width: 20.99%;
-    margin-left: -319px;
-    margin-top: 108px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea-5 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea-5 input:valid ~ .labelline-5 {
-    font-size: 12px;
-    margin-top: -45px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea-5 input:focus ~ .labelline-5 {
-    font-size: 12px;
-    margin-top: -45px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-// Avstract  
-
-.input-row1 .entryarea_14 {
-    flex-basis: 100%;
-}
-
-.entryarea_14 textarea {
-    font-family: 'Montserrat';
-    width: 100%;
-    height: 150px;
-    padding-top: 35px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 30px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline_14 {
-    position: absolute;
-    margin-top: -29px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea_14 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 178px;
-    width: 65.5%;
-    margin-left: -995px;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea_14 textarea:focus ~ span::before {
-    width: 65.5%;
-    margin-left: -995px;
-    margin-top: 178px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea_14 textarea:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea_14 textarea:valid ~ .labelline_14 {
-    margin-top: -135px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea_14 textarea:focus ~ .labelline_14 {
-    margin-top: -135px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
-}
-
-.input-row1 .entryarea15 {
-    flex-basis: 100%;
-}
-
-.entryarea15 input {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    margin-top: 60px;
-    height: 59px;
-    font-size: 16px;
-    border: none;
-    background-color: #f6f6f6;
-    border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-}
-
-.labelline15 {
-    position: relative;
-    margin-top: -29px;
-    margin-left: 16px;
-    color: #44474E;
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-/* Bottom Line when hover */ 
-
-.entryarea15 span::before {
-    content: '';
-    position: absolute;
-    margin-top: 117px;
-    width: 32.1%;
-    margin-left: -488px;
-    height: 2px;
-    transition: .3s;
-}
-
-.entryarea15 input:focus ~ span::before {
-    width: 32.1%;
-    margin-left: -488px;
-    margin-top: 117px;
-    transition: .3s;
-    background: #31A463;
-}
-
-/* Change Bg color when Hover */ 
-
-.entryarea15 input:hover{
-    background-color: #ececec;
-}
-
-/* Label float */ 
-.entryarea15 input:valid ~ .labelline15 {
-    margin-top: -42px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-  
-.entryarea15 input:focus ~ .labelline15 {
-    margin-top: -42px;
-    font-size: 12px;
-    color: #31A463;
-    letter-spacing: 0.5px;
+    cursor: pointer;
 }
