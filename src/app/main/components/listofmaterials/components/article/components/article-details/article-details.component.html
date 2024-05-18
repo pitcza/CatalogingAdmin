@@ -4,16 +4,24 @@
             <div class="details-content">
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
-                    <h1> {{ data.details.title }} </h1>
+                    <h1> Article: {{ data.details.type | titlecase }} </h1>
                     <button class="exit-button" (click)="closepopup()"> &times; </button>
                 </div>
                 
                 <!-- BODY - DETAILS -->
                 <div class="detailsbody">
+                    <div class="mat-title">
+                        <div class="material-title">
+                            <span>
+                                <h2> {{ data.details.title }} </h2>
+                            </span>
+                        </div>
+                    </div>
+
                     <div class="details">
                         <div class="body-details">
                             <span>
-                                <h2> Type of Material: </h2> <p> {{ data.details.type | titlecase }} </p>
+                                <h2> Accession Number: </h2> <p> {{ data.details.id }} </p>
                             </span>
                             <span>
                                 <h2> Language: </h2> <p> {{ data.details.language | titlecase }} </p>
@@ -31,7 +39,7 @@
 
                         <div class="body-details">
                             <span>
-                                <h2> Author: </h2> <p> {{ data.details.author }} </p>
+                                <h2> Author/s: </h2> <p> {{ data.details.author }} </p>
                             </span>
                             <span>
                                 <h2> Volume: </h2> <p> {{ data.details.volume }} </p>
@@ -49,14 +57,14 @@
                     </div>
 
                     <div class="details">
-                    <div class="art-abstract">
-                        <span>
-                            <h2> Abstract: </h2>
-                        </span>
-                        <span>
-                            <p> {{ data.details.abstract != null ? data.details.abstract : 'N/A' }} </p>
-                        </span>
-                    </div>
+                        <div class="art-abstract">
+                            <span>
+                                <h2> Abstract: </h2>
+                            </span>
+                            <span>
+                                <p> {{ data.details.abstract != null ? data.details.abstract : 'N/A' }} </p>
+                            </span>
+                        </div>
                     </div>
                 
                     <!-- BUTTONS -->

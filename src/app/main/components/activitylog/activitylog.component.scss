@@ -148,6 +148,10 @@ th {
     letter-spacing: 0.8px;
 }
 
+table tr {
+    transition: all 0.3s ease;
+}
+
 table tr:hover {
     background-color: var(--secondary-color);
 }

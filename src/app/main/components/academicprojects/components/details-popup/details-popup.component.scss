@@ -85,14 +85,39 @@ h1 {
 
 // BODY DETAILS //
 .detailsbody {
-    padding: 50px 30px 30px 30px;
+    padding: 100px 30px 30px 30px;
     height: auto; /* Adjust the height as needed */
 }
 
 .details {
     display: flex;
     justify-content: space-between;
-    padding-top: 50px;
+}
+
+// MATERIAL TITLE
+.mat-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 3px;
+}
+
+.mat-title .material-title {
+    text-align: left;
+    padding: 15px;
+    background-color: var(--secondary-color);
+    width: 100%;
+}
+
+.material-title span {
+    display: flex;
+    justify-content: center;
+}
+
+.material-title h2 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
 }
 
 // .details2 {
@@ -104,6 +129,7 @@ h1 {
 img {
     width: 100%;
     height: auto;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
@@ -115,7 +141,13 @@ img {
 
 .projectdetails span {
     display: flex;
-    padding-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+.projectdetails span:hover {
+    background-color: var(--secondary-color);
 }
 
 .projectdetails h2 {
@@ -125,6 +157,41 @@ img {
 }
 
 .projectdetails p {
+    font-size: 15px;
+    font-weight: 400;
+    text-align: justify;
+    gap: 10px;
+}
+
+.details .details2 {
+    text-align: left;
+    margin: 15px;
+    width: 100%;
+    gap: 10px;
+    transition: all 0.5s ease;
+}
+
+.prj-abstract, .prj-keywords {
+    padding: 10px;
+    margin-bottom: 5px
+}
+
+// .prj-abstract:hover, .prj-keywords:hover {
+//     background-color: var(--secondary-color);
+// }
+
+.details2 span {
+    display: flex;
+}
+
+.details2 h2 {
+    font-size: 15px;
+    font-weight: bold;
+    padding-right: 10px;
+    padding-bottom: 15px;
+}
+
+.details2 p {
     font-size: 15px;
     font-weight: 400;
     text-align: justify;
