@@ -83,6 +83,12 @@ span {
     height: 2.5em;
     border: 1px solid var(--table-border);
     border-radius: 7px;
+    transition: all 0.5s ease;
+    outline: none;
+}
+
+.table-filters select:focus {
+    border: 1.5px solid var(--main-green);
 }
 
 //SELECT OPTION
@@ -210,6 +216,10 @@ th {
     height: 60px;
 }
 
+table tr {
+    transition: all 0.3s ease;
+}
+
 table tr:hover{
     background-color: rgb(243, 243, 243);
 }
@@ -297,6 +307,7 @@ tr {
     border-radius: 6px;
     /* Position the tooltip text */
     position: absolute;
+    font-weight: normal;
     width: 120px;
     top: 100%;
     right: 2.5%;

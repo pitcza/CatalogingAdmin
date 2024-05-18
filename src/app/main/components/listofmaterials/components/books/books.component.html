@@ -19,7 +19,7 @@
                 <div class="search-container">
                     <form>
                     <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
-                    <button ><i class="fa fa-search"></i></button>
+                    <button disabled><i class="fa fa-search"></i></button>
                     </form>
                 </div>
 
@@ -59,7 +59,7 @@
         
                 <!-- Actions Column -->
                 <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef> Action</th>
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
                     <td mat-cell class="actions" *matCellDef="let element">
             
                         <button class="editbtn" (click)="editPopup(

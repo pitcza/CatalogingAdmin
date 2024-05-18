@@ -85,13 +85,39 @@ h1 {
 
 // BODY DETAILS //
 .detailsbody {
-    padding: 110px 30px 10px 30px;
+    padding: 100px 30px 10px 30px;
     height: auto; /* Adjust the height as needed */
 }
 
 .details {
     display: flex;
     justify-content: space-between;
+}
+
+// MATERIAL TITLE
+.mat-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.mat-title .material-title {
+    text-align: left;
+    padding: 15px;
+    background-color: var(--secondary-color);
+    width: 100%;
+}
+
+.material-title span {
+    display: flex;
+    justify-content: center;
+}
+
+.material-title h2 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
 }
 
 img {
@@ -108,7 +134,13 @@ img {
 
 .body-details span {
     display: flex;
-    padding-bottom: 15px;
+    padding: 10px;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+.body-details span:hover {
+    background-color: var(--secondary-color);
 }
 
 .body-details h2 {
@@ -125,18 +157,25 @@ img {
 
 .details .art-abstract {
     text-align: left;
-    padding: 15px;
+    margin: 15px;
+    padding: 10px;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+.art-abstract:hover {
+    background-color: var(--secondary-color);
 }
 
 .art-abstract span {
     display: flex;
-    padding-bottom: 15px;
 }
 
 .art-abstract h2 {
     font-size: 15px;
     font-weight: bold;
     padding-right: 10px;
+    padding-bottom: 15px;
 }
 
 .art-abstract p {

@@ -19,10 +19,16 @@
     padding: 5px;
     font-size: 14px;
     font-weight: 500;
-    width: 12em;
+    width: 250px;
     height: 2.5em;
     border: 1px solid var(--table-border);
     border-radius: 7px;
+    transition: all 0.5s ease;
+    outline: none;
+}
+
+.table-filters select:focus {
+    border: 1.5px solid var(--main-green);
 }
 
 // SEARCH BAR
@@ -62,6 +68,11 @@ input:focus{
     border-bottom-right-radius: 7px;
     font-size: 16px;
     cursor: default;
+    transition: all 0.5s ease;
+}
+
+.table-head .search-container button:hover {
+    background-color: var(--green-hover);
 }
 // END OF TABLE HEAD //
 
@@ -86,6 +97,10 @@ th {
     color: white;
     font-weight: 600;
     letter-spacing: 0.8px;
+}
+
+table tr {
+    transition: all 0.3s ease;
 }
 
 table tr:hover{
