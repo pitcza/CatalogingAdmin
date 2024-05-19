@@ -330,6 +330,7 @@ input[type="file"]::file-selector-button {
     border-top-right-radius: 5px;
     outline: none;
     border-bottom: 2px solid var(--input-border);
+    resize: none;
 }
 
 .txtarea .labelline1 {
@@ -479,6 +480,27 @@ input[type="file"]::file-selector-button {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         column-gap: 1.5rem;
+        row-gap: 0;
         width: 100%;
+        
+        .inputtxt {
+            width: 100%;
+        }
+    }
+    .input-row {
+        gap: 1.3rem;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    #no-add-function {
+        width: 100%;
+    }
+    .input-row {
+        gap: 0.5rem;
+        width: 100%;
+    }
+    .input-row .add-keyword, .input-row .add-author {
+        width: 60px;
     }
 }

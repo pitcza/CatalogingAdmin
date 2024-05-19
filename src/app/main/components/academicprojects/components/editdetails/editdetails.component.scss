@@ -364,6 +364,7 @@ input[type="file"]::file-selector-button {
     border-top-right-radius: 5px;
     outline: none;
     border-bottom: 2px solid var(--input-border);
+    resize: none;
 }
 
 .txtarea .labelline1 {
