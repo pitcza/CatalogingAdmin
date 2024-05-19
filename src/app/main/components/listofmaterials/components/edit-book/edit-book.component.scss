@@ -206,7 +206,7 @@ h1 {
     color: var(--main-green);
 }
 
-.txt_field_short .inputtxt:focus ~ span::before, .txt_field_shorter .inputtxt:focus ~ span::before {
+.txt_field_short .inputtxt:focus ~ span::before, .txt_field_shorter .inputtxt:focus ~ span::before, .txt_field_short .inputtxt-price:focus ~ span::before {
     width: 100%;
 } 
 
@@ -289,7 +289,7 @@ h1 {
     left: 10px;
 }
 
-.txt_field_short input[type="date"]:focus ~ .datelabel, .txt_field input[type="file"]:focus ~ .uploadlabel, .txt_field_short .inputtxt:focus ~ .labelline1 {
+.txt_field_short input[type="date"]:focus ~ .datelabel, .txt_field input[type="file"]:focus ~ .uploadlabel, .txt_field_short .inputtxt:focus ~ .labelline1, .txt_field_short .inputtxt-price:focus ~ .labelline1 {
     color: var(--main-green);
 }
 
@@ -378,6 +378,33 @@ option {
         margin: 35px 10px 0 0;
         cursor: pointer;
     }
+}
+
+// WITH PESO SIGN
+.txt_field_short .inputtxt-price {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 30px;
+    padding-right: 10px;
+    height: 60px;
+    font-size: 15px;
+    border: none;
+    background-color: var(--input);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline: none;
+    border-bottom: 2px solid var(--cancel-btn);
+}
+
+.txt_field_short .peso-sign {
+    position: absolute;
+    left: 10px; 
+    top: 64%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #000;
+    pointer-events: none; 
 }
 
 // INPUT FILE LABEL AND BUTTON
