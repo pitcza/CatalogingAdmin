@@ -5,6 +5,83 @@
 
 }
 
+/********************************** DATE PICKER ***********************************/
+
+.input-row {
+    display: flex;
+    justify-content: center;
+    column-gap: 1rem;
+    margin-top: 5px;
+}
+
+.input-row .txt_field {
+    flex-basis: 100%;
+}
+
+.input-row .txt_field {
+    
+    position: relative;
+    margin: 0.1rem 0;
+}
+
+.txt_field {
+	font-size: 0.75rem;
+	font-weight: 400;
+	display: block;
+	margin-bottom: 0.2rem;
+    height: 2.5rem;
+	color: black;
+	border: 1px solid var(--table-border);
+	padding: 0.5rem 0.75rem;
+	border-radius: 10px;
+    display: flex;
+}
+
+label {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    font-family: 'Montserrat';
+    color: var(--primary-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: -0px;
+    width: 80px;
+    height: 2.4rem;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: default;
+    background-color: var(--main-green);
+    border: none;
+    transition: background-color 200ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+	font-family: 'Montserrat';
+	border: none;
+	border-radius: 0.25rem;
+    background-color: transparent;
+	border: 1px solid transparent;
+	line-height: 1.5rem;
+    padding-left: 75px;
+	font-size: 1rem;
+	color: black;
+	width: 100%;
+}
+
+input:focus {outline: none;}
+#ui-datepicker-div {
+	box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
+	margin-top: 0.25rem;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+}
+
+
 /********************************** SEARCH ****************************************/
 
 .table-head {
