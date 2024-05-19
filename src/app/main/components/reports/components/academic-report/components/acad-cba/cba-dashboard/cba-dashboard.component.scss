@@ -1,8 +1,18 @@
 .content {
     justify-content: center;
     align-items: center;
+    padding-left: 10px;
+    padding-right: 20px;
 }
-  
+
+@media screen and (min-width: 1220px) {
+    content {
+        margin-top: 10px;
+        margin-left: 50px;
+        margin-right: 20px;
+    }
+}
+
 /* HEAD CONTENT */
 .header {
     display: flex;
@@ -22,7 +32,7 @@
 }
 
 .header a h2 {
-    margin-top: -15px;
+    margin-top: -11px;
     font-size: 15px;
 
 }
@@ -35,13 +45,14 @@
     border-radius: 50px;
     padding-top: 23px;
     margin-top: 15px;
+    margin-bottom: 10px;
+    margin-right: 15px;
     font-size: 16px;
-    width: 100px;
+    width: 140px;
     height: 40px;
     box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
     transition: .3s;
     transform: translate(0px, 0px);
-    margin-right: 50px;
 }
 
 .header .academic-report:hover {
@@ -53,70 +64,86 @@
     text-decoration: none;
 }
 
-.cards {
-    padding: 15px 0;
+/************ CARDS ************************/
+
+.input-row {
     display: flex;
-    align-items: center;
+    padding: 0;
     justify-content: space-between;
-    flex-wrap: wrap;
+}
+
+.input-row .card {
+    flex-basis: 30%;
+}
+
+.input-row .card {
+    position: relative;
+    margin: 1.3rem 0;
 }
 
 .cards .card {
-    width: 350px;
+    width: 100%;
     height: 100px;
     background-color: #31A463;
     color: #fff;
-    margin-top: 10px;
-    margin-left: 25px;
-    margin-right: 40px;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
     border-radius: 10px;
-    border: #31A463;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .icon-case1 img {
-    height: 80px;
-    width: 85px;
+    height: 70px;
+    width: 75px;
     margin-top: 10px;
     margin-left: 5px;
 }
 
 .icon-case2 img {
-    height: 65px;
+    height: 60px;
     width: 65px;
     margin-top: 8px;
     margin-left: 5px;
 }
 
 .icon-case3 img {
-    height: 80px;
-    width: 85px;
+    height: 50px;
+    width: 50px;
+    margin-top: 12px;
+    margin-left: 2px;
+}
+
+.icon-case4 img {
+    height: 60px;
+    width: 65px;
     margin-top: 12px;
     margin-left: 2px;
 }
 
 .cards .card .box1 h1 {
-    margin-left: 68px;
-    font-size: 30px;
+    margin-left: 58px;
+    font-size: 25px;
 }
 
 .cards .card h1 {
     margin-left: 58px;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .cards .card .box1 h3 {
     margin-left: 10px;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 500;
 }
 
 .cards .card h3 {
     margin-left: 20px;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 500;
 }
 
@@ -149,11 +176,13 @@
 
 a {
     font-size: 16px;
-    font-family: 'poppins';
+    font-family: 'montserrat';
     font-weight: 500;
 }
 
 hr {
-    width: 94.5%;
-    margin-left: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
+
+
