@@ -9,10 +9,10 @@
             <div class="table-head">
                 <!-- TABLE FILTERS -->
                 <div class="table-filters">
-                    <select id="filter" (change)="applyFilter($event, 'filter')">
+                    <!-- <select id="filter" (change)="applyFilter($event, 'filter')">
                         <option selected value=""> All Locations </option>
                         <option *ngFor="let x of locations" [value]="x.location"> {{ x.location }} </option>
-                    </select>
+                    </select> -->
                 </div>
 
                 <!-- SEARCH BAR -->
@@ -69,7 +69,7 @@
                                 location: element.location_id,
                                 call_number: element.call_number,
                                 copyright: element.copyright,
-                                author: element.author,
+                                authors: element.authors,
                                 date_published: element.date_published,
                                 volume: element.volume,
                                 pages: element.pages,
@@ -95,7 +95,7 @@
                                 location: element.location.location + ': ' + element.location.full_location,
                                 call_number: element.call_number,
                                 copyright: element.copyright,
-                                author: element.author,
+                                authors: element.authors,
                                 date_published: element.date_published,
                                 volume: element.volume,
                                 pages: element.pages,

@@ -15,6 +15,7 @@ export class AuthService {
   ) { }
   
   private url:string = 'http://127.0.0.1:8000/api/';
+  // private url:string = 'http://192.168.68.124:8000/api/';
 
   public login(formData: FormData) {
     return this.http.post(this.url+'login/cataloging', formData).pipe(

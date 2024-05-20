@@ -18,11 +18,11 @@ export class DataService {
   
   private cache = new Map<string, any>();
   private baseUrl:string = 'http://127.0.0.1:8000/api/';
+  // private baseUrl:string = 'http://192.168.68.124:8000/api/';
 
   public get(url: string) {
     return this.http.get(this.baseUrl+url, { headers: this.headers.get() });
   }
-
   
   public post(url: string, formData: FormData) {
     return this.http.post(this.baseUrl+url, formData, { headers: this.headers.get() });
@@ -31,8 +31,8 @@ export class DataService {
   public delete(url: string) {
     return this.http.delete(this.baseUrl+url, { headers: this.headers.get() });
   }
-
-  clearCache(): void {
-    this.cache.clear();
+  
+  public reports(url: string, payload: any) {
+  return this.http.post(this.baseUrl+url, { payload: payload}, { headers: this.headers.pdf() , responseType: 'blob'});
   }
 }

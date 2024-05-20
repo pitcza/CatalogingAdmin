@@ -78,7 +78,6 @@ export class ListofprojectsComponent implements OnInit {
     this.isLoading = true;
     this.ds.get('projects').subscribe((res: any) => {
       this.projects = res;
-      console.log(this.projects)
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

@@ -19,6 +19,7 @@ import { NewspapersComponent } from './components/newspapers/newspapers.componen
   imports: [
     CommonModule,
     MaterialReportRoutingModule, 
+    BooksComponent,
     JournalsComponent,
     MagazinesComponent,
     ArticlesComponent,

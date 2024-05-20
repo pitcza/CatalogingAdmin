@@ -145,35 +145,35 @@ export class JournalsComponent implements OnInit {
   // FILTER DATA
   applyFilter(event: Event, type: string) {
 
-    const select = (document.getElementById('filter') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
 
-    console.log(select, search)
-      const titleFilterPredicate = (data: Journal, search: string): boolean => {
-        return data.title.toLowerCase().includes(search.toLowerCase());
-      }
+    const titleFilterPredicate = (data: Journal, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
 
-      const authorFilterPredicate = (data: Journal, search: string): boolean => {
-        return data.authors.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
-      }
+    const authorFilterPredicate = (data: Journal, search: string): boolean => {
+      return data.authors.some((x: any) => {
+        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+      });
+    }
 
-      const publisherFilterPredicate = (data: Journal, select: string): boolean => {
-        return data.publisher === select || select === '';
-      }
+    const publisherFilterPredicate = (data: Journal, select: string): boolean => {
+      return data.publisher.toLowerCase().includes(search.toLowerCase());
+    }
 
-      const filterPredicate = (data: Journal): boolean => {
-        return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search)) &&
-               publisherFilterPredicate(data, select);
-      };
-      
-      this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = {
-        search, 
-        select
-      };    
+    const copyrightFilterPredicate = (data: Journal, select: string): boolean => {
+      return data.copyright.includes(search);
+    }
+
+    const filterPredicate = (data: Journal): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              publisherFilterPredicate(data, search) || 
+              copyrightFilterPredicate(data, search))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = search;
   }
 
 }

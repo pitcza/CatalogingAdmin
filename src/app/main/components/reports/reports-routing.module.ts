@@ -7,8 +7,8 @@ import { ArticlesComponent } from './components/material-report/components/artic
 import { JournalsComponent } from './components/material-report/components/journals/journals.component';
 import { MagazinesComponent } from './components/material-report/components/magazines/magazines.component';
 import { NewspapersComponent } from './components/material-report/components/newspapers/newspapers.component';
-import { AcademicReportComponent } from './components/academic-report/academic-report.component';
 import { DashboardComponent } from './components/academic-report/components/acad-gc/dashboard/dashboard.component';
+import { AcademicReportComponent } from './components/academic-report/academic-report.component';
 
 
 const routes: Routes = [

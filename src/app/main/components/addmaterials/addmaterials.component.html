@@ -5,8 +5,8 @@
 <div class="page-content">
 	<div class="tabbed">
 		<input type="radio" id="tab1" name="css-tabs" checked="checked">
-		<input type="radio" id="tab2" name="css-tabs" >
-		<input type="radio" id="tab3" name="css-tabs" >
+		<input type="radio" id="tab2" name="css-tabs" (change)="emptyValues()">
+		<input type="radio" id="tab3" name="css-tabs" (change)="emptyValues()">
 		
 		<ul class="tabs">
 			<li class="tab"><label for="tab1">Books</label></li>
@@ -103,7 +103,7 @@
 
                     <div class="input-row1"> 
                         <div class="entryarea8">
-                            <select id="funds" name="source_of_fund">
+                            <select id="funds" name="source_of_fund" (change)="changedFunds($event)">
                                 <option value="Donated"> Donated </option>
                                 <option value="Purchased" selected> Purchased </option>
                                 <option value="Replacement"> Replacement </option>
@@ -125,7 +125,8 @@
                     <div class="input-row1"> 
                         <div class="entryarea5">
                             <span class="peso-sign">₱</span>
-                            <input type="number" required name="price"> 
+                            <input *ngIf="isPurchased" type="number" required name="price"> 
+                            <input *ngIf="isPurchased == false" type="number" required name="price" disabled> 
                             <span></span>
                             <div class="labelline5"> Price </div>
                         </div>
@@ -176,7 +177,7 @@
                         </div>
 
                         <div class="entryarea">
-                            <input type="text" required name="id"> 
+                            <input type="text" required name="accession"> 
                             <span></span>
                             <div class="labelline"> Accession No. </div>
                         </div>
@@ -314,7 +315,7 @@
                     </div>
 
                     <div class="entryarea">
-                        <input type="text" required name="id"> 
+                        <input type="text" required name="accession"> 
                         <span></span>
                         <div class="labelline"> Accession No. </div>
                     </div>

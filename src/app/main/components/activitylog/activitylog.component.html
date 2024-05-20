@@ -17,11 +17,11 @@
                 </div> -->
                 <div class="txt_field">
                     <label for="datepicker"> From: </label>
-                        <input type="date" id="datepicker" autocomplete="off">
+                        <input type="date" id="datepicker-start" autocomplete="off" (change)="filterPredicates()">
                 </div>
                 <div class="txt_field">
                     <label for="datepicker"> To: </label>
-                        <input type="date" id="datepicker" autocomplete="off">
+                        <input type="date" id="datepicker-end" autocomplete="off" (change)="filterPredicates()">
                 </div>
             </div>
             </form>

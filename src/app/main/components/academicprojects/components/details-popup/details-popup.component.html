@@ -63,7 +63,11 @@
                             </div>
                             <div class="prj-keywords">
                             <span>
-                                <h2> Keywords: </h2> <p> try, try, try, try ulit, ewan, try </p>
+                                <h2> Keywords: </h2> <p> 
+                                    <ng-container *ngFor="let x of data.details.keywords; let last = last;">
+                                        {{ x }}{{ !last ? ', ' : '' }}
+                                    </ng-container>
+                                </p>
                             </span>
                             </div>
                         </div>

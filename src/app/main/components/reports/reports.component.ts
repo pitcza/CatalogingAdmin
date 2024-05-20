@@ -15,18 +15,6 @@ export class ReportsComponent implements OnInit {
   materialCounts : any;
 
   ngOnInit(): void {
-      this.counts();
-  }
-
-  protected counts() {
-    this.ds.get('cataloging/reports/material-counts').subscribe({
-      next: (res: any) => this.materialCounts = res
-    });
-  }
-
-  protected print() {
-    this.ds.get('cataloging/reports/pdf').subscribe({
-      next: (res: any) => console.log(res)
-    })
+    
   }
 }

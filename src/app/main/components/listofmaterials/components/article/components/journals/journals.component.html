@@ -2,10 +2,10 @@
     <!-- HEAD -->
     <div class="table-head">
         <div class="table-filters">
-            <select id="filter" (change)="applyFilter($event, 'publisher')">
+            <!-- <select id="filter" (change)="applyFilter($event, 'publisher')">
                 <option selected value=""> All Publishers </option>
                 <option *ngFor="let publisher of publishers" [value]="publisher"> {{ publisher }} </option>
-            </select>
+            </select> -->
 
         </div>
 
@@ -62,7 +62,7 @@
                     language: element.language,
                     publisher: element.publisher,
                     date_published: element.date_published,
-                    author: element.author,
+                    authors: element.authors,
                     copyright: element.copyright,
                     volume: element.volume,
                     pages: element.pages,
@@ -86,7 +86,7 @@
                     language: element.language,
                     publisher: element.publisher,
                     date_published: element.date_published,
-                    author: element.author,
+                    authors: element.authors,
                     copyright: element.copyright,
                     volume: element.volume,
                     pages: element.pages,

@@ -30,7 +30,14 @@
                                 </p>
                             </span>
                             <span>
-                                <h2> Author/s: </h2> <p> {{ data.details.author }} </p>
+                                <h2> Author: </h2> <p> 
+                                    <ng-container *ngFor="let author of data.details.authors; let last = last">
+                                        <p>
+                                            {{ author }}
+                                            {{ !last ? ', ' : '' }}
+                                        </p>
+                                    </ng-container>    
+                                </p>
                             </span>
                             <span>
                                 <h2> Location: </h2> <p> {{ data.details.location }} </p>

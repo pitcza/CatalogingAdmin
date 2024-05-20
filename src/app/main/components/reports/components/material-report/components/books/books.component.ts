@@ -17,6 +17,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { get } from 'http';
 import { filter } from 'rxjs';
+import { kMaxLength } from 'buffer';
 
 @Component({
   selector: 'app-books',
@@ -64,8 +65,18 @@ export class BooksComponent implements OnInit {
   protected getData() {
     this.ds.get('books').subscribe({
       next: (res: any) => {
+        for(let i = 0; i < res.length; i++) {
+          for(let j = i + 1; j < res.length; j++) {
+            if(res[i].id > res[j].id) {
+              let temp = res[i];
+              res[i] = res[j];
+              res[j] = temp;
+            }
+          }
+        }
+        
         this.materials = res;
-        this.dataSource = new MatTableDataSource<BooksComponent, MatPaginator>(this.materials);
+        this.dataSource = new MatTableDataSource<PeriodicElement, MatPaginator>(this.materials);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -77,31 +88,70 @@ export class BooksComponent implements OnInit {
 
     const search = (document.getElementById('search') as HTMLInputElement).value;
 
-      const titleFilterPredicate = (data: BooksComponent, search: string): boolean => {
-        return data.title.toLowerCase().includes(search.toLowerCase());
+    const accessionFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.id == search;
+    }
+
+    const locationFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.location.location.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const copyrightFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.copyright == search;
+    }
+
+    const titleFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.authors.some((x: any) => {
+        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+      });
+    }
+
+    // FOR DATE RANGE DATE PICKER
+    const start = (document.getElementById('datepicker-start') as HTMLInputElement).value;
+    const end = (document.getElementById('datepicker-end') as HTMLInputElement).value;
+
+      const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
+        if(start == '')
+            return true;
+        return Date.parse(data.created_at) >= Date.parse(start);
       }
 
-      const authorFilterPredicate = (data: BooksComponent, search: string): boolean => {
-        return data.authors.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
+      const endFilterPredicate = (data: PeriodicElement, end: string): boolean => {
+        if(end == '')
+            return true;
+        return Date.parse(data.created_at) <= Date.parse(end);
       }
 
-      const filterPredicate = (data: BooksComponent): boolean => {
-        return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search)) 
-      };
-      
-      this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = search;
+    const filterPredicate = (data: PeriodicElement): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search) ||
+              locationFilterPredicate(data, search) ||
+              copyrightFilterPredicate(data, search)) &&
+              (startFilterPredicate(data, start) && endFilterPredicate(data, end))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = {
+      search,
+      start, 
+      end
+    };
   }
+
+  
 }
 
 export interface PeriodicElement {
-  id: number,
-  title: string;
-  author: string;
-  location: string;
+  id: string;
+  title: any;
+  created_at: string;
+  authors: any;
+  location: any;
   copyright: string;
 }
 

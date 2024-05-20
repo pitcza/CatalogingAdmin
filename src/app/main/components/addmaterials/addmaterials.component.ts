@@ -4,6 +4,7 @@ import { DataService } from '../../../services/data.service';
 
 
 import Swal from 'sweetalert2';
+import { json } from 'stream/consumers';
 
 @Component({
   selector: 'app-addmaterials',
@@ -19,6 +20,7 @@ export class AddmaterialsComponent implements OnInit{
   protected locations: any = null;
   currentYear = new Date().getFullYear();
   year: number[] = [];
+  isPurchased = true;
 
   ngOnInit(): void {
       this.getLocations();
@@ -71,6 +73,18 @@ export class AddmaterialsComponent implements OnInit{
     return index;
   }
 
+  emptyValues() {
+
+  }
+
+  changedFunds(event: Event) {
+    let price = (document.getElementById('funds') as HTMLInputElement).value;
+    if(price == 'Purchased') {
+      this.isPurchased = true;
+    } else {
+      this.isPurchased = false;
+    }
+  }
   /* ============= BOOK SUBMISSION ============== */
 
   protected bookSubmit() {
@@ -83,7 +97,7 @@ export class AddmaterialsComponent implements OnInit{
       let valid = true;
       let validFile = true;
       const fields = ['title', 'author', 'copyright', 'pages', 'acquired_date', 'source_of_fund',
-        'location_id', 'price', 'call_number', 'copies'];
+        'location_id', 'call_number', 'copies'];
   
       // Get the form elements
       const elements = form.elements;
@@ -96,7 +110,7 @@ export class AddmaterialsComponent implements OnInit{
 
         // Check if the element is an input field
         if (element.tagName === 'INPUT' || element.tagName === 'SELECT' && element.id !== 'submit') {
-            if (element.type !== 'file'  && element.value !== '') {
+            if(element.type !== 'file'  && element.value !== '' && element.name != 'author') {
               formData.append(element.name, element.value);
             } else if (element.type === 'file' && element.files && element.files.length > 0) {
               const file = element.files[0];
@@ -116,10 +130,12 @@ export class AddmaterialsComponent implements OnInit{
         }
       }
 
+      formData.append('authors', JSON.stringify(this.values));
       // DATA IS VALID
       if(valid && validFile) {
         this.ds.post('books/process', formData).subscribe({
           next: (res: any) => {
+            console.log(res)
             Swal.fire({
               title: 'Success',
               text: formData.get('title') + " has been added successfully",
@@ -129,6 +145,7 @@ export class AddmaterialsComponent implements OnInit{
             });
           },
           error:(err: any) => {
+            console.log(err)
             Swal.fire({
               title: 'Error',
               text: "Oops an error occured",
@@ -189,7 +206,7 @@ export class AddmaterialsComponent implements OnInit{
   
           // Check if the element is an input field
           if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
-            if (element.type !== 'file' && element.id !== 'submit' && element.value !== '') {
+            if (element.type !== 'file' && element.id !== 'submit' && element.value !== '' && element.name != 'author') {
               formData.append(element.name, element.value);
             } else if (element.type === 'file' && element.files && element.files.length > 0) {
               const file = element.files[0];
@@ -208,6 +225,7 @@ export class AddmaterialsComponent implements OnInit{
           }
       }
 
+      formData.append('authors', JSON.stringify(this.values));
       // DATA IS VALID
       if(valid && validFile) {
         this.ds.post('periodicals/process', formData).subscribe({
@@ -285,6 +303,7 @@ export class AddmaterialsComponent implements OnInit{
           }
       }
 
+      formData.append('authors', JSON.stringify(this.values));
       if(valid) {
         this.ds.post('articles/process',  formData).subscribe({
           next: (res: any) => {
@@ -298,6 +317,7 @@ export class AddmaterialsComponent implements OnInit{
             });
           },
           error: (err: any) => {
+            console.log(err)
             Swal.fire({
               title: 'Error',
               text: "Oops an error occured",

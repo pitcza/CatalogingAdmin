@@ -56,9 +56,18 @@ export class MagazinesComponent implements OnInit {
   }
 
   protected getData() {
-    this.ds.get('magazines').subscribe({
+    this.ds.get('periodicals/type/magazine').subscribe({
       next: (res: any) => {
-        console.log(res)
+        for(let i = 0; i < res.length; i++) {
+          for(let j = i + 1; j < res.length; j++) {
+            if(res[i].id > res[j].id) {
+              let temp = res[i];
+              res[i] = res[j];
+              res[j] = temp;
+            }
+          }
+        }
+        
         this.dataSource = new MatTableDataSource<PeriodicElement>(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

@@ -17,6 +17,13 @@ export class HeaderService {
     return headers;
   }
   
+  public pdf() {
+    const headers = new HttpHeaders({
+      // 'Accept': 'application/pdf',
+      'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token'),
+    });
 
+    return headers;
+  }
 
 }

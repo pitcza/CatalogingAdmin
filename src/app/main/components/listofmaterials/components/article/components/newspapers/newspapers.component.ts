@@ -147,10 +147,8 @@ export class NewspapersComponent implements OnInit {
   // FILTER DATA
   applyFilter(event: Event, type: string) {
 
-    const select = (document.getElementById('filter') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
 
-    console.log(select, search)
     const titleFilterPredicate = (data: NewspaperArticle, search: string): boolean => {
       return data.title.toLowerCase().includes(search.toLowerCase());
     }
@@ -162,20 +160,22 @@ export class NewspapersComponent implements OnInit {
     }
 
     const publisherFilterPredicate = (data: NewspaperArticle, select: string): boolean => {
-      return data.publisher === select || select === '';
+      return data.publisher.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const copyrightFilterPredicate = (data: NewspaperArticle, select: string): boolean => {
+      return data.date_published.includes(search);
     }
 
     const filterPredicate = (data: NewspaperArticle): boolean => {
       return (titleFilterPredicate(data, search) ||
-              authorFilterPredicate(data, search)) &&
-              publisherFilterPredicate(data, select);
+              authorFilterPredicate(data, search) ||
+              publisherFilterPredicate(data, search) || 
+              copyrightFilterPredicate(data, search))
     };
     
     this.dataSource.filterPredicate = filterPredicate;
-    this.dataSource.filter = {
-      search, 
-      select
-    };    
+    this.dataSource.filter = search;
   }
 }
 

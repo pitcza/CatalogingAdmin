@@ -29,10 +29,10 @@
                         </ng-container>
                     </select>
 
-                    <select id="filter-category" (change)="applyFilter($event, 'category')">
+                    <!-- <select id="filter-category" (change)="applyFilter($event, 'category')">
                         <option selected value=""> All Projects </option>
                         <option *ngFor="let x of categories" [value]="x"> {{ x }} </option>
-                    </select>
+                    </select> -->
                 </div>
 
                 <div class="search-container">
@@ -111,7 +111,8 @@
                             language: project.language,
                             abstract: project.abstract,
                             authors: project.authors,
-                            date_published: project.date_published
+                            date_published: project.date_published,
+                            keywords: project.keywords
                         })"  mat-raised-button color="primary">
                             <i class='bx bx-edit' ></i>
                             <span class="tooltiptext"> Edit </span>
@@ -130,7 +131,8 @@
                             language: project.language,
                             abstract: project.abstract,
                             authors: project.authors,
-                            date_published: project.date_published
+                            date_published: project.date_published,
+                            keywords: project.keywords
                             })" (closedPopup)="closePopup()" mat-raised-button color="primary">
                             <i class='bx bx-detail' ></i>
                             <span class="tooltiptext"> View </span>

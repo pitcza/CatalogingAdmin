@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 import { DataService } from '../../../../../services/data.service';
-import { EditBookComponent } from '../edit-book/edit-book.component';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,7 +26,7 @@ export class BookDetailsPopupComponent {
   errorImage = '../../../../../../assets/images/NoImage.png';
 
   ngOnInit(): void {
-    
+    console.log(this.data.details)
   }
 
   closepopup() {

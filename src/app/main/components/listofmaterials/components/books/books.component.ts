@@ -93,9 +93,35 @@ export class BooksComponent implements OnInit {
         });
       }
 
+      const locationFilterPredicate = (data: BookElement, search: string): boolean => {
+        return data.location.location.toLowerCase().includes(search.toLowerCase());
+      }
+
+      const copyrightFilterPredicate = (data: BookElement, search: string): boolean => {
+        return data.copyright.includes(search);
+      }
+
+      const start = (document.getElementById('datepicker-start') as HTMLInputElement).value;
+      const end = (document.getElementById('datepicker-end') as HTMLInputElement).value;
+
+      // const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
+      //   if(start == '')
+      //       return true;
+      //   return Date.parse(data.create_date) >= Date.parse(start);
+      // }
+
+      // const endFilterPredicate = (data: PeriodicElement, end: string): boolean => {
+      //   if(end == '')
+      //       return true;
+      //   return Date.parse(data.create_date) <= Date.parse(end);
+      // }
+
       const filterPredicate = (data: BookElement): boolean => {
         return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search)) 
+               authorFilterPredicate(data, search) ||
+               locationFilterPredicate(data, search) ||
+               copyrightFilterPredicate(data, search)) 
+              //  (startFilterPredicate(data, search) && endFilterPredicate(data,search))
       };
       
       this.dataSource.filterPredicate = filterPredicate;
@@ -192,7 +218,7 @@ export interface BookElement {
   title: string;
   authors: any;
   location: any;
-  copyright: Date;
+  copyright: string;
   date_published: Date;
   volume: number;
   [key: string]: any;

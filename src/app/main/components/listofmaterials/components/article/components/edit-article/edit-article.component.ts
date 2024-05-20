@@ -25,7 +25,9 @@ export class EditArticleComponent implements OnInit{
     private buildr: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private ds: DataService
-  ) { }
+  ) { 
+    this.values = data.details.authors;
+  }
 
 
   closepopup() {
@@ -154,6 +156,7 @@ export class EditArticleComponent implements OnInit{
 
     let formData = new FormData();
     let valid = true;
+    let authors = [];
     const fields = ['title', 'author', 'copyright', 'pages', 'acquired_date', 'source_of_fund',
       'location_id', 'price', 'call_number', 'copies'];
 
@@ -164,7 +167,10 @@ export class EditArticleComponent implements OnInit{
       // Check if the element is an input field
       if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
 
-        if (element.type !== 'file' && element.id !== 'submit') {
+        if(element.name == 'author') {
+          authors.push(element.value)
+        }
+        else if (element.type !== 'file' && element.id !== 'submit') {
           formData.append(element.name, element.value);
         } else if (element.type === 'file' && element.files && element.files.length > 0) {
           formData.append(element.name, element.files[0]);
@@ -173,11 +179,13 @@ export class EditArticleComponent implements OnInit{
       }
     }
 
+    formData.append('authors', JSON.stringify(authors));
+    console.log(this.values)
     if(valid) {
-
       formData.append('_method', 'PUT');
       this.ds.post('articles/process/' + this.data.details.id, formData).subscribe({
         next: (res: any) => {
+          console.log(res)
           Swal.fire({
             title: "Update successful!",
             text: "The changes have been saved.",

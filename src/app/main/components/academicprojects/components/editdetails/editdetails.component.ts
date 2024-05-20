@@ -30,9 +30,14 @@ export class EditdetailsComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ds: DataService
   ) { 
+    console.log(data.details)
     this.values.splice(0, 1);
     data.details.authors.forEach((author: any) => {
-      this.values.push(author.name)
+      this.values.push(author)
+    });
+    this.keywords.splice(0, 1);
+    data.details.keywords.forEach((keyword: any) => {
+      this.values.push(keyword)
     });
   }
 

@@ -51,6 +51,33 @@ export class ActivitylogComponent implements OnInit {
       console.log(res)
     })
   }
+
+  filterPredicates() {
+    const start = (document.getElementById('datepicker-start') as HTMLInputElement).value;
+    const end = (document.getElementById('datepicker-end') as HTMLInputElement).value;
+
+      const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
+        if(start == '')
+            return true;
+        return Date.parse(data.create_date) >= Date.parse(start);
+      }
+
+      const endFilterPredicate = (data: PeriodicElement, end: string): boolean => {
+        if(end == '')
+            return true;
+        return Date.parse(data.create_date) <= Date.parse(end);
+      }
+
+      const filterPredicate = (data: PeriodicElement): boolean => {
+        return startFilterPredicate(data, start) && endFilterPredicate(data, end)
+      };
+      
+      this.dataSource.filterPredicate = filterPredicate;
+      this.dataSource.filter ={
+        start, 
+        end
+      };
+  }
 }
 
 // SAMPLE DATA FOR TABLE
