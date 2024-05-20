@@ -6,6 +6,7 @@ import { CeasComponent } from './components/acad-ceas/ceas/ceas.component';
 import { CbaComponent } from './components/acad-cba/cba/cba.component';
 import { ChtmComponent } from './components/acad-chtm/chtm/chtm.component';
 import { CahsComponent } from './components/acad-cahs/cahs/cahs.component';
+import { DashboardComponent } from './components/acad-gc/dashboard/dashboard.component';
 import { GcComponent } from './components/acad-gc/gc/gc.component';
 import { CcsComponent } from './components/acad-ccs/ccs/ccs.component';
 import { CcsDashboardComponent } from './components/acad-ccs/ccs-dashboard/ccs-dashboard.component';
@@ -13,7 +14,6 @@ import { CeasDashboardComponent } from './components/acad-ceas/ceas-dashboard/ce
 import { CbaDashboardComponent } from './components/acad-cba/cba-dashboard/cba-dashboard.component';
 import { ChtmDashboardComponent } from './components/acad-chtm/chtm-dashboard/chtm-dashboard.component';
 import { CahsDashboardComponent } from './components/acad-cahs/cahs-dashboard/cahs-dashboard.component';
-import { DashboardComponent } from './components/acad-gc/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

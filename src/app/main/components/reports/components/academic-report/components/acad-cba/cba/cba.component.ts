@@ -29,7 +29,7 @@ export class CbaComponent implements OnInit {
   navigateToAbout() {
   throw new Error('Method not implemented.');
   }
-    displayedColumns: string[] = ['type', 'title', 'published', 'added'];
+    displayedColumns: string[] = ['category', 'title', 'date_published', 'created_at'];
     dataSource : any;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -108,11 +108,9 @@ export class CbaComponent implements OnInit {
   }
   
   export interface PeriodicElement {
-    type: string,
+    category: string;
     title: string;
-    published: string;
-    added: string;
+    date_published: string;
+    created_at: string;
   }
-  const ELEMENT_DATA: PeriodicElement[] = [
-    {type: '1001', title: 'One Piece', published: 'Eiichiro Oda', added: 'FIL'}
-  ];
+  

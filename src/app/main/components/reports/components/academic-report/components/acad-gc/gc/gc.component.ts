@@ -26,7 +26,7 @@ import { filter } from 'rxjs';
   ], 
 })
 export class GcComponent implements OnInit {
-  displayedColumns: string[] = ['department', 'type', 'title', 'published', 'added'];
+  displayedColumns: string[] = ['department', 'category', 'title', 'date_published', 'created_at'];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -112,11 +112,8 @@ export class GcComponent implements OnInit {
 
 export interface PeriodicElement {
   department: string,
-  type: string;
+  category: string;
   title: string;
-  published: string;
-  added: string;
+  date_published: string;
+  created_at: string;
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {department: '1001', type: 'One Piece', title: 'Eiichiro Oda', published: 'FIL', added: '1999'}, 
-];

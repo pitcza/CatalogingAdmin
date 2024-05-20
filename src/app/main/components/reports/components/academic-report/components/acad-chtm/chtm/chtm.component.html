@@ -32,27 +32,27 @@
                         
                         
             <!-- Project Type Column -->
-                <ng-container matColumnDef="type">
+                <ng-container matColumnDef="category">
                     <th mat-header-cell *matHeaderCellDef> Project Type </th>
-                    <td mat-cell *matCellDef="let element"> {{element.accession}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.category}} </td>
                 </ng-container>
 
              <!-- Project Title Column -->
                 <ng-container matColumnDef="title">
                     <th mat-header-cell *matHeaderCellDef> Project Title </th>
-                    <td mat-cell *matCellDef="let element"> {{element.booktitle}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                 </ng-container>
                                
             <!-- Date Published Column -->
-                <ng-container matColumnDef="published">
+                <ng-container matColumnDef="date_published">
                     <th mat-header-cell *matHeaderCellDef> Date Published </th>
-                    <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.date_published}} </td>
                 </ng-container>
                     
             <!-- Date Added Column -->
-                <ng-container matColumnDef="added">
+                <ng-container matColumnDef="created_at">
                     <th mat-header-cell *matHeaderCellDef> Date Added </th>
-                    <td mat-cell *matCellDef="let element"> {{element.copyright}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
                 </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

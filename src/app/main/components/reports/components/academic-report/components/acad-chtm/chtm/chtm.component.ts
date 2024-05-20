@@ -33,7 +33,7 @@ export class ChtmComponent implements OnInit {
   navigateToAbout() {
   throw new Error('Method not implemented.');
   }
-    displayedColumns: string[] = ['type', 'title', 'published', 'added'];
+    displayedColumns: string[] = ['category', 'title', 'date_published', 'created_at'];
     dataSource : any;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -107,13 +107,10 @@ export class ChtmComponent implements OnInit {
   }
 }
 
-  export interface PeriodicElement {
-    type: string,
-    title: string;
-    published: string;
-    added: string;
-  }
-  const ELEMENT_DATA: PeriodicElement[] = [
-    {type: '1001', title: 'One Piece', published: 'Eiichiro Oda', added: 'FIL'}
-  ];
+export interface PeriodicElement {
+  category: string;
+  title: string;
+  date_published: string;
+  created_at: string;
+}
 
