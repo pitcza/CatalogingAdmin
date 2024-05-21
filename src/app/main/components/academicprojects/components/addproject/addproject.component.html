@@ -29,7 +29,7 @@
                         <div class="txt_field_short">
                             <select class="inputtxt" id="filter-program" (change)="changedProgram($event)" name="program_id">        
                                 <ng-container *ngFor="let x of programs">
-                                    <option *ngIf="x.department == departmentFilter" [value] = "x.id">{{ x.program }}</option>
+                                    <option *ngIf="x.department.department == departmentFilter" [value] = "x.id">{{ x.program }}</option>
                                 </ng-container>
                             </select>
                             <span></span>

@@ -163,7 +163,7 @@ export class JournalsComponent implements OnInit {
     }
 
     const copyrightFilterPredicate = (data: JournalArticle, select: string): boolean => {
-      return data.copyright.includes(search);
+      return data.copyright == search;
     }
 
     const filterPredicate = (data: JournalArticle): boolean => {

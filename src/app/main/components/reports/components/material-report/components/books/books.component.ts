@@ -111,19 +111,19 @@ export class BooksComponent implements OnInit {
     }
 
     // FOR DATE RANGE DATE PICKER
-    const start = (document.getElementById('datepicker-start') as HTMLInputElement).value;
-    const end = (document.getElementById('datepicker-end') as HTMLInputElement).value;
+    const start = (document.getElementById('datepicker-start-book') as HTMLInputElement).value;
+    const end = (document.getElementById('datepicker-end-book') as HTMLInputElement).value;
 
       const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
         if(start == '')
             return true;
-        return Date.parse(data.created_at) >= Date.parse(start);
+        return Date.parse(data.created_at) >= Date.parse(start + ' 00:00:00');
       }
 
       const endFilterPredicate = (data: PeriodicElement, end: string): boolean => {
         if(end == '')
             return true;
-        return Date.parse(data.created_at) <= Date.parse(end);
+        return Date.parse(data.created_at) <= Date.parse(end + ' 23:59:59');
       }
 
     const filterPredicate = (data: PeriodicElement): boolean => {

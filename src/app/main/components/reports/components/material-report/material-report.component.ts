@@ -24,7 +24,7 @@ export class MaterialReportComponent implements OnInit {
     articles: 0
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
       this.counts();
   }
 
@@ -49,17 +49,34 @@ export class MaterialReportComponent implements OnInit {
       type = 'article';
     }
 
+    // let payload = {
+    //   startDate: "2024-5-1",
+    //   endDate: "2024-5-20",
+    //   // copyright: "2024"
+    // }
+
     let payload = {
-      startDate: "2024-5-1",
-      endDate: "2024-5-20",
-      // copyright: "2024"
+      startDate: '',
+      endDate: ''
     }
+
+    if (type == 'book' || type == 'journal' || type == 'newspaper' || type == 'magazine' || type == 'articles') {
+      let startid = 'datepicker-start-' + type;
+      let endid = 'datepicker-end-' + type;
+
+        payload = {
+        startDate: (document.getElementById(startid) as HTMLInputElement).value,
+        endDate: (document.getElementById(endid) as HTMLInputElement).value,
+        // copyright: "2024"
+      }
+    }
+    
     this.ds.reports('cataloging/reports/excel/' + type, payload).subscribe({
       next: (res: any) => {
         const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
-        link.download = 'example.xlsx';
+        link.download = 'Cataloging Reports.xlsx';
         link.click();
         console.log(res)
       }, error: (err: any) => {

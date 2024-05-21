@@ -59,11 +59,11 @@ export class BooksComponent implements OnInit {
   }
 
   protected books: any = null;
-  protected locations: any = null;
 
   protected getData() {
     this.ds.get('books').subscribe({
       next: (res: any) =>  {
+        console.log(res)
         this.materials = res;        
         this.dataSource = new MatTableDataSource<BookElement, MatPaginator>(this.materials);
         this.dataSource.sort = this.sort;
@@ -71,17 +71,12 @@ export class BooksComponent implements OnInit {
       },
       error: (err: any) => console.log(err)
     });
-
-    this.ds.get('books/locations').subscribe({
-      next: (res: any) => this.locations = res,
-      error: (err: any) => console.log(err)
-    });
   }
 
   // Filtering 
-  applyFilter(event: Event, type: string) {
+  applyFilter() {
 
-    const search = (document.getElementById('search') as HTMLInputElement).value;
+    const search = (document.getElementById('search-book') as HTMLInputElement).value;
 
       const titleFilterPredicate = (data: BookElement, search: string): boolean => {
         return data.title.toLowerCase().includes(search.toLowerCase());
@@ -98,11 +93,11 @@ export class BooksComponent implements OnInit {
       }
 
       const copyrightFilterPredicate = (data: BookElement, search: string): boolean => {
-        return data.copyright.includes(search);
+        return data.copyright == search;
       }
 
-      const start = (document.getElementById('datepicker-start') as HTMLInputElement).value;
-      const end = (document.getElementById('datepicker-end') as HTMLInputElement).value;
+      // const start = (document.getElementById('datepicker-start') as HTMLInputElement).value;
+      // const end = (document.getElementById('datepicker-end') as HTMLInputElement).value;
 
       // const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
       //   if(start == '')

@@ -46,14 +46,14 @@ export class EditdetailsComponent implements OnInit{
     this.ds.get('programs').subscribe({
       next: (res: any) => {
         this.programs = res;
-        this.departmentFilter = res[0].department;
+        this.departmentFilter = res[0].department.department;
         this.programFilter = res[0].program;
         this.programCategory = res[0].category;
 
         // Extract unique department names from programs
         const uniqueDepartments = new Set<string>();
         this.programs.forEach((program: any) => {
-            uniqueDepartments.add(program.department);
+            uniqueDepartments.add(program.department.department);
         });
 
         // Convert the Set back to an array
@@ -70,7 +70,7 @@ export class EditdetailsComponent implements OnInit{
     console.log(selectDepartment)
 
     this.programs.some((x: any) => {
-      if(x.department == this.departmentFilter) {
+      if(x.department.department == this.departmentFilter) {
         this.programCategory = x.category;
         this.programFilter = x.id;
         return true; 

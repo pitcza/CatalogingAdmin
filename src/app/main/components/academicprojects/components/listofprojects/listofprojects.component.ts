@@ -82,23 +82,16 @@ export class ListofprojectsComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       
-      // Extract unique categories from projects
-      const uniqueCategories = new Set<string>();
-      this.projects.forEach((project: any) => {
-          uniqueCategories.add(project.category);
-      });
-
-      // Convert the Set back to an array
-      this.categories = Array.from(uniqueCategories);
     });
 
     this.ds.get('programs').subscribe((res: any) => {
       this.programs = res;
+      console.log(res)
 
       // Extract unique department names from programs
       const uniqueDepartments = new Set<string>();
       this.programs.forEach((program: any) => {
-          uniqueDepartments.add(program.department);
+          uniqueDepartments.add(program.department.department);
       });
 
       // Convert the Set back to an array
@@ -117,7 +110,7 @@ export class ListofprojectsComponent implements OnInit {
     // get elements
     const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
     let selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
-    const selectCategory = (document.getElementById('filter-category') as HTMLSelectElement).value;
+    // const selectCategory = (document.getElementById('filter-category') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
     
     // reset program filter upon department filter search
@@ -137,30 +130,28 @@ export class ListofprojectsComponent implements OnInit {
     } 
     
     const departmentFilterPredicate = (data: Project, selectDepartment: string): boolean => {
-      return data.program.department === selectDepartment || selectDepartment === '';
+      return data.program.department.department === selectDepartment || selectDepartment === '';
     }
 
     const programFilterPredicate = (data: Project, selectProgram: string): boolean => {
       return data.program.program === selectProgram || selectProgram === '';
     }
 
-    const categoryFilterPredicate = (data: Project, selectCategory: string): boolean => {
-      return data.category === selectCategory || selectCategory === '';
-    }
+    // const categoryFilterPredicate = (data: Project, selectCategory: string): boolean => {
+    //   return data.category === selectCategory || selectCategory === '';
+    // }
 
     const filterPredicate = (data: Project): boolean => {
       return (titleFilterPredicate(data, search) || authorFilterPredicate(data, search)) &&
               departmentFilterPredicate(data, selectDepartment) &&
-              programFilterPredicate(data, selectProgram) &&
-              categoryFilterPredicate(data, selectCategory);
+              programFilterPredicate(data, selectProgram);
     };
 
     this.dataSource.filterPredicate = filterPredicate;
     this.dataSource.filter = {
       search, 
       selectDepartment, 
-      selectProgram, 
-      selectCategory
+      selectProgram
     };
   }
 

@@ -162,7 +162,7 @@ applyFilter(event: Event, type: string) {
   }
 
   const copyrightFilterPredicate = (data: MagazineArticle, select: string): boolean => {
-    return data.copyright.includes(search);
+    return data.copyright == search;
   }
 
   const filterPredicate = (data: MagazineArticle): boolean => {

@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { DataService } from '../../../../../../../../services/data.service';
 import { filter } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-gc',
@@ -17,7 +18,7 @@ import { filter } from 'rxjs';
   styleUrls: ['./gc.component.scss'],
   standalone: true, 
   imports: [
-    
+    CommonModule,
     MatPaginatorModule,
     MatTableModule,
     MatFormFieldModule,
@@ -39,9 +40,10 @@ export class GcComponent implements OnInit {
   title: any;
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getData();
+    // this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   constructor(
@@ -56,12 +58,13 @@ export class GcComponent implements OnInit {
   }
 
   protected getData() {
-    this.ds.get('gc').subscribe({
-      next: (res: any) => {
-        return res;
+    this.ds.get('projects').subscribe({
+      next: (res: any) => {    
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     })
-    return [];
   }
   // Filtering 
   applyFilter(event: Event, type: string) {

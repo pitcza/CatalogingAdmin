@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { DataService } from '../../../..../../../../../../../services/data.service';
 import { filter } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { filter } from 'rxjs';
   styleUrls: ['./ccs.component.scss'],
   standalone: true,
   imports: [
-
+    CommonModule,
     MatPaginatorModule,
     MatTableModule,
     MatFormFieldModule,
@@ -42,9 +43,7 @@ throw new Error('Method not implemented.');
   title: any;
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getData();
   }
 
   constructor(
@@ -59,12 +58,13 @@ throw new Error('Method not implemented.');
   }
 
   protected getData() {
-    this.ds.get('gc').subscribe({
-      next: (res: any) => {
-        return res;
+    this.ds.get('projects/department/CCS').subscribe({
+      next: (res: any) => {    
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     })
-    return [];
   }
   // Filtering 
   applyFilter(event: Event, type: string) {

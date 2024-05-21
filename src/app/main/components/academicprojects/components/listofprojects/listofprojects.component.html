@@ -25,7 +25,7 @@
                         </option>
 
                         <ng-container *ngFor="let x of programs">
-                            <option *ngIf="x.department == departmentFilter" [value] = "x.program">{{ x.program }}</option>
+                            <option *ngIf="x.department.department == departmentFilter" [value] = "x.program">{{ x.program }}</option>
                         </ng-container>
                     </select>
 
@@ -104,9 +104,10 @@
             
                         <button class="editbtn" (click)="editProject({
                             id: project.id,
+                            accession: project.accession,
                             title: project.title, 
                             program: project.program.program, 
-                            department: project.program.department,
+                            department: project.program.department.department,
                             category: project.category,
                             language: project.language,
                             abstract: project.abstract,
@@ -123,10 +124,11 @@
                         </button>
                         <button class="detailsbtn" (click)="detailsProject({
                             id: project.id,
+                            accession: project.accession,
                             image: project.image_url,
                             title: project.title, 
                             program: project.program.program, 
-                            department: project.program.department,
+                            department: project.program.department.department,
                             category: project.category,
                             language: project.language,
                             abstract: project.abstract,

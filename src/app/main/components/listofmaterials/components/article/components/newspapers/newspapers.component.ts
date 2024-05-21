@@ -164,7 +164,7 @@ export class NewspapersComponent implements OnInit {
     }
 
     const copyrightFilterPredicate = (data: NewspaperArticle, select: string): boolean => {
-      return data.date_published.includes(search);
+      return data.date_published == search;
     }
 
     const filterPredicate = (data: NewspaperArticle): boolean => {
