@@ -14,6 +14,7 @@
         margin-right: 0;
     }
 }
+
 /* END OF MAIN PADDING */
 
 
@@ -429,18 +430,19 @@
 }
 
 .input-row .multiple-author:hover {
-    .removebtn {
-        position: absolute;
-        font-size: 30px;
-        color: var(--cancel-btn);
-        background-color: transparent;
-        outline: none;
-        border: none;
-        border-radius: 5px;
-        top: 0;
-        right: 0;
-        margin: 15px 10px 0 0;
-        cursor: pointer;
+.removebtn {
+    display: flex;
+    position: absolute;
+    font-size: 30px;
+    color: var(--cancel-btn);
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    top: 0;
+    right: 0;
+    margin: -5px 10px 0 0;
+    cursor: pointer;
     }
 }
 

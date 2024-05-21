@@ -30,6 +30,12 @@
               
             <div class="mat-elevation-z8">
                 <table mat-table [dataSource]="dataSource">
+
+                <!-- Accession Column -->
+                <ng-container matColumnDef="accession">
+                    <th mat-header-cell *matHeaderCellDef> Accession Number </th>
+                    <td mat-cell *matCellDef="let element"> {{element.accession}} </td>
+                </ng-container>
             
                 <!-- Title Column -->
                 <ng-container matColumnDef="title">

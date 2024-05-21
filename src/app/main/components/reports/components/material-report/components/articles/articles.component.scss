@@ -26,7 +26,7 @@
 }
 
 .txt_field {
-	font-size: 0.75rem;
+	font-size: 14px;
 	font-weight: 400;
 	display: block;
 	margin-bottom: 0.2rem;
@@ -34,13 +34,13 @@
 	color: black;
 	border: 1px solid var(--table-border);
 	padding: 0.5rem 0.75rem;
-	border-radius: 10px;
+	border-radius: 7px;
     display: flex;
 }
 
 label {
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
     font-family: 'Montserrat';
     color: var(--primary-color);
     position: absolute;
@@ -188,7 +188,7 @@ table {
 table,
 th,
 td {
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     padding: 10px;
     text-align: center;
     border-bottom: 1.5px solid var(--table-border);
@@ -205,6 +205,25 @@ table tr:hover{
     background-color: var(--table-hover);
 }
 
+table td:nth-child(1) {
+    min-width: 100px;
+    max-width: 100px;
+}
+
 table td:nth-child(2) {
     text-align: left;
+    min-width: 300px;
+    max-width: 300px;
 }
+
+table td:nth-child(3) {
+    text-align: left;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+table td:nth-child(4) {
+    min-width: 150px;
+    max-width: 150px;
+}
+

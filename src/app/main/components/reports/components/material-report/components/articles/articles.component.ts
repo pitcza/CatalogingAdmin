@@ -28,7 +28,7 @@ import { filter } from 'rxjs';
   ],
 })
 export class ArticlesComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'title', 'authors', 'publication'];
+  displayedColumns: string[] = ['accession', 'title', 'authors', 'publication'];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -113,7 +113,7 @@ export class ArticlesComponent implements OnInit {
 }
 
 export interface PeriodicElement {
-  id: number;
+  accession: string;
   title: string;
   author: string;
   publisher: string;

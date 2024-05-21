@@ -28,7 +28,7 @@ import { filter } from 'rxjs';
   ],
 })
 export class NewspapersComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'author', 'copyright', 'received'];
+  displayedColumns: string[] = ['accession','title', 'author', 'copyright', 'received'];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -117,6 +117,7 @@ export class NewspapersComponent implements OnInit {
 }
 
 export interface PeriodicElement {
+  accession: string;
   title: string;
   author: string;
   copyright: string;
