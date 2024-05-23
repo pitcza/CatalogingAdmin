@@ -142,8 +142,8 @@ export class MagazinesComponent implements OnInit {
   }  
 
 // FILTER DATA
-applyFilter(event: Event, type: string) {
-  const search = (document.getElementById('search') as HTMLInputElement).value;
+applyFilter() {
+  const search = (document.getElementById('magazine-search') as HTMLInputElement).value;
 
   const titleFilterPredicate = (data: Magazine, search: string): boolean => {
     return data.title.toLowerCase().includes(search.toLowerCase());

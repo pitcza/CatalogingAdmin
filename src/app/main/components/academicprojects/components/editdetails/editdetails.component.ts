@@ -22,6 +22,7 @@ export class EditdetailsComponent implements OnInit{
   programFilter: any;
   programCategory: any;
   values = [''];
+  tags = [''];
 
   constructor(
     private router: Router, 
@@ -29,20 +30,24 @@ export class EditdetailsComponent implements OnInit{
     private buildr: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ds: DataService
-  ) { 
-    console.log(data.details)
-    this.values.splice(0, 1);
-    data.details.authors.forEach((author: any) => {
-      this.values.push(author)
-    });
-    this.keywords.splice(0, 1);
-    data.details.keywords.forEach((keyword: any) => {
-      this.values.push(keyword)
-    });
+  ) {
+    if(data.details.authors != null) {
+      this.values.splice(0, 1);
+      data.details.authors.forEach((author: any) => {
+        this.values.push(author)
+      });
+    }
+
+    if(data.details.keywords) {
+      this.tags.splice(0, 1);
+        data.details.keywords.forEach((keyword: any) => {
+          this.tags.push(keyword)
+      }); 
+    }
   }
 
   ngOnInit() {
-    console.log(this.data.details)
+
     this.ds.get('programs').subscribe({
       next: (res: any) => {
         this.programs = res;
@@ -120,7 +125,6 @@ export class EditdetailsComponent implements OnInit{
     if (this.values.length < 6) {
       this.values.push('');
     }
-    console.log(this.values)
   }
 
   updateValue($event: Event, index: number) {
@@ -133,7 +137,6 @@ export class EditdetailsComponent implements OnInit{
   }
 
   // ----- KEYWORDS FUNCTION ----- //
-  tags = [''];
 
   removetag(i: any){
     this.tags.splice(i, 1);
@@ -185,6 +188,7 @@ export class EditdetailsComponent implements OnInit{
 
     let formData = new FormData();
     let authorElements: any[] = [];
+    let keywords: any[] = [];
 
     // Loop through each form element
     for (let i = 0; i < elements.length; i++) {
@@ -200,6 +204,8 @@ export class EditdetailsComponent implements OnInit{
           formData.append(element.name, element.files[0]);
         } else if (element.name === 'author') {
           authorElements.push(element.value)
+        } else if (element.name === 'keywords') {
+          keywords.push(element.value)
         } else {
           formData.append(element.name, element.value)
         }
@@ -208,6 +214,7 @@ export class EditdetailsComponent implements OnInit{
     }
     
     formData.append('authors', JSON.stringify(authorElements));
+    formData.append('keywords', JSON.stringify(keywords))
     formData.append('_method', 'PUT');
     this.ds.post('projects/process/' + this.data.details.id, formData).subscribe({
       next: (res: any) => {
