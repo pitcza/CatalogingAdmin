@@ -75,44 +75,65 @@ export class MagazinesComponent implements OnInit {
     })
   }
 
-  // FILTER DATA
-  applyFilter(event: Event, type: string) {
+// FILTER DATA
+applyFilter(event: Event, type: string) {
 
-    const select = (document.getElementById('filter') as HTMLSelectElement).value;
-    const search = (document.getElementById('search') as HTMLInputElement).value;
+  const search = (document.getElementById('search-magazine') as HTMLInputElement).value;
 
-    console.log(select, search)
-      const titleFilterPredicate = (data: MagazinesComponent, search: string): boolean => {
-        return data.title.toLowerCase().includes(search.toLowerCase());
-      }
-
-      const authorFilterPredicate = (data: MagazinesComponent, search: string): boolean => {
-        return data.authors.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
-      }
-
-      const copyrightFilterPredicate = (data: MagazinesComponent, select: string): boolean => {
-        return data.copyright === select || select === '';
-      }
-
-      const receivedFilterPredicate = (data: MagazinesComponent, select: string): boolean => {
-        return data.received === select || select === '';
-      }
-
-      const filterPredicate = (data: MagazinesComponent): boolean => {
-        return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search)) &&
-               copyrightFilterPredicate(data, select);
-               receivedFilterPredicate(data, select)
-      };
-      
-      this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = {
-        search, 
-        select
-      };    
+  const accessionFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+    return data.accession == search;
   }
+
+  const titleFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+    return data.title.toLowerCase().includes(search.toLowerCase());
+  }
+
+  const authorFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+    return data.author.some((x: any) => {
+      return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+    });
+  }
+
+  const copyrightFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+    return data.copyright == search;
+  }
+
+  const receive_dateFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+    return data.received.toLowerCase().includes(search.toLowerCase());
+  }
+
+  // FOR DATE RANGE DATE PICKER
+  const start = (document.getElementById('datepicker-start-magazine') as HTMLInputElement).value;
+  const end = (document.getElementById('datepicker-end-magazine') as HTMLInputElement).value;
+
+    const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
+      if(start == '')
+          return true;
+      return Date.parse(data.created_at) >= Date.parse(start + ' 00:00:00');
+    }
+
+    const endFilterPredicate = (data: PeriodicElement, end: string): boolean => {
+      if(end == '')
+          return true;
+      return Date.parse(data.created_at) <= Date.parse(end + ' 23:59:59');
+    }
+
+  const filterPredicate = (data: PeriodicElement): boolean => {
+    return (titleFilterPredicate(data, search) ||
+            authorFilterPredicate(data, search) ||
+            accessionFilterPredicate(data, search) ||
+            receive_dateFilterPredicate(data, search) ||
+            copyrightFilterPredicate(data, search)) &&
+            (startFilterPredicate(data, start) && endFilterPredicate(data, end))
+  };
+  
+  this.dataSource.filterPredicate = filterPredicate;
+  this.dataSource.filter = {
+    search,
+    start, 
+    end
+  };
+}
 }
 
 export interface PeriodicElement {
@@ -121,4 +142,6 @@ export interface PeriodicElement {
   authors: string;
   copyright: string;
   received: string;
+  created_at: string;
+  author: any;
 }

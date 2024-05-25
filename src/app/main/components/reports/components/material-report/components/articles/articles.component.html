@@ -9,11 +9,11 @@
                 <div class="input-row">
                     <div class="txt_field">
                         <label for="datepicker"> From: </label>
-                            <input type="date" id="datepicker" autocomplete="off">
+                            <input type="date" id="datepicker" autocomplete="off" (change)="applyFilter($event, '')">
                     </div>
                     <div class="txt_field">
                         <label for="datepicker"> To: </label>
-                            <input type="date" id="datepicker" autocomplete="off">
+                            <input type="date" id="datepicker" autocomplete="off" (change)="applyFilter($event, '')">
                     </div>
                 </div>
 

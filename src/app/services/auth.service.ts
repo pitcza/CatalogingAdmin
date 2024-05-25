@@ -14,11 +14,11 @@ export class AuthService {
     private headers: HeaderService
   ) { }
   
-  private url:string = 'http://127.0.0.1:8000/api/';
-  // private url:string = 'http://192.168.10.122:8000/api/';
+  // private url:string = 'http://127.0.0.1:8000/api/';
+  private url:string = 'http://192.168.14.176:8000/api/';
 
   public login(formData: FormData) {
-    return this.http.post(this.url+'login/cataloging', formData).pipe(
+    return this.http.post(this.url+'login', formData).pipe(
       tap((res: any) => {
         if(res.token) {
           sessionStorage.setItem('auth-token', res.token);

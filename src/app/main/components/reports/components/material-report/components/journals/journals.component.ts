@@ -33,6 +33,7 @@ export class JournalsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
+  accession: any;
   title: any;
   authors: any;
   copyright: string | undefined;
@@ -75,41 +76,63 @@ export class JournalsComponent implements OnInit {
   // FILTER DATA
   applyFilter(event: Event, type: string) {
 
-    const select = (document.getElementById('filter') as HTMLSelectElement).value;
-    const search = (document.getElementById('search') as HTMLInputElement).value;
+    const search = (document.getElementById('search-journals') as HTMLInputElement).value;
 
-    console.log(select, search)
-      const titleFilterPredicate = (data: JournalsComponent, search: string): boolean => {
-        return data.title.toLowerCase().includes(search.toLowerCase());
+    const accessionFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.accession == search;
+    }
+
+    const titleFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.authors.some((x: any) => {
+        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+      });
+    }
+
+    const copyrightFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.copyright == search;
+    }
+
+    const receive_dateFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.receive_date.toLowerCase().includes(search.toLowerCase());
+    }
+
+    // FOR DATE RANGE DATE PICKER
+    const start = (document.getElementById('datepicker-start-journals') as HTMLInputElement).value;
+    const end = (document.getElementById('datepicker-end-journals') as HTMLInputElement).value;
+
+      const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
+        if(start == '')
+            return true;
+        return Date.parse(data.created_at) >= Date.parse(start + ' 00:00:00');
       }
 
-      const authorFilterPredicate = (data: JournalsComponent, search: string): boolean => {
-        return data.authors.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
+      const endFilterPredicate = (data: PeriodicElement, end: string): boolean => {
+        if(end == '')
+            return true;
+        return Date.parse(data.created_at) <= Date.parse(end + ' 23:59:59');
       }
 
-      const copyrightFilterPredicate = (data: JournalsComponent, select: string): boolean => {
-        return data.copyright === select || select === '';
-      }
-
-      const receivedFilterPredicate = (data: JournalsComponent, select: string): boolean => {
-        return data.received === select || select === '';
-      }
-
-      const filterPredicate = (data: JournalsComponent): boolean => {
-        return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search)) &&
-               copyrightFilterPredicate(data, select);
-               receivedFilterPredicate(data, select)
-      };
-      
-      this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = {
-        search, 
-        select
-      };    
+    const filterPredicate = (data: PeriodicElement): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search) ||
+              receive_dateFilterPredicate(data, search) ||
+              copyrightFilterPredicate(data, search)) &&
+              (startFilterPredicate(data, start) && endFilterPredicate(data, end))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = {
+      search,
+      start, 
+      end
+    };
   }
+
 }
 
 export interface PeriodicElement {
@@ -117,5 +140,6 @@ export interface PeriodicElement {
   title: string;
   authors: any;
   copyright: string;
-  received: string;
+  receive_date: string;
+  created_at: string;
 }
