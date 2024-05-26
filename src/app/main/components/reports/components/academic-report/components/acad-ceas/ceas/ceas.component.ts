@@ -27,10 +27,6 @@ import { CommonModule } from '@angular/common';
   ], 
 })
 export class CeasComponent implements OnInit {
-  type: any;
-  title: any;
-  published: any;
-  added: any;
   navigateToAbout() {
   throw new Error('Method not implemented.');
   }
@@ -83,47 +79,59 @@ export class CeasComponent implements OnInit {
     }
     // Filtering 
   applyFilter(event: Event, type: string) {
+    const search = (document.getElementById('search-ceas') as HTMLInputElement).value;
 
-    const search = (document.getElementById('search') as HTMLInputElement).value;
+    const titleFilterPredicate = (data: CeasComponent, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
 
-      const typeFilterPredicate = (data: CeasComponent, search: string): boolean => {
-        return data.type.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
+    const categoryFilterPredicate = (data: CeasComponent, search: string): boolean => {
+      return data.category.toLowerCase().trim().toLowerCase().includes(search.toLowerCase());
+    }
+
+    const publishedFilterPredicate = (data: CeasComponent, search: string): boolean => {
+      return data.date_published.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const addedFilterPredicate = (data: CeasComponent, search: string): boolean => {
+      return data.created_at.toLowerCase().includes(search.toLowerCase());
+    }
+
+      // FOR DATE RANGE DATE PICKER
+    const start = (document.getElementById('datepicker-start-ceas') as HTMLInputElement).value;
+    const end = (document.getElementById('datepicker-end-ceas') as HTMLInputElement).value;
+
+      const startFilterPredicate = (data: CeasComponent, start: string): boolean => {
+        if(start == '')
+            return true;
+        return Date.parse(data.created_at) >= Date.parse(start + ' 00:00:00');
       }
 
-      const titleFilterPredicate = (data: CeasComponent, search: string): boolean => {
-        return data.title.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
-      }
-
-      const publishedFilterPredicate = (data: CeasComponent, search: string): boolean => {
-        return data.published.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
-      }
-
-      const addedFilterPredicate = (data: CeasComponent, search: string): boolean => {
-        return data.added.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
+      const endFilterPredicate = (data: CeasComponent, end: string): boolean => {
+        if(end == '')
+            return true;
+        return Date.parse(data.created_at) <= Date.parse(end + ' 23:59:59');
       }
 
       const filterPredicate = (data: CeasComponent): boolean => {
-        return (typeFilterPredicate(data, search) ||
-                titleFilterPredicate(data, search));
-                publishedFilterPredicate(data, search);
-                addedFilterPredicate(data, search);
+        return (titleFilterPredicate(data, search) ||
+                categoryFilterPredicate(data, search) ||
+                publishedFilterPredicate(data, search) ||
+                addedFilterPredicate(data, search)) &&
+                (startFilterPredicate(data, start) && endFilterPredicate(data, end))
 
       };
       
       this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = search;
-  }
+      this.dataSource.filter = {
+        search,
+        start,
+        end
+      };  
+    }
   }
 
-  export interface PeriodicElement {
+  export interface CeasComponent {
     category: string;
     title: string;
     date_published: string;

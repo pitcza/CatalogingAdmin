@@ -89,7 +89,7 @@ applyFilter(event: Event, type: string) {
   }
 
   const authorFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-    return data.author.some((x: any) => {
+    return data.authors.some((x: any) => {
       return x.toLowerCase().trim().includes(search.toLowerCase().trim());
     });
   }
@@ -99,7 +99,7 @@ applyFilter(event: Event, type: string) {
   }
 
   const receive_dateFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-    return data.received.toLowerCase().includes(search.toLowerCase());
+    return data.receive_date.toLowerCase().includes(search.toLowerCase());
   }
 
   // FOR DATE RANGE DATE PICKER
@@ -139,9 +139,9 @@ applyFilter(event: Event, type: string) {
 export interface PeriodicElement {
   accession: string;
   title: string;
-  authors: string;
+  authors: any;
   copyright: string;
-  received: string;
+  receive_date: string;
   created_at: string;
   author: any;
 }

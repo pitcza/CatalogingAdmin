@@ -60,7 +60,7 @@ export class MaterialReportComponent implements OnInit {
       endDate: ''
     }
 
-    if (type == 'book' || type == 'journal' || type == 'newspaper' || type == 'magazine' || type == 'articles') {
+    if (type == 'book' || type == 'journal' || type == 'newspaper' || type == 'magazine' || type == 'article') {
       let startid = 'datepicker-start-' + type;
       let endid = 'datepicker-end-' + type;
 

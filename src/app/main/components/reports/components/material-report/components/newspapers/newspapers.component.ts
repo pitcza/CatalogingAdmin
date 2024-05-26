@@ -34,10 +34,6 @@ export class NewspapersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
-  title: any;
-  authors: any;
-  copyright: string | undefined;
-  received: string | undefined;
 
 
   ngOnInit(): void {
@@ -68,7 +64,7 @@ export class NewspapersComponent implements OnInit {
           }
         }
         
-        this.dataSource = new MatTableDataSource<PeriodicElement>(res);
+        this.dataSource = new MatTableDataSource<NewspapersComponent>(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -78,10 +74,8 @@ export class NewspapersComponent implements OnInit {
   // FILTER DATA
   applyFilter(event: Event, type: string) {
 
-    const select = (document.getElementById('filter') as HTMLSelectElement).value;
-    const search = (document.getElementById('search') as HTMLInputElement).value;
+    const search = (document.getElementById('search-newspaper') as HTMLInputElement).value;
 
-    console.log(select, search)
       const titleFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
         return data.title.toLowerCase().includes(search.toLowerCase());
       }
@@ -92,34 +86,54 @@ export class NewspapersComponent implements OnInit {
         });
       }
 
-      const copyrightFilterPredicate = (data: NewspapersComponent, select: string): boolean => {
-        return data.copyright === select || select === '';
+      const copyrightFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
+        return data.copyright === search || search === '';
       }
 
-      const receivedFilterPredicate = (data: NewspapersComponent, select: string): boolean => {
-        return data.received === select || select === '';
+      const receivedFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
+        return data.receive_date.toLowerCase().includes(search.toLowerCase());
       }
+
+      // FOR DATE RANGE DATE PICKER
+      const start = (document.getElementById('datepicker-start-newspaper') as HTMLInputElement).value;
+      const end = (document.getElementById('datepicker-end-newspaper') as HTMLInputElement).value;
+
+      console.log(start, end)
+        const startFilterPredicate = (data: NewspapersComponent, start: string): boolean => {
+          if(start == '')
+              return true;
+          return Date.parse(data.created_at) >= Date.parse(start + ' 00:00:00');
+        }
+
+        const endFilterPredicate = (data: NewspapersComponent, end: string): boolean => {
+          if(end == '')
+              return true;
+          return Date.parse(data.created_at) <= Date.parse(end + ' 23:59:59');
+        }
 
       const filterPredicate = (data: NewspapersComponent): boolean => {
         return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search)) &&
-               copyrightFilterPredicate(data, select);
-               receivedFilterPredicate(data, select)
+               authorFilterPredicate(data, search) ||
+               copyrightFilterPredicate(data, search)||
+               receivedFilterPredicate(data, search)) &&
+               (startFilterPredicate(data, start) && endFilterPredicate(data, end))
       };
       
       this.dataSource.filterPredicate = filterPredicate;
       this.dataSource.filter = {
-        search, 
-        select
+        search,
+        start,
+        end
       };    
   }
 
 }
 
-export interface PeriodicElement {
+export interface NewspapersComponent {
   accession: string;
   title: string;
-  author: string;
+  authors: any;
+  receive_date: string;
+  created_at: string;
   copyright: string;
-  received: string;
 }

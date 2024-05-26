@@ -9,18 +9,18 @@
             <div class="input-row">
                 <div class="txt_field">
                     <label for="datepicker"> From: </label>
-                        <input type="date" id="datepicker-start-cahs" autocomplete="off">
+                        <input type="date" id="datepicker-start-cahs" autocomplete="off" (change)="applyFilter($event, 'search')">
                 </div>
                 <div class="txt_field">
                     <label for="datepicker"> To: </label>
-                        <input type="date" id="datepicker-end-cahs" autocomplete="off">
+                        <input type="date" id="datepicker-end-cahs" autocomplete="off" (change)="applyFilter($event, 'search')">
                 </div>
             </div>
 
             <!-- SEARCH BAR -->
             <div class="search-container">
                 <form>
-                <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
+                <input id="search-cahs" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
                 <button ><i class="fa fa-search"></i></button>
                 </form>
             </div>

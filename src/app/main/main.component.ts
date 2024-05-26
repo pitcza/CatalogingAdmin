@@ -28,30 +28,31 @@ export class MainComponent implements OnInit, OnDestroy {
       next: (res: any) => { },
       error: (err: any) => { }
     })
+  }
 
     // Refresh user token every 55 minutes (under construction)
-    this.timer = setInterval(() => {
-      let currentTime = new Date();
-      let newCurrentTime = currentTime.toISOString();
+  //   this.timer = setInterval(() => {
+  //     let currentTime = new Date();
+  //     let newCurrentTime = currentTime.toISOString();
 
-      if (Date.parse(sessionStorage.getItem('request-token') || '0') <= Date.parse(newCurrentTime)) {
-        this.refreshToken();
-      } 
-    }, 60 * 1000)
-  }
+  //     if (Date.parse(sessionStorage.getItem('request-token') || '0') <= Date.parse(newCurrentTime)) {
+  //       this.refreshToken();
+  //     } 
+  //   }, 60 * 1000)
+  // }
   
-  protected refreshToken() {
-    this.as.refresh().subscribe({
-      next: (res: any) => {
-        sessionStorage.setItem('auth-token', res.token);
+  // protected refreshToken() {
+  //   this.as.refresh().subscribe({
+  //     next: (res: any) => {
+  //       sessionStorage.setItem('auth-token', res.token);
 
-        let time = new Date();
-        time.setMinutes(time.getMinutes() + 55);
-        sessionStorage.setItem('request-token', time.toISOString());
-      },
-      error: (err: any) => console.log(err)
-    });
-  }
+  //       let time = new Date();
+  //       time.setMinutes(time.getMinutes() + 55);
+  //       sessionStorage.setItem('request-token', time.toISOString());
+  //     },
+  //     error: (err: any) => console.log(err)
+  //   });
+  // }
 
   showPopup: boolean = false;
 

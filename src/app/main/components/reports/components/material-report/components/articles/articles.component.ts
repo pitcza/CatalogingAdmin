@@ -33,10 +33,6 @@ export class ArticlesComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
-  title: any;
-  authors: any;
-  publisher: any;
-  publication: any;
 
   ngOnInit(): void {
     this.getData();
@@ -66,7 +62,7 @@ export class ArticlesComponent implements OnInit {
           }
         }
         
-        this.dataSource = new MatTableDataSource<PeriodicElement>(res);
+        this.dataSource = new MatTableDataSource<ArticlesComponent>(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -75,48 +71,62 @@ export class ArticlesComponent implements OnInit {
   // Filtering 
   applyFilter(event: Event, type: string) {
 
-    const search = (document.getElementById('search') as HTMLInputElement).value;
+    const search = (document.getElementById('search-article') as HTMLInputElement).value;
 
-      const titleFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
-        return data.title.toLowerCase().includes(search.toLowerCase());
+    
+    const accessionFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
+      return data.accession === '' || '' === search;
+    }
+
+    const titleFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
+      return data.authors.some((x: any) => {
+        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+      });
+    }
+
+    // FOR DATE RANGE DATE PICKER
+    const start = (document.getElementById('datepicker-start-article') as HTMLInputElement).value;
+    const end = (document.getElementById('datepicker-end-article') as HTMLInputElement).value;
+
+    console.log(start, end)
+      const startFilterPredicate = (data: ArticlesComponent, start: string): boolean => {
+        if(start == '')
+            return true;
+        return Date.parse(data.created_at) >= Date.parse(start + ' 00:00:00');
       }
 
-      const authorFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
-        return data.authors.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
+      const endFilterPredicate = (data: ArticlesComponent, end: string): boolean => {
+        if(end == '')
+            return true;
+        return Date.parse(data.created_at) <= Date.parse(end + ' 23:59:59');
       }
 
-      const publisherFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
-        return data.publisher.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
-      }
-
-      const publicationFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
-        return data.publication.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
-      }
-
-      const filterPredicate = (data: ArticlesComponent): boolean => {
-        return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search));
-               publisherFilterPredicate(data, search);
-               publicationFilterPredicate(data, search);
-
-      };
-      
-      this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = search;
+    const filterPredicate = (data: ArticlesComponent): boolean => {
+      return (titleFilterPredicate(data, search) ||
+             authorFilterPredicate(data, search) ||
+             accessionFilterPredicate(data, search)) &&
+             (startFilterPredicate(data, start) && endFilterPredicate(data, end))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = {
+      search,
+      start,
+      end
+    };   
   }
 }
 
-export interface PeriodicElement {
+export interface ArticlesComponent {
   accession: string;
   title: string;
-  author: string;
+  authors: any;
   publisher: string;
+  created_at: string;
   publication: string;
 }
 

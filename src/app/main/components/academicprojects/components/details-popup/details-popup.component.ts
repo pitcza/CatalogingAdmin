@@ -16,7 +16,7 @@ export class DetailsPopupComponent implements OnInit{
   errorImage = '../../../../../../assets/images/NoImage.png';
 
   ngOnInit(): void {
-    console.log(this.data.details.authors)
+    console.log(this.data)
   }
 
   constructor(

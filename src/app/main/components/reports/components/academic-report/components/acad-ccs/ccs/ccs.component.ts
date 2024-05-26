@@ -37,10 +37,6 @@ throw new Error('Method not implemented.');
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
-  type: any;
-  published: any;
-  added: any;
-  title: any;
 
   ngOnInit(): void {
     this.getData();
@@ -89,47 +85,59 @@ throw new Error('Method not implemented.');
   }
   // Filtering 
   applyFilter(event: Event, type: string) {
+    const search = (document.getElementById('search-ccs') as HTMLInputElement).value;
 
-    const search = (document.getElementById('search') as HTMLInputElement).value;
+    const titleFilterPredicate = (data: CcsComponent, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
 
-      const typeFilterPredicate = (data: CcsComponent, search: string): boolean => {
-        return data.type.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
+    const categoryFilterPredicate = (data: CcsComponent, search: string): boolean => {
+      return data.category.toLowerCase().trim().toLowerCase().includes(search.toLowerCase());
+    }
+
+    const publishedFilterPredicate = (data: CcsComponent, search: string): boolean => {
+      return data.date_published.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const addedFilterPredicate = (data: CcsComponent, search: string): boolean => {
+      return data.created_at.toLowerCase().includes(search.toLowerCase());
+    }
+
+      // FOR DATE RANGE DATE PICKER
+    const start = (document.getElementById('datepicker-start-ccs') as HTMLInputElement).value;
+    const end = (document.getElementById('datepicker-end-ccs') as HTMLInputElement).value;
+
+      const startFilterPredicate = (data: CcsComponent, start: string): boolean => {
+        if(start == '')
+            return true;
+        return Date.parse(data.created_at) >= Date.parse(start + ' 00:00:00');
       }
 
-      const titleFilterPredicate = (data: CcsComponent, search: string): boolean => {
-        return data.title.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
-      }
-
-      const publishedFilterPredicate = (data: CcsComponent, search: string): boolean => {
-        return data.published.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
-      }
-
-      const addedFilterPredicate = (data: CcsComponent, search: string): boolean => {
-        return data.added.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
+      const endFilterPredicate = (data: CcsComponent, end: string): boolean => {
+        if(end == '')
+            return true;
+        return Date.parse(data.created_at) <= Date.parse(end + ' 23:59:59');
       }
 
       const filterPredicate = (data: CcsComponent): boolean => {
-        return (typeFilterPredicate(data, search) ||
-                titleFilterPredicate(data, search));
-                publishedFilterPredicate(data, search);
-                addedFilterPredicate(data, search);
+        return (titleFilterPredicate(data, search) ||
+                categoryFilterPredicate(data, search) ||
+                publishedFilterPredicate(data, search) ||
+                addedFilterPredicate(data, search)) &&
+                (startFilterPredicate(data, start) && endFilterPredicate(data, end))
 
       };
       
       this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = search;
-  }
+      this.dataSource.filter = {
+        search,
+        start,
+        end
+      };  
+    }
 }
 
-export interface PeriodicElement {
+export interface CcsComponent {
   category: string;
   title: string;
   date_published: string;
