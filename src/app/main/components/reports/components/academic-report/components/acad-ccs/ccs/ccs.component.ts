@@ -63,6 +63,27 @@ throw new Error('Method not implemented.');
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+
+        let ccstotal = 0;
+        let ccsresearch = 0;
+        let ccscapstone = 0;
+        let ccsthesis = 0;
+
+          for(let project of res) {
+            ccstotal++;
+            if(project.category == 'Research') {
+              ccsresearch++;
+            } else if(project.category == 'Capstone') {
+              ccscapstone++;
+            } else if(project.category == 'Thesis') {
+              ccsthesis++;
+            }
+          }
+
+          (document.getElementById('ccs-total') as HTMLHeadingElement).textContent = '' + ccstotal;
+          (document.getElementById('ccs-research') as HTMLHeadingElement).textContent = '' + ccsresearch;
+          (document.getElementById('ccs-capstone') as HTMLHeadingElement).textContent = '' + ccscapstone;
+          (document.getElementById('ccs-thesis') as HTMLHeadingElement).textContent = '' + ccsthesis;
       }
     })
   }

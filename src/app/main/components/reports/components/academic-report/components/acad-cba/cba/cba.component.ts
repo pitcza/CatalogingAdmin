@@ -62,6 +62,22 @@ export class CbaComponent implements OnInit {
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+
+          let cbatotal = 0;
+          let cbaresearch = 0;
+          let cbafeasibility = 0;
+          for(let project of res) {
+            cbatotal++;
+            if(project.category == 'Research') {
+              cbaresearch++;
+            } else if(project.category == 'Feasibility Study') {
+              cbafeasibility++;
+            }
+          }
+
+          (document.getElementById('cba-total') as HTMLHeadingElement).textContent = '' + cbatotal;
+          (document.getElementById('cba-research') as HTMLHeadingElement).textContent = '' + cbaresearch;
+          (document.getElementById('cba-feasibility') as HTMLHeadingElement).textContent = '' + cbafeasibility;
         }
       })
     }

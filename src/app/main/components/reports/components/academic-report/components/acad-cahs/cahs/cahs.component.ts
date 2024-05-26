@@ -63,6 +63,18 @@ export class CahsComponent implements OnInit {
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          
+          let cahstotal = 0;
+          let cahsresearch = 0;
+          for(let project of res) {
+            cahstotal++;
+            if(project.category == 'Research') {
+              cahsresearch++;
+            }
+          }
+
+          (document.getElementById('cahs-total') as HTMLHeadingElement).textContent = '' + cahstotal;
+          (document.getElementById('cahs-research') as HTMLHeadingElement).textContent = '' + cahsresearch;
         }
       })
     }

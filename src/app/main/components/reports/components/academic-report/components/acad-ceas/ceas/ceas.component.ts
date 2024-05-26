@@ -62,6 +62,22 @@ export class CeasComponent implements OnInit {
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+
+          let ceastotal = 0;
+          let ceasthesis = 0;
+          let ceascbar = 0;
+          for(let project of res) {
+            ceastotal++;
+            if(project.category == 'Thesis') {
+              ceasthesis++;
+            } else if(project.category == 'Classroom Based Action Research') {
+              ceascbar++;
+            }
+          }
+
+          (document.getElementById('ceas-total') as HTMLHeadingElement).textContent = '' + ceastotal;
+          (document.getElementById('ceas-thesis') as HTMLHeadingElement).textContent = '' + ceasthesis;
+          (document.getElementById('ceas-cbar') as HTMLHeadingElement).textContent = '' + ceascbar;
         }
       })
     }

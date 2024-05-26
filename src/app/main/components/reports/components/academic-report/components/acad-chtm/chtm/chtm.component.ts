@@ -62,6 +62,22 @@ export class ChtmComponent implements OnInit {
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+
+          let chtmtotal = 0;
+          let chtmthesis = 0;
+          let chtmfeasibility = 0;
+          for(let project of res) {
+            chtmtotal++;
+            if(project.category == 'Thesis') {
+              chtmthesis++;
+            } else if(project.category == 'Feasibility Study') {
+              chtmfeasibility++;
+            }
+          }
+
+          (document.getElementById('chtm-total') as HTMLHeadingElement).textContent = '' + chtmtotal;
+          (document.getElementById('chtm-thesis') as HTMLHeadingElement).textContent = '' + chtmthesis;
+          (document.getElementById('chtm-feasibility') as HTMLHeadingElement).textContent = '' + chtmfeasibility;
         }
       })
     }
