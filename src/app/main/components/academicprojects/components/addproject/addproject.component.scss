@@ -50,10 +50,10 @@
 /* FORM CONTENT CONTAINER */
 .addproject {
     justify-content: center;
-    padding: 40px 60px 40px 60px; 
-    width: 100%; 
-    height: auto; 
-    background: var(--white); 
+    padding: 40px 60px 40px 60px;
+    width: 100%;
+    height: auto;
+    background: var(--white);
     box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.322);
     border: 0.5px solid var(--table-border);
     border-radius: 5px;
@@ -308,7 +308,7 @@ input[type="file"]::file-selector-button {
     transition: background-color 200ms;
 }
 
-// TEXTAREA 
+// TEXTAREA
 .input-row .txtarea {
     flex-basis: 100%;
     position: relative;
@@ -482,7 +482,7 @@ input[type="file"]::file-selector-button {
         column-gap: 1.5rem;
         row-gap: 0;
         width: 100%;
-        
+
         .inputtxt {
             width: 100%;
         }
@@ -504,3 +504,5 @@ input[type="file"]::file-selector-button {
         width: 60px;
     }
 }
+
+

@@ -78,13 +78,13 @@
 
 .logo-title {
     padding-bottom: 10%;
-    border-bottom: 1px solid var(--darker-green);
+    border-bottom: 1px solid var(--white);
 }
 
 
 .sidebar-content {
     position: relative;
-    background-color: var(--green-hover);
+    background-color: var(--main-green);
     color: var(--white);
     width: 220px;
     position: fixed;
@@ -120,7 +120,7 @@
     font-size: 14px;
     padding: 15px 15px;
     text-decoration: none;
-    border-bottom: 1px solid var(--darker-green);
+    border-bottom: 1px solid var(--white);
     transition: 0.3s ease;
 }
 

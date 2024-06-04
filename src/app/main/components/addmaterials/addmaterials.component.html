@@ -7,13 +7,13 @@
 		<input type="radio" id="tab1" name="css-tabs" checked="checked">
 		<input type="radio" id="tab2" name="css-tabs" (change)="emptyValues()">
 		<input type="radio" id="tab3" name="css-tabs" (change)="emptyValues()">
-		
+
 		<ul class="tabs">
 			<li class="tab"><label for="tab1">Books</label></li>
 			<li class="tab"><label for="tab2">Periodicals</label></li>
 			<li class="tab"><label for="tab3">Articles</label></li>
 		</ul>
-		
+
 <!------------------------------ Books Tab ------------------------------------->
 
 		<div class="tab-content">
@@ -22,13 +22,13 @@
 
                     <div class="input-row">
                         <div class="entryarea">
-                            <input type="text" required name="id"> 
+                            <input type="text" required name="id">
                             <span></span>
                             <div class="labelline"> Accession No. </div>
                         </div>
 
                         <div class="entryarea  ">
-                            <input type="text" required name="title"> 
+                            <input type="text" required name="title">
                             <span></span>
                             <div class="labelline"> Title</div>
                         </div>
@@ -56,11 +56,11 @@
                             <!--- Display message based on the number of input fields ---->
                             <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
                             <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
-                
+
                             </div>
-            
+
                     <div class="input-row1">
-                        <div class="entryarea3"> 
+                        <div class="entryarea3">
                             <select name="copyright" required>
                                 <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
                             </select>
@@ -69,13 +69,13 @@
                         </div>
 
                         <div class="entryarea4">
-                            <input type="number" min="0" required name="volume"> 
+                            <input type="number" min="0" required name="volume">
                             <span></span>
                             <div class="labelline4"> Volume </div>
                         </div>
 
                         <div class="entryarea4">
-                            <input type="number" min="0" required name="edition"> 
+                            <input type="number" min="0" required name="edition">
                             <span></span>
                             <div class="labelline4"> Edition </div>
                         </div>
@@ -83,25 +83,25 @@
 
                     <div class="input-row1">
                         <div class="entryarea6">
-                            <input type="text" required name="remarks"> 
+                            <input type="text" required name="remarks">
                             <span></span>
                             <div class="labelline6"> Remarks </div>
                         </div>
 
                         <div class="entryarea6">
-                            <input type="number" min="0" required name="pages"> 
+                            <input type="number" min="0" required name="pages">
                             <span></span>
                             <div class="labelline6"> Pages </div>
                         </div>
 
                         <div class="entryarea7">
-                            <input type="date" required name="acquired_date"> 
+                            <input type="date" required name="acquired_date">
                             <span></span>
                             <div class="labelline7"> Date Purchased/Donated </div>
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea8">
                             <select id="funds" name="source_of_fund" (change)="changedFunds($event)">
                                 <option value="Donated"> Donated </option>
@@ -122,30 +122,30 @@
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea5">
                             <span class="peso-sign">₱</span>
-                            <input *ngIf="isPurchased" type="number" required name="price"> 
-                            <input *ngIf="isPurchased == false" type="number" required name="price" disabled> 
+                            <input *ngIf="isPurchased" type="number" required name="price">
+                            <input *ngIf="isPurchased == false" type="number" required name="price" disabled>
                             <span></span>
                             <div class="labelline5"> Price </div>
                         </div>
-    
+
                         <div class="entryarea9">
-                            <input type="text" required name="call_number"> 
+                            <input type="text" required name="call_number">
                             <span></span>
                             <div class="labelline9"> Call Number </div>
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea10">
-                            <input type="number" required min="1" name="copies" value="1"> 
+                            <input type="number" required min="1" name="copies" value="1">
                             <span></span>
                             <div class="labelline10"> Copies </div>
                         </div>
-                        <div class="entryarea11"> 
-                            <input type="file" required name="image_url" accept=".png, .jpeg, .jpg"> 
+                        <div class="entryarea11">
+                            <input type="file" required name="image_url" accept=".png, .jpeg, .jpg">
                             <div class="labelline11"> Upload Image</div>
                         </div>
                     </div>
@@ -157,11 +157,11 @@
                 </div>
             </form>
         </div>
-     
+
 
 <!------------------------------ Periodicals Tab ------------------------------------->
 
-       
+
 		<div class="tab-content">
             <form id="periodical-form" enctype="multipart/form-data">
                 <div class="container">
@@ -177,13 +177,13 @@
                         </div>
 
                         <div class="entryarea">
-                            <input type="text" required name="accession"> 
+                            <input type="text" required name="accession">
                             <span></span>
                             <div class="labelline"> Accession No. </div>
                         </div>
 
                         <div class="entryarea">
-                            <input type="text" required name="title"> 
+                            <input type="text" required name="title">
                             <span></span>
                             <div class="labelline"> Title</div>
                         </div>
@@ -211,16 +211,16 @@
                             <!--- Display message based on the number of input fields ---->
                             <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
                             <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
-                
+
                         </div>
 
-                        <div class="input-row1"> 
+                        <div class="input-row1">
                             <div class="entryarea9">
-                                <input type="text" required name="issue"> 
+                                <input type="text" required name="issue">
                                 <span></span>
                                 <div class="labelline9"> Issue </div>
                             </div>
-        
+
                             <div class="entryarea8">
                                 <select id="type" name="language">
                                     <option value="english"> English </option>
@@ -231,62 +231,62 @@
                             </div>
                         </div>
 
-                        <div class="input-row1"> 
+                        <div class="input-row1">
                             <div class="entryarea7">
-                                <input type="date" required name="receive_date"> 
+                                <input type="date" required name="receive_date">
                                 <span></span>
                             <div class="labelline7"> Date Received </div>
                             </div>
-        
+
                             <div class="entryarea7">
-                                <input type="date" required name="date_published"> 
-                                <span></span> 
+                                <input type="date" required name="date_published">
+                                <span></span>
                             <div class="labelline7"> Publication Date </div>
                             </div>
                         </div>
 
                         <div class="input-row1">
-                            <div class="entryarea3"> 
+                            <div class="entryarea3">
                                 <select name="copyright" required>
                                     <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
                                 </select>
                                 <span></span>
                                 <div class="labelline3"> Copyright </div>
                             </div>
-    
+
                             <div class="entryarea4">
-                                <input type="text" required name="publisher"> 
+                                <input type="text" required name="publisher">
                                 <span></span>
                             <div class="labelline4"> Publisher </div>
                             </div>
-    
+
                             <div class="entryarea4">
-                                <input type="number" min="0" required name="volume"> 
+                                <input type="number" min="0" required name="volume">
                                 <span></span>
                                 <div class="labelline4"> Volume </div>
                             </div>
                         </div>
 
-                        <div class="input-row1"> 
+                        <div class="input-row1">
                             <div class="entryarea6">
-                                <input type="text" min="0" required name="remarks"> 
+                                <input type="text" min="0" required name="remarks">
                                 <span></span>
                                 <div class="labelline6"> Remarks </div>
                             </div>
                         </div>
 
-                        <div class="input-row1"> 
+                        <div class="input-row1">
                             <div class="entryarea9">
                                 <input type="number" required name="pages">
                                 <span></span>
                                 <div class="labelline9"> Pages </div>
                             </div>
-                            <div class="entryarea11"> 
-                                <input type="file" required name="image_url" accept=".png, .jpeg, .jpg"> 
+                            <div class="entryarea11">
+                                <input type="file" required name="image_url" accept=".png, .jpeg, .jpg">
                                 <div class="labelline11"> Upload Image</div>
                             </div>
                         </div>
-    
+
                         <div class="perio-btn">
                             <input class= " button" type="submit" value="Add" id="submit">
                         <button></button>
@@ -295,7 +295,7 @@
             </form>
         </div>
 
-    
+
 <!------------------------------ Articles Tab ------------------------------------->
 
 
@@ -315,13 +315,13 @@
                     </div>
 
                     <div class="entryarea">
-                        <input type="text" required name="accession"> 
+                        <input type="text" required name="accession">
                         <span></span>
                         <div class="labelline"> Accession No. </div>
                     </div>
 
                     <div class="entryarea">
-                        <input type="text" required name="title"> 
+                        <input type="text" required name="title">
                         <span></span>
                         <div class="labelline"> Title</div>
                     </div>
@@ -349,7 +349,7 @@
                         <!--- Display message based on the number of input fields ---->
                         <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
                         <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
-            
+
                     </div>
 
                     <div class="input-row1">
@@ -360,13 +360,13 @@
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea9">
-                            <input type="text" required name="issue"> 
+                            <input type="text" required name="issue">
                             <span></span>
                             <div class="labelline9"> Issue </div>
                         </div>
-    
+
                         <div class="entryarea8">
                             <select id="type" name="language">
                                 <option value="english"> English </option>
@@ -377,52 +377,68 @@
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea9">
-                            <input type="text" required name="subject"> 
+                            <input type="text" required name="subject">
                             <span></span>
                             <div class="labelline9"> Subject </div>
                         </div>
-    
+
                         <div class="entryarea9">
-                            <input type="number" min="0" required name="volume"> 
+                            <input type="number" min="0" required name="volume">
                             <span></span>
                             <div class="labelline9"> Volume </div>
                         </div>
                     </div>
 
                     <div class="input-row1">
-                        <div class="entryarea6"> 
-                            <input type="text" required name="publisher"> 
+                        <div class="entryarea6">
+                            <input type="text" required name="publisher">
                             <span></span>
                             <div class="labelline6"> Publisher </div>
                         </div>
 
                         <div class="entryarea6">
-                            <input type="text" required name="pages"> 
+                            <input type="text" required name="pages">
                             <span></span>
                             <div class="labelline6"> Pages </div>
                         </div>
 
                         <div class="entryarea7">
-                            <input type="date"  name="date_published"> 
+                            <input type="date"  name="date_published">
                             <span></span>
                             <div class="labelline7"> Publication Date </div>
                         </div>
                     </div>
-  
-                    <div class="input-row1"> 
+
+                    <div class="input-row1">
                         <div class="entryarea6">
-                            <input type="text" min="0" required name="remarks"> 
+                            <input type="text" min="0" required name="remarks">
                             <span></span>
                             <div class="labelline6"> Remarks </div>
                         </div>
                     </div>
 
-                    <div class="arti-btn">
-                        <input class= " button" type="submit" value="Add" id="submit">
-                    <button></button>
-                    </div>
+                    <!-- <div class="wrapper">
+                      <div class="title">
+                        <h2>Tags</h2>
+                      </div>
+                      <div class="content">
+                        <p>Press enter or add a comma after each tag</p>
+                        <ul>
+                          <input type="text" spellcheck="false" (keyup)="addTag($event)">
+                        </ul>
+                      </div>
+                      <div class="details">
+                        <p><span>{{ maxTags - tags.length }}</span> tags are remaining</p>
+                        <button (click)="removeAllTags()">Remove All</button>
+                      </div>
+                    </div> -->
+
+                  <div class="arti-btn">
+                      <input class= " button" type="submit" value="Add" id="submit">
+                      <button></button>
+                  </div>
 
                 </form>
             </div>

@@ -7,21 +7,22 @@ import { ListofmaterialsComponent } from './components/listofmaterials/listofmat
 import { ActivitylogComponent } from './components/activitylog/activitylog.component';
 
 import { ReportsComponent } from './components/reports/reports.component';
+import { ArchiveComponent } from './components/archive/archive.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'addmaterials', pathMatch: 'full' },
   { path: 'addmaterials', component: AddmaterialsComponent},
-  { 
-    path: 'academicprojects', 
+  {
+    path: 'academicprojects',
     component: AcademicprojectsComponent,
     children: [{
       path: '',
       loadChildren: ()=>import('./components/academicprojects/academicprojects.module').then((m)=>m.AcademicprojectsModule)
     }]
   },
-  { 
-    path: 'listofmaterials', 
+  {
+    path: 'listofmaterials',
     component: ListofmaterialsComponent,
     children: [{
       path: '',
@@ -29,14 +30,15 @@ const routes: Routes = [
     }]
   },
   { path: 'activitylog', component: ActivitylogComponent},
-  { 
-    path: 'reports', 
+  {
+    path: 'reports',
     component: ReportsComponent,
     children: [{
       path: '',
       loadChildren: ()=>import('./components/reports/reports.module').then((m)=>m.ReportsModule)
     }]
   },
+  { path: 'archive', component: ArchiveComponent},
 ];
 
 @NgModule({

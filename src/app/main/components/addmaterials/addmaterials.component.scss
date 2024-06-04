@@ -8,7 +8,7 @@
     padding-bottom: 40px;
 }
 
-/****************************************** Tabs ****************************************/  
+/****************************************** Tabs ****************************************/
 
 .page-content {
 	min-width: 100%; 
@@ -16,9 +16,9 @@
 }
 
 .tabbed {
-	overflow-x: hidden; 
+	overflow-x: hidden;
 	padding-bottom: 10px;
-	
+
 }
 
 .tabbed [type="radio"] {
@@ -29,7 +29,7 @@
 	display: flex;
 	align-items: stretch;
 	list-style: none;
-    max-width: 100%;  
+    max-width: 100%;
     margin-left: 50px;
     margin-right: 30px;
 	border-bottom: 3.5px solid #000000;
@@ -40,32 +40,32 @@
 	align-items: stretch;
 	list-style: none;
     margin-left: 50px;
-    max-width: 100%;  
+    max-width: 100%;
     margin-right: 30px;
 }
 
 .tab {
     margin-top: 5px;
-    width: 100%; 
+    width: 100%;
 }
 
 .tab > label {
     color: #000000;
 	display: block;
-    font-size: 17px; 
+    font-size: 17px;
     font-weight: bold;
     line-height: 15px;
     padding: 15px 10px;
     text-align: center;
 	font-weight: bold;
-	cursor: pointer;	
+	cursor: pointer;
 	transition: all 0.3s;
 }
 .tab:hover label {
     color: #ffffff;
-	background: var(--main-green);
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+	background-color: #31A463; 
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 
 }
 
@@ -79,7 +79,7 @@
 	background: var(--main-green);
 	color: #ffffff;
     width: 100%;
-    
+
 }
 
 .tabbed [type="radio"]:nth-of-type(1):checked ~ .tab-content:nth-of-type(1),
@@ -90,13 +90,13 @@
 
 .tab-content {
 	display: none;
-    min-width: 98%; 
+    min-width: 98%;
 	color: #777;
 }
 
 /********************************************* Form *************************************/
 
-/* For the Form bg  */ 
+/* For the Form bg  */
 
 .container {
     justify-content: center;
@@ -133,7 +133,7 @@
 }
 
 .tab-content {
-    width: 500px; 
+    width: 500px;
 }
 
 /*************************************** FORM FIELDS *************************************/
@@ -188,7 +188,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea span::before {
     content: '';
@@ -208,19 +208,19 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea input:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea input:valid ~ .labelline {
     margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-  
+
 .entryarea input:focus ~ .labelline {
     margin-top: -42px;
     font-size: 12px;
@@ -228,7 +228,7 @@
     letter-spacing: 0.5px;
 }
 
-// Perio, Arti - Type of materials 
+// Perio, Arti - Type of materials
 
 .entryarea1 select {
     font-family: 'Montserrat';
@@ -257,7 +257,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea1 span::before {
     content: '';
@@ -277,19 +277,19 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea1 select:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea1 select:valid ~ .labelline1 {
     margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-  
+
 .entryarea1 select:focus ~ .labelline1 {
     margin-top: -42px;
     font-size: 12px;
@@ -298,7 +298,7 @@
 }
 
 
-// Book, Perio, Arti - Author 
+// Book, Perio, Arti - Author
 
 .author-container {
     display: grid;
@@ -338,7 +338,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea2 span::before {
     content: '';
@@ -356,20 +356,20 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea2 input:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 
 .entryarea2 input:valid ~ .labelline2 {
     margin-top: -10px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-  
+
 .entryarea2 input:focus ~ .labelline2 {
     margin-top: -10px;
     font-size: 12px;
@@ -477,7 +477,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea3 span::before {
     content: '';
@@ -497,19 +497,19 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea3 select:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea3 select:valid ~ .labelline3 {
     margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-  
+
 .entryarea3 select:focus ~ .labelline3 {
     margin-top: -42px;
     font-size: 12px;
@@ -518,8 +518,8 @@
 }
 
 
-// Books - Volume, Edition 
-// Perio - Publisher, Volume 
+// Books - Volume, Edition
+// Perio - Publisher, Volume
 
 .entryarea4 input {
     font-family: 'Montserrat';
@@ -548,7 +548,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea4 span::before {
     content: '';
@@ -568,19 +568,19 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea4 input:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea4 input:valid ~ .labelline4 {
     margin-top: -45px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-  
+
 .entryarea4 input:focus ~ .labelline4 {
     margin-top: -45px;
     font-size: 12px;
@@ -617,12 +617,12 @@
 
 .entryarea5 .peso-sign {
     position: absolute;
-    left: 15px; 
+    left: 15px;
     top: 77%;
     transform: translateY(-50%);
     font-size: 16px;
     color: #000;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 
@@ -637,7 +637,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea5 span::before {
     content: '';
@@ -657,18 +657,18 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea5 input:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea5 input:valid ~ .labelline5 {
     margin-top: -42px;
     font-size: 12px;
 }
-  
+
 .entryarea5 input:focus ~ .labelline5 {
     margin-top: -42px;
     font-size: 12px;
@@ -676,8 +676,8 @@
 }
 
 // Book - Remarks, Pages
-// Perio - Publisher, Pages, Remarks 
-// Arti - Remarks 
+// Perio - Publisher, Pages, Remarks
+// Arti - Remarks
 
 .input-row1 .entryarea6, .input-row1 .entryarea7 {
     flex-basis: 100%;
@@ -715,7 +715,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea6 span::before {
     content: '';
@@ -735,18 +735,18 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea6 input:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea6 input:valid ~ .labelline6 {
     margin-top: -42px;
     font-size: 12px;
 }
-  
+
 .entryarea6 input:focus ~ .labelline6 {
     margin-top: -42px;
     font-size: 12px;
@@ -754,7 +754,7 @@
     letter-spacing: 0.5px;
 }
 
-// Books - Purchased 
+// Books - Purchased
 // Perio - Publication
 
 .entryarea7 input{
@@ -785,7 +785,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea7 span::before {
     content: '';
@@ -805,27 +805,27 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea7 input:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea7 input:valid ~ .labelline7 {
     margin-top: -42px;
     font-size: 12px;
 }
-  
+
 .entryarea7 input:focus ~ .labelline7 {
     margin-top: -42px;
     font-size: 12px;
     color: var(--main-green);
 }
 
-// Book - Fund, Location 
-// Perio - Language, Recieved 
-// Arti - Language 
+// Book - Fund, Location
+// Perio - Language, Recieved
+// Arti - Language
 
 .input-row1 .entryarea8 {
     flex-basis: 100%;
@@ -862,7 +862,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea8 span::before {
     content: '';
@@ -882,18 +882,18 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea8 select:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea8 select:valid ~ .labelline8 {
     margin-top: -42px;
     font-size: 12px;
 }
-  
+
 .entryarea8 select:focus ~ .labelline8 {
     margin-top: -42px;
     font-size: 12px;
@@ -901,7 +901,7 @@
 }
 
 // Book -  Callnumber
-// Perio - Issue, Pages 
+// Perio - Issue, Pages
 // Arti -  Issue, Subject, Volume
 
 .input-row1 .entryarea9 {
@@ -940,7 +940,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea9 span::before {
     content: '';
@@ -960,18 +960,18 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea9 input:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea9 input:valid ~ .labelline9 {
     margin-top: -42px;
     font-size: 12px;
 }
-  
+
 .entryarea9 input:focus ~ .labelline9 {
     margin-top: -42px;
     font-size: 12px;
@@ -979,7 +979,7 @@
 }
 
 
-// Book - Copies 
+// Book - Copies
 
 .input-row1 .entryarea10, .input-row1 .entryarea11 {
     flex-basis: 100%;
@@ -1016,7 +1016,7 @@
     transition: .3s;
 }
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea10 span::before {
     content: '';
@@ -1036,19 +1036,19 @@
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea10 input:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea10 input:valid ~ .labelline10 {
     margin-top: -42px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-  
+
 .entryarea10 input:focus ~ .labelline10 {
     margin-top: -42px;
     font-size: 12px;
@@ -1099,13 +1099,13 @@ input[type="file"]::file-selector-button {
     transition: background-color 200ms;
 }
 
-// Arti - Abstract  
+// Arti - Abstract
 
 .input-row1 .entryarea12 {
     flex-basis: 100%;
     position: relative;
     margin-top: 30px;
- 
+
 }
 
 .entryarea12 textarea {
@@ -1143,7 +1143,7 @@ input[type="file"]::file-selector-button {
 }
 
 
-/* Bottom Line when hover */ 
+/* Bottom Line when hover */
 
 .entryarea12 span::before {
     content: '';
@@ -1163,19 +1163,19 @@ input[type="file"]::file-selector-button {
     background: var(--main-green);
 }
 
-/* Change Bg color when Hover */ 
+/* Change Bg color when Hover */
 
 .entryarea12 textarea:hover{
     background-color: #ececec;
 }
 
-/* Label float */ 
+/* Label float */
 .entryarea12 textarea:valid ~ .labelline12 {
     top: 14px;
     font-size: 12px;
     letter-spacing: 0.5px;
 }
-  
+
 .entryarea12 textarea:focus ~ .labelline12 {
     top: 14px;
     font-size: 12px;
@@ -1183,7 +1183,7 @@ input[type="file"]::file-selector-button {
     letter-spacing: 0.5px;
 }
 
-/* Book Submit Button */ 
+/* Book Submit Button */
 
 .book-btn > input {
     border: none;
@@ -1207,7 +1207,7 @@ input[type="file"]::file-selector-button {
 }
 
 
-/* Perio Submit Button */ 
+/* Perio Submit Button */
 
 .perio-btn > input {
     border: none;
@@ -1230,7 +1230,7 @@ input[type="file"]::file-selector-button {
     cursor: pointer;
 }
 
-/* Arti Submit Button */ 
+/* Arti Submit Button */
 
 .arti-btn > input {
     border: none;
@@ -1251,4 +1251,104 @@ input[type="file"]::file-selector-button {
     width: 155px;
     font-size: 15px;
     cursor: pointer;
+}
+
+.wrapper{
+  width: 496px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px 25px 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.06);
+}
+.wrapper :where(.title, li, li i, .details){
+  display: flex;
+  align-items: center;
+}
+.title img{
+  max-width: 21px;
+}
+.title h2{
+  font-size: 21px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+.wrapper .content{
+  margin: 10px 0;
+}
+.content p{
+  font-size: 15px;
+}
+.content ul{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 7px;
+  margin: 12px 0;
+  border-radius: 5px;
+  border: 1px solid #a6a6a6;
+}
+.content ul li{
+  color: #333;
+  margin: 4px 3px;
+  list-style: none;
+  border-radius: 5px;
+  background: #F2F2F2;
+  padding: 5px 8px 5px 10px;
+  border: 1px solid #e3e1e1;
+}
+.content ul li i{
+  height: 20px;
+  width: 20px;
+  color: #808080;
+  margin-left: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #dfdfdf;
+  justify-content: center;
+}
+.content ul input{
+  flex: 1;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+.wrapper .details{
+  justify-content: space-between;
+}
+.details button{
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 9px 15px;
+  border-radius: 5px;
+  background: #5372F0;
+  transition: background 0.3s ease;
+}
+.details button:hover{
+  background: #2c52ed;
+}
+
+.wrapper .content ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wrapper .content ul li {
+  background-color: #e2e2e2;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.wrapper .content ul li span {
+  margin-left: 5px;
+  cursor: pointer;
+  color: red;
 }

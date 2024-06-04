@@ -8,9 +8,9 @@ import { DataService } from '../../../services/data.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-activitylog',
-  templateUrl: './activitylog.component.html',
-  styleUrl: './activitylog.component.scss',
+  selector: 'app-archive',
+  templateUrl: './archive.component.html',
+  styleUrl: './archive.component.scss',
   standalone: true,
   imports: [
     CommonModule,
@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
     MatPaginatorModule,
   ]
 })
-export class ActivitylogComponent implements OnInit {
+export class ArchiveComponent implements OnInit {
   displayedColumns: string[] = ['create_date', 'logtime', 'name', 'log', 'action'];
   protected dataSource: any;
 
