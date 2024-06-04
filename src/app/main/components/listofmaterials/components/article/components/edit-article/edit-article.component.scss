@@ -58,15 +58,15 @@
     border: none;
     font-size: 40px;
     cursor: pointer;
-    color: var(--primary-color);
+    color: var(--white);
 }
 
 .exit-button:hover {
-    color: var(--secondary-color);
+    color: var(--container-color);
 }
 
 h1 {
-    color: var(--primary-color);
+    color: var(--white);
     padding-top: 5px;
     width: 880px;
     font-weight: 700;
@@ -86,7 +86,7 @@ h1 {
 }
 
 .details-content::-webkit-scrollbar-track {
-    background-color: var(--primary-color); 
+    background-color: var(--white); 
     margin-top: 90px;
     margin-bottom: 10px;
 }
@@ -247,7 +247,7 @@ h1 {
     height: 60px;
     width: 70px;
     background-color: var(--main-green);
-    color: var(--primary-color);
+    color: var(--white);
     outline: none;
     border: none;
     border-radius: 5px;
@@ -307,7 +307,7 @@ select {
 }
 
 option {
-    background-color: var(--primary-color);
+    background-color: var(--white);
 }
 
 // ADD MULTIPLE AUTHOR STYLE CONTENTS
@@ -347,7 +347,7 @@ option {
     height: 60px;
     width: 70px;
     background-color: var(--main-green);
-    color: var(--primary-color);
+    color: var(--white);
     outline: none;
     border: none;
     border-radius: 5px;
@@ -389,7 +389,7 @@ option {
 input[type="file"]::file-selector-button {
     border-top-left-radius: 5px;
     font-family: 'Montserrat';
-    color: var(--primary-color);
+    color: var(--white);
     position: absolute;
     top: 0;
     left: 0;
@@ -494,18 +494,18 @@ input[type="file"]::file-selector-button {
 
 .update-btn {
     background: var(--main-green);
-    color: var(--primary-color);
+    color: var(--white);
     margin-right: 10px;
 }
 
 .delete-btn {
     background: var(--red);
-    color: var(--primary-color);
+    color: var(--white);
 }
 
 .cancel-btn {
     background: var(--cancel-btn);
-    color: var(--primary-color);
+    color: var(--white);
     margin-left: 10px;
 }
 

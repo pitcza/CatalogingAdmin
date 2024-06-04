@@ -2,18 +2,9 @@
 main {
     justify-content: center;
     align-items: center;
-    padding: 20px;
     margin-top: 10px;
-    margin-left: 70px;
-    margin-right: 20px;
-}
-
-@media screen and (min-width: 1320px) {
-    main {
-        margin-top: 10px;
-        margin-left: 220px;
-        margin-right: 20px;
-    }
+    margin-left: 20px;
+    margin-right: 40px;
 }
 /* END OF MAIN PADDING */
 
@@ -56,6 +47,7 @@ main {
     height: 2.5rem;
 	color: black;
 	border: 1px solid var(--table-border);
+    background-color: var(--white);
 	padding: 0.5rem 0.75rem;
 	border-radius: 10px;
     display: flex;
@@ -65,7 +57,7 @@ label {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     font-family: 'Montserrat';
-    color: var(--primary-color);
+    color: var(--white);
     position: absolute;
     top: 0;
     left: 0;
@@ -92,13 +84,14 @@ input {
 	line-height: 1.5rem;
     padding-left: 75px;
 	font-size: 1rem;
+    background-color: var(--white);
 	color: black;
 	width: 100%;
 }
 
 input:focus {outline: none;}
 #ui-datepicker-div {
-	background-color: #fff;
+	background-color: var(--white);
 	box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
 	margin-top: 0.25rem;
 	border-radius: 0.5rem;
@@ -112,7 +105,7 @@ input:focus {outline: none;}
     padding-top: 25px;
     padding-bottom: 25px;
     margin-top: 25px;
-    background: var(--primary-color);
+    background: var(--white);
     width: 100%;
     height: auto;
     margin-bottom: 30px;
@@ -130,6 +123,7 @@ input:focus {outline: none;}
 table {
     border-radius: 5px;
     border: 1px solid var(--table-border);
+    background-color: var(--container-color);
 }
 
 table,
@@ -155,7 +149,7 @@ table tr {
 }
 
 table tr:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--container-hover);
 }
 
 table td:nth-child(1) {
@@ -183,7 +177,7 @@ table td:nth-child(5) {
 }
 
 mat-paginator {
-    background-color: var(--primary-color);
+    background-color: var(--container-color);
     border-radius: 5px;
     font-size: 16px;
     border: 1px solid var(--table-border);

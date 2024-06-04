@@ -2,76 +2,81 @@
 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/boxicons/2.0.7/css/boxicons.min.css">
 
-
-<div class="content">
-    <!-- HEADER -->
-    <div class="header">
-        <strong> CATALOGING </strong>
-    </div>
-
-    <!-- BODY CONTENT -->
-    <div class="body-content">
-        <div class="admin-container"> <router-outlet></router-outlet> </div>
-    </div>
-
-    <nav class="sidebar-content">
-        <!-- LOGO AND SUBSYSTEM TITLE -->
-        <div class="logo-title">
-            <div class="logo">
-                <img src="assets/images/GCLMS.PNG">
-            </div>
-            <div class="systemname">
-                <h1> {{ name }} </h1>
-                <h2> ADMIN </h2>
-            </div>
+<div class="container" [ngClass]="{'overlay-active': isOverlayActive}">
+    <div class="content" [ngClass]="{'collapsed': isSidebarCollapsed}">
+        <!-- HEADER -->
+        <div class="header">
+            <strong> CATALOGING </strong>
         </div>
-
-        <!-- SIDEBAR TABS -->
-        <div class="sidebar-tabs">
-            <ul class="admin-tabs">
-            <li class="admin-tab">
-                <a class="tab-link" routerLink="addmaterials" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">
-                <span class="tab-link-icon"> <i class='bx bx-book-alt'></i> </span>
-                <span class="tab-link-name"> Add Materials </span>
-                </a>
-            </li>
-            <li class="admin-tab">
-                <a class="tab-link" routerLink="academicprojects" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:false}">
-                <span class="tab-link-icon"> <i class='bx bx-book' ></i> </span>
-                <span class="tab-link-name"> Academic Projects </span>
-                </a>
-            </li>
-            <li class="admin-tab">
-                <a class="tab-link" routerLink="listofmaterials" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:false}">
-                <span class="tab-link-icon"> <i class='bx bx-cabinet' ></i> </span>
-                <span class="tab-link-name"> List of Materials </span>
-                </a>
-            </li>
-            <li class="admin-tab">
-                <a class="tab-link" routerLink="activitylog" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">
-                <span class="tab-link-icon"> <i class='bx bx-list-check' ></i> </span>
-                <span class="tab-link-name"> Activity Log </span>
-                </a>
-            </li>
-            <li class="admin-tab">
-                <a class="tab-link" routerLink="reports" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:false}">
-                <span class="tab-link-icon"> <i class='bx bx-bar-chart-alt-2' ></i> </span>
-                <span class="tab-link-name"> Reports </span>
-                </a>
-            </li>
-            </ul>
-
-            <!-- LOGOUT BUTTON -->
-            <div class="logoutbtn">
-            <div class="logout" (click)="togglePopup()" >
-                <span> <i class='bx bx-log-out bx-rotate-180' ></i> 
-                   <app-logout-popup *ngIf="showPopup" (closedPopup)="closePopup()" (leaveClicked)="logout()"></app-logout-popup>
-                </span>
-
     
-            </div>
-            </div> 
+        <!-- BODY CONTENT -->
+        <div class="body-content">
+            <div class="admin-container"> <router-outlet></router-outlet> </div>
         </div>
-    </nav>
+    
+        <nav class="sidebar-content" [ngClass]="{'collapsed': isSidebarCollapsed}">
+            <!-- LOGO AND SUBSYSTEM TITLE -->
+            <div class="logo-title">
+                <div class="logo">
+                    <img src="assets/images/GCLMS.PNG">
+                </div>
+                <div class="systemname">
+                    <h1> {{ name }} </h1>
+                    <h2> ADMIN </h2>
+                </div>
 
-</div>
+                <button class="menu-icon-button" (click)="toggleSidebar()"> 
+                    <i class='bx bx-menu' ></i>
+                </button>
+            </div>
+            
+    
+            <!-- SIDEBAR TABS -->
+            <div class="sidebar-tabs">
+                <ul class="admin-tabs">
+                <li class="admin-tab">
+                    <a class="tab-link" routerLink="addmaterials" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">
+                    <span class="tab-link-icon"> <i class='bx bx-book-alt'></i> </span>
+                    <span class="tab-link-name"> Add Materials </span>
+                    </a>
+                </li>
+                <li class="admin-tab">
+                    <a class="tab-link" routerLink="academicprojects" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:false}">
+                    <span class="tab-link-icon"> <i class='bx bx-book' ></i> </span>
+                    <span class="tab-link-name"> Academic Projects </span>
+                    </a>
+                </li>
+                <li class="admin-tab">
+                    <a class="tab-link" routerLink="listofmaterials" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:false}">
+                    <span class="tab-link-icon"> <i class='bx bx-cabinet' ></i> </span>
+                    <span class="tab-link-name"> List of Materials </span>
+                    </a>
+                </li>
+                <li class="admin-tab">
+                    <a class="tab-link" routerLink="activitylog" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">
+                    <span class="tab-link-icon"> <i class='bx bx-list-check' ></i> </span>
+                    <span class="tab-link-name"> Activity Log </span>
+                    </a>
+                </li>
+                <li class="admin-tab">
+                    <a class="tab-link" routerLink="reports" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:false}">
+                    <span class="tab-link-icon"> <i class='bx bx-bar-chart-alt-2' ></i> </span>
+                    <span class="tab-link-name"> Reports </span>
+                    </a>
+                </li>
+                </ul>
+    
+                <!-- LOGOUT BUTTON -->
+                <div class="logoutbtn">
+                    <div class="logout" (click)="togglePopup()" >
+                        <span> <i class='bx bx-log-out bx-rotate-180' ></i> 
+                        <app-logout-popup *ngIf="showPopup" (closedPopup)="closePopup()" (leaveClicked)="logout()"></app-logout-popup>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    
+    </div>
+    
+    </div>

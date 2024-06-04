@@ -138,8 +138,8 @@ export class EditdetailsComponent implements OnInit{
 
   // ----- KEYWORDS FUNCTION ----- //
 
-  removetag(i: any){
-    this.tags.splice(i, 1);
+  removetag(j: any){
+    this.tags.splice(j, 1);
   }
 
   addtag(){
@@ -155,7 +155,7 @@ export class EditdetailsComponent implements OnInit{
   }
 
   TagMaxLimitReached(): boolean {
-    return this.values.length >= 10;
+    return this.tags.length >= 10;
   }
 
   keywords: string[] = ['']; // Initialize with an empty author

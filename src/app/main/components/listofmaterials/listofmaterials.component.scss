@@ -2,18 +2,9 @@
 main {
     justify-content: center;
     align-items: center;
-    padding: 20px;
     margin-top: 10px;
-    margin-left: 70px;
-    margin-right: 20px;
-}
-
-@media screen and (min-width: 1320px) {
-    main {
-        margin-top: 10px;
-        margin-left: 220px;
-        margin-right: 20px;
-    }
+    margin-left: 20px;
+    margin-right: 40px;
 }
 /* END OF MAIN PADDING */
 
@@ -68,7 +59,7 @@ main {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: var(--primary-color);
+    background-color: var(--white);
     border: 1px solid var(--black);
     border-radius: 7px;
     min-width: 200px;
@@ -109,7 +100,7 @@ main {
 
 .dropdown-content a:hover {
     background-color: var(--main-green);
-    color: var(--primary-color);
+    color: var(--white);
 }
 
 .dropdown:hover .dropdown-content {
@@ -118,6 +109,6 @@ main {
 
 .dropdown-content a.active-link {
     background-color: var(--main-green);
-    color: var(--primary-color);
+    color: var(--white);
 }
 

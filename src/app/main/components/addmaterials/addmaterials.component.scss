@@ -2,21 +2,11 @@
 .main-content {
     justify-content: center;
     align-items: center;
-    padding-left: 30px;
+    padding-left: 10px;
     padding-right: 40px;
-    padding-top: 40px;
+    padding-top: 20px;
     padding-bottom: 40px;
 }
-
-@media screen and (min-width: 1320px) {
-    .main-content {
-        margin-left: 200px;
-        margin-right: 0;
-    }
-}
-
-/* END OF MAIN PADDING */
-
 
 /****************************************** Tabs ****************************************/  
 
@@ -413,7 +403,7 @@
     height: 60px;
     width: 70px;
     background-color: var(--main-green);
-    color: var(--primary-color);
+    color: var(--white);
     outline: none;
     border: none;
     border-radius: 5px;

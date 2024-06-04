@@ -1,13 +1,16 @@
 :root {
-    --primary-color: #FFFFFF;
-    --secondary-color: #F4F4F4;
-    --main-green: #31A463;
-    --green-hover: #298f55;
-    --border-color: #DFE0E0;
-    --black: #000000;
+    --bg-color: #F5EFE6;
+    --container-color: #F4F4F4;
+    --container-hover: #EFEFEF;
+    --main-green: #4F6F52;
+    --green-hover: #446247;
+    --dark-green: #294B37;
+    --darker-green: #264834;
     --table-border: #BFBFBF;
     --table-hover: #E9E9E9;
     --table-darkhover: #B6B6B6;
+    --white: #FFFFFF;
+    --black: #000000;
     --red: #AB0E0E;
     --red-hover: #8F0C0C;
     --cancel-btn: #777777;
@@ -26,6 +29,7 @@
 }
 
 body {
+    background-color: var(--bg-color);
     font-family: "Montserrat";
     transition: all 0.5s ease;
 }

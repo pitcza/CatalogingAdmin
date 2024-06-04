@@ -45,15 +45,15 @@
     border: none;
     font-size: 40px;
     cursor: pointer;
-    color: var(--primary-color);
+    color: var(--white);
 }
 
 .exit-button:hover {
-    color: var(--secondary-color);
+    color: var(--container-color);
 }
 
 h1 {
-    color: var(--primary-color);
+    color: var(--white);
     padding-top: 5px;
     width: 880px;
     font-weight: 700;
@@ -73,7 +73,7 @@ h1 {
 }
 
 .details-content::-webkit-scrollbar-track {
-    background-color: var(--primary-color); 
+    background-color: var(--white); 
     margin-top: 90px;
     margin-bottom: 10px;
 }
@@ -105,7 +105,7 @@ h1 {
 .mat-title .material-title {
     text-align: left;
     padding: 15px;
-    background-color: var(--secondary-color);
+    background-color: var(--container-color);
     width: 100%;
 }
 
@@ -140,7 +140,7 @@ img {
 }
 
 .body-details span:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--container-color);
 }
 
 .body-details h2 {
@@ -164,7 +164,7 @@ img {
 }
 
 .art-abstract:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--container-color);
 }
 
 .art-abstract span {
@@ -215,7 +215,7 @@ img {
 
 .delete-btn {
     background: var(--red);
-    color: var(--primary-color);
+    color: var(--white);
 }
 
 .delete-btn:hover {

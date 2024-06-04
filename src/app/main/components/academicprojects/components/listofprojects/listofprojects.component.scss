@@ -74,7 +74,7 @@ span {
 }
 
 .table-filters select {
-    background: var(--primary-color);
+    background: var(--white);
     font-family: 'Montserrat';
     padding: 5px;
     font-size: 14px;
@@ -105,7 +105,7 @@ span {
 // }
 
 // option {
-//     background-color: var(--primary-color);
+//     background-color: var(--white);
 // }
 //SELECT OPTION
 
@@ -140,7 +140,7 @@ input:focus{
     width: 2.5em;
     border: 1px solid var(--table-border);
     background: var(--main-green);
-    color: var(--primary-color);
+    color: var(--white);
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
     font-size: 16px;
@@ -154,7 +154,7 @@ input:focus{
     padding-top: 25px;
     padding-bottom: 25px;
     margin-top: 25px;
-    background: var(--primary-color);
+    background: var(--white);
     width: 100%;
     height: auto;
     margin-bottom: 30px;
@@ -314,7 +314,7 @@ tr {
     font-size: 14px;
     visibility: hidden;
     background-color: rgba(0, 0, 0, 0.9);
-    color: var(--primary-color);
+    color: var(--white);
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;

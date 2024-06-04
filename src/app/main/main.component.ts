@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -15,7 +15,9 @@ export class MainComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private as: AuthService
-  ) { }
+  ) {
+    this.checkScreenWidth();
+  }
 
   timer: any;
   name = sessionStorage.getItem('name');
@@ -91,5 +93,32 @@ export class MainComponent implements OnInit, OnDestroy {
   // Destroys the timer
   ngOnDestroy(): void {
       clearInterval(this.timer)
+  }
+
+  isSidebarCollapsed = false;
+  isOverlayActive = false;
+
+  toggleSidebar() {
+    if (window.innerWidth <= 1320) {
+      this.isOverlayActive = !this.isOverlayActive;
+      this.isSidebarCollapsed = !this.isSidebarCollapsed;
+    } else {
+      this.isSidebarCollapsed = !this.isSidebarCollapsed;
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkScreenWidth();
+  }
+
+  checkScreenWidth() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth <= 1320) {
+      this.isSidebarCollapsed = true;
+    } else {
+      this.isSidebarCollapsed = false;
+      this.isOverlayActive = false;
+    }
   }
 }
