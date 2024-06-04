@@ -39,10 +39,10 @@
 
 .header .academic-report {
     align-items: center;
-    background-color: var(--main-green);
+    background: var(--main-green);
     text-decoration: none;
     color: white;
-    border-radius: 50px;
+    border-radius: 3px;
     padding-top: 23px;
     margin-top: 15px;
     margin-bottom: 10px;
@@ -84,7 +84,7 @@
 .cards .card {
     width: 100%;
     height: 100px;
-    background-color: #31A463;
+    background: var(--main-green);
     color: #fff;
     margin-top: 15px;
     margin-left: 10px;
@@ -179,7 +179,6 @@
 /******************************** PRINTBTN ******************************************/
 
 .printbtn {
-    background-color: var(--white);
     color: var(--main-green);
     font-size: 17px;
     font-weight: 500;

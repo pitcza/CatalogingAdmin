@@ -12,7 +12,6 @@
 
 .page-content {
 	min-width: 100%; 
-	background: #ffffff;
 
 }
 
@@ -43,7 +42,6 @@
     margin-left: 50px;
     max-width: 100%;  
     margin-right: 30px;
-	color: #31A463;
 }
 
 .tab {
@@ -59,16 +57,15 @@
     line-height: 15px;
     padding: 15px 10px;
     text-align: center;
-	background: #ffffff;
 	font-weight: bold;
 	cursor: pointer;	
 	transition: all 0.3s;
 }
 .tab:hover label {
     color: #ffffff;
-	background-color: #31A463; 
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+	background: var(--main-green);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 
 }
 
@@ -77,10 +74,9 @@
 .tabbed [type="radio"]:nth-of-type(1):checked ~ .tabs .tab:nth-of-type(1) label,
 .tabbed [type="radio"]:nth-of-type(2):checked ~ .tabs .tab:nth-of-type(2) label,
 .tabbed [type="radio"]:nth-of-type(3):checked ~ .tabs .tab:nth-of-type(3) label {
-	border-bottom-color: #31A463;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-	background: #31A463;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+	background: var(--main-green);
 	color: #ffffff;
     width: 100%;
     
@@ -110,9 +106,10 @@
     min-width: fit-content;
     justify-content: space-between;
     border-radius: 10px;
+    background: #ffffff;
     -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
     -moz-box-shadow: 0 0 3px 3px #EEEEEE;
-    box-shadow: 0 0 3px 3px #EEEEEE;
+    box-shadow: 0 0 3px 3px #c0bbbb;
     height: 825px;
     margin-top: 50px;
     margin-left: 48px;
@@ -126,9 +123,10 @@
     min-width: fit-content;
     justify-content: space-between;
     border-radius: 10px;
+    background: #ffffff;
     -webkit-box-shadow: 0 0 3px 3px #EEEEEE;
     -moz-box-shadow: 0 0 3px 3px #EEEEEE;
-    box-shadow: 0 0 3px 3px #EEEEEE;
+    box-shadow: 0 0 3px 3px #c0bbbb;
     height: 950px;
     margin-top: 50px;
     margin-left: 48px;
@@ -207,7 +205,7 @@
     margin-top: 57px;
     width: 100%;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -226,7 +224,7 @@
 .entryarea input:focus ~ .labelline {
     margin-top: -42px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
     letter-spacing: 0.5px;
 }
 
@@ -276,7 +274,7 @@
     margin-top: 57px;
     width: 100%;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -295,7 +293,7 @@
 .entryarea1 select:focus ~ .labelline1 {
     margin-top: -42px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
     letter-spacing: 0.5px;
 }
 
@@ -355,7 +353,7 @@
     width: 100%;
     margin-top: 32px;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -375,7 +373,7 @@
 .entryarea2 input:focus ~ .labelline2 {
     margin-top: -10px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
     letter-spacing: 0.5px;
 }
 
@@ -406,7 +404,7 @@
     color: var(--white);
     outline: none;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
 }
 
@@ -496,7 +494,7 @@
     width: 100%;
     margin-top: 87px;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -515,7 +513,7 @@
 .entryarea3 select:focus ~ .labelline3 {
     margin-top: -42px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
     letter-spacing: 0.5px;
 }
 
@@ -567,7 +565,7 @@
     left: 0;
     margin-top: 87px;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -586,7 +584,7 @@
 .entryarea4 input:focus ~ .labelline4 {
     margin-top: -45px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
     letter-spacing: 0.5px;
 }
 
@@ -656,7 +654,7 @@
     left: 0;
     margin-top: 87px;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -674,7 +672,7 @@
 .entryarea5 input:focus ~ .labelline5 {
     margin-top: -42px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
 }
 
 // Book - Remarks, Pages
@@ -734,7 +732,7 @@
     left: 0;
     margin-top: 87px;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -752,7 +750,7 @@
 .entryarea6 input:focus ~ .labelline6 {
     margin-top: -42px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
     letter-spacing: 0.5px;
 }
 
@@ -804,7 +802,7 @@
     left: 0;
     margin-top: 87px;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -822,9 +820,8 @@
 .entryarea7 input:focus ~ .labelline7 {
     margin-top: -42px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
 }
-
 
 // Book - Fund, Location 
 // Perio - Language, Recieved 
@@ -882,7 +879,7 @@
     left: 0;
     margin-top: 87px;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -900,7 +897,7 @@
 .entryarea8 select:focus ~ .labelline8 {
     margin-top: -42px;
     font-size: 12px;
-    color: #31A463;
+    color:var(--main-green);
 }
 
 // Book -  Callnumber
@@ -960,7 +957,7 @@
     left: 0;
     margin-top: 87px;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -978,7 +975,7 @@
 .entryarea9 input:focus ~ .labelline9 {
     margin-top: -42px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
 }
 
 
@@ -1036,7 +1033,7 @@
     left: 0;
     margin-top: 87px;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -1055,7 +1052,7 @@
 .entryarea10 input:focus ~ .labelline10 {
     margin-top: -42px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
     letter-spacing: 0.5px;
 }
 
@@ -1070,8 +1067,8 @@
     border: none;
     background-color: #f6f6f6;
     border-bottom: 2px solid #44474E;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
     outline: none;
 }
 
@@ -1089,16 +1086,15 @@
 }
 
 input[type="file"]::file-selector-button {
-    border-top-left-radius: 5px;
+    border-top-left-radius: 3px;
     font-family: 'Montserrat';
     color: #ffffff;
     padding-top: 5px;
     height: 59px;
     font-size: 14px;
     cursor: pointer;
-    background-color: #31A463;
+    background: var(--main-green);
     border: 1px solid rgba(0, 0, 0, 0.16);
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
     margin-right: 16px;
     transition: background-color 200ms;
 }
@@ -1164,7 +1160,7 @@ input[type="file"]::file-selector-button {
     margin-top: 198px;
     width: 100%;
     transition: .3s;
-    background: #31A463;
+    background: var(--main-green);
 }
 
 /* Change Bg color when Hover */ 
@@ -1183,7 +1179,7 @@ input[type="file"]::file-selector-button {
 .entryarea12 textarea:focus ~ .labelline12 {
     top: 14px;
     font-size: 12px;
-    color: #31A463;
+    color: var(--main-green);
     letter-spacing: 0.5px;
 }
 
@@ -1196,10 +1192,10 @@ input[type="file"]::file-selector-button {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    border-radius: 5px;
+    border-radius: 3px;
     transform: translateX(-50%);
     color: white;
-    background-color: #31A463;
+    background: var(--main-green);
     text-decoration: none;
     height: 50px;
     margin-top: 50px;
@@ -1220,10 +1216,10 @@ input[type="file"]::file-selector-button {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    border-radius: 5px;
+    border-radius: 3px;
     transform: translateX(-50%);
     color: white;
-    background-color: #31A463;
+    background: var(--main-green);
     text-decoration: none;
     height: 50px;
     margin-top: 50px;
@@ -1243,15 +1239,15 @@ input[type="file"]::file-selector-button {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    border-radius: 5px;
+    border-radius: 3px;
     transform: translateX(-50%);
     color: white;
-    background-color: #31A463;
+    background: var(--main-green);
     text-decoration: none;
     height: 50px;
     margin-top: 40px;
     width: 45%;
-    margin-left: 35%;
+    margin-left: 30%;
     width: 155px;
     font-size: 15px;
     cursor: pointer;
