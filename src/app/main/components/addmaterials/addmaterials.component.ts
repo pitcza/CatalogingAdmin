@@ -52,7 +52,7 @@ export class AddmaterialsComponent implements OnInit{
     this.values[i] = input.value;
     console.log(this.values)
   }
-  
+
   isMaxLimitReached(): boolean {
     return this.values.length >= 3;
   }
@@ -98,12 +98,12 @@ export class AddmaterialsComponent implements OnInit{
       let validFile = true;
       const fields = ['title', 'author', 'copyright', 'pages', 'acquired_date', 'source_of_fund',
         'location_id', 'call_number', 'copies'];
-  
+
       // Get the form elements
       const elements = form.elements;
 
       let formData = new FormData();
-  
+
       // Loop through each form element
       for (let i = 0; i < elements.length; i++) {
         const element = elements[i] as HTMLInputElement;
@@ -120,13 +120,13 @@ export class AddmaterialsComponent implements OnInit{
                 validFile = false;
               }
             }
-          
+
           if(fields.includes(element.name) && element.value == '') {
             valid = false;
             element.style.borderColor = 'red';
-          } else 
+          } else
               element.style.borderColor = 'black';
-          
+
         }
       }
 
@@ -189,7 +189,7 @@ export class AddmaterialsComponent implements OnInit{
     form.addEventListener('submit', (event) => {
       // Prevent the default form submission behavior
       event.preventDefault();
-  
+
       // Get the form elements
       const elements = form.elements;
 
@@ -199,11 +199,11 @@ export class AddmaterialsComponent implements OnInit{
         'date_published', 'copyright', 'publisher', 'volume', 'pages'];
       let valid = true;
       let validFile = true;
-  
+
       // Loop through each form element
       for (let i = 0; i < elements.length; i++) {
           const element = elements[i] as HTMLInputElement;
-  
+
           // Check if the element is an input field
           if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
             if (element.type !== 'file' && element.id !== 'submit' && element.value !== '' && element.name != 'author') {
@@ -220,7 +220,7 @@ export class AddmaterialsComponent implements OnInit{
             if(fields.includes(element.name) && element.value == '') {
               valid = false;
               element.style.borderColor = 'red';
-            } else 
+            } else
                 element.style.borderColor = 'black';
           }
       }
@@ -275,7 +275,7 @@ export class AddmaterialsComponent implements OnInit{
     form.addEventListener('submit', (event) => {
       // Prevent the default form submission behavior
       event.preventDefault();
-  
+
       // Get the form elements
       const elements = form.elements;
 
@@ -284,11 +284,11 @@ export class AddmaterialsComponent implements OnInit{
       let fields = ['material_type', 'author', 'title', 'subject', 'abstract', 'issue', 'language', 'receive_date',
         'date_published', 'copyright', 'publisher', 'volume', 'pages'];
       let valid = true;
-  
+
       // Loop through each form element
       for (let i = 0; i < elements.length; i++) {
           const element = elements[i] as HTMLInputElement;
-  
+
           // Check if the element is an input field
           if (element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
             if (element.type !== 'submit' && element.value !== ''){
@@ -298,7 +298,7 @@ export class AddmaterialsComponent implements OnInit{
             if(fields.includes(element.name) && element.value == '') {
               valid = false;
               element.style.borderColor = 'red';
-            } else 
+            } else
                 element.style.borderColor = 'black';
           }
       }
@@ -338,4 +338,6 @@ export class AddmaterialsComponent implements OnInit{
       }
     });
   }
+
+
 }

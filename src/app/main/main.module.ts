@@ -17,12 +17,14 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { ReportsModule } from './components/reports/reports.module';
 
 
+
 @NgModule({
   declarations: [
     AddmaterialsComponent,
     AcademicprojectsComponent,
     ListofmaterialsComponent,
-    ReportsComponent
+    ReportsComponent,
+
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,7 @@ import { ReportsModule } from './components/reports/reports.module';
     AcademicprojectsModule,
     ListofmaterialsModule,
     ReportsModule,
-    FormsModule, 
+    FormsModule,
     RouterModule
   ]
 })

@@ -8,12 +8,12 @@
         <div class="header">
             <strong> CATALOGING </strong>
         </div>
-    
+
         <!-- BODY CONTENT -->
         <div class="body-content">
             <div class="admin-container"> <router-outlet></router-outlet> </div>
         </div>
-    
+
         <nav class="sidebar-content" [ngClass]="{'collapsed': isSidebarCollapsed}">
             <!-- LOGO AND SUBSYSTEM TITLE -->
             <div class="logo-title">
@@ -25,12 +25,12 @@
                     <h2> ADMIN </h2>
                 </div>
 
-                <button class="menu-icon-button" (click)="toggleSidebar()"> 
+                <button class="menu-icon-button" (click)="toggleSidebar()">
                     <i class='bx bx-menu' ></i>
                 </button>
             </div>
-            
-    
+
+
             <!-- SIDEBAR TABS -->
             <div class="sidebar-tabs">
                 <ul class="admin-tabs">
@@ -64,19 +64,25 @@
                     <span class="tab-link-name"> Reports </span>
                     </a>
                 </li>
+                <li class="admin-tab">
+                  <a class="tab-link" routerLink="archive" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:false}">
+                  <span class="tab-link-icon"> <i class='bx bxs-archive' ></i> </span>
+                  <span class="tab-link-name"> Archive </span>
+                  </a>
+              </li>
                 </ul>
-    
+
                 <!-- LOGOUT BUTTON -->
                 <div class="logoutbtn">
                     <div class="logout" (click)="togglePopup()" >
-                        <span> <i class='bx bx-log-out bx-rotate-180' ></i> 
+                        <span> <i class='bx bx-log-out bx-rotate-180' ></i>
                         <app-logout-popup *ngIf="showPopup" (closedPopup)="closePopup()" (leaveClicked)="logout()"></app-logout-popup>
                         </span>
                     </div>
                 </div>
             </div>
         </nav>
-    
+
     </div>
-    
+
     </div>
