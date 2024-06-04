@@ -1328,9 +1328,31 @@ input[type="file"]::file-selector-button {
   cursor: pointer;
   padding: 9px 15px;
   border-radius: 5px;
-  background: #31A463;
+  background: #5372F0;
   transition: background 0.3s ease;
 }
 .details button:hover{
-  background: #62e099;
+  background: #2c52ed;
+}
+
+.wrapper .content ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wrapper .content ul li {
+  background-color: #e2e2e2;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.wrapper .content ul li span {
+  margin-left: 5px;
+  cursor: pointer;
+  color: red;
 }
