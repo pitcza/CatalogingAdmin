@@ -419,21 +419,22 @@
                         </div>
                     </div>
 
-                    <!-- <div class="wrapper">
-                      <div class="title">
-                        <h2>Tags</h2>
+                    <div class="example-chip-list">
+                        <label for="chipGrid">Tags</label>
+                        <div id="chipGrid" aria-label="Enter fruits">
+                          <div *ngFor="let tag of tags" class="chip">
+                            {{ tag.name }}
+                            <button [attr.aria-label]="'remove ' + tag.name" (click)="removeTag(tag)">&times;</button>
+                          </div>
+                        </div>
+                        <input type="text" id="newTagInput" placeholder="New tag..." aria-label="Add new tag"
+                               [(ngModel)]="newTag" (keydown)="handleKeydown($event)" (blur)="addTag()">
                       </div>
-                      <div class="content">
-                        <p>Press enter or add a comma after each tag</p>
-                        <ul>
-                          <input type="text" spellcheck="false" (keyup)="addTag($event)">
-                        </ul>
-                      </div>
-                      <div class="details">
-                        <p><span>{{ maxTags - tags.length }}</span> tags are remaining</p>
-                        <button (click)="removeAllTags()">Remove All</button>
-                      </div>
-                    </div> -->
+
+                      <!-- <div class="arti-btn">
+                        <input class="button" type="submit" value="Add" id="submit">
+                        <button></button>
+                      </div> -->
 
                   <div class="arti-btn">
                       <input class= " button" type="submit" value="Add" id="submit">

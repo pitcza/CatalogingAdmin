@@ -11,7 +11,7 @@
 /****************************************** Tabs ****************************************/
 
 .page-content {
-	min-width: 100%; 
+	min-width: 100%;
 
 }
 
@@ -63,7 +63,7 @@
 }
 .tab:hover label {
     color: #ffffff;
-	background-color: #4F6F52; 
+	background-color: #4F6F52;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 
@@ -1351,4 +1351,52 @@ input[type="file"]::file-selector-button {
   margin-left: 5px;
   cursor: pointer;
   color: red;
+}
+
+.example-chip-list {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.example-chip-list label {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+#chipGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  background-color: #e0e0e0;
+  border-radius: 16px;
+  padding: 5px 10px;
+  margin: 2px;
+}
+
+.chip button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+  color: #757575;
+}
+
+.chip button:hover {
+  color: #ff0000;
+}
+
+#newFruitInput {
+  padding: 5px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
