@@ -10,6 +10,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements AfterViewInit {
+  backgroundImageUrl = 'path/to/image.jpg'; // Add the background image URL here
+  
   constructor(
     private as: AuthService,
     private router: Router

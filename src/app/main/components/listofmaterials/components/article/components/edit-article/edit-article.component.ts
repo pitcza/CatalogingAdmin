@@ -190,7 +190,7 @@ export class EditArticleComponent implements OnInit{
             title: "Update successful!",
             text: "The changes have been saved.",
             icon: "success",
-            confirmButtonColor: "#31A463",
+            confirmButtonColor: "#4F6F52",
             scrollbarPadding: false,
             willOpen: () => {
               document.body.style.overflowY = 'scroll';

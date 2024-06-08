@@ -9,9 +9,9 @@
     top: 0;
     margin-left: 220px;
     width: calc(100% - 220px);
-    background-color: var(--dark-green);
+    background-color: var(--green-header);
     height: 70px;
-    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.322);
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
     padding: 15px 20px;
     font-size: 30px;
     font-weight: 700;
@@ -45,7 +45,7 @@
 
 /* MAIN CONTENT */
 .body-content {
-    margin-left: 240px;
+    margin-left: 220px;
     padding-top: 90px;
     width: calc(100% - 220px);
     transition: all 0.3s ease;
@@ -58,6 +58,7 @@
     display: flex;
     justify-content: center;
     margin: auto;
+    transition: all 0.3s ease;
 }
 
 .systemname h1 {
@@ -65,6 +66,7 @@
     font-size: 18px;
     font-weight: 600;
     margin-top: 5px;
+    transition: all 0.3s ease;
 }
 
 .systemname h2 {
@@ -74,11 +76,12 @@
     font-weight: 400;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+    transition: all 0.3s ease;
 }
 
 .logo-title {
     padding-bottom: 10%;
-    border-bottom: 1px solid var(--white);
+    border-bottom: 1px solid var(--dark-green);
 }
 
 
@@ -93,8 +96,8 @@
     height: 100%;
     padding: 30px 0px;
     z-index: 100;
-    box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.322);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+    transition: transform 0.3s ease, width 0.3s ease;
 }
 
 .sidebar-content::-webkit-scrollbar {
@@ -103,6 +106,7 @@
 
 .sidebar-content a {
     color: var(--white);
+    transition: all 0.3s ease;
 }
 
 .sidebar-content-tabs {
@@ -120,7 +124,7 @@
     font-size: 14px;
     padding: 15px 15px;
     text-decoration: none;
-    border-bottom: 1px solid var(--white);
+    border-bottom: 1px solid var(--dark-green);
     transition: 0.3s ease;
 }
 
@@ -154,11 +158,16 @@ ul ul {
     align-items: center;
     justify-content: center;
     font-size: 25px;
-    padding: 10px 10px 10px 10px;
 }
 
-.logoutbtn .logout:hover {
-    color: var(--main-green);
+.logout i {
+    padding: 10px 10px 10px 10px;
+    transition: all 0.3s ease;
+}
+
+.logout i:hover {
+    border-radius: 5px;
+    background-color: var(--dark-green);
 }
 
 .logoutbtn {
@@ -182,7 +191,7 @@ ul ul {
     }
 
     .body-content {
-        margin-left: 240px;
+        margin-left: 220px;
         width: calc(100% - 220px);
     }
 
@@ -233,7 +242,7 @@ ul ul {
 }
 
 .content.collapsed .body-content {
-    margin-left: 90px;
+    margin-left: 70px;
     transition: margin-left 0.3s;
     width: calc(100% - 70px);
 }

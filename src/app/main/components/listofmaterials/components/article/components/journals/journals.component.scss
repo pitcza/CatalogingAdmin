@@ -6,6 +6,14 @@
     margin-bottom: 20px;
 }
 
+.table-head h3 {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: var(--darker-green);
+    text-transform: uppercase;
+}
+
 // TABLE FILTERS
 .table-filters {
     display: flex;
@@ -137,7 +145,7 @@ table td:nth-child(5) {
 .actions button {
     color: white;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 3px;
     height: 35px;
     width: 35px;
     font-size: 18px;

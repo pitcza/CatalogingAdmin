@@ -1,517 +1,565 @@
-@import url('https://fonts.googleapis.com/css2?family=montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-.split-screen {
+body, input {
+    font-family: 'Montserrat';
+    z-index: 100;
+  }
+  
+  .container {
+    background-image: url('/assets/images/building.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    background-color: #FFF;
     min-height: 100vh;
-    display: flex;
-}
-
-.left, .right {
-    width: 50vw;
-}
-
-.vector {
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    min-width: 100%;
+  }
+  
+  .forms-container {
     position: absolute;
-    top: 20px;
-    left: 60px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  
+  .signin-signup {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 75%;
+    width: 50%;
+    transition: 0.5s 0.5s ease-in-out;
+    display: grid;
+    grid-template-columns: 1fr;
+    z-index: 5;
+  }
+  
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0rem 5rem;
+    transition: all 0.2s 0.7s;
+    overflow: hidden;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  
+  form.sign-up-form {
+    opacity: 0;
     z-index: 1;
-    width: 1000px;
+  }
+  
+  form.sign-in-form {
+    z-index: 2;
+  }
+  
+  .title {
+    font-size: 2rem;
+    color: #000;
+    margin-bottom: 10px;
+    text-align: center; 
+    letter-spacing: 0.4px;
+  }
+  
+  .upper-text {
+    font-size: 24px;
+    font-weight: 900;
+  }
+  
+  .lower-text {
+    font-size: 24px; 
+    font-weight: 900; 
+  }
+  
+  .subsystemname {
+    font-size: 20px; 
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .logo {
+    width: 170px;
+    height: 170px; 
+  }
+  
+  
+  .input-field {
+    max-width: 380px;
+    width: 60%;
+    background-color: #FFF;
+    border: 1px solid #777;
+    margin: 10px 0;
+    height: 60px;
+    border-radius: 55px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 0 0.4rem;
+    position: relative;
+  }
+  
+  .input-field i {
+    text-align: center;
+    line-height: 60px;
+    color: #000;
+    font-size: 24px;
+    transition: 0.5s;
+    font-size: 1.1rem;
+  }
+  
+  .input-field input {
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .input-field input::placeholder {
+    color: var(--table-border);
+    font-weight: 500;
+  }
+  
+  .btn {
+    width: 200px;
+    background-color: #4F6F52;
+    border: none;
+    outline: none;
+    height: 50px;
+    border-radius: 50px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  
+  .btn:hover {
+    background-color: #2A4B38;
+  }
+  
+  .panels-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .container:before {
+    content: "";
+    position: absolute;
+    height: 1100px;
+    width:  1000px;
+    top: 90px;
+    right: 700px;
+    transform: translateY(-50%);
+    background-image: linear-gradient(-45deg, #376448 0%, #376448 100%);
+    transition: 1s ease-in-out;
+    border-radius: 50%;
+    z-index: 6;
+  }
+  
+  .container:after {
+    content: "";
+    position: absolute;
     height: 1000px;
-
+    width: 1000px;
+    top: 95px;
+    right: 620px;
+    transform: translateY(-50%);
+    background-image: linear-gradient(-45deg, #2A4B38  0%, #2A4B38  100%);
+    transition: 1s ease-in-out;
+    border-radius: 50%;
+    z-index: 0;
+    opacity: 1.2;
+  }
+  
+  .image {
     transition: transform 1.1s ease-in-out;
     transition-delay: 0.4s;
-
+    max-width: 150%;
+    height: auto; 
+    display: block;
     margin: -10vh auto; 
     animation: slideInFromLeft 1s ease forwards; 
     transition: 1.8s ease-in-out;
     transform: translateY(-5%);
-
-}
-
-.circle-1 {
-    height: 0%;
-    width: 0%;
-    border: 450px solid #7CC644;
-    border-radius: 5000px;
-    position: absolute;
-    top: -300px;
-    left: -20px;
+  }
+  
+  .panel {
     display: flex;
-    justify-content: center;
-
-}
-.circle-2 {
-    height: 0%;
-    width: 0%;
-    border: 450px solid #31A463;
-    border-radius: 5000px;
-    position: absolute;
-    top: -250px;
-    left: -100px;
-
-}
-
-.background {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: -20;
-    opacity: 45%;
-    overflow: hidden;
-}
-
-.right {
-    justify-content: center;
-    position: relative;
-    display: flex;
-}
-
-.appname {
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
     text-align: center;
-    font-size: 30px;
-    margin-bottom: 5%;
-    // font-family: 'montserrat', sans-serif;
-    font-weight: 900;
-    font-style: normal;
-    justify-content: center;
-
-    font-family: 'montserrat', sans-serif;
-}
-
-.right-logo {
-    width: 200px;
-    height: 200px;
-    margin-bottom: -5px;
-    margin-top: 70px;
-}
-
-.appname h1{
-    font-family: 'montserrat', sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    margin-top: 10px;
-}
-
-.circu {
-    font-family: 'montserrat', sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 100%;
-    margin-bottom: -10px;
-    margin-top: -20px;
-}
-
-
-.form-user, .form-pass {
-    position: relative;
-    margin-top: -10;
-}
-
-.input {
-    width: 90%;
-    border-radius: 40px;
-    padding: 1rem;
-    padding: 30px;
-    padding-left: 55px;
-    margin-bottom: 10%;
-    justify-content: center;
-    justify-self: center;
-    position: relative;
-    left: -10px;
-    margin:20px;
-    font-family: 'montserrat',sans-serif;
-    height: 40px;
-    font-size: 20px;
-}
-
-.icon {
-    position: absolute;
-    top: 26px;
-    left: 0; 
-    width: 50px;
-    height: 55%;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    font-size: 150%;
-    box-sizing: border-box;
-    left: 25px;
-}
-.icon2 {
-    position: absolute;
-    top: 26px;
-    left: 0;
-    width: 50px;
-    height: 55%;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    font-size: 150%;
-    left: 25px;
-}
-
-.loginbtn {
-    margin-top: 30px;
-}
-
-.loginbtn a{
-    margin-top: 20px;
-    left: 40%;
-}
-
-.login-btn {
-    border-radius: 30px;
-    justify-content: center;
-    position: relative;
-    padding: 0.5rem;
-    width: 30%;
-    background-color: #31A463;
-    border: none;
-    border-radius: 40px;
-    font-family: 'montserrat',sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    z-index: 6;
+  }
+  
+  .left-panel {
+    pointer-events: all;
+    padding: 3rem 17% 2rem 12%;
+  }
+  
+  .right-panel {
+    pointer-events: none;
+    padding: 3rem 12% 2rem 17%;
+  }
+  
+  .panel .content {
     color: #fff;
-    font-size: 22px;
-    text-decoration: none;
-
-    // button update
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 30px;
-    padding-left: 30px;
-    margin-left: -25px;
-}
-
-.login-btn:hover {
-    box-shadow: 0px 8px 15px -10px rgb(61, 61, 61);
-    transform: translate(0px, -2px);
-    background: white;
-    color: #31A463;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.version {
-    font-family: 'montserrat', sans-serif;
-    font-weight: 300;
-    font-style: normal;
-    position: relative;
-    justify-content: center;
-    left: 40%;
-    font-size: 20px;
-    margin-left: -20px;
-    margin-top: 30px;
-}
-
-@media (max-width: 1607px) {
-    .left, .right {
-        width: 100%;
-    }
-
-    .right-logo {
-        width: 150px;
-        height: 150px;
-        margin-bottom: 20px;
-        margin-top: 70px;
-    }
-
-
-    .input {
-       width: 100;
-       padding: .5rem;
-       padding-left: 60px;
-    }
-    
-    .icon {
-       top: 24px;
-       left: 20px;
-    }
-    .icon2 {
-        top: 24px;
-        left: 20px;
-    }
-    .appname h1{
-        font-family: 'montserrat', sans-serif;
-        font-weight: 600;
-        font-style: normal;
-        font-size: 25px;
-        padding-top: 0px;
-        padding-bottom: 20px;
-    }
-
-    .circu {
-        font-size: 25px;
-    }
-
-    .vector {
-        width: 850px;
-        height: 850px;
-        margin-top: -30px;
-    }
-
-    .version {
-        font-size: 1rem;
-        font-weight: 500;
-        left: 159px;
-        margin-top: 10px;
-    }
-
-}
-
-@media (max-width: 1286px) {
-    .left, .right {
-        width: 100%;
-    }
-
-    .right-logo {
-        width: 200px;
-        height: 200px;
-        margin-bottom: -50px;
-        margin-top: 30px;
-    }
-
-    .circle-1 {
-        height: 0%;
-        width: 0%;
-        border: 450px solid #7CC644;
-        border-radius: 5000px;
-        position: absolute;
-        top: -360px;
-        left: -110px;
-        display: flex;
-        justify-content: center;
-    }
-    .circle-2 {
-        height: 0%;
-        width: 0%;
-        border: 450px solid #31A463;
-        border-radius: 5000px;
-        position: absolute;
-        top: -340px;
-        left: -150px;
-    }
-
-    .circu {
-        font-size: 20px;
-    }
-
-    .input {
-       
+    transition: transform 0.9s ease-in-out;
+    transition-delay: 0.6s;
+  }
+  
+  .panel h3 {
+    font-weight: 600;
+    line-height: 1;
+    font-size: 1.5rem;
+  }
+  
+  .panel p {
+    font-size: 0.95rem;
+    padding: 0.7rem 0;
+  }
+  
+  .btn.transparent {
+    margin: 0;
+    background: none;
+    border: 2px solid #fff;
+    width: 130px;
+    height: 41px;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+  
+  .right-panel .image,
+  .right-panel .content {
+    transform: translateX(800px);
+  }
+  
+  /* ANIMATION */
+  .container.sign-up-mode:before {
+    transform: translate(100%, -50%);
+    right: 52%;
+  }
+  
+  .container.sign-up-mode .left-panel .image,
+  .container.sign-up-mode .left-panel .content {
+    transform: translateX(-800px);
+  }
+  
+  .container.sign-up-mode .signin-signup {
+    left: 25%;
+  }
+  
+  .container.sign-up-mode form.sign-up-form {
+    opacity: 1;
+    z-index: 2;
+  }
+  
+  .container.sign-up-mode form.sign-in-form {
+    opacity: 0;
+    z-index: 1;
+  }
+  
+  .container.sign-up-mode .right-panel .image,
+  .container.sign-up-mode .right-panel .content {
+    transform: translateX(0%);
+  }
+  
+  .container.sign-up-mode .left-panel {
+    pointer-events: none;
+  }
+  
+  .container.sign-up-mode .right-panel {
+    pointer-events: all;
+  }
+  
+  // ------------------------------------ 1920
+  @media (min-width: 1920px) {
+    .container:before {
+      height: 1500px;
+      width:  1500px;
+      top: 90px;
+      right: 720px;
     }
     
-    .icon {
-       padding-left: 20px;
+    .container:after {
+      height: 1500px;
+      width: 1500px;
+      top: 95px;
+      right: 650px;
     }
-
-    .icon2 {
-        padding-left: 10px;
-    }
-    
-    .appname h1{
-        font-family: 'montserrat', sans-serif;
-        font-weight: 900;
-        font-style: normal;
-        font-size: 20px;
-        padding-top: 30px;
-        padding-bottom: 5px;
-    }
-
-    .vector {
-        padding-top: 40px;
-        width: 600px;
-        height: 600px;
-        padding-left: 40px;
-    }
-
-    .version {
-        
-    }
-
-    .login-btn {
-        
+  
+    .signin-signup {
+      left: 78%;
     }
     
-}
-
-
-@media (max-width: 1920px) {
-    .left, .right {
-        width: 100%;
+    .title {
+      font-size: 2.2rem;
+      color: #000;
+      margin-bottom: 10px;
+      text-align: center; 
     }
     
-    .right {
-        justify-content: center;
-        position: relative;
-        display: flex;
-    }
-
-    .vector {
-        position: absolute;
-        top: 20px;
-        left: 60px;
-        z-index: 1;
-        width: 860px;
-        height: 860px;
-    
-        transition: transform 1.1s ease-in-out;
-        transition-delay: 0.4s;
-    
-        margin: -10vh auto; 
-        animation: slideInFromLeft 1s ease forwards; 
-        transition: 1.8s ease-in-out;
-        transform: translateY(-5%);
-    
+    .upper-text {
+      font-size: 30px;
     }
     
-    .appname {
-        text-align: center;
-        margin-bottom: 5%;
-        font-weight: 900;
-        font-style: normal;
-        justify-content: center;
+    .lower-text {
+      font-size: 30px; 
     }
     
-    .right-logo {
-        width: 160px;
-        height: 160px;
-        margin-bottom: -15px;
-        margin-top: 70px;
+    .subsystemname {
+      font-size: 26px; 
     }
     
-    .appname h1{
-        font-weight: 700;
-        font-style: normal;
-        font-size: 23px;
-        padding-top: 30px;
-        padding-bottom: 30px;
-        margin-top: 10px;
+    .logo {
+      width: 220px;
+      height: 220px; 
     }
     
-    .circu {
-        font-family: 'montserrat', sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        font-size: 25px;
-        margin-bottom: -5px;
-        margin-top: -20px;
+    .input-field {
+      max-width: 440px;
+      width: 90%;
+      height: 70px;
     }
     
-    .form-user, .form-pass {
-        position: relative;
-        margin-top: -10;
+    .input-field i {
+      line-height: 70px;
+      font-size: 22px;
     }
     
-    .input {
-        width: 90%;
-        border-radius: 40px;
-        padding: 30px;
-        padding-left: 55px;
-        margin-bottom: 5%;
-        justify-content: center;
-        justify-self: center;
-        position: relative;
-        margin: 15px 25px 15px 25px;
-        font-family: 'montserrat',sans-serif;
-        height: 40px;
-        font-size: 16px;
+    .btn {
+      height: 60px;
+      font-size: 24px;
+    }
+  }
+  
+  // ---------------------------------------- 1120
+  @media screen and (max-width: 1120px) {
+    .container:before {
+      height: 900px;
+      width:  900px;
+      top: 70px;
+      right: 500px;
     }
     
-    .icon {
-        position: absolute;
-        top: 20px;
-        left: 0; 
-        width: 50px;
-        height: 55%;
-        justify-content: center;
-        display: flex;
-        align-items: center;
-        font-size: 150%;
-        box-sizing: border-box;
-        left: 25px;
+    .container:after {
+      height: 900px;
+      width: 900px;
+      top: 75px;
+      right: 460px;
     }
-
-    .icon2 {
-        position: absolute;
-        top: 20px;
-        left: 0;
-        width: 50px;
-        height: 55%;
-        justify-content: center;
-        display: flex;
-        align-items: center;
-        font-size: 150%;
-        left: 25px;
+  
+    .signin-signup {
+      left: 75%;
     }
     
-    .loginbtn .login-btn {
-        left: 31%;
+    .title {
+      font-size: 1.5rem;
     }
     
-    .login-btn {
-        border-radius: 30px;
-        justify-content: center;
-        position: relative;
-        width: 50%;
-        background-color: #31A463;
-        border: none;
-        border-radius: 40px;
-        font-family: 'montserrat',sans-serif;
-        font-weight: 500;
-        color: #fff;
-        font-size: 20px;
-        text-decoration: none;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+    .upper-text {
+      font-size: 20px;
     }
     
-    .login-btn:hover {
-        box-shadow: 0px 8px 15px -10px rgb(61, 61, 61);
-        transform: translate(0px, -2px);
-        background: white;
-        color: #31A463;
-        cursor: pointer;
-        text-decoration: none;
+    .lower-text {
+      font-size: 20px; 
     }
     
-    .version {
-        font-family: 'montserrat', sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        text-align: center;
-        font-size: 14px;
-        left: 0;
-        margin-left: -9px;
-    }
-}
-
-@media (max-width: 1286px) {
-    .appname h1{
-        margin-top: -10px;
-    }
-
-    .circu {
-        margin-top: 5px;
-    }
-
-    .input {
-        width: 50%;
-        left: 20px;
-    }
-
-    .icon, .icon2 {
-        left: 12%;
+    .subsystemname {
+      font-size: 18px; 
     }
     
-    .login-btn {
-        padding: .01rem;
+    .logo {
+      width: 150px;
+      height: 150px; 
     }
-}
-
-
-
-
+    
+    .input-field {
+      max-width: 400px;
+      width: 80%;
+      height: 60px;
+    }
+  
+    .input-field input {
+      font-size: 1rem;
+    }
+    
+    .input-field i {
+      line-height: 60px;
+      font-size: 22px;
+    }
+    
+    .btn {
+      height: 50px;
+      font-size: 20px;
+    }
+  }
+  
+  // ------------------------------------------ 900
+  @media (max-width: 900px) {
+    .container {
+      min-height: 800px;
+      height: 100vh;
+    }
+  
+    .signin-signup {
+      width: 100%;
+      top: 87%;
+      transform: translate(-50%, -100%);
+      transition: 1s 0.8s ease-in-out;
+    }
+  
+    .signin-signup,
+    .container.sign-up-mode .signin-signup {
+      left: 50%;
+    }
+  
+    .image {
+      display: none;
+    }
+  
+    .logo {
+      z-index: 3;
+    }
+  
+    .panel h3 {
+      font-size: 1.2rem;
+    }
+  
+    .panel p {
+      font-size: 0.7rem;
+      padding: 0.5rem 0;
+    }
+  
+    .btn.transparent {
+      width: 110px;
+      height: 35px;
+      font-size: 0.7rem;
+    }
+  
+    .container:before {
+      width: 1500px;
+      height: 1500px;
+      transform: translateX(-50%);
+      left: 30%;
+      bottom: 68%;
+      right: initial;
+      top: initial;
+      transition: 2s ease-in-out;
+      z-index: 2;
+    }
+  
+    .container:after {
+      width: 1500px;
+      height: 1500px;
+      transform: translateX(-50%);
+      left: 37%;
+      bottom: 67%;
+      right: initial;
+      top: initial;
+      transition: 2s ease-in-out;
+    }
+  
+    .container.sign-up-mode:before {
+      transform: translate(-50%, 100%);
+      bottom: 32%;
+      right: initial;
+    }
+  
+    .container.sign-up-mode .left-panel .image,
+    .container.sign-up-mode .left-panel .content {
+      transform: translateY(-300px);
+    }
+  
+    .container.sign-up-mode .right-panel .image,
+    .container.sign-up-mode .right-panel .content {
+      transform: translateY(0px);
+    }
+  
+    .right-panel .image,
+    .right-panel .content {
+      transform: translateY(300px);
+    }
+  
+    .container.sign-up-mode .signin-signup {
+      top: 5%;
+      transform: translate(-50%, 0);
+    }
+  
+    .input-field {
+      max-width: 440px;
+      width: 90%;
+    }
+  }
+  
+  // ----------------------------------------------------- 746
+  @media screen and (max-width: 746px) {
+    .container:after {
+      height: 800px;
+      width: 800px;
+      right: 40%; 
+    }
+  
+    .container:before {
+      height: 1500px;
+      width: 1500px;
+      right: 80%; 
+    }
+  }
+  
+  // -------------------------------------------- 560
+  @media (max-width: 560px) {
+    form {
+      padding: 0 1.5rem;
+    }
+  
+    .image {
+      display: none;
+    }
+  
+    .panel .content {
+      padding: 0.5rem 1rem;
+    }
+  
+    .container {
+      padding: 1.5rem;
+    }
+  
+    .container:before {
+      bottom: -41%;
+      left: 50%;
+      z-index: 0;
+    }
+  
+    .container.sign-up-mode:before {
+      bottom: 28%;
+      left: 50%;
+    }
+  }
+  
+  /* Styles for the SweetAlert custom classes */
+  /* Custom styles for success and error icons */
+  .sweetalert-custom-icon-success::before {
+    content: '\f058'; /* Font Awesome check-circle icon */
+    color: #28a745; /* Green color for success */
+  }
+  
+  .sweetalert-custom-icon-error::before {
+    content: '\f06a'; /* Font Awesome times-circle icon */
+    color: #dc3545; /* Red color for error */
+  }

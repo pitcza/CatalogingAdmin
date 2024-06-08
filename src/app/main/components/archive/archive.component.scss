@@ -3,7 +3,7 @@ main {
   justify-content: center;
   align-items: center;
   margin-top: 10px;
-  margin-left: 20px;
+  margin-left: 40px;
   margin-right: 40px;
 }
 /* END OF MAIN PADDING */
@@ -34,7 +34,6 @@ main {
 }
 
 .input-row .txt_field {
-
   position: relative;
   margin: 0.1rem 0;
 }
@@ -49,13 +48,13 @@ color: black;
 border: 1px solid var(--table-border);
   background-color: var(--white);
 padding: 0.5rem 0.75rem;
-border-radius: 10px;
+border-radius: 5px;
   display: flex;
 }
 
 label {
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
   font-family: 'Montserrat';
   color: var(--white);
   position: absolute;
@@ -77,25 +76,20 @@ label {
 }
 
 input {
-font-family: 'Montserrat';
-border: none;
-border-radius: 0.25rem;
-border: 1px solid transparent;
-line-height: 1.5rem;
+  font-family: 'Montserrat';
+  border: none;
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
+  line-height: 1.5rem;
   padding-left: 75px;
-font-size: 1rem;
+  font-size: 1rem;
   background-color: var(--white);
-color: black;
-width: 100%;
+  color: black;
+  width: 100%;
 }
 
-input:focus {outline: none;}
-#ui-datepicker-div {
-background-color: var(--white);
-box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
-margin-top: 0.25rem;
-border-radius: 0.5rem;
-padding: 0.5rem;
+input:focus {
+  outline: none;
 }
 
 /*

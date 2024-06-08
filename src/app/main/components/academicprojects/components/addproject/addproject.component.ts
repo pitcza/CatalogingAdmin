@@ -217,7 +217,7 @@ export class AddprojectComponent implements OnInit {
               title: 'Success',
               text: formData.get('title') + " has been added successfully",
               icon: 'success',
-              confirmButtonColor: "#31A463",
+              confirmButtonColor: "#4F6F52",
               scrollbarPadding: false,
               willOpen: () => {
                 document.body.style.overflowY = 'scroll';

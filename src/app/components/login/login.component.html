@@ -1,57 +1,46 @@
-<main>
-
-    <img class="background" src="assets/images/building.png" alt="background">
-
-    <div class="split-screen">
-        <div class="left">
-            <section class="content">
-                <img class="vector" src="assets/images/vector.png" alt="vector" class="vector">
-                <div class="circle-1"></div>
-                <div class="circle-2"></div> 
-            </section>
+<body class="login-container" [style.backgroundImage]="'url(' + backgroundImageUrl + ')'">
+    <div class="container">
+  
+      <div class="forms-container">
+        <div class="signin-signup">
+          <!-- FORM FIELD -->
+          <form id="login-form">
+  
+            <!-- SYSTEM AND SUBSYSTEM NAME -->
+            <h2 class="title">
+              <img src="../assets/images/GCLMS.PNG" alt="Gordon College Logo" class="logo" /><br />
+              <span class="upper-text">Gordon College</span><br />
+              <span class="lower-text">Library Management System</span><br />
+              <span class="subsystemname">Cataloging</span>
+            </h2>
+            
+            <!-- INPUT FIELD -->
+            <div class="input-field">
+              <i class='bx bxs-user'></i> 
+              <input class="input" id="username" name="username" type="username" placeholder="Username">
+            </div>
+            <div class="input-field">
+              <i class='bx bxs-lock-alt'></i>
+              <input class="input" id="password" name="password" type="password" placeholder="Password">
+            </div>
+  
+            <!-- LOGIN BUTTON -->
+            <input id="login-button" type="submit" class="btn" value="LogIn">
+  
+            <p class="social-text">GCLMS v0.1</p>
+          </form>
         </div>
-
-        <div class="right">
-            <form id="login-form">
-                <section class="appname">
-                    <img class="right-logo" src="assets/images/GCLMS.PNG" alt="">
-                    <h1>Gordon College <br> Library Management System</h1>
-                    <p class="circu"> CATALOGING </p>
-                </section>
-
-            <div class="form-user">
-                <label for="user">
-                <input class="input" id="username" name="username" type="username" placeholder="Username">
-                <div class="icon"> 
-                <i class='bx bxs-user'></i> 
-                </div>
-                </label>
-            </div>
-
-            <div class="form-pass">
-                <label for="pass">
-                <input class="input" id="password" name="password" [type]="showpassword ? 'text' : 'password'" placeholder="Password">
-                <div class="icon2"> 
-                <i class='bx bxs-lock-alt'></i> 
-                </div>
-                <!-- <i (click)="toggleShow()" class="fa-solid fa-eye" *ngIf="!showpassword"></i> -->
-                <!-- <i (click)="toggleShow()" class="fa-solid fa-eye-slash" *ngIf="showpassword"></i> -->
-                </label>
-            </div>
-
-            <!-- LOG IN BUTTON -->
-            <div class="loginbtn">
-                <input id="login-button" type="submit" class="login-btn" value="LogIn">
-
-                <!-- <a class="login-btn" type="submit" onclick="login()" >LOGIN</a> -->
-                <!-- <a type="submit" class="login-btn" (click)="login()">LOGIN</a> -->
-                <p class="version">GCLMS v0.1</p>
-            </div>
-
-            </form>
-
+      </div>
+  
+      <!-- LEFT CONTENT -->
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+          </div>
+          <img src="../assets/images/vector.png" class="image" alt="" />
         </div>
+      </div>
+  
     </div>
-      
-
-</main>
+  </body>
+    
