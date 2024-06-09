@@ -402,68 +402,122 @@ input[type="file"]::file-selector-button {
     letter-spacing: 0.5px;
 }
 
-// KEYWORDS CONTENT
-.keywords-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    column-gap: 1.5rem;
-    width: 100%;
-    z-index: 1;
+// KEYWORDS TAG
+.input-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: var(--input);
+    border-bottom: 2px solid var(--input-border);
+
+    .keywords-label {
+        position: absolute;
+        padding-top: 0;
+        margin-top: -20px;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        color: var(--input-border);
+        padding-left: 10px;
+    }
+
+    .chip-bar {
+        cursor: text;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        overflow: hidden;
+        font-size: 15px;
+        font-weight: 500;
+        padding: 5px 10px;
+        width: 100%;
+
+        .chip {
+            cursor: default;
+            list-style: none;
+            padding: 5px 10px 5px 15px;
+            margin: 5px;
+            display: inline-flex;
+            align-items: center;
+            flex: 0 0 auto;
+            border-radius: 50px;
+            color: var(--input-border);
+            border: 1px solid var(--input-border);
+            background-color: var(--input-hover);
+
+            .remove {
+                margin-top: 4px;
+                margin-left: 2px;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: 600;
+            }
+        }
+
+        .input-field {
+            cursor: default;
+            flex: 1 1 auto;
+            display: inline-flex;
+            margin: 3px;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+    
+            .input {
+                outline: 0;
+                border: 0;
+                border-radius: 0;
+                min-width: 170px;
+                height: 40px;
+                flex: 1;
+                font-family: 'Montserrat';
+                font-size: 15px;
+                background-color: transparent;
+            }
+        }
+    }
+
+    .action-btn {
+        padding: 5px 0;
+        margin: 10px 0;
+
+        .clear {
+            cursor: pointer;
+            margin: 5px;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 30px;
+        }
+    }
 }
 
-.input-row #keywords {
-    position: absolute;
-    padding-top: 85px;
+.input-container:hover {
+    background-color: var(--input-hover);
+}
+
+.chip-footer {
     font-size: 12px;
     font-weight: 500;
+    padding-top: 5px;
     padding-left: 10px;
     opacity: 70%;
 }
 
-.input-row .keywords {
-    position: relative;
-    flex-basis: 100%;
+.ripple {
+    background-position: center;
+    background-color: transparent;
+    transition: background 0.6s;
 }
 
-.input-row .add-keyword {
-    font-family: 'Montserrat';
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    margin-top: 1.3rem;
-    height: 60px;
-    width: 70px;
-    background-color: var(--main-green);
-    color: var(--white);
-    outline: none;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+.ripple:hover, .ripple:focus {
+    background: var(--input-hover) radial-gradient(circle, transparent 1%, #d9d9d9 1%) center/15000%;
 }
 
-.input-row .add-keyword:hover {
-    background-color: var(--green-hover);
-}
-
-.input-row .removetag {
-    display: none;
-}
-
-.input-row .keywords:hover {
-    .removetag {
-        display: flex;
-        position: absolute;
-        font-size: 30px;
-        color: var(--cancel-btn);
-        background-color: transparent;
-        outline: none;
-        border: none;
-        border-radius: 5px;
-        top: 0;
-        right: 0;
-        margin: 35px 10px 0 0;
-        cursor: pointer;
-    }
+.ripple:active {
+    background-color: var(--input-hover);
+    background-size: 100%;
+    transition: background 0s;
 }
 // ----- END OF FORMS INPUT CONTENT ----- //
 

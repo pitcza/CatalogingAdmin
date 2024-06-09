@@ -1,13 +1,20 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild   } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, forwardRef } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { DataService } from '../../../../../services/data.service';
 import { text } from 'stream/consumers';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-addproject',
   templateUrl: './addproject.component.html',
-  styleUrl: './addproject.component.scss'
+  styleUrl: './addproject.component.scss',
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => AddprojectComponent),
+    multi: true
+  }],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class AddprojectComponent implements OnInit {
@@ -17,9 +24,15 @@ export class AddprojectComponent implements OnInit {
   programFilter: any;
   programCategory: any;
 
-  constructor(private router: Router,
-    private ds: DataService
+  constructor(
+    private router: Router,
+    private ds: DataService,
+    private cd: ChangeDetectorRef, // for keywords
   ) { }
+
+  ngAfterViewInit(): void {
+    this.cd.detectChanges();
+  }
 
   ngOnInit() {
     this.ds.get('programs').subscribe({
@@ -36,6 +49,9 @@ export class AddprojectComponent implements OnInit {
 
         // Convert the Set back to an array
         this.departments = Array.from(uniqueDepartments);
+
+        // Manually trigger change detection after setting values
+        this.cd.detectChanges();
       }
     })
     this.submit();
@@ -81,45 +97,88 @@ export class AddprojectComponent implements OnInit {
     return index;
   }
 
-  // ----- KEYWORDS FUNTION ----- //
-  tags = [''];
+  // TAGS KEYWORDS
+  tags: string[] = [];
+  @Input() placeholder = 'Enter a keyword...';
+  @Input() removable = true;
+  @Input() maxTags = 15; // hindi ko alam kung ilan max
 
-  removetag(j: any){
-    this.tags.splice(j, 1);
+  @ViewChild('inputField') inputField: any;
+
+  onChange: Function = () => {};
+  onTouched: Function = () => {};
+
+  onChipBarClick(): void {
+    this.inputField.nativeElement.focus();
   }
 
-  addtag(){
-    if (this.tags.length < 10) {
-      this.tags.push('');
+  removeItem(index: number): void {
+    this.tags.splice(index, 1);
+    this.triggerChange(); // call trigger method
+  }
+
+  removeAll(): void {
+    this.tags = [];
+    this.triggerChange(); // call trigger method
+  }
+
+  updateTag($event: Event, index: number) {
+    console.log($event)
+  }
+
+  onKeyDown(event: any, value: string): void {
+    switch (event.keyCode) {
+      case 13:
+
+      case 188: {
+        if (value && value.trim() !== '') {
+          if (!this.tags.includes(value) && this.tags.length < this.maxTags) {
+            // this.tags.push();
+            this.tags = [...this.tags, value];
+            this.triggerChange(); // call trigger method
+          }
+          this.inputField.nativeElement.value = '';
+          event.preventDefault();
+        }
+        break;
+      }
+
+      case 8: {
+        if (!value && this.tags.length > 0) {
+          this.tags.pop();
+          this.tags = [...this.tags];
+          this.triggerChange(); // call trigger method
+        }
+        break;
+      }
+
+      default:
+        break;
     }
-    console.log(this.tags)
   }
 
-  updateTag(event: Event, j: number) {
-    let input = event.target as HTMLInputElement;
-    this.tags[j] = input.value;
-    console.log(this.tags)
+  writeValue(value: any): void {
+    this.tags = value;
+    this.cd.markForCheck();
   }
 
-  TagMaxLimitReached(): boolean {
-    return this.tags.length >= 10;
+  registerOnChange(fn: Function): void {
+    this.onChange = fn;
   }
 
-  keywords: string[] = ['']; // Initialize with an empty author
-
-  addKeyword() {
-    this.keywords = [...this.keywords, '']; // Create a new array with the updated values
+  registerOnTouched(fn: Function): void {
+    this.onTouched = fn;
   }
 
-  removeKeyword(index: number) {
-    this.keywords.splice(index, 1);
-    this.keywords = [...this.keywords]; // Create a new array with the updated values
+  triggerChange(): void {
+    this.onChange(this.tags);
+    this.cd.markForCheck();
   }
 
-  // Track by function to minimize re-renders
-  trackByIndexTag(index: number, item: any): number {
-    return index;
+  isMaxTagsReached(): boolean {
+    return this.tags.length >= this.maxTags;
   }
+  // END OF KEYWORDS
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {
@@ -171,10 +230,11 @@ export class AddprojectComponent implements OnInit {
 
       let formData = new FormData();
 
-      let fields = ['program_id', 'category', 'title', 'author', 'language', 'date_published', 'abstract'];
+      let fields = ['program_id', 'category', 'title', 'author', 'language', 'date_published', 'abstract', 'keywords'];
       let valid = true;
       let validFile = true;
       let authorElements: any[] = [];
+      let keywords: any[] = [];
   
       // Loop through each form element
       for (let i = 0; i < elements.length; i++) {
@@ -190,6 +250,8 @@ export class AddprojectComponent implements OnInit {
             }
           } else if (element.name == 'author') {
             authorElements.push(element.value.trim())
+          } else if (element.name == 'keywords') {
+            keywords.push(element.value.trim())
           } else if ((element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'DATE'
           || element.tagName === 'TEXTAREA') && element.id != 'submit-button') {
             formData.append(element.name, element.value);
@@ -203,35 +265,86 @@ export class AddprojectComponent implements OnInit {
 
       formData.append('authors', JSON.stringify(authorElements));
 
-      let keywords = ['drama', 'action', 'awesome']
+      // let keywords = ['drama', 'action', 'awesome']
       formData.append('keywords', JSON.stringify(keywords));
       console.log(formData.get('keywords'));
       console.log(formData.get('authors'));
 
+
       if(valid && validFile) {
-        this.ds.post('projects/process', formData).subscribe({
-          next: (res: any) => {
-            this.router.navigate(['main/academicprojects/listofprojects']); // para diretso list? or tanggalin hehe
-            console.log(res)
+        Swal.fire({
+          title: "Are you sure you want to add a new project?",
+          text: "This action will create a new project.",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No',
+          confirmButtonColor: "#4F6F52",
+          cancelButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.ds.post('projects/process', formData).subscribe({
+              next: (res: any) => {
+                this.router.navigate(['main/academicprojects/listofprojects']); // redirect to list kapag nag add
+                console.log(res)
+                Swal.fire({
+                  title: 'Success',
+                  text: formData.get('title') + " has been added successfully",
+                  icon: 'success',
+                  confirmButtonColor: "#4F6F52",
+                  scrollbarPadding: false,
+                  willOpen: () => {
+                    document.body.style.overflowY = 'scroll';
+                  },
+                  willClose: () => {
+                    document.body.style.overflowY = 'scroll';
+                  },
+                  timer: 5000
+                });
+              },
+              error:(err: any) => {
+                Swal.fire({
+                  title: 'Error',
+                  text: "Oops an error occured",
+                  icon: 'error',
+                  confirmButtonText: 'Close',
+                  confirmButtonColor: "#777777",
+                  scrollbarPadding: false,
+                  willOpen: () => {
+                    document.body.style.overflowY = 'scroll';
+                  },
+                  willClose: () => {
+                    document.body.style.overflowY = 'scroll';
+                  }
+                });
+              }
+            })
+          } else if(!validFile) {
             Swal.fire({
-              title: 'Success',
-              text: formData.get('title') + " has been added successfully",
-              icon: 'success',
-              confirmButtonColor: "#4F6F52",
+              title: 'Oops! Error on form',
+              text: 'Invalid image. Must be of type png, jpeg, or jpg.',
+              icon: 'error',
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
               scrollbarPadding: false,
               willOpen: () => {
                 document.body.style.overflowY = 'scroll';
               },
               willClose: () => {
                 document.body.style.overflowY = 'scroll';
-              },
-              timer: 5000
+              }
             });
-          },
-          error:(err: any) => {
+          } else {
             Swal.fire({
-              title: 'Error',
-              text: "Oops an error occured",
+              title: 'Oops! Error on form',
+              text: 'Please check if required fields have values',
               icon: 'error',
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
@@ -244,40 +357,9 @@ export class AddprojectComponent implements OnInit {
               }
             });
           }
-        })
-      } else if(!validFile) {
-        Swal.fire({
-          title: 'Oops! Error on form',
-          text: 'Invalid image. Must be of type png, jpeg, or jpg.',
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
-        });
-      } else {
-        Swal.fire({
-          title: 'Oops! Error on form',
-          text: 'Please check if required fields have values',
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
         });
       }
     });
-
   }
 
   // POP UP FUNCTION CONTENT

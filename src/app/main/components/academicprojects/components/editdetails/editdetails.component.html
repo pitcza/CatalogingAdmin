@@ -96,19 +96,6 @@
                                         <div class="uploadlabel"> Project Cover </div>
                                     </div>
                                 </div>
-            
-                                <!-- <div class="input-row">
-                                    <div class="txt_field"> 
-                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="abstract_img" style="padding-left: 110px;"> 
-                                        <span></span>
-                                        <div class="uploadlabel"> Abstract </div>
-                                    </div>
-                                    <div class="txt_field"> 
-                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;"> 
-                                        <span></span>
-                                        <div class="uploadlabel"> Project Cover </div>
-                                    </div>
-                                </div> -->
 
                                 <div class="input-row">
                                     <div class="txtarea">
@@ -117,30 +104,29 @@
                                         <label class="labelline1"> Abstract </label>
                                     </div>
                                 </div>
-            
-                                <!-- KEYWORDS -->
-                                <div class="input-row">
-                                    <div class="keywords-container">
-                                    <ng-container *ngFor="let x of tags; let j = index; trackBy: trackByIndexTag">
-                                        <div class="keywords">
-                                            <div class="txt_field">
-                                                <input class="inputtxt" type="text" name="keywords" (input)="updateTag($event, j)" [value]="x">
-                                                <span></span>
-                                                <div class="labelline"> Keyword </div>
-                                            </div>
-                                            <button type="button" class="removetag" (click)="removetag(j)" *ngIf="tags.length > 1">
-                                                <i class='bx bx-x'></i>
-                                            </button>
-                                        </div>
-                                    </ng-container>
+
+                                <!-- TAG KEYWORDS -->
+                                <div class="input-container">
+                                    <label for="chip" class="keywords-label"> Keywords </label>
+                                    <ul class="chip-bar" (click)="onChipBarClick()">
+                                        <li class="chip" *ngFor="let x of tags; let j = index">
+                                            <span class="chip-label">{{x}}</span>
+                                            <input type="hidden" [value]="x" name="keywords">
+                                            <span class="remove" *ngIf="removable" (click)="removeItem(j)"><i class='bx bx-x'></i></span>
+                                        </li>
+                                        <li class="input-field">
+                                            <input #inputField type="text" class="input"
+                                            autocomplete="off" [placeholder]="placeholder" (keydown)="onKeyDown($event, inputField.value)"
+                                            [disabled]="isMaxTagsReached()">
+                                        </li>
+                                    </ul>
+                                    <div class="action-btn">
+                                        <span class="clear ripple" (click)="removeAll()"> <i class='bx bx-x'></i> </span>
                                     </div>
-                                    <div class="addbtn">
-                                        <button type="button" class="add-keyword" (click)="addtag()" [disabled]="TagMaxLimitReached()">ADD</button>
-                                    </div>
-                                
-                                    <!-- Display message based on the number of input fields -->
-                                    <p *ngIf="tags.length < 10"> Add multiple KEYWORDS </p>
-                                    <p *ngIf="tags.length === 10"> Maximum KEYWORDS reached </p>                  
+                                </div>
+                                <div class="chip-footer">
+                                    <span *ngIf="!isMaxTagsReached()">Enter a comma after each tag</span>
+                                    <span *ngIf="isMaxTagsReached()">Maximum number of tags reached</span>
                                 </div>
             
                             </div>

@@ -36,8 +36,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
 })
 export class ListofprojectsComponent implements OnInit {
-  isLoading: boolean = true;
-
   redirectToProjectForm() {
     // Programmatically navigate to another route
     this.router.navigate(['main/academicprojects/addproject']);
@@ -75,13 +73,11 @@ export class ListofprojectsComponent implements OnInit {
   }
 
   getData() {
-    this.isLoading = true;
     this.ds.get('projects').subscribe((res: any) => {
       this.projects = res;
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      
+      this.dataSource.paginator = this.paginator; 
     });
 
     this.ds.get('programs').subscribe((res: any) => {

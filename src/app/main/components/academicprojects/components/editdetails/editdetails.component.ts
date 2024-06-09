@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit, forwardRef,  Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Inject } from '@angular/core';
@@ -11,7 +11,13 @@ import { DataService } from '../../../../../services/data.service';
 @Component({
   selector: 'app-editdetails',
   templateUrl: './editdetails.component.html',
-  styleUrl: './editdetails.component.scss'
+  styleUrl: './editdetails.component.scss',
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => EditdetailsComponent),
+    multi: true
+  }],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class EditdetailsComponent implements OnInit{
@@ -29,7 +35,8 @@ export class EditdetailsComponent implements OnInit{
     private ref: MatDialogRef<EditdetailsComponent>, 
     private buildr: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private ds: DataService
+    private ds: DataService,
+    private cd: ChangeDetectorRef, // for keywords
   ) {
     if(data.details.authors != null) {
       this.values.splice(0, 1);
@@ -46,8 +53,11 @@ export class EditdetailsComponent implements OnInit{
     }
   }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
+    this.cd.detectChanges();
+  }
 
+  ngOnInit() {
     this.ds.get('programs').subscribe({
       next: (res: any) => {
         this.programs = res;
@@ -63,6 +73,9 @@ export class EditdetailsComponent implements OnInit{
 
         // Convert the Set back to an array
         this.departments = Array.from(uniqueDepartments);
+
+        // Manually trigger change detection after setting values
+        this.cd.detectChanges();
       }
     });
   }
@@ -136,44 +149,88 @@ export class EditdetailsComponent implements OnInit{
     return this.values.length >= 6;
   }
 
-  // ----- KEYWORDS FUNCTION ----- //
+  // TAGS KEYWORDS
+  // tags: string[] = [];
+  @Input() placeholder = 'Enter a keyword...';
+  @Input() removable = true;
+  @Input() maxTags = 15; // hindi ko alam kung ilan max
 
-  removetag(j: any){
-    this.tags.splice(j, 1);
+  @ViewChild('inputField') inputField: any;
+
+  onChange: Function = () => {};
+  onTouched: Function = () => {};
+
+  onChipBarClick(): void {
+    this.inputField.nativeElement.focus();
   }
 
-  addtag(){
-    if (this.tags.length < 10) {
-      this.tags.push('');
+  removeItem(index: number): void {
+    this.tags.splice(index, 1);
+    this.triggerChange(); // call trigger method
+  }
+
+  removeAll(): void {
+    this.tags = [];
+    this.triggerChange(); // call trigger method
+  }
+
+  updateTag($event: Event, index: number) {
+    // this.values[index] = $event.target.value;
+    console.log($event)
+  }
+
+  onKeyDown(event: any, value: string): void {
+    switch (event.keyCode) {
+      case 13:
+
+      case 188: {
+        if (value && value.trim() !== '') {
+          if (!this.tags.includes(value) && this.tags.length < this.maxTags) {
+            // this.items.push();
+            this.tags = [...this.tags, value];
+            this.triggerChange(); // call trigger method
+          }
+          this.inputField.nativeElement.value = '';
+          event.preventDefault();
+        }
+        break;
+      }
+
+      case 8: {
+        if (!value && this.tags.length > 0) {
+          this.tags.pop();
+          this.tags = [...this.tags];
+          this.triggerChange(); // call trigger method
+        }
+        break;
+      }
+
+      default:
+        break;
     }
   }
 
-  updateTag(event: Event, j: number) {
-    let input = event.target as HTMLInputElement;
-    this.tags[j] = input.value;
-    console.log(this.tags)
+  writeValue(value: any): void {
+    this.tags = value;
+    this.cd.markForCheck();
   }
 
-  TagMaxLimitReached(): boolean {
-    return this.tags.length >= 10;
+  registerOnChange(fn: Function): void {
+    this.onChange = fn;
   }
 
-  keywords: string[] = ['']; // Initialize with an empty author
-
-  addKeyword() {
-    this.keywords = [...this.keywords, '']; // Create a new array with the updated values
+  registerOnTouched(fn: Function): void {
+    this.onTouched = fn;
   }
 
-  removeKeyword(index: number) {
-    this.keywords.splice(index, 1);
-    this.keywords = [...this.keywords]; // Create a new array with the updated values
+  triggerChange(): void {
+    this.onChange(this.tags);
   }
 
-  // Track by function to minimize re-renders
-  trackByIndexTag(index: number, item: any): number {
-    return index;
+  isMaxTagsReached(): boolean {
+    return this.tags.length >= this.maxTags;
   }
-  // ----- END OF KEYWORDS FUNTION ----- // paano siya nga makukuha yng data
+  // END OF KEYWORDS
 
   closepopup() {
     this.ref.close('Closed using function');

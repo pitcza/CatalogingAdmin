@@ -138,12 +138,34 @@
                             <button type="button" class="add-keyword" (click)="addtag()" [disabled]="TagMaxLimitReached()">ADD</button>
                         </div>
 
-                         Display message based on the number of input fields
                         <p *ngIf="tags.length < 10"> Add multiple KEYWORDS </p>
                         <p *ngIf="tags.length === 10"> Maximum KEYWORDS reached </p>
                     </div> -->
 
-                    
+                    <!-- TAG KEYWORDS -->
+                    <div class="input-container">
+                        <label for="chip" class="keywords-label"> Keywords </label>
+                        <ul class="chip-bar" (click)="onChipBarClick()">
+                            <li class="chip" *ngFor="let x of tags; let j = index">
+                                <span class="chip-label">{{x}}</span>
+                                <input type="hidden" [value]="x" name="keywords">
+                                <span class="remove" *ngIf="removable" (click)="removeItem(j)"><i class='bx bx-x'></i></span>
+                            </li>
+                            <li class="input-field">
+                                <input #inputField type="text" class="input" 
+                                autocomplete="off" [placeholder]="placeholder" (keydown)="onKeyDown($event, inputField.value)"
+                                [disabled]="isMaxTagsReached()">
+                            </li>
+                        </ul>
+                        <span></span>
+                        <div class="action-btn">
+                            <span class="clear ripple" (click)="removeAll()"> <i class='bx bx-x'></i> </span>
+                        </div>
+                    </div>
+                    <div class="chip-footer">
+                        <span *ngIf="!isMaxTagsReached()">Enter a comma after each tag</span>
+                        <span *ngIf="isMaxTagsReached()">Maximum number of tags reached</span>
+                    </div>
 
                 </div>
 
@@ -159,10 +181,7 @@
                     </a>
                 </div>
             </form>
-
         </div>
-
-
 
     </div>
 </main>
