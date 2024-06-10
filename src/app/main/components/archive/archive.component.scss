@@ -3,8 +3,8 @@ main {
   justify-content: center;
   align-items: center;
   margin-top: 10px;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 /* END OF MAIN PADDING */
 
@@ -50,6 +50,7 @@ border: 1px solid var(--table-border);
 padding: 0.5rem 0.75rem;
 border-radius: 5px;
   display: flex;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 }
 
 label {
@@ -115,9 +116,11 @@ input:focus {
 
 // TABLE STYLE CONTENT //
 table {
-  border-radius: 5px;
-  border: 1px solid var(--table-border);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border: 0.5px solid var(--table-border);
   background-color: var(--container-color);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 table,
@@ -143,7 +146,7 @@ table tr {
 }
 
 table tr:hover {
-  background-color: var(--container-hover);
+  background-color: var(--table-hover);
 }
 
 table td:nth-child(1) {
@@ -172,8 +175,10 @@ table td:nth-child(5) {
 
 mat-paginator {
   background-color: var(--container-color);
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   font-size: 16px;
-  border: 1px solid var(--table-border);
+  border: 0.5px solid var(--table-border);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 // END OF TABLE STYLE CONTENT //

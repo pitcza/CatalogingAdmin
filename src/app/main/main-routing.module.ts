@@ -8,6 +8,7 @@ import { ActivitylogComponent } from './components/activitylog/activitylog.compo
 
 import { ReportsComponent } from './components/reports/reports.component';
 import { ArchiveComponent } from './components/archive/archive.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
     }]
   },
   { path: 'archive', component: ArchiveComponent},
+  { path: 'loading', component: LoadingComponent},
 ];
 
 @NgModule({

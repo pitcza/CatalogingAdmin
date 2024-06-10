@@ -16,7 +16,7 @@ import { ListofmaterialsModule } from './components/listofmaterials/listofmateri
 import { ReportsComponent } from './components/reports/reports.component';
 import { ReportsModule } from './components/reports/reports.module';
 
-
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { ReportsModule } from './components/reports/reports.module';
     AcademicprojectsComponent,
     ListofmaterialsComponent,
     ReportsComponent,
-
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +34,9 @@ import { ReportsModule } from './components/reports/reports.module';
     ReportsModule,
     FormsModule,
     RouterModule
+  ],
+  exports: [
+    LoadingComponent
   ]
 })
 export class MainModule { }

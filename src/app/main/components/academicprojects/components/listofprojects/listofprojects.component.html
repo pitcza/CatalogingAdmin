@@ -42,10 +42,11 @@
                     </form>
                 </div>
             </div>
-              
+            
+            <app-loading *ngIf="isLoading"></app-loading>
               
             <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="dataSource" matSort>
+                <table mat-table [dataSource]="dataSource" matSort *ngIf="!isLoading">
 
                 <!-- Checkbox Column NEED BA FOR SELECTING 3 YEARS BELOW PROJECTS DAW NA IAARCHIVE
                 <ng-container matColumnDef="select">
