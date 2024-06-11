@@ -14,21 +14,21 @@
 			<li class="tab"><label for="tab3">Articles</label></li>
 		</ul>
 
-<!------------------------------ Books Tab ------------------------------------->
+<!------------------------------ Books Tab ------------------------------------------->
 
-		<div class="tab-content">
+        <div class="tab-content">
             <form id="book-form" enctype="multipart/form-data">
                 <div class="container">
 
                     <div class="input-row">
                         <div class="entryarea">
-                            <input type="text" required name="id">
+                            <input type="text" required name="id"> 
                             <span></span>
                             <div class="labelline"> Accession No. </div>
                         </div>
 
-                        <div class="entryarea  ">
-                            <input type="text" required name="title">
+                        <div class="entryarea">
+                            <input type="text" required name="title" maxlength="255"> 
                             <span></span>
                             <div class="labelline"> Title</div>
                         </div>
@@ -48,105 +48,119 @@
                                     </button>
                                 </div>
                             </ng-container>
-                            </div>
-                                <div class="addbtn">
-                                    <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
-                                </div>
+
+                        </div>
+                            <div class="addbtn">
+                            <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                        </div>
 
                             <!--- Display message based on the number of input fields ---->
                             <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
                             <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
-
-                            </div>
-
+                
+                    </div>
+            
                     <div class="input-row1">
-                        <div class="entryarea3">
+                        <div class="entryarea9">
+                            <input type="text" required name="publisher"> 
+                            <span></span>
+                            <div class="labelline9"> Publisher </div>
+                        </div>
+                        <div class="entryarea8"> 
                             <select name="copyright" required>
                                 <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
                             </select>
                             <span></span>
-                            <div class="labelline3"> Copyright </div>
-                        </div>
-
-                        <div class="entryarea4">
-                            <input type="number" min="0" required name="volume">
-                            <span></span>
-                            <div class="labelline4"> Volume </div>
-                        </div>
-
-                        <div class="entryarea4">
-                            <input type="number" min="0" required name="edition">
-                            <span></span>
-                            <div class="labelline4"> Edition </div>
+                            <div class="labelline8"> Copyright </div>
                         </div>
                     </div>
 
                     <div class="input-row1">
-                        <div class="entryarea6">
-                            <input type="text" required name="remarks">
-                            <span></span>
-                            <div class="labelline6"> Remarks </div>
-                        </div>
-
-                        <div class="entryarea6">
-                            <input type="number" min="0" required name="pages">
-                            <span></span>
-                            <div class="labelline6"> Pages </div>
-                        </div>
-
-                        <div class="entryarea7">
-                            <input type="date" required name="acquired_date">
-                            <span></span>
-                            <div class="labelline7"> Date Purchased/Donated </div>
-                        </div>
-                    </div>
-
-                    <div class="input-row1">
-                        <div class="entryarea8">
-                            <select id="funds" name="source_of_fund" (change)="changedFunds($event)">
-                                <option value="Donated"> Donated </option>
-                                <option value="Purchased" selected> Purchased </option>
-                                <option value="Replacement"> Replacement </option>
-                            </select>
-                            <span class="source"></span>
-                            <div class="labelline8"> Source of Fund  </div>
-                        </div>
-
-                        <div class="entryarea8">
+                        <div class="entryarea3">
                             <select name="location_id">
                                 <option *ngFor="let location of locations" [value] = "location.id">{{ location.location }}:
                                     {{ location.full_location }}</option>
                             </select>
                             <span class="source"></span>
-                            <div class="labelline8"> Location </div>
+                            <div class="labelline3"> Location </div>
+                        </div>
+
+                        <div class="entryarea4">
+                            <input type="text" required name="call_number"> 
+                            <span></span>
+                            <div class="labelline4"> Call Number </div>
+                        </div>
+
+                        <div class="entryarea4">
+                            <input type="text" required name="author_number"> 
+                            <span></span>
+                            <div class="labelline4"> Author Number </div>
                         </div>
                     </div>
 
                     <div class="input-row1">
+                        <div class="entryarea4">
+                            <input type="number" min="0" required name="volume"> 
+                            <span></span>
+                            <div class="labelline4"> Volume </div>
+                        </div>
+
+                        <div class="entryarea4">
+                            <input type="number" min="0" required name="edition"> 
+                            <span></span>
+                            <div class="labelline4"> Edition </div>
+                        </div>
+
+                        <div class="entryarea4">
+                            <input type="number" min="0" required name="pages"> 
+                            <span></span>
+                            <div class="labelline4"> Pages </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1"> 
+                        <div class="entryarea6">
+                            <input type="text" min="0" required name="remarks"> 
+                            <span></span>
+                            <div class="labelline6"> Remarks </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1"> 
+                        <div class="entryarea7">
+                            <input type="date" required name="acquired_date"> 
+                            <span></span>
+                            <div class="labelline7"> Date Purchased/Donated </div>
+                        </div>
+
+                        <div class="entryarea3">
+                            <select id="funds" name="source_of_fund">
+                                <option value="Donated"> Donated </option>
+                                <option value="Purchased" selected> Purchased </option>
+                                <option value="Replacement"> Replacement </option>
+                            </select>
+                            <span class="source"></span>
+                            <div class="labelline3"> Source of Fund  </div>
+                        </div>
+
+                        <div class="entryarea11"> 
+                            <input type="file" required name="image_url" accept=".png, .jpeg, .jpg"> 
+                            <div class="labelline11"> Upload Image</div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1"> 
                         <div class="entryarea5">
                             <span class="peso-sign">₱</span>
-                            <input *ngIf="isPurchased" type="number" required name="price">
-                            <input *ngIf="isPurchased == false" type="number" required name="price" disabled>
+                            <input type="number" required name="price"> 
                             <span></span>
                             <div class="labelline5"> Price </div>
                         </div>
 
-                        <div class="entryarea9">
-                            <input type="text" required name="call_number">
-                            <span></span>
-                            <div class="labelline9"> Call Number </div>
-                        </div>
-                    </div>
-
-                    <div class="input-row1">
                         <div class="entryarea10">
-                            <input type="number" required min="1" name="copies" value="1">
+                            <input type="number" required min="1" name="copies" value="1"> 
                             <span></span>
                             <div class="labelline10"> Copies </div>
-                        </div>
-                        <div class="entryarea11">
-                            <input type="file" required name="image_url" accept=".png, .jpeg, .jpg">
-                            <div class="labelline11"> Upload Image</div>
                         </div>
                     </div>
 
@@ -162,9 +176,10 @@
 <!------------------------------ Periodicals Tab ------------------------------------->
 
 
-		<div class="tab-content">
+        <div class="tab-content">
             <form id="periodical-form" enctype="multipart/form-data">
                 <div class="container">
+
                     <div class="input-row">
                         <div class="entryarea1">
                             <select id="type" name="material_type">
@@ -177,13 +192,13 @@
                         </div>
 
                         <div class="entryarea">
-                            <input type="text" required name="accession">
+                            <input type="text" required name="id"> 
                             <span></span>
                             <div class="labelline"> Accession No. </div>
                         </div>
 
                         <div class="entryarea">
-                            <input type="text" required name="title">
+                            <input type="text" required name="title"> 
                             <span></span>
                             <div class="labelline"> Title</div>
                         </div>
@@ -203,168 +218,31 @@
                                     </button>
                                 </div>
                             </ng-container>
-                            </div>
-                                <div class="addbtn">
-                                    <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
-                                </div>
+                        </div>
+
+                        <div class="addbtn">
+                            <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                        </div>
 
                             <!--- Display message based on the number of input fields ---->
                             <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
                             <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
-
-                        </div>
-
-                        <div class="input-row1">
-                            <div class="entryarea9">
-                                <input type="text" required name="issue">
-                                <span></span>
-                                <div class="labelline9"> Issue </div>
-                            </div>
-
-                            <div class="entryarea8">
-                                <select id="type" name="language">
-                                    <option value="english"> English </option>
-                                    <option value="tagalog"> Tagalog </option>
-                                </select>
-                                <span></span>
-                                <div class="labelline8"> Language </div>
-                            </div>
-                        </div>
-
-                        <div class="input-row1">
-                            <div class="entryarea7">
-                                <input type="date" required name="receive_date">
-                                <span></span>
-                            <div class="labelline7"> Date Received </div>
-                            </div>
-
-                            <div class="entryarea7">
-                                <input type="date" required name="date_published">
-                                <span></span>
-                            <div class="labelline7"> Publication Date </div>
-                            </div>
-                        </div>
-
-                        <div class="input-row1">
-                            <div class="entryarea3">
-                                <select name="copyright" required>
-                                    <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
-                                </select>
-                                <span></span>
-                                <div class="labelline3"> Copyright </div>
-                            </div>
-
-                            <div class="entryarea4">
-                                <input type="text" required name="publisher">
-                                <span></span>
-                            <div class="labelline4"> Publisher </div>
-                            </div>
-
-                            <div class="entryarea4">
-                                <input type="number" min="0" required name="volume">
-                                <span></span>
-                                <div class="labelline4"> Volume </div>
-                            </div>
-                        </div>
-
-                        <div class="input-row1">
-                            <div class="entryarea6">
-                                <input type="text" min="0" required name="remarks">
-                                <span></span>
-                                <div class="labelline6"> Remarks </div>
-                            </div>
-                        </div>
-
-                        <div class="input-row1">
-                            <div class="entryarea9">
-                                <input type="number" required name="pages">
-                                <span></span>
-                                <div class="labelline9"> Pages </div>
-                            </div>
-                            <div class="entryarea11">
-                                <input type="file" required name="image_url" accept=".png, .jpeg, .jpg">
-                                <div class="labelline11"> Upload Image</div>
-                            </div>
-                        </div>
-
-                        <div class="perio-btn">
-                            <input class= " button" type="submit" value="Add" id="submit">
-                        <button></button>
-                        </div>
-                </div>
-            </form>
-        </div>
-
-
-<!------------------------------ Articles Tab ------------------------------------->
-
-
-        <div class="tab-content">
-            <div class="arti-container">
-                <form id="article-form" enctype="multipart/form-data">
-
-                <div class="input-row">
-                    <div class="entryarea1">
-                        <select id="type" name="material_type">
-                            <option value="journal" selected> Journal </option>
-                            <option value="magazine"> Magazine </option>
-                            <option value="newspaper"> Newspaper </option>
-                        </select>
-                        <span></span>
-                        <div class="labelline1"> Type of Material </div>
+                
                     </div>
 
-                    <div class="entryarea">
-                        <input type="text" required name="accession">
-                        <span></span>
-                        <div class="labelline"> Accession No. </div>
-                    </div>
-
-                    <div class="entryarea">
-                        <input type="text" required name="title">
-                        <span></span>
-                        <div class="labelline"> Title</div>
-                    </div>
-                </div>
-
-                <div class="input-row">
-                    <div class="author-container">
-                        <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
-                            <div class="multiple-author">
-                                <div class="entryarea2">
-                                    <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x" required>
-                                    <span></span>
-                                    <div class="labelline2"> Author </div>
-                                </div>
-                                <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
-                                    <i class='bx bx-x'></i>
-                                </button>
-                            </div>
-                        </ng-container>
-                        </div>
-                            <div class="addbtn">
-                                <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
-                            </div>
-
-                        <!--- Display message based on the number of input fields ---->
-                        <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
-                        <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
-
-                    </div>
-
-                    <div class="input-row1">
-                        <div class="entryarea12">
-                            <textarea name="abstract"></textarea>
+                    <div class="input-row1"> 
+                        <div class="entryarea9"> 
+                            <input type="text" required name="publisher"> 
                             <span></span>
-                            <div class="labelline12"> Abstract </div>
+                            <div class="labelline9"> Publisher </div>
                         </div>
-                    </div>
 
-                    <div class="input-row1">
-                        <div class="entryarea9">
-                            <input type="text" required name="issue">
+                        <div class="entryarea8">
+                            <select name="copyright" required>
+                                <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
+                            </select>
                             <span></span>
-                            <div class="labelline9"> Issue </div>
+                            <div class="labelline8"> Copyright </div>
                         </div>
 
                         <div class="entryarea8">
@@ -377,72 +255,192 @@
                         </div>
                     </div>
 
-                    <div class="input-row1">
-                        <div class="entryarea9">
-                            <input type="text" required name="subject">
+                    <div class="input-row1"> 
+                        <div class="entryarea4">
+                            <input type="number" min="0" required name="volume"> 
                             <span></span>
-                            <div class="labelline9"> Subject </div>
+                            <div class="labelline4"> Volume </div>
+                        </div>
+
+                        <div class="entryarea4">
+                            <input type="number" required name="pages">
+                            <span></span>
+                            <div class="labelline4"> Pages </div>
                         </div>
 
                         <div class="entryarea9">
-                            <input type="number" min="0" required name="volume">
+                            <input type="text" required name="issue"> 
+                            <span></span>
+                            <div class="labelline9"> Issue </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1"> 
+                        <div class="entryarea6">
+                            <input type="text" min="0" required name="remarks"> 
+                            <span></span>
+                            <div class="labelline6"> Remarks </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1"> 
+                        <div class="entryarea7">
+                            <input type="date" required name="receive_date"> 
+                            <span></span>
+                            <div class="labelline7"> Date Received </div>
+                        </div>
+
+                        <div class="entryarea7">
+                            <input type="date" required name="date_published"> 
+                            <span></span> 
+                            <div class="labelline7"> Publication Date </div>
+                        </div>
+
+                        <div class="entryarea11"> 
+                            <input type="file" required name="image_url" accept=".png, .jpeg, .jpg"> 
+                            <div class="labelline11"> Upload Image</div>
+                        </div>
+                    </div>
+
+                    <div class="perio-btn">
+                        <input class= " button" type="submit" value="Add" id="submit">
+                        <button></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+<!------------------------------ Articles Tab ---------------------------------------->
+
+
+        <div class="tab-content">
+            <form id="article-form" enctype="multipart/form-data">
+                <div class="arti-container">
+
+                    <div class="input-row">
+                        <div class="entryarea1">
+                            <select id="type" name="material_type">
+                                <option value="journal" selected> Journal </option>
+                                <option value="magazine"> Magazine </option>
+                                <option value="newspaper"> Newspaper </option>
+                            </select>
+                            <span></span>
+                            <div class="labelline1"> Type of Material </div>
+                        </div>
+
+                        <div class="entryarea">
+                            <input type="text" required name="id"> 
+                            <span></span>
+                            <div class="labelline"> Accession No. </div>
+                        </div>
+
+                        <div class="entryarea">
+                            <input type="text" required name="title"> 
+                            <span></span>
+                            <div class="labelline"> Title</div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="author-container">
+                            <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
+                                <div class="multiple-author">
+                                    <div class="entryarea2">
+                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x" required>
+                                        <span></span>
+                                        <div class="labelline2"> Author </div>
+                                    </div>
+                                    <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
+                                        <i class='bx bx-x'></i>
+                                    </button>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                        <div class="addbtn">
+                            <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                        </div>
+
+                            <!--- Display message based on the number of input fields ---->
+                            <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
+                            <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
+
+                    </div>
+
+                    <div class="input-row1"> 
+                        <div class="entryarea9"> 
+                            <input type="text" required name="publisher"> 
+                            <span></span>
+                            <div class="labelline9"> Publisher </div>
+                        </div>
+
+                        <div class="entryarea8">
+                            <select id="type" name="language">
+                                <option value="english"> English </option>
+                                <option value="tagalog"> Tagalog </option>
+                            </select>
+                            <span></span>
+                            <div class="labelline8"> Language </div>
+                        </div>
+
+                        <div class="entryarea9">
+                            <input type="number" min="0" required name="volume"> 
                             <span></span>
                             <div class="labelline9"> Volume </div>
                         </div>
                     </div>
 
                     <div class="input-row1">
-                        <div class="entryarea6">
-                            <input type="text" required name="publisher">
+                        <div class="entryarea12">
+                            <textarea name="abstract"></textarea>
                             <span></span>
-                            <div class="labelline6"> Publisher </div>
+                            <div class="labelline12"> Abstract </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1"> 
+                        <div class="entryarea9">
+                            <input type="text" required name="issue"> 
+                            <span></span>
+                            <div class="labelline9"> Issue </div>
                         </div>
 
-                        <div class="entryarea6">
-                            <input type="text" required name="pages">
+                        <div class="entryarea9">
+                            <input type="text" required name="subject"> 
                             <span></span>
-                            <div class="labelline6"> Pages </div>
+                            <div class="labelline9"> Subject </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1">
+                        <div class="entryarea4">
+                            <input type="text" required name="pages"> 
+                            <span></span>
+                            <div class="labelline4"> Pages </div>
                         </div>
 
                         <div class="entryarea7">
-                            <input type="date"  name="date_published">
+                            <input type="date"  name="date_published"> 
                             <span></span>
                             <div class="labelline7"> Publication Date </div>
                         </div>
                     </div>
 
-                    <div class="input-row1">
+                    <div class="input-row1"> 
                         <div class="entryarea6">
-                            <input type="text" min="0" required name="remarks">
+                            <input type="text" min="0" required name="remarks"> 
                             <span></span>
                             <div class="labelline6"> Remarks </div>
                         </div>
                     </div>
 
-                    <div class="example-chip-list">
-                        <label for="chipGrid">Tags</label>
-                        <div id="chipGrid" aria-label="Enter fruits">
-                          <div *ngFor="let tag of tags" class="chip">
-                            {{ tag.name }}
-                            <button [attr.aria-label]="'remove ' + tag.name" (click)="removeTag(tag)">&times;</button>
-                          </div>
-                        </div>
-                        <input type="text" id="newTagInput" placeholder="New tag..." aria-label="Add new tag"
-                               [(ngModel)]="newTag" (keydown)="handleKeydown($event)" (blur)="addTag()">
-                      </div>
-
-                      <!-- <div class="arti-btn">
-                        <input class="button" type="submit" value="Add" id="submit">
-                        <button></button>
-                      </div> -->
-
-                  <div class="arti-btn">
-                      <input class= " button" type="submit" value="Add" id="submit">
-                      <button></button>
-                  </div>
-
-                </form>
-            </div>
+                    <div class="arti-btn">
+                        <input class= " button" type="submit" value="Add" id="submit">
+                    <button></button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
