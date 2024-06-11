@@ -14,11 +14,6 @@
                         <form id="edit-form" enctype="multipart/form-data">
                             <div class="input_field">
                                 <div class="input-row">
-                                    <div class="txt_field_short">
-                                        <input class="inputtxt" type="text" name="accession" [value]="data.details.accession">
-                                        <span></span>
-                                        <div class="labelline"> Accession No. </div>
-                                    </div>
                                     <div class="txt_field">
                                         <select class="inputtxt" name="material_type">
                                             <option value="magazine" [selected]="data.details.type === 'magazine'"> Magazine </option>
@@ -27,6 +22,11 @@
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Type of Material </div>
+                                    </div>
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="accession" [value]="data.details.accession">
+                                        <span></span>
+                                        <div class="labelline"> Accession No. </div>
                                     </div>
                                     <div class="txt_field">
                                         <select class="inputtxt" name="language">
@@ -69,24 +69,6 @@
                                     <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
 
                                 </div>
-                                
-                                <div class="input-row">
-                                    <div class="txt_field">
-                                        <input class="inputtxt" type="number" min="0" name="volume"  [placeholder]="data.details.volume" [value]="data.details.volume">
-                                        <span></span>
-                                        <div class="labelline"> Volume </div>
-                                    </div>
-                                    <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="issue" [placeholder]="data.details.issue" [value]="data.details.issue">
-                                        <span></span>
-                                        <div class="labelline"> Issue </div>
-                                    </div>
-                                    <div class="txt_field">
-                                        <input class="inputtxt" type="number" min="0" name="copyright" [placeholder]="data.details.copyright" [value]="data.details.copyright">
-                                        <span></span>
-                                        <div class="labelline"> Copyright </div>
-                                    </div>
-                                </div>
 
                                 <div class="input-row">
                                     <div class="txt_field">
@@ -95,18 +77,32 @@
                                         <div class="labelline"> Publisher </div>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="date" name="date_published" [value]="data.details.date_published">
+                                        <input class="inputtxt" type="number" min="0" name="copyright" [placeholder]="data.details.copyright" [value]="data.details.copyright">
                                         <span></span>
-                                        <div class="datelabel"> Publication Date </div>
-                                    </div> 
+                                        <div class="labelline"> Copyright </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="number" min="0" name="volume"  [placeholder]="data.details.volume" [value]="data.details.volume">
+                                        <span></span>
+                                        <div class="labelline"> Volume </div>
+                                    </div>
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="number" min="0" name="pages" [placeholder]="data.details.pages" [value]="data.details.pages">
+                                        <span></span>
+                                        <div class="labelline"> Pages </div>
+                                    </div>
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" name="issue" [placeholder]="data.details.issue" [value]="data.details.issue">
+                                        <span></span>
+                                        <div class="labelline"> Issue </div>
+                                    </div>
+                                    
                                 </div>
 
                                 <div class="input-row">
-                                    <div class="txt_field_short">
-                                        <input class="inputtxt" type="date" name="receive_date" [value]="data.details.receive_date">
-                                        <span></span>
-                                        <div class="datelabel"> Date Received </div>
-                                    </div> 
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" name="remarks" [value]="data.details.remarks">
                                         <span></span>
@@ -115,17 +111,23 @@
                                 </div>
 
                                 <div class="input-row">
-                                    <div class="txt_field_short">
-                                        <input class="inputtxt" type="number" min="0" name="pages" [placeholder]="data.details.pages" [value]="data.details.pages">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="date" name="receive_date" [value]="data.details.receive_date">
                                         <span></span>
-                                        <div class="labelline"> Pages </div>
-                                    </div>
+                                        <div class="datelabel"> Date Received </div>
+                                    </div> 
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="date" name="date_published" [value]="data.details.date_published">
+                                        <span></span>
+                                        <div class="datelabel"> Publication Date </div>
+                                    </div> 
                                     <div class="txt_field"> 
                                         <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;"> 
                                         <span></span>
                                         <div class="uploadlabel"> Upload Image </div>
                                     </div>
                                 </div>
+
                             </div>
                         </form>
                     </div>

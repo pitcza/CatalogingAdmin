@@ -40,6 +40,9 @@
                                 </p>
                             </span>
                             <span>
+                                <h2> Publisher: </h2> <p> {{ data.details.publisher }} </p>
+                            </span>
+                            <span>
                                 <h2> Location: </h2> <p> {{ data.details.location }} </p>
                             </span>
                             <span>
@@ -47,9 +50,6 @@
                             </span>
                             <span>
                                 <h2> Copyright: </h2> <p> {{ data.details.copyright }} </p>
-                            </span>
-                            <span>
-                                <h2> Publication Date: </h2> <p> {{ data.details.date_published | date:'mediumDate'}} </p>
                             </span>
                             <span>
                                 <h2> Volume: </h2> <p> {{ data.details.volume != null ? data.details.volume : 'N/A' }} </p>

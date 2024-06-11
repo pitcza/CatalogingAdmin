@@ -79,8 +79,8 @@
                                 <div class="input-row">
                                     <div class="txt_field">
                                         <select class="inputtxt" id="language" name="language" required>
-                                            <option value="english" [selected]="data.details.language === 'english'"> English </option>
-                                            <option value="tagalog" [selected]="data.details.language === 'tagalog'"> Tagalog </option>
+                                            <option value="English" [selected]="data.details.language === 'English'"> English </option>
+                                            <option value="Tagalog" [selected]="data.details.language === 'Tagalog'"> Tagalog </option>
                                         </select>
                                         <span></span>
                                         <label class="labelline" for="language"> Language </label>
@@ -112,7 +112,7 @@
                                         <li class="chip" *ngFor="let x of tags; let j = index">
                                             <span class="chip-label">{{x}}</span>
                                             <input type="hidden" [value]="x" name="keywords">
-                                            <span class="remove" *ngIf="removable" (click)="removeItem(j)"><i class='bx bx-x'></i></span>
+                                            <span class="remove ripple1" *ngIf="removable" (click)="removeItem(j)"><i class='bx bx-x'></i></span>
                                         </li>
                                         <li class="input-field">
                                             <input #inputField type="text" class="input"
@@ -121,7 +121,7 @@
                                         </li>
                                     </ul>
                                     <div class="action-btn">
-                                        <span class="clear ripple" (click)="removeAll()"> <i class='bx bx-x'></i> </span>
+                                        <span class="clear ripple2" (click)="removeAll()"> <i class='bx bx-x'></i> </span>
                                     </div>
                                 </div>
                                 <div class="chip-footer">

@@ -280,7 +280,7 @@ h1 {
 }
 
 // LABEL IF NAKATAAS NA AGAD
-.txt_field_short .datelabel, .txt_field_short .labelline1  {
+.txt_field_short .datelabel, .txt_field .datelabel, .txt_field_short .labelline1, .txt_field .labelline1  {
     top: 7px;
     font-size: 12px;
     letter-spacing: 0.5px;
@@ -289,7 +289,7 @@ h1 {
     left: 10px;
 }
 
-.txt_field_short input[type="date"]:focus ~ .datelabel, .txt_field input[type="file"]:focus ~ .uploadlabel, .txt_field_short .inputtxt:focus ~ .labelline1 {
+.txt_field_short input[type="date"]:focus ~ .datelabel, .txt_field input[type="date"]:focus ~ .datelabel, .txt_field input[type="file"]:focus ~ .uploadlabel, .txt_field_short .inputtxt:focus ~ .labelline1, .txt_field .inputtxt:focus ~ .labelline1 {
     color: var(--main-green);
 }
 

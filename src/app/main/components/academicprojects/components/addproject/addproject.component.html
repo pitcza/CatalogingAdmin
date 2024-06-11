@@ -79,8 +79,8 @@
                     <div class="input-row" id="no-add-function">
                         <div class="txt_field">
                             <select class="inputtxt" id="language" name="language" required>
-                                <option value="english"> English </option>
-                                <option value="tagalog"> Tagalog </option>
+                                <option value="English"> English </option>
+                                <option value="Tagalog"> Tagalog </option>
                             </select>
                             <span></span>
                             <label class="labelline" for="language"> Language </label>
@@ -89,11 +89,6 @@
                             <input class="inputtxt" type="date" id="datepub" name="date_published" required>
                             <span></span>
                             <div class="datelabel"> Date Published </div>
-                        </div>
-                        <div class="txt_field">
-                            <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;">
-                            <span></span>
-                            <div class="uploadlabel"> Project Cover </div>
                         </div>
                     </div>
 
@@ -149,7 +144,7 @@
                             <li class="chip" *ngFor="let x of tags; let j = index">
                                 <span class="chip-label">{{x}}</span>
                                 <input type="hidden" [value]="x" name="keywords">
-                                <span class="remove" *ngIf="removable" (click)="removeItem(j)"><i class='bx bx-x'></i></span>
+                                <span class="remove ripple1" *ngIf="removable" (click)="removeItem(j)"><i class='bx bx-x'></i></span>
                             </li>
                             <li class="input-field">
                                 <input #inputField type="text" class="input" 
@@ -159,13 +154,25 @@
                         </ul>
                         <span></span>
                         <div class="action-btn">
-                            <span class="clear ripple" (click)="removeAll()"> <i class='bx bx-x'></i> </span>
+                            <span class="clear ripple2" (click)="removeAll()"> <i class='bx bx-x'></i> </span>
                         </div>
                     </div>
                     <div class="chip-footer">
                         <span *ngIf="!isMaxTagsReached()">Enter a comma after each tag</span>
                         <span *ngIf="isMaxTagsReached()">Maximum number of tags reached</span>
                     </div>
+
+
+                    <div class="input-row" id="no-add-function">
+                        <div class="txt_field">
+                            <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;">
+                            <span></span>
+                            <div class="uploadlabel"> Project Cover </div>
+                        </div>
+                        
+                    </div>
+                    
+                    
 
                 </div>
 

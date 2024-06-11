@@ -431,13 +431,13 @@ input[type="file"]::file-selector-button {
         overflow: hidden;
         font-size: 15px;
         font-weight: 500;
-        padding: 5px 10px;
+        padding: 5px 5px;
         width: 100%;
 
         .chip {
             cursor: default;
             list-style: none;
-            padding: 5px 10px 5px 15px;
+            padding: 5px 10px 6px 15px;
             margin: 5px;
             display: inline-flex;
             align-items: center;
@@ -453,6 +453,8 @@ input[type="file"]::file-selector-button {
                 cursor: pointer;
                 font-size: 18px;
                 font-weight: 600;
+                padding: 2px 5px;
+                border-radius: 50px;
             }
         }
 
@@ -468,7 +470,7 @@ input[type="file"]::file-selector-button {
                 outline: 0;
                 border: 0;
                 border-radius: 0;
-                min-width: 170px;
+                min-width: 200px;
                 height: 40px;
                 flex: 1;
                 font-family: 'Montserrat';
@@ -502,20 +504,21 @@ input[type="file"]::file-selector-button {
     padding-top: 5px;
     padding-left: 10px;
     opacity: 70%;
+    margin-bottom: 1.2rem;
 }
 
-.ripple {
+.ripple1, .ripple2 {
     background-position: center;
     background-color: transparent;
-    transition: background 0.6s;
+    transition: background 0.3s;
 }
 
-.ripple:hover, .ripple:focus {
-    background: var(--input-hover) radial-gradient(circle, transparent 1%, #d9d9d9 1%) center/15000%;
+.ripple1:hover, .ripple1:focus, .ripple2:hover, .ripple2:focus {
+    background: #e2e2e2 radial-gradient(circle, transparent 1%, #d9d9d9 1%) center/15000%;
 }
 
-.ripple:active {
-    background-color: var(--input-hover);
+.ripple1:active, .ripple2:active {
+    background-color: #e2e2e2;
     background-size: 100%;
     transition: background 0s;
 }

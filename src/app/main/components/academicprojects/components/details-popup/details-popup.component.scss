@@ -92,150 +92,102 @@ h1 {
 .details {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 30px;
 }
 
-// MATERIAL TITLE
-.mat-title {
-    display: flex;
-    justify-content: center;
-    margin-top: 5px;
-    margin-bottom: 3px;
-}
-
-.mat-title .material-title {
-    text-align: left;
-    padding: 15px;
-    background-color: var(--container-color);
-    width: 100%;
-}
-
-.material-title span {
-    display: flex;
-    justify-content: center;
-}
-
-.material-title h2 {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-}
-
-// .details2 {
-//     display: flex;
-//     justify-content: space-between;
-//     padding-top: 20px;
-// }
-
-img {
-    width: 100%;
-    height: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.details .projectdetails {
+.details .mat-image {
     flex-basis: 50%;
-    text-align: left;
-    padding: 15px;
-}
-
-.projectdetails span {
-    display: flex;
     padding: 10px;
-    width: 100%;
-    transition: all 0.5s ease;
+
+    .cover {
+        width: 100%;
+        height: auto;
+    }
 }
 
-.projectdetails span:hover {
-    background-color: var(--container-color);
-}
-
-.projectdetails h2 {
-    font-size: 15px;
-    font-weight: bold;
-    padding-right: 10px;
-}
-
-.projectdetails p {
-    font-size: 15px;
-    font-weight: 400;
-    text-align: justify;
-    gap: 10px;
-}
-
-.details .details2 {
-    text-align: left;
-    margin: 15px;
-    width: 100%;
-    gap: 10px;
-    transition: all 0.5s ease;
-}
-
-.prj-abstract, .prj-keywords {
+.details .mat-details {
+    flex-basis: 60%;
     padding: 10px;
-    margin-bottom: 5px
+
+    .title {
+        font-size: 22px;
+        font-weight: 800;
+        padding-bottom: 15px;
+    }
+
+    .category {
+        font-size: 16px;
+        font-weight: 800;
+        text-transform: uppercase;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--table-border);
+        margin-bottom: 15px;
+    }
+
+    .mat-authors {
+        display: flex;
+        line-height: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--table-border);
+        margin-bottom: 15px;
+
+        h2 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-right: 15px;
+        }
+        p {
+            font-size: 15px;
+            font-weight: 400;
+        }
+    }
 }
 
-// .prj-abstract:hover, .prj-keywords:hover {
-//     background-color: var(--container-color);
-// }
+.details .mat-content {
+    flex-basis: 80%;
+    padding: 10px;
+    border-right: 1px solid var(--table-hover);
 
-.details2 span {
-    display: flex;
+    .mat-abstract, .mat-keywords {
+        line-height: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+
+        h2 {
+            font-size: 15px;
+            font-weight: 700;
+            padding-bottom: 10px;
+        }
+        p {
+            font-size: 15px;
+            font-weight: 400;
+            text-align: justify;
+        }
+    }
 }
 
-.details2 h2 {
-    font-size: 15px;
-    font-weight: bold;
-    padding-right: 10px;
-    padding-bottom: 15px;
+.details .mat-info {
+    flex-basis: 40%;
+    padding: 10px;
+    padding-left: 30px;
+
+    .info {
+        line-height: 20px;
+
+        h2 {
+            font-size: 15px;
+            font-weight: 700;
+            padding-bottom: 10px;
+        }
+        p {
+            font-size: 15px;
+            font-weight: 400;
+            padding-bottom: 20px;
+        }
+    }
 }
 
-.details2 p {
-    font-size: 15px;
-    font-weight: 400;
-    text-align: justify;
-}
 
-// .project-details .prj-title {
-//     color: var(--white);
-//     background-color: var(--main-green);
-// }
-
-// .details2 .projectdetails2, .details2 .project-img2 {
-//     flex-basis: 50%;
-//     text-align: left;
-//     padding: 15px;
-//     height: 200px;
-// }
-
-// .details2 .abstract-img {
-//     display: flex;
-//     justify-content: center;
-// }
-
-// .abst {
-//     width: auto;
-//     height: 100%;
-//     margin-bottom: 10px;
-// }
-
-// .projectdetails2 span {
-//     display: flex;
-//     padding: 10px;
-// }
-
-// .projectdetails2 h2 {
-//     font-size: 15px;
-//     font-weight: bold;
-//     padding-right: 10px;
-// }
-
-// .projectdetails2 p {
-//     font-size: 15px;
-//     font-weight: 400;
-//     text-align: justify;
-// }
 
 // BUTTONS
 .button-container {

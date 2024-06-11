@@ -101,7 +101,7 @@ export class AddprojectComponent implements OnInit {
   tags: string[] = [];
   @Input() placeholder = 'Enter a keyword...';
   @Input() removable = true;
-  @Input() maxTags = 15; // hindi ko alam kung ilan max
+  @Input() maxTags = 5; // hindi ko alam kung ilan max
 
   @ViewChild('inputField') inputField: any;
 
@@ -179,6 +179,9 @@ export class AddprojectComponent implements OnInit {
     return this.tags.length >= this.maxTags;
   }
   // END OF KEYWORDS
+
+  // IMAGE PREVIEW AND CROP
+  
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {
