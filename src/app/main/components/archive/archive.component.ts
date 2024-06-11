@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class ArchiveComponent implements OnInit {
-  displayedColumns: string[] = ['create_date', 'logtime', 'name', 'log', 'action'];
+  displayedColumns: string[] = ['create_date', 'logtime', 'name', 'title', 'material'];
   protected dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,9 +34,6 @@ export class ArchiveComponent implements OnInit {
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
-
-  // DATA FOR FILTERING
-
 
   protected activities: any;
 
