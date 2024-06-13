@@ -1402,3 +1402,11 @@ input[type="file"]::file-selector-button {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.errorLabel {
+    color: red;
+}
+
+.errorField {
+    border-bottom: red 1px solid;
+}

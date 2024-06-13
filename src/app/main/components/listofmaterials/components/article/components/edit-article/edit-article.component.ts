@@ -6,6 +6,7 @@ import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
+import { ArticleService } from '../../../../../../../services/materials/article/article.service';
 
 interface MyOption {
   value: string;
@@ -18,17 +19,21 @@ interface MyOption {
   styleUrl: './edit-article.component.scss'
 })
 export class EditArticleComponent implements OnInit{
-  ngOnInit(): void {
-  }
 
   constructor(private ref: MatDialogRef<EditArticleComponent>, 
     private buildr: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private ds: DataService
-  ) { 
-    this.values = data.details.authors;
-  }
+    private articleService: ArticleService
+  ) { }
 
+  article: any;
+
+  ngOnInit(): void {
+    this.articleService.getRecord(this.data.details).subscribe((res: any) => {
+      this.article = res;
+      this.values = this.article.authors;
+    })
+  }
 
   closepopup() {
     this.ref.close('Closed using function');
@@ -180,10 +185,9 @@ export class EditArticleComponent implements OnInit{
     }
 
     formData.append('authors', JSON.stringify(authors));
-    console.log(this.values)
     if(valid) {
       formData.append('_method', 'PUT');
-      this.ds.post('articles/process/' + this.data.details.id, formData).subscribe({
+      this.articleService.updateRecord(this.data.details, formData).subscribe({
         next: (res: any) => {
           console.log(res)
           Swal.fire({

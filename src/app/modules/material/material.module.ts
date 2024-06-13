@@ -8,11 +8,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSortModule } from '@angular/material/sort';
+import { ReactiveFormsModule } from '@angular/forms';
 
-
-// Insert material imports here
 const MatModules = [
   CommonModule,
   MatButtonModule,
@@ -22,20 +21,15 @@ const MatModules = [
   MatDialogModule,
   MatFormFieldModule,
   MatCardModule,
-  MatPaginatorModule, 
-  MatFormFieldModule, 
-  MatCardModule,
-  MatProgressSpinnerModule, 
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
   MatSortModule,
-  MatSort,
-  MatProgressSpinnerModule
-]
+  ReactiveFormsModule
+];
 
 @NgModule({
   declarations: [],
-  imports: [ MatModules ],
-  exports: [ MatModules ]
+  imports: [MatModules],
+  exports: [MatModules]
 })
-export class MaterialModule {
-  
-}
+export class MaterialModule {}

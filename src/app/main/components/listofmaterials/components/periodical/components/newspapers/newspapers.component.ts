@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PerioDetailsComponent } from '../perio-details/perio-details.component';
 import { DataService } from '../../../../../../../services/data.service';
+import { PeriodicalService } from '../../../../../../../services/materials/periodical/periodical.service';
+import { PeriodicalComponent } from '../../periodical.component';
 
 @Component({
   selector: 'app-newspapers',
@@ -37,13 +39,13 @@ export class NewspapersComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
-    private ds: DataService
+    private periodicalService: PeriodicalService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   getData() {
-    this.ds.get('periodicals/type/newspaper').subscribe({
+    this.periodicalService.getNewspapers().subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<Newspaper>(res)
         this.dataSource.paginator = this.paginator;
@@ -92,7 +94,7 @@ export class NewspapersComponent implements OnInit {
   }
 
   // ARCHIVE POP UP
-  archiveBox(id: number){
+  archiveBox(id: string){
     Swal.fire({
       title: "Archive Newspaper",
       text: "Are you sure want to archive this newspaper?",
@@ -111,7 +113,7 @@ export class NewspapersComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.delete('periodicals/process/' + id).subscribe({
+        this.periodicalService.deleteRecord(id).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

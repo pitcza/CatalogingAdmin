@@ -268,7 +268,6 @@ export class AddprojectComponent implements OnInit {
 
       formData.append('authors', JSON.stringify(authorElements));
 
-      // let keywords = ['drama', 'action', 'awesome']
       formData.append('keywords', JSON.stringify(keywords));
       console.log(formData.get('keywords'));
       console.log(formData.get('authors'));

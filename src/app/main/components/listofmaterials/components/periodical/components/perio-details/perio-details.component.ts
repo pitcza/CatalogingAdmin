@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 import { DataService } from '../../../../../../../services/data.service';
+import { PeriodicalService } from '../../../../../../../services/materials/periodical/periodical.service';
 
 @Component({
   selector: 'app-perio-details',
@@ -18,14 +19,20 @@ export class PerioDetailsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
     private dialog: MatDialog,
-    private ds: DataService
+    private ds: DataService,
+    private periodicalService: PeriodicalService
   ) { }
 
+  periodical: any;
   protected image: any;
   errorImage = '../../../../../../assets/images/NoImage.png';
 
   ngOnInit(): void {
-     
+    console.log(this.data)
+     this.periodicalService.getRecord(this.data.details).subscribe((res: any) => {
+        this.periodical = res;
+        console.log(this.periodical)
+     })
   }
 
   closepopup() {
@@ -52,17 +59,36 @@ export class PerioDetailsComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('Closed using function');
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Periodical has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          timer: 5000,
+        this.periodicalService.deleteRecord(this.periodical.accession).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Book has been safely archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              timer: 5000
+            });
+            this.ref.close('Changed Data');
+          },
+          error: (err: any) => {
+            Swal.fire({
+              title: "Error",
+              text: "Oops an error occured.",
+              icon: "error",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+            });
+            console.log(err);
+          }
         });
-      }
+      };
     });
   }
 

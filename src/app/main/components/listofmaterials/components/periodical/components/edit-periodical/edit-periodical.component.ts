@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { PeriodicalService } from '../../../../../../../services/materials/periodical/periodical.service';
 
 @Component({
   selector: 'app-edit-periodical',
@@ -14,18 +15,31 @@ import { Router } from '@angular/router';
   styleUrl: './edit-periodical.component.scss'
 })
 
-export class EditPeriodicalComponent {
+export class EditPeriodicalComponent implements OnInit{
+  
+  year: number[] = [];
+  currentYear = new Date().getFullYear();
+  periodical: any;
 
   constructor(private ref: MatDialogRef<EditPeriodicalComponent>, 
     private buildr: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any, 
-    private ds: DataService,
-    private router: Router
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router,
+    private periodicalService: PeriodicalService
   ) {
-    this.values = data.details.authors;
+
+    for(let i = 1991; i <= this.currentYear; i++) {
+      this.year.push(i);
+    }
    }
 
-
+  ngOnInit(): void {
+    this.periodicalService.getRecord(this.data.details).subscribe((res: any) => {
+      this.periodical = res;
+      this.values = this.periodical.authors;
+    })
+  }
+   
   closepopup() {
     this.ref.close('Closed using function');
   }
@@ -186,7 +200,7 @@ export class EditPeriodicalComponent {
     formData.append('authors', JSON.stringify(authors));
     if(valid && validFile) {
       formData.append('_method', 'PUT');
-      this.ds.post('periodicals/process/' + this.data.details.id, formData).subscribe({
+      this.periodicalService.updateRecord(this.data.details, formData).subscribe({
         next: (res: any) => {
           Swal.fire({
             title: "Update successful!",

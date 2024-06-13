@@ -4,7 +4,9 @@
             <div class="details-content">
                 <!-- HEADER - TITLE -->
                 <div class="detailsheader">
-                    <h1> Article: {{ data.details.type | titlecase }} </h1>
+                    <h1> Article: {{ article.periodical_type == 0 ? 'Journal' : 
+                        article.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} 
+</h1>
                     <button class="exit-button" (click)="closepopup()"> &times; </button>
                 </div>
                 
@@ -13,7 +15,7 @@
                     <div class="mat-title">
                         <div class="material-title">
                             <span>
-                                <h2> {{ data.details.title }} </h2>
+                                <h2> {{ article.title }} </h2>
                             </span>
                         </div>
                     </div>
@@ -21,19 +23,19 @@
                     <div class="details">
                         <div class="body-details">
                             <span>
-                                <h2> Accession Number: </h2> <p> {{ data.details.accession  }} </p>
+                                <h2> Accession Number: </h2> <p> {{ article.accession  }} </p>
                             </span>
                             <span>
-                                <h2> Language: </h2> <p> {{ data.details.language | titlecase }} </p>
+                                <h2> Language: </h2> <p> {{ article.language | titlecase }} </p>
                             </span>
                             <span>
-                                <h2> Publisher: </h2> <p> {{ data.details.publisher }} </p>
+                                <h2> Publisher: </h2> <p> {{ article.publisher }} </p>
                             </span>
                             <span>
-                                <h2> Publication Date: </h2> <p> {{ data.details.date_published | date: 'mediumDate' }} </p>
+                                <h2> Publication Date: </h2> <p> {{ article.date_published | date: 'mediumDate' }} </p>
                             </span>
                             <span>
-                                <h2> Subject: </h2> <p> {{ data.details.subject }} </p>
+                                <h2> Subject: </h2> <p> {{ article.subject }} </p>
                             </span>
                         </div>
 
@@ -41,7 +43,7 @@
                             <span>
                                 <h2> Author/s: </h2>
                                 <p>
-                                <ng-container *ngFor="let author of data.details.authors; let last = last">
+                                <ng-container *ngFor="let author of article.authors; let last = last">
                                     
                                         {{ author }}{{ !last ? ', ' : '' }}
                                     <br>
@@ -49,16 +51,16 @@
                             </p>
                             </span>
                             <span>
-                                <h2> Volume: </h2> <p> {{ data.details.volume }} </p>
+                                <h2> Volume: </h2> <p> {{ article.volume }} </p>
                             </span>
                             <span>
-                                <h2> Pages: </h2> <p> {{ data.details.pages }} </p>
+                                <h2> Pages: </h2> <p> {{ article.pages }} </p>
                             </span>
                             <span>
-                                <h2> Issue: </h2> <p> {{ data.details.issue }} </p>
+                                <h2> Issue: </h2> <p> {{ article.issue }} </p>
                             </span>
                             <span>
-                                <h2> Remark: </h2> <p> {{ data.details.remark != null ? data.details.remark : 'N/A' }} </p>
+                                <h2> Remark: </h2> <p> {{ article.remark != null ? article.remark : 'N/A' }} </p>
                             </span>
                         </div>
                     </div>
@@ -69,7 +71,7 @@
                                 <h2> Abstract: </h2>
                             </span>
                             <span>
-                                <p> {{ data.details.abstract != null ? data.details.abstract : 'N/A' }} </p>
+                                <p> {{ article.abstract != null ? article.abstract : 'N/A' }} </p>
                             </span>
                         </div>
                     </div>

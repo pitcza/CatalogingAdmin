@@ -32,7 +32,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     BrowserModule,
     AppRoutingModule,
-   // MainModule,
+  //  MainModule,
     MaterialModule,
     HttpClientModule, 
     RouterModule

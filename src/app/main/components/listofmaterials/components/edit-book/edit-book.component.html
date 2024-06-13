@@ -11,16 +11,16 @@
                 <!-- BODY - DETAILS -->
                 <div class="detailsbody">
                     <div class="details">
-                        <form id="edit-form" enctype="multipart/form-data">
+                        <form id="edit-form" enctype="multipart/form-data" [formGroup]="editForm" (ngSubmit)="updateBook()">
                             <div class="input_field">
                                 <div class="input-row">
                                     <div class="txt_field_shorter">
-                                        <input class="inputtxt" type="number" min="0" name="id" [placeholder]="data.details.id" [value]="data.details.id">
+                                        <input class="inputtxt" type="text" min="0" formControlName="accession" [value]="book.accession" >
                                         <span></span>
                                         <div class="labelline"> Accession No. </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="title" [placeholder]="data.details.title" [value]="data.details.title">
+                                        <input class="inputtxt" type="text" formControlName="title" [value]="book.title">
                                         <span></span>
                                         <div class="labelline"> Title </div>
                                     </div>
@@ -28,6 +28,30 @@
                                 
                                 <!-- CAN ADD MULTIPLE AUTHOR -->
                                 <div class="input-row">
+                                    <div class="author-container">
+                                        <ng-container formArrayName="authors">
+                                          <div *ngFor="let author of values; let i = index; trackBy: trackByIndex" class="multiple-author">
+                                            <div class="txt_field">
+                                              <input class="inputtxt" type="text" name="author" placeholder="Author" [value]="author">
+                                              <span></span>
+                                              <div class="labelline"> Author </div>
+                                            </div>
+                                            <button type="button" class="removebtn" *ngIf="authors.length > 1" (click)="removeAuthor(i)">
+                                              <i class='bx bx-x'></i>
+                                            </button>
+                                          </div>
+                                        </ng-container>
+                                      </div>
+                                      
+                                      <div class="addbtn">
+                                        <button type="button" class="add-author" (click)="addAuthor()" [disabled]="isMaxLimitReached()">ADD</button>
+                                      </div>
+                                      
+                                      <!-- Display message based on the number of input fields -->
+                                      <p *ngIf="authors.length < maxAuthors">Add more AUTHOR if necessary</p>
+                                      <p *ngIf="isMaxLimitReached()">Maximum AUTHORS reached</p>
+                                </div>
+                                <!-- <div class="input-row">
                                     <div class="author-container">
                                     <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
                                         <div class="multiple-author">
@@ -44,20 +68,20 @@
                                         <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
                                     </div>
                                     
-                                    <!-- Display message based on the number of input fields -->
+                                    Display message based on the number of input fields
                                     <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
                                     <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
 
-                                </div>
+                                </div> -->
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="publisher" [placeholder]="data.details.publisher" [value]="data.details.publisher">
+                                        <input class="inputtxt" type="text" name="publisher" [placeholder]="book.publisher || 'N/A'" [value]="book.publisher">
                                         <span></span>
                                         <div class="labelline"> Publisher </div>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="number" min="1950" name="copyright" [value]="data.details.copyright">
+                                        <input class="inputtxt" type="number" min="1950" name="copyright" [value]="book.copyright">
                                         <span></span>
                                         <div class="labelline"> Copyright </div>
                                     </div>
@@ -66,19 +90,19 @@
                                 <div class="input-row">
                                     <div class="txt_field">
                                         <select class="inputtxt" name="location_id">
-                                            <option *ngFor="let location of locations" [value] = "location.id" [selected]="location.id === data.details.location">
-                                                {{ location.location }}: {{ location.full_location }}</option>
+                                            <option *ngFor="let location of locations" [value] = "location.location_short" [selected]="location.location_short === book.location">
+                                                {{ location.location_short }}{{ location.location_full ? ': ' + location.location_full : '' }}</option>
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Location </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="call_number" [placeholder]="data.details.call_number" [value]="data.details.call_number">
+                                        <input class="inputtxt" type="text" name="call_number" [placeholder]="book.call_number" [value]="book.call_number">
                                         <span></span>
                                         <div class="labelline"> Call Number </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="author_number" [placeholder]="data.details.author_number" [value]="data.details.author_number">
+                                        <input class="inputtxt" type="text" name="author_number" [placeholder]="book.author_number || 'N/A'" [value]="book.author_number">
                                         <span></span>
                                         <div class="labelline"> Author Number </div>
                                     </div>
@@ -86,25 +110,34 @@
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text"  name="volume" [value]="data.details.volume">
+                                        <input class="inputtxt" type="text"  name="volume" [placeholder]="book.volume || 'N/A'" [value]="book.volume">
                                         <span></span>
                                         <div class="labelline"> Volume </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="edition" [value]="data.details.edition">
+                                        <input class="inputtxt" type="text" name="edition" [placeholder]="book.edition || 'N/A'" [value]="book.edition">
                                         <span></span>
                                         <div class="labelline"> Edition </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="number" min="0" name="pages" [placeholder]="data.details.pages" [value]="data.details.pages">
+                                        <input class="inputtxt" type="number" min="0" name="pages" [placeholder]="book.pages" [value]="book.pages">
                                         <span></span>
                                         <div class="labelline"> Pages </div>
                                     </div>
                                 </div>
 
+                                <!-- TAMA BA TONG CINOMMENT KO?  -->
+                                <!-- <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="number" min="0" name="pages" [placeholder]="book.pages" [value]="book.pages">
+                                        <span></span>
+                                        <div class="labelline"> Pages </div>
+                                    </div>
+                                </div> -->
+
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" min="0" name="remarks" [placeholder]="data.details.remarks" [value]="data.details.remark">
+                                        <input class="inputtxt" type="text" min="0" name="remarks" [placeholder]="book.remarks || 'N/A'" [value]="book.remarks ? book.remarks : ''">
                                         <span></span>
                                         <div class="labelline"> Remarks </div>
                                     </div>
@@ -113,21 +146,21 @@
                                 <div class="input-row">
                                     <div class="txt_field">
                                         <select class="inputtxt" id="language" name="source_of_fund" required>
-                                            <option value="Purchased"> Purchased </option>
-                                            <option value="Donated"> Donated </option>
-                                            <option value="Replacement"> Replacement </option>
+                                            <option value="Purchased" [selected]="book.source_of_fund == 'Purchased'"> Purchased </option>
+                                            <option value="Donated" [selected]="book.source_of_fund == 'Donated'"> Donated </option>
+                                            <option value="Replacement" [selected]="book.source_of_fund == 'Replacement'"> Replacement </option>
                                         </select>
                                         <span></span>
                                         <label class="labelline" for="fund"> Source of Fund </label>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="date" name="acquired_date" [value]="data.details.acquired_date">
+                                        <input class="inputtxt" type="date" name="acquired_date" [value]="book.acquired_date">
                                         <span></span>
                                         <div class="datelabel"> Date Purchased/Donated </div>
                                     </div> 
                                     <div class="txt_field">
                                         <span class="peso-sign">₱</span>
-                                        <input class="inputtxt-price" type="number" min="0" name="price" [placeholder]="data.details.price" [value]="data.details.price">
+                                        <input class="inputtxt-price" type="number" min="0" name="price" [value]="book.price" [disabled]="editForm.get('source_of_fund')?.value != 'Purchased'">
                                         <span></span>
                                         <div class="labelline1"> Price </div>
                                     </div>

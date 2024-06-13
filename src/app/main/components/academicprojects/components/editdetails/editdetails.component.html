@@ -15,23 +15,25 @@
                             <div class="input_field">                    
                                 <div class="input-row">
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="text" name="accession" [value]="data.details.accession">
+                                        <input class="inputtxt" type="text" name="accession" [value]="project.accession">
                                         <span></span>
                                         <div class="labelline"> Accession No. </div>
                                     </div>
                                     <div class="txt_field_short">
                                         <select class="inputtxt" id="filter-dept" (change)="changedDepartment($event)"> 
                                             <ng-container *ngFor="let x of departments; let i = index">
-                                                <option [value]="x" [selected]="i === 0">{{ x }}</option>
+                                                <option [value]="x" [selected]="x === departmentFilter">{{ x }}</option>
                                             </ng-container>
                                         </select>
                                         <span></span>
                                         <label class="labelline" for="college"> College </label>
                                     </div>
                                     <div class="txt_field_short">
-                                        <select class="inputtxt" id="filter-pro" (change)="changedProgram($event)" name="program_id">        
+                                        <select class="inputtxt" id="filter-pro" (change)="changedProgram($event)" name="program">        
                                             <ng-container *ngFor="let x of programs">
-                                                <option *ngIf="x.department.department == departmentFilter" [value] = "x.id">{{ x.program }}</option>
+                                                <option *ngIf="x.department_short == departmentFilter" [value] = "x.program_short" [selected]="project.program == x.department_short">
+                                                    {{ x.program_short }}
+                                                </option>
                                             </ng-container>
                                         </select>
                                         <span></span>
@@ -46,7 +48,7 @@
             
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="title" [value]="data.details.title" [placeholder]="data.details.title">
+                                        <input class="inputtxt" type="text" name="title" [value]="project.title" [placeholder]="project.title">
                                         <span></span>
                                         <div class="labelline"> Title </div>
                                     </div>
@@ -86,7 +88,7 @@
                                         <label class="labelline" for="language"> Language </label>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="date" id="datepub" name="date_published" [value]="data.details.date_published">
+                                        <input class="inputtxt" type="date" id="datepub" name="date_published" [value]="project.date_published">
                                         <span></span>
                                         <div class="datelabel"> Date Published </div>
                                     </div> 
@@ -99,7 +101,7 @@
 
                                 <div class="input-row">
                                     <div class="txtarea">
-                                        <textarea name="abstract">{{data.details.abstract}}</textarea>
+                                        <textarea name="abstract">{{project.abstract}}</textarea>
                                         <span></span>
                                         <label class="labelline1"> Abstract </label>
                                     </div>

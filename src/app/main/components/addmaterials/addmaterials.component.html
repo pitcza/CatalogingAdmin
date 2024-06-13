@@ -16,19 +16,25 @@
 
 <!------------------------------ Books Tab ------------------------------------------->
 
-        <div class="tab-content">
-            <form id="book-form" enctype="multipart/form-data">
+		<div class="tab-content">
+            <form id="book-form" enctype="multipart/form-data" [formGroup]="bookForm" (ngSubmit)="materialSubmit('book')">
                 <div class="container">
 
                     <div class="input-row">
                         <div class="entryarea">
-                            <input type="text" required name="id"> 
-                            <span></span>
-                            <div class="labelline"> Accession No. </div>
+                            <input type="text" formControlName="accession" >
+                            <span [ngClass]="{ 
+                                'errorField': bookForm.get('accession')?.invalid && 
+                                (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched)
+                            }"></span>
+                            <div class="labelline" [ngClass]="{ 
+                                'errorLabel': bookForm.get('accession')?.invalid && 
+                                (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched) ? 'red' : 'black'
+                            }"> Accession No. </div>
                         </div>
 
-                        <div class="entryarea">
-                            <input type="text" required name="title" maxlength="255"> 
+                        <div class="entryarea  ">
+                            <input type="text" formControlName="title">
                             <span></span>
                             <div class="labelline"> Title</div>
                         </div>
@@ -39,7 +45,7 @@
                             <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
                                 <div class="multiple-author">
                                     <div class="entryarea2">
-                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x" required>
+                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
                                         <span></span>
                                         <div class="labelline2"> Author </div>
                                     </div>
@@ -62,12 +68,12 @@
             
                     <div class="input-row1">
                         <div class="entryarea9">
-                            <input type="text" required name="publisher"> 
+                            <input type="text" formControlName="publisher"> 
                             <span></span>
                             <div class="labelline9"> Publisher </div>
                         </div>
                         <div class="entryarea8"> 
-                            <select name="copyright" required>
+                            <select formControlName="copyright">
                                 <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
                             </select>
                             <span></span>
@@ -77,22 +83,23 @@
 
                     <div class="input-row1">
                         <div class="entryarea3">
-                            <select name="location_id">
-                                <option *ngFor="let location of locations" [value] = "location.id">{{ location.location }}:
-                                    {{ location.full_location }}</option>
+                            <select formControlName="location">
+                                <option *ngFor="let location of locations" [value] = "location.location_short">
+                                    {{ location.location_short }}{{ location.full_location ? ': ' + location.location_full : '' }}
+                                </option>
                             </select>
                             <span class="source"></span>
                             <div class="labelline3"> Location </div>
                         </div>
 
                         <div class="entryarea4">
-                            <input type="text" required name="call_number"> 
+                            <input type="text" formControlName="call_number"> 
                             <span></span>
                             <div class="labelline4"> Call Number </div>
                         </div>
 
                         <div class="entryarea4">
-                            <input type="text" required name="author_number"> 
+                            <input type="text" formControlName="author_number"> 
                             <span></span>
                             <div class="labelline4"> Author Number </div>
                         </div>
@@ -100,19 +107,19 @@
 
                     <div class="input-row1">
                         <div class="entryarea4">
-                            <input type="number" min="0" required name="volume"> 
+                            <input type="text" formControlName="volume">
                             <span></span>
                             <div class="labelline4"> Volume </div>
                         </div>
 
                         <div class="entryarea4">
-                            <input type="number" min="0" required name="edition"> 
+                            <input type="text" formControlName="edition">
                             <span></span>
                             <div class="labelline4"> Edition </div>
                         </div>
 
                         <div class="entryarea4">
-                            <input type="number" min="0" required name="pages"> 
+                            <input type="number" formControlName="pages"> 
                             <span></span>
                             <div class="labelline4"> Pages </div>
                         </div>
@@ -120,7 +127,7 @@
 
                     <div class="input-row1"> 
                         <div class="entryarea6">
-                            <input type="text" min="0" required name="remarks"> 
+                            <input type="text" formControlName="remarks">
                             <span></span>
                             <div class="labelline6"> Remarks </div>
                         </div>
@@ -128,13 +135,13 @@
 
                     <div class="input-row1"> 
                         <div class="entryarea7">
-                            <input type="date" required name="acquired_date"> 
+                            <input type="date" formControlName="acquired_date">
                             <span></span>
                             <div class="labelline7"> Date Purchased/Donated </div>
                         </div>
 
                         <div class="entryarea3">
-                            <select id="funds" name="source_of_fund">
+                            <select id="funds" formControlName="source_of_fund" (change)="changedFunds($event)">
                                 <option value="Donated"> Donated </option>
                                 <option value="Purchased" selected> Purchased </option>
                                 <option value="Replacement"> Replacement </option>
@@ -144,7 +151,7 @@
                         </div>
 
                         <div class="entryarea11"> 
-                            <input type="file" required name="image_url" accept=".png, .jpeg, .jpg"> 
+                            <input type="file" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'book')"> 
                             <div class="labelline11"> Upload Image</div>
                         </div>
                     </div>
@@ -152,13 +159,13 @@
                     <div class="input-row1"> 
                         <div class="entryarea5">
                             <span class="peso-sign">₱</span>
-                            <input type="number" required name="price"> 
+                            <input type="number" formControlName="price"> 
                             <span></span>
                             <div class="labelline5"> Price </div>
                         </div>
 
                         <div class="entryarea10">
-                            <input type="number" required min="1" name="copies" value="1"> 
+                            <input type="number" formControlName="copies" >
                             <span></span>
                             <div class="labelline10"> Copies </div>
                         </div>
@@ -177,28 +184,28 @@
 
 
         <div class="tab-content">
-            <form id="periodical-form" enctype="multipart/form-data">
+            <form id="periodical-form" enctype="multipart/form-data" [formGroup]="periodicalForm" (ngSubmit)="materialSubmit('periodical')">
                 <div class="container">
 
                     <div class="input-row">
                         <div class="entryarea1">
-                            <select id="type" name="material_type">
-                                <option value="journal" selected> Journal </option>
-                                <option value="magazine"> Magazine </option>
-                                <option value="newspaper"> Newspaper </option>
+                            <select id="type" formControlName="periodical_type">
+                                <option value=0 selected> Journal </option>
+                                <option value=1> Magazine </option>
+                                <option value=2> Newspaper </option>
                             </select>
                             <span></span>
                             <div class="labelline1"> Type of Material </div>
                         </div>
 
                         <div class="entryarea">
-                            <input type="text" required name="id"> 
+                            <input type="text" formControlName="accession">
                             <span></span>
                             <div class="labelline"> Accession No. </div>
                         </div>
 
                         <div class="entryarea">
-                            <input type="text" required name="title"> 
+                            <input type="text" formControlName="title">
                             <span></span>
                             <div class="labelline"> Title</div>
                         </div>
@@ -209,7 +216,7 @@
                             <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
                                 <div class="multiple-author">
                                     <div class="entryarea2">
-                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x" required>
+                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
                                         <span></span>
                                         <div class="labelline2"> Author </div>
                                     </div>
@@ -232,13 +239,13 @@
 
                     <div class="input-row1"> 
                         <div class="entryarea9"> 
-                            <input type="text" required name="publisher"> 
+                            <input type="text" formControlName="publisher"> 
                             <span></span>
                             <div class="labelline9"> Publisher </div>
                         </div>
 
                         <div class="entryarea8">
-                            <select name="copyright" required>
+                            <select formControlName="copyright">
                                 <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
                             </select>
                             <span></span>
@@ -246,9 +253,9 @@
                         </div>
 
                         <div class="entryarea8">
-                            <select id="type" name="language">
-                                <option value="english"> English </option>
-                                <option value="tagalog"> Tagalog </option>
+                            <select id="type" formControlName="language">
+                                <option value="English"> English </option>
+                                <option value="Tagalog"> Tagalog </option>
                             </select>
                             <span></span>
                             <div class="labelline8"> Language </div>
@@ -257,19 +264,19 @@
 
                     <div class="input-row1"> 
                         <div class="entryarea4">
-                            <input type="number" min="0" required name="volume"> 
+                            <input type="text" formControlName="volume"> 
                             <span></span>
                             <div class="labelline4"> Volume </div>
                         </div>
 
                         <div class="entryarea4">
-                            <input type="number" required name="pages">
+                            <input type="number" formControlName="pages">
                             <span></span>
                             <div class="labelline4"> Pages </div>
                         </div>
 
                         <div class="entryarea9">
-                            <input type="text" required name="issue"> 
+                            <input type="text" formControlName="issue"> 
                             <span></span>
                             <div class="labelline9"> Issue </div>
                         </div>
@@ -277,7 +284,7 @@
 
                     <div class="input-row1"> 
                         <div class="entryarea6">
-                            <input type="text" min="0" required name="remarks"> 
+                            <input type="text" formControlName="remarks"> 
                             <span></span>
                             <div class="labelline6"> Remarks </div>
                         </div>
@@ -285,19 +292,19 @@
 
                     <div class="input-row1"> 
                         <div class="entryarea7">
-                            <input type="date" required name="receive_date"> 
+                            <input type="date" formControlName="acquired_date"> 
                             <span></span>
                             <div class="labelline7"> Date Received </div>
                         </div>
 
-                        <div class="entryarea7">
-                            <input type="date" required name="date_published"> 
-                            <span></span> 
+                            <div class="entryarea7">
+                                <input type="date" formControlName="date_published">
+                                <span></span>
                             <div class="labelline7"> Publication Date </div>
                         </div>
 
                         <div class="entryarea11"> 
-                            <input type="file" required name="image_url" accept=".png, .jpeg, .jpg"> 
+                            <input type="file" name="image_url" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'periodical')"> 
                             <div class="labelline11"> Upload Image</div>
                         </div>
                     </div>
@@ -315,47 +322,47 @@
 
 
         <div class="tab-content">
-            <form id="article-form" enctype="multipart/form-data">
+            <form id="article-form" enctype="multipart/form-data" [formGroup]="articleForm" (ngSubmit)="materialSubmit('article')">
                 <div class="arti-container">
 
                     <div class="input-row">
                         <div class="entryarea1">
-                            <select id="type" name="material_type">
-                                <option value="journal" selected> Journal </option>
-                                <option value="magazine"> Magazine </option>
-                                <option value="newspaper"> Newspaper </option>
+                            <select id="type" formControlName="periodical_type">
+                                <option value="0" selected> Journal </option>
+                                <option value="1"> Magazine </option>
+                                <option value="2"> Newspaper </option>
                             </select>
                             <span></span>
                             <div class="labelline1"> Type of Material </div>
                         </div>
 
-                        <div class="entryarea">
-                            <input type="text" required name="id"> 
-                            <span></span>
-                            <div class="labelline"> Accession No. </div>
-                        </div>
-
-                        <div class="entryarea">
-                            <input type="text" required name="title"> 
-                            <span></span>
-                            <div class="labelline"> Title</div>
-                        </div>
+                    <div class="entryarea">
+                        <input type="text" formControlName="accession">
+                        <span></span>
+                        <div class="labelline"> Accession No. </div>
                     </div>
 
-                    <div class="input-row">
-                        <div class="author-container">
-                            <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
-                                <div class="multiple-author">
-                                    <div class="entryarea2">
-                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x" required>
-                                        <span></span>
-                                        <div class="labelline2"> Author </div>
-                                    </div>
-                                    <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
-                                        <i class='bx bx-x'></i>
-                                    </button>
+                    <div class="entryarea">
+                        <input type="text" formControlName="title">
+                        <span></span>
+                        <div class="labelline"> Title</div>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="author-container">
+                        <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
+                            <div class="multiple-author">
+                                <div class="entryarea2">
+                                    <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
+                                    <span></span>
+                                    <div class="labelline2"> Author </div>
                                 </div>
-                            </ng-container>
+                                <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
+                                    <i class='bx bx-x'></i>
+                                </button>
+                            </div>
+                        </ng-container>
                         </div>
 
                         <div class="addbtn">
@@ -370,22 +377,22 @@
 
                     <div class="input-row1"> 
                         <div class="entryarea9"> 
-                            <input type="text" required name="publisher"> 
+                            <input type="text" formControlName="publisher"> 
                             <span></span>
                             <div class="labelline9"> Publisher </div>
                         </div>
 
                         <div class="entryarea8">
-                            <select id="type" name="language">
-                                <option value="english"> English </option>
-                                <option value="tagalog"> Tagalog </option>
+                            <select id="type" formControlName="language">
+                                <option value="English"> English </option>
+                                <option value="Tagalog"> Tagalog </option>
                             </select>
                             <span></span>
                             <div class="labelline8"> Language </div>
                         </div>
 
                         <div class="entryarea9">
-                            <input type="number" min="0" required name="volume"> 
+                            <input type="text" formControlName="volume"> 
                             <span></span>
                             <div class="labelline9"> Volume </div>
                         </div>
@@ -393,7 +400,7 @@
 
                     <div class="input-row1">
                         <div class="entryarea12">
-                            <textarea name="abstract"></textarea>
+                            <textarea formControlName="abstract"></textarea>
                             <span></span>
                             <div class="labelline12"> Abstract </div>
                         </div>
@@ -401,13 +408,13 @@
 
                     <div class="input-row1"> 
                         <div class="entryarea9">
-                            <input type="text" required name="issue"> 
+                            <input type="text" formControlName="issue">
                             <span></span>
                             <div class="labelline9"> Issue </div>
                         </div>
 
                         <div class="entryarea9">
-                            <input type="text" required name="subject"> 
+                            <input type="text" formControlName="subject">
                             <span></span>
                             <div class="labelline9"> Subject </div>
                         </div>
@@ -415,13 +422,13 @@
 
                     <div class="input-row1">
                         <div class="entryarea4">
-                            <input type="text" required name="pages"> 
+                            <input type="text" formControlName="pages"> 
                             <span></span>
                             <div class="labelline4"> Pages </div>
                         </div>
 
                         <div class="entryarea7">
-                            <input type="date"  name="date_published"> 
+                            <input type="date"  formControlName="date_published"> 
                             <span></span>
                             <div class="labelline7"> Publication Date </div>
                         </div>
@@ -429,7 +436,7 @@
 
                     <div class="input-row1"> 
                         <div class="entryarea6">
-                            <input type="text" min="0" required name="remarks"> 
+                            <input type="text" formControlName="remarks">
                             <span></span>
                             <div class="labelline6"> Remarks </div>
                         </div>

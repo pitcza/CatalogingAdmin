@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 
 import { LoadingComponent } from '../../../loading/loading.component';
 import { MainModule } from '../../../../main.module';
+import { ProjectService } from '../../../../../services/materials/project/project.service';
 
 @Component({
   selector: 'app-listofprojects',
@@ -38,7 +39,6 @@ import { MainModule } from '../../../../main.module';
   ],
 })
 export class ListofprojectsComponent implements OnInit {
-  isLoading = true;
 
   redirectToProjectForm() {
     // Programmatically navigate to another route
@@ -60,7 +60,7 @@ export class ListofprojectsComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
-    private ds: DataService
+    private projectService: ProjectService
   ) {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
@@ -71,6 +71,7 @@ export class ListofprojectsComponent implements OnInit {
   protected departments: any;
   protected departmentFilter = '';
   protected categories: any;
+  isLoading = true;
 
   ngOnInit() {
     this.getData();
@@ -78,7 +79,7 @@ export class ListofprojectsComponent implements OnInit {
 
   getData() {
     this.isLoading = true;
-    this.ds.get('projects').subscribe((res: any) => {
+    this.projectService.getProjects().subscribe((res: any) => {
       this.projects = res;
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
@@ -86,7 +87,7 @@ export class ListofprojectsComponent implements OnInit {
       this.isLoading = false;
     });
 
-    this.ds.get('programs').subscribe((res: any) => {
+    this.projectService.getPrograms().subscribe((res: any) => {
       this.programs = res;
       console.log(res)
 
@@ -132,11 +133,11 @@ export class ListofprojectsComponent implements OnInit {
     } 
     
     const departmentFilterPredicate = (data: Project, selectDepartment: string): boolean => {
-      return data.program.department.department === selectDepartment || selectDepartment === '';
+      return data.project_program.department_short === selectDepartment || selectDepartment === '';
     }
 
     const programFilterPredicate = (data: Project, selectProgram: string): boolean => {
-      return data.program.program === selectProgram || selectProgram === '';
+      return data.program === selectProgram || selectProgram === '';
     }
 
     // const categoryFilterPredicate = (data: Project, selectCategory: string): boolean => {
@@ -203,7 +204,7 @@ export class ListofprojectsComponent implements OnInit {
   }
 
   // SWEETALERT ARCHIVE POP UP
-  archiveBox(id: number){
+  archiveBox(id: string){
     Swal.fire({
       title: "Archive Academic Project",
       text: "Are you sure want to archive this academic project?",
@@ -223,7 +224,7 @@ export class ListofprojectsComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.delete('projects/process/' + id).subscribe({
+        this.projectService.deleteRecord(id).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
@@ -252,7 +253,8 @@ export class ListofprojectsComponent implements OnInit {
 export interface Project {
   created_at: string;
   authors: any;
-  program: any;
+  program: string;
+  project_program: any;
   category: string;
   title: string;
   date_published: string;

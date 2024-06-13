@@ -15,10 +15,10 @@
                             <div class="input_field">
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <select class="inputtxt" name="material_type">
-                                            <option value="journal" [selected]="data.details.type === 'journal'"> Journal </option>
-                                            <option value="magazine" [selected]="data.details.type === 'magazine'"> Magazine </option>
-                                            <option value="newspaper" [selected]="data.details.type === 'newspaper'"> Newspaper </option>
+                                        <select class="inputtxt" name="periodical_type">
+                                            <option value="0" [selected]="article.periodical_type === 0"> Journal </option>
+                                            <option value="1" [selected]="article.periodical_type === 1"> Magazine </option>
+                                            <option value="2" [selected]="article.periodical_type === 2"> Newspaper </option>
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Type of Material </div>
@@ -30,8 +30,8 @@
                                     </div>
                                     <div class="txt_field">
                                         <select class="inputtxt" name="language">
-                                            <option value="english" [selected]="data.details.language === 'english'"> English </option>
-                                            <option value="tagalog" [selected]="data.details.language === 'english'"> Tagalog </option>
+                                            <option value="English" [selected]="article.language === 'English'"> English </option>
+                                            <option value="Tagalog" [selected]="article.language === 'Tagalog'"> Tagalog </option>
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Language </div>
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="title" [placeholder]="data.details.title" [value]="data.details.title">
+                                        <input class="inputtxt" type="text" name="title" [placeholder]="article.title" [value]="article.title">
                                         <span></span>
                                         <div class="labelline"> Title </div>
                                     </div>
@@ -84,7 +84,7 @@
 
                                 <div class="input-row">
                                     <div class="txtarea">
-                                        <textarea name="abstract">{{data.details.abstract}}</textarea>
+                                        <textarea name="abstract">{{article.abstract}}</textarea>
                                         <span></span>
                                         <label class="labelline1"> Abstract </label>
                                     </div>
@@ -97,7 +97,7 @@
                                         <div class="labelline"> Issue </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="subject" [placeholder]="data.details.subject" [value]="data.details.subject">
+                                        <input class="inputtxt" type="text" name="subject" [placeholder]="article.subject" [value]="article.subject">
                                         <span></span>
                                         <div class="labelline"> Subject </div>
                                     </div>
@@ -110,7 +110,7 @@
                                         <div class="uploadlabel"> Abstract </div>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="text" name="issue" [placeholder]="data.details.issue" [value]="data.details.issue">
+                                        <input class="inputtxt" type="text" name="issue" [placeholder]="article.issue" [value]="article.issue">
                                         <span></span>
                                         <div class="labelline"> Issue </div>
                                     </div>
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="remarks" [value]="data.details.remarks">
+                                        <input class="inputtxt" type="text" name="remarks" [value]="article.remarks">
                                         <span></span>
                                         <div class="labelline"> Remarks </div>
                                     </div>

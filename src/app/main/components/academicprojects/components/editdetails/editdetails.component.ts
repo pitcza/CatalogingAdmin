@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 import { DataService } from '../../../../../services/data.service';
+import { ProjectService } from '../../../../../services/materials/project/project.service';
 
 @Component({
   selector: 'app-editdetails',
@@ -27,6 +28,7 @@ export class EditdetailsComponent implements OnInit{
   departmentFilter = '';
   programFilter: any;
   programCategory: any;
+  project: any;
   values = [''];
   tags = [''];
 
@@ -35,40 +37,45 @@ export class EditdetailsComponent implements OnInit{
     private ref: MatDialogRef<EditdetailsComponent>, 
     private buildr: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private ds: DataService,
+    private projectService: ProjectService,
     private cd: ChangeDetectorRef, // for keywords
-  ) {
-    if(data.details.authors != null) {
-      this.values.splice(0, 1);
-      data.details.authors.forEach((author: any) => {
-        this.values.push(author)
-      });
-    }
-
-    if(data.details.keywords) {
-      this.tags.splice(0, 1);
-        data.details.keywords.forEach((keyword: any) => {
-          this.tags.push(keyword)
-      }); 
-    }
-  }
+  ) { }
 
   ngAfterViewInit(): void {
     this.cd.detectChanges();
   }
 
   ngOnInit() {
-    this.ds.get('programs').subscribe({
+    this.projectService.getRecord(this.data.details).subscribe((res: any) => {
+      this.project = res;
+      console.log(this.project)
+      
+    if(this.project.authors != null) {
+      this.values.splice(0, 1);
+      this.project.authors.forEach((author: any) => {
+        this.values.push(author)
+      });
+    }
+
+    if(this.project.keywords) {
+      this.tags.splice(0, 1);
+        this.project.keywords.forEach((keyword: any) => {
+          this.tags.push(keyword)
+      }); 
+    }
+    });
+
+    this.projectService.getPrograms().subscribe({
       next: (res: any) => {
         this.programs = res;
-        this.departmentFilter = res[0].department.department;
-        this.programFilter = res[0].program;
-        this.programCategory = res[0].category;
+        this.departmentFilter = this.project.project_program.department_short;
+        this.programFilter = this.project.program_short;
+        this.programCategory = this.project.category;
 
         // Extract unique department names from programs
         const uniqueDepartments = new Set<string>();
         this.programs.forEach((program: any) => {
-            uniqueDepartments.add(program.department.department);
+            uniqueDepartments.add(program.department_short);
         });
 
         // Convert the Set back to an array
@@ -85,12 +92,10 @@ export class EditdetailsComponent implements OnInit{
     const selectDepartment = (document.getElementById("filter-dept") as HTMLSelectElement).value;
     this.departmentFilter = selectDepartment;
 
-    console.log(selectDepartment)
-
     this.programs.some((x: any) => {
-      if(x.department.department == this.departmentFilter) {
+      if(x.department_short == this.departmentFilter) {
         this.programCategory = x.category;
-        this.programFilter = x.id;
+        this.programFilter = x.program_short;
         return true; 
       }
       return false; 
@@ -102,6 +107,7 @@ export class EditdetailsComponent implements OnInit{
   changedProgram(event: Event) {
     const selectProgram = (document.getElementById('filter-pro') as HTMLSelectElement).value;
     this.programFilter = selectProgram;
+    console.log(selectProgram)
 
     this.changeCategory();
   }
@@ -255,9 +261,7 @@ export class EditdetailsComponent implements OnInit{
       if ((element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'DATE'
       || element.tagName === 'TEXTAREA') && element.id != 'submit-button') {
 
-        if(element.name == 'program_id') {
-          formData.append(element.name, '1');
-        } else if (element.type === 'file' && element.files && element.files.length > 0) {
+        if (element.type === 'file' && element.files && element.files.length > 0) {
           formData.append(element.name, element.files[0]);
         } else if (element.name === 'author') {
           authorElements.push(element.value)
@@ -273,7 +277,7 @@ export class EditdetailsComponent implements OnInit{
     formData.append('authors', JSON.stringify(authorElements));
     formData.append('keywords', JSON.stringify(keywords))
     formData.append('_method', 'PUT');
-    this.ds.post('projects/process/' + this.data.details.id, formData).subscribe({
+    this.projectService.updateRecord(this.data.details, formData).subscribe({
       next: (res: any) => {
         console.log(res)
         Swal.fire({

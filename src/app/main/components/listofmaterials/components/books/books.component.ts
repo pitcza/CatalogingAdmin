@@ -18,6 +18,7 @@ import { BookDetailsPopupComponent } from '../book-details-popup/book-details-po
 import { DataService } from '../../../../../services/data.service';
 import { get } from 'http';
 import { filter } from 'rxjs';
+import { BookService } from '../../../../../services/materials/book/book.service';
 
 @Component({
   selector: 'app-books',
@@ -53,6 +54,7 @@ export class BooksComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
+    private bookService: BookService,
     private ds: DataService
   ) { 
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
@@ -61,7 +63,7 @@ export class BooksComponent implements OnInit {
   protected books: any = null;
 
   protected getData() {
-    this.ds.get('books').subscribe({
+    this.bookService.getAll().subscribe({
       next: (res: any) =>  {
         console.log(res)
         this.materials = res;        
@@ -83,33 +85,30 @@ export class BooksComponent implements OnInit {
       }
 
       const authorFilterPredicate = (data: BookElement, search: string): boolean => {
+        if (!Array.isArray(data.authors)) {
+          return false;
+        }
+
         return data.authors.some((x: any) => {
           return x.toLowerCase().trim().includes(search.toLowerCase().trim());
         });
       }
 
       const locationFilterPredicate = (data: BookElement, search: string): boolean => {
-        return data.location.location.toLowerCase().includes(search.toLowerCase());
+        if(!data.location) {
+          return false;
+        }
+
+        return data.location.toLowerCase().includes(search.toLowerCase());
       }
 
       const copyrightFilterPredicate = (data: BookElement, search: string): boolean => {
-        return data.copyright == search;
+        if(!data.copyright) {
+          return false;
+        }
+        
+        return data.copyright.includes(search);
       }
-
-      // const start = (document.getElementById('datepicker-start') as HTMLInputElement).value;
-      // const end = (document.getElementById('datepicker-end') as HTMLInputElement).value;
-
-      // const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
-      //   if(start == '')
-      //       return true;
-      //   return Date.parse(data.create_date) >= Date.parse(start);
-      // }
-
-      // const endFilterPredicate = (data: PeriodicElement, end: string): boolean => {
-      //   if(end == '')
-      //       return true;
-      //   return Date.parse(data.create_date) <= Date.parse(end);
-      // }
 
       const filterPredicate = (data: BookElement): boolean => {
         return (titleFilterPredicate(data, search) ||
@@ -124,7 +123,7 @@ export class BooksComponent implements OnInit {
   }
 
   // SWEETALERT ARCHIVE POPUP
-  archiveBox(id: any){
+  archiveBox(accession: any){
     Swal.fire({
       title: "Archive Book",
       text: "Are you sure want to archive this book?",
@@ -143,7 +142,7 @@ export class BooksComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.delete('books/process/' + id).subscribe({
+        this.bookService.deleteRecord(accession).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
@@ -196,7 +195,7 @@ export class BooksComponent implements OnInit {
       exitAnimationDuration: '100ms',
       data: {
         title: title,
-        details: data
+        accession: data
       }
     });
     _popup.afterClosed().subscribe(result => {
@@ -209,12 +208,8 @@ export class BooksComponent implements OnInit {
 }
 
 export interface BookElement {
-  created_at: Date;
   title: string;
   authors: any;
-  location: any;
+  location: string;
   copyright: string;
-  date_published: Date;
-  volume: number;
-  [key: string]: any;
 }

@@ -12,6 +12,7 @@ import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsComponent } from '../article-details/article-details.component';
 import { DataService } from '../../../../../../../services/data.service';
 import { CommonModule } from '@angular/common';
+import { ArticleService } from '../../../../../../../services/materials/article/article.service';
 
 @Component({
   selector: 'app-magazines',
@@ -32,12 +33,23 @@ export class MagazinesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
+  constructor(
+    private router: Router,
+    private paginatorIntl: MatPaginatorIntl, 
+    private elementRef: ElementRef, 
+    private changeDetectorRef: ChangeDetectorRef,
+    private dialog: MatDialog,
+    private articleService: ArticleService
+  ) {
+  this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
+  }
+
   ngOnInit(): void {
       this.getData();
   }
 
   getData() {
-    this.ds.get('articles/type/magazine').subscribe({
+    this.articleService.getMagazines().subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<MagazineArticle>(res)
         this.dataSource.paginator = this.paginator;
@@ -52,17 +64,6 @@ export class MagazinesComponent implements OnInit {
         this.publishers = Array.from(publishers);
       }
     })
-  }
-
-  constructor(
-    private router: Router,
-    private paginatorIntl: MatPaginatorIntl, 
-    private elementRef: ElementRef, 
-    private changeDetectorRef: ChangeDetectorRef,
-    private dialog: MatDialog,
-    private ds: DataService
-  ) {
-  this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   // POP UPS
@@ -98,7 +99,7 @@ export class MagazinesComponent implements OnInit {
   }
 
   // ARCHIVE POP UP
-  archiveBox(id: number){
+  archiveBox(id: string){
     Swal.fire({
       title: "Archive Book",
       text: "Are you sure want to archive this article?",
@@ -117,7 +118,7 @@ export class MagazinesComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.delete('articles/process/' + id).subscribe({
+        this.articleService.deleteRecord(id).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

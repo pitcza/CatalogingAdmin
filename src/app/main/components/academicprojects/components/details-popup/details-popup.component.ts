@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DataService } from '../../../../../services/data.service';
 
 import Swal from 'sweetalert2';
+import { ProjectService } from '../../../../../services/materials/project/project.service';
 
 @Component({
   selector: 'app-details-popup',
@@ -14,17 +15,20 @@ import Swal from 'sweetalert2';
 export class DetailsPopupComponent implements OnInit{
 
   errorImage = '../../../../../../assets/images/NoImage.png';
-
-  ngOnInit(): void {
-    console.log(this.data)
-  }
+  project: any;
 
   constructor(
     private ref: MatDialogRef<DetailsPopupComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
-    private ds: DataService  
+    private projectService: ProjectService
   ) { }
+
+  ngOnInit(): void {
+    this.projectService.getRecord(this.data.details).subscribe((res:any) => {
+      this.project = res;
+    })
+  }
 
   closepopup() {
     this.ref.close('Closed using function');

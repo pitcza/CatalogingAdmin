@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { DataService } from '../../../../../services/data.service';
 
 import { Router } from '@angular/router';
+import { BookService } from '../../../../../services/materials/book/book.service';
 
 @Component({
   selector: 'app-book-details-popup',
@@ -18,15 +19,19 @@ export class BookDetailsPopupComponent {
     private ref: MatDialogRef<BookDetailsPopupComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
-    private ds: DataService,
+    private bookService: BookService,
     private router: Router
   ) { }
 
   protected image: any;
   errorImage = '../../../../../../assets/images/NoImage.png';
+  book: any;
 
   ngOnInit(): void {
-    console.log(this.data.details)
+    this.bookService.getRecord(this.data.accession).subscribe({
+      next: (res: any) =>  this.book = res,
+      error: (err: any) => console.log(err)
+    })
   }
 
   closepopup() {
@@ -53,7 +58,7 @@ export class BookDetailsPopupComponent {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.delete('books/process/' + this.data.details.id).subscribe({
+        this.bookService.deleteRecord(this.book.accession).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

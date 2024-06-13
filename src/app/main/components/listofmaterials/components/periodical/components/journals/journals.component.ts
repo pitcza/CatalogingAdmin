@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PerioDetailsComponent } from '../perio-details/perio-details.component';
 import { DataService } from '../../../../../../../services/data.service';
+import { PeriodicalService } from '../../../../../../../services/materials/periodical/periodical.service';
 
 @Component({
   selector: 'app-journals',
@@ -37,14 +38,15 @@ export class JournalsComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
-    private ds: DataService
+    private periodicalService: PeriodicalService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   getData() {
-    this.ds.get('periodicals/type/journal').subscribe({
+    this.periodicalService.getJournals().subscribe({
       next: (res: any) => {
+        console.log(res)
         this.dataSource = new MatTableDataSource<Journal>(res)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -94,7 +96,7 @@ export class JournalsComponent implements OnInit {
   }
 
   // SWEETALERT ARCHIVE POP UP
-  archiveBox(id: number){
+  archiveBox(id: string){
     Swal.fire({
       title: "Archive Journal",
       text: "Are you sure want to archive this journal?",
@@ -113,7 +115,7 @@ export class JournalsComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.delete('periodicals/process/' + id).subscribe({
+        this.periodicalService.deleteRecord(id).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

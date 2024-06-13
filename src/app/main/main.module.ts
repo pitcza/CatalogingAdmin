@@ -15,6 +15,7 @@ import { ListofmaterialsModule } from './components/listofmaterials/listofmateri
 
 import { ReportsComponent } from './components/reports/reports.component';
 import { ReportsModule } from './components/reports/reports.module';
+import { MaterialModule } from '../modules/material/material.module';
 
 import { LoadingComponent } from './components/loading/loading.component';
 
@@ -33,7 +34,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     ListofmaterialsModule,
     ReportsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    MaterialModule
   ],
   exports: [
     LoadingComponent

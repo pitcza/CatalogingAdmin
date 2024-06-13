@@ -15,10 +15,10 @@
                             <div class="input_field">
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <select class="inputtxt" name="material_type">
-                                            <option value="magazine" [selected]="data.details.type === 'magazine'"> Magazine </option>
-                                            <option value="journal" [selected]="data.details.type === 'journal'"> Journal </option>
-                                            <option value="newspaper" [selected]="data.details.type === 'newspaper'"> Newspaper </option>
+                                        <select class="inputtxt" name="periodical_type">
+                                            <option value="0" [selected]="periodical.periodical_type === 0"> Journal </option>
+                                            <option value="1" [selected]="periodical.periodical_type === 1"> Magazine </option>
+                                            <option value="2" [selected]="periodical.periodical_type === 2"> Newspaper </option>
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Type of Material </div>
@@ -30,8 +30,8 @@
                                     </div>
                                     <div class="txt_field">
                                         <select class="inputtxt" name="language">
-                                            <option value="english" [selected]="data.details.language === 'english'"> English </option>
-                                            <option value="tagalog" [selected]="data.details.language === 'tagalog'"> Tagalog </option>
+                                            <option value="English" [selected]="periodical.language === 'English'"> English </option>
+                                            <option value="Tagalog" [selected]="periodical.language === 'Tagalog'"> Tagalog </option>
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Language </div>
@@ -40,7 +40,7 @@
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="title" [placeholder]="data.details.title" [value]="data.details.title">
+                                        <input class="inputtxt" type="text" name="title" [placeholder]="periodical.title" [value]="periodical.title">
                                         <span></span>
                                         <div class="labelline"> Title </div>
                                     </div>
@@ -104,7 +104,7 @@
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="remarks" [value]="data.details.remarks">
+                                        <input class="inputtxt" type="text" name="remarks" [value]="periodical.remarks">
                                         <span></span>
                                         <div class="labelline"> Remarks </div>
                                     </div>

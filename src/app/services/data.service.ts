@@ -17,8 +17,8 @@ export class DataService {
   ) { }
   
   private cache = new Map<string, any>();
-  private baseUrl:string = 'http://127.0.0.1:8000/api/';
-  // private baseUrl:string = 'http://192.168.68.124:8000/api/';
+  // private baseUrl:string = 'http://127.0.0.1:8000/api/';
+  private baseUrl:string = 'http://26.68.32.39:8000/api/';
 
   // private baseUrl:string = 'http://192.168.14.174:8000/api/';
   public get(url: string) {

@@ -2,6 +2,12 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Router } from '@angular/router';
 import { DataService } from '../../../services/data.service';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
+import { BookService } from '../../../services/materials/book/book.service';
+import { share } from 'rxjs';
+import { PeriodicalService } from '../../../services/materials/periodical/periodical.service';
+import { ArticleService } from '../../../services/materials/article/article.service';
+import { kMaxLength } from 'buffer';
 
 @Component({
   selector: 'app-addmaterials',
@@ -9,57 +15,83 @@ import Swal from 'sweetalert2';
   styleUrls: ['./addmaterials.component.scss']
 })
 export class AddmaterialsComponent implements OnInit {
-  constructor(private ds: DataService) {}
 
+  bookForm: FormGroup;
+  periodicalForm: FormGroup;
+  articleForm: FormGroup;
+  bookImage: any = null;
+  periodicalImage: any = null;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private bookService: BookService,
+    private periodicalService: PeriodicalService,
+    private articleService: ArticleService
+  ) {
+    let sharedFields = {
+      accession: ['', Validators.required],
+      title: ['', [Validators.required, Validators.maxLength(255)]],
+      authors: ['', Validators.required],
+      publisher: ['', Validators.required],
+      remarks: [''],
+      pages: ['', Validators.required],
+    };
+
+    this.bookForm = formBuilder.group(Object.assign({}, sharedFields, {
+      copyright: [2024, Validators.required],
+      volume: [''],
+      edition: [''],
+      acquired_date: ['', Validators.required],
+      source_of_fund: ['Purchased', Validators.required],
+      price: [''],
+      location: ['ABCOMM', Validators.required],
+      call_number: ['', Validators.required],
+      author_number: ['', Validators.required],
+      copies: [1, Validators.required]
+    }));
+
+    this.periodicalForm = formBuilder.group(Object.assign({}, sharedFields, {
+      periodical_type: ['0', Validators.required],
+      volume: ['', Validators.required],
+      issue: ['', Validators.required],
+      language: ['English', Validators.required],
+      acquired_date: ['', Validators.required],
+      date_published: ['', Validators.required],
+      copyright: [2024, Validators.required]
+    }));
+
+    this.articleForm = formBuilder.group(Object.assign({}, sharedFields, {
+      periodical_type: ['0', Validators.required],
+      abstract: ['', Validators.required],
+      volume: ['', Validators.required],
+      issue: ['', Validators.required],
+      language: ['English', Validators.required],
+      subject: ['', Validators.required],
+      date_published: ['', Validators.required],
+    }));
+  }
+
+  // form select initializers
   protected locations: any = null;
   currentYear = new Date().getFullYear();
   year: number[] = [];
-  isPurchased = true;
-  tags = [{ name: 'English' }, { name: 'Educational' }, { name: 'Philippine' }];
-  newTag = '';
-  separatorKeysCodes = [13, 188]; // ENTER, COMMA
 
   values = [''];
   authors: string[] = [''];
+  
 
   ngOnInit(): void {
     this.getLocations();
-    this.bookSubmit();
-    this.periodicalSubmit();
-    this.articleSubmit();
 
-    for (let i = 1990; i <= this.currentYear; i++) {
+    for (let i = 1991; i <= this.currentYear; i++) {
       this.year.push(i);
     }
   }
 
-  // Tag management methods
-  addTag() {
-    if (this.newTag && this.newTag.trim()) {
-      this.tags.push({ name: this.newTag.trim() });
-      this.newTag = '';
-    }
-  }
-
-  removeTag(tag: { name: string }) {
-    const index = this.tags.indexOf(tag);
-    if (index >= 0) {
-      this.tags.splice(index, 1);
-    }
-  }
-
-  handleKeydown(event: KeyboardEvent) {
-    if (this.separatorKeysCodes.includes(event.keyCode)) {
-      this.addTag();
-      event.preventDefault();
-    }
-  }
-
-  editTag(tag: { name: string }) {
-    const newName = prompt('Edit tagname', tag.name);
-    if (newName !== null) {
-      tag.name = newName.trim() || tag.name;
-    }
+  protected getLocations() {
+    this.bookService.getLocations().subscribe((res: any) => {
+      this.locations = res;
+    })
   }
 
   // ----- MULTIPLE AUTHORS FUNCTION -----//
@@ -99,230 +131,174 @@ export class AddmaterialsComponent implements OnInit {
 
   changedFunds(event: Event) {
     let price = (document.getElementById('funds') as HTMLInputElement).value;
-    this.isPurchased = price == 'Purchased';
+    if(price == 'Purchased'){
+      this.bookForm.get('price')?.enable();
+      this.bookForm.get('price')?.addValidators(Validators.required);
+    } else {
+      this.bookForm.get('price')?.disable();
+      this.bookForm.get('price')?.clearValidators();
+    }
   }
 
-  protected bookSubmit() {
-    var form = document.getElementById('book-form') as HTMLFormElement;
+  imageUpload(event: Event, type: string): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+      if(type == 'book') {
+        this.bookImage = file;
+      } else if (type == 'periodical') {
+        this.periodicalImage = file;
+      }
+    }
+  }
 
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      let valid = true;
-      let validFile = true;
-      const fields = ['title', 'author', 'copyright', 'pages', 'acquired_date', 'source_of_fund', 'location_id', 'call_number', 'copies'];
-      const elements = form.elements;
-      let formData = new FormData();
+  protected materialSubmit(type: string) {
+    switch(type) {
+      case 'book':
+        var addForm = this.bookForm;
+        break;
 
-      for (let i = 0; i < elements.length; i++) {
-        const element = elements[i] as HTMLInputElement;
+      case 'periodical':
+        var addForm = this.periodicalForm;
+        break;
 
-        if (element.tagName === 'INPUT' || element.tagName === 'SELECT' && element.id !== 'submit') {
-          if (element.type !== 'file' && element.value !== '' && element.name != 'author') {
-            formData.append(element.name, element.value);
-          } else if (element.type === 'file' && element.files && element.files.length > 0) {
-            const file = element.files[0];
-            if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
-              formData.append(element.name, element.files[0]);
-            } else {
-              validFile = false;
-            }
-          }
+      case 'article':
+        var addForm = this.articleForm;
+        break;
+      
+      default:
+        return;
+    }
 
-          if (fields.includes(element.name) && element.value == '') {
-            valid = false;
-            element.style.borderColor = 'red';
-          } else {
-            element.style.borderColor = 'black';
-          }
+    addForm.patchValue({
+      authors: JSON.stringify(this.values)
+    });
+
+    if(addForm.valid) {
+      
+      // pass datas to formdata to allow sending of files
+      let form = new FormData();
+      
+      Object.entries(addForm.value).forEach(([key, value]: [string, any]) => {
+        if(value != '' && value != null)
+          form.append(key, value);
+      });
+
+      if(type == 'book') {
+        if(this.bookImage) {
+          form.append('image_url', this.bookImage);
+        }
+      } else if(type == 'periodical') {
+        if(this.periodicalImage) {
+          form.append('image_url', this.periodicalImage);
         }
       }
 
-      formData.append('authors', JSON.stringify(this.values));
+      let formTitle = '';
+      formTitle += form.get('title');
 
-      if (valid && validFile) {
-        this.ds.post('books/process', formData).subscribe({
+      if(type == 'book') {
+        this.bookService.addRecord(form).subscribe({
           next: (res: any) => {
-            Swal.fire({
-              title: 'Success',
-              text: formData.get('title') + " has been added successfully",
-              icon: 'success',
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-            });
-          },
+            this.successMessage(formTitle)
+            },
           error: (err: any) => {
-            Swal.fire({
-              title: 'Error',
-              text: "Oops an error occured",
-              icon: 'error',
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-            });
+            this.serverErrors();
           }
         });
-      } else if (!validFile) {
-        Swal.fire({
-          title: 'Oops! Error on form',
-          text: 'Invalid image. Must be of type png, jpeg, or jpg.',
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
+      } else if(type == 'periodical') {
+        this.periodicalService.addRecord(form).subscribe({
+          next: (res: any) => {
+            this.successMessage(formTitle)
+            },
+          error: (err: any) => {
+            this.serverErrors();
+          }
         });
-      } else {
-        Swal.fire({
-          title: 'Oops! Error on form',
-          text: 'Please check if required fields have values',
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
+      } else if(type == 'article') {
+        this.articleService.addRecord(form).subscribe({
+          next: (res: any) => {
+            this.successMessage(formTitle)
+            },
+          error: (err: any) => {
+            this.serverErrors();
+          }
         });
       }
+    } else {
+      this.displayErrors(type);
+    }
+
+  }
+
+  successMessage(title:string) {
+    Swal.fire({
+      title: 'Success',
+      text: title + " has been added successfully",
+      icon: 'success',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
     });
   }
 
-  protected getLocations() {
-    this.ds.get('books/locations').subscribe((res: any) => {
-      this.locations = res;
+  serverErrors() {
+    Swal.fire({
+      title: 'Oops! Server Side Error!',
+      text: 'Please try again later or contact the developers',
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
     });
   }
+  
+  displayErrors(type: string) {
+    if(type == 'book') {
+      var form = this.bookForm;
+    } else if(type == 'periodical') {
+      var form = this.periodicalForm;
+    } else if(type == 'article') {
+      var form = this.articleForm;
+    } else {
+      return;
+    }
 
-  protected periodicalSubmit() {
-    var form = document.getElementById('periodical-form') as HTMLFormElement;
+    let maxLengthFields = '';
+    let requiredFields = '';
+    Object.keys(form.controls).forEach(key => {
+      const control = form.get(key);
+      if (control && control.errors) {
+        const controlErrors = control.errors;
+        Object.keys(controlErrors).forEach(errorKey => {
+          switch (errorKey) {
+            case 'required':
+              requiredFields += `${key}, `;
+              break;
 
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const elements = form.elements;
-      let formData = new FormData();
-      let fields = ['material_type', 'author', 'title', 'issue', 'language', 'receive_date', 'date_published', 'copyright', 'publisher', 'volume', 'pages'];
-      let valid = true;
-      let validFile = true;
+            case 'maxlength':
+              maxLengthFields += `${key}, `;
+              break;
 
-      for (let i = 0; i < elements.length; i++) {
-        const element = elements[i] as HTMLInputElement;
-
-        if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
-          if (element.type !== 'file' && element.id !== 'submit' && element.value !== '' && element.name != 'author') {
-            formData.append(element.name, element.value);
-          } else if (element.type === 'file' && element.files && element.files.length > 0) {
-            const file = element.files[0];
-            if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
-              formData.append(element.name, element.files[0]);
-            } else {
-              validFile = false;
-            }
+            default:
+              break;
           }
-
-          if (fields.includes(element.name) && element.value == '') {
-            valid = false;
-            element.style.borderColor = 'red';
-          } else {
-            element.style.borderColor = 'black';
-          }
-        }
-      }
-
-      formData.append('authors', JSON.stringify(this.values));
-
-      if (valid && validFile) {
-        this.ds.post('periodicals/process', formData).subscribe({
-          next: (res: any) => {
-            Swal.fire({
-              title: 'Success',
-              text: formData.get('title') + " has been added successfully",
-              icon: 'success',
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-            });
-          },
-          error: (err: any) => {
-            Swal.fire({
-              title: 'Error',
-              text: "Oops an error occured",
-              icon: 'error',
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-            });
-          }
-        });
-      } else if (!validFile) {
-        Swal.fire({
-          title: 'Oops! Error on form',
-          text: 'Invalid image. Must be of type png, jpeg, or jpg.',
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-        });
-      } else {
-        Swal.fire({
-          title: 'Oops! Error on form',
-          text: 'Please check if required fields have values',
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
         });
       }
     });
-  }
 
-  protected articleSubmit() {
-    var form = document.getElementById('article-form') as HTMLFormElement;
+    let errorText = '';
+    console.log(requiredFields)
+    if(requiredFields.length > 1) {
+      errorText = errorText + '<b>Required Fields: </b>' + requiredFields.substring(0, requiredFields.length - 2) + '<br>';
+    } else if(maxLengthFields.length > 1) {
+      errorText += '<b>Fields Exceeding Allowed Lengths: </b>' + maxLengthFields.substring(0, maxLengthFields.length - 2);
+    }
 
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const elements = form.elements;
-      let formData = new FormData();
-      let fields = ['material_type', 'author', 'title', 'subject', 'abstract', 'issue', 'language', 'receive_date', 'date_published', 'copyright', 'publisher', 'volume', 'pages'];
-      let valid = true;
-
-      for (let i = 0; i < elements.length; i++) {
-        const element = elements[i] as HTMLInputElement;
-
-        if (element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
-          if (element.type !== 'submit' && element.value !== '') {
-            formData.append(element.name, element.value);
-          }
-
-          if (fields.includes(element.name) && element.value == '') {
-            valid = false;
-            element.style.borderColor = 'red';
-          } else {
-            element.style.borderColor = 'black';
-          }
-        }
-      }
-
-      formData.append('authors', JSON.stringify(this.values));
-
-      if (valid) {
-        this.ds.post('articles/process', formData).subscribe({
-          next: (res: any) => {
-            Swal.fire({
-              title: 'Success',
-              text: formData.get('title') + " has been added successfully",
-              icon: 'success',
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-            });
-          },
-          error: (err: any) => {
-            Swal.fire({
-              title: 'Error',
-              text: "Oops an error occured",
-              icon: 'error',
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-            });
-          }
-        });
-      } else {
-        Swal.fire({
-          title: 'Oops! Error on form',
-          text: "Please check if required fields have values",
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-        });
-      }
+    Swal.fire({
+      title: 'Oops! Submission Error!',
+      html: errorText,
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
     });
   }
 }
