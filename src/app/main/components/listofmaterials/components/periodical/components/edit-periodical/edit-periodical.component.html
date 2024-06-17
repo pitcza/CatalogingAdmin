@@ -11,27 +11,27 @@
                 <!-- BODY - DETAILS -->
                 <div class="detailsbody">
                     <div class="details">
-                        <form id="edit-form" enctype="multipart/form-data">
+                        <form id="edit-form" enctype="multipart/form-data" [formGroup]="editForm">
                             <div class="input_field">
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <select class="inputtxt" name="periodical_type">
-                                            <option value="0" [selected]="periodical.periodical_type === 0"> Journal </option>
-                                            <option value="1" [selected]="periodical.periodical_type === 1"> Magazine </option>
-                                            <option value="2" [selected]="periodical.periodical_type === 2"> Newspaper </option>
+                                        <select class="inputtxt" formControlName="periodical_type">
+                                            <option value="0" > Journal </option>
+                                            <option value="1" > Magazine </option>
+                                            <option value="2" > Newspaper </option>
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Type of Material </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="accession" [value]="data.details.accession">
+                                        <input class="inputtxt" type="text" formControlName="accession" [placeholder]="periodical.accession">
                                         <span></span>
                                         <div class="labelline"> Accession No. </div>
                                     </div>
                                     <div class="txt_field">
-                                        <select class="inputtxt" name="language">
-                                            <option value="English" [selected]="periodical.language === 'English'"> English </option>
-                                            <option value="Tagalog" [selected]="periodical.language === 'Tagalog'"> Tagalog </option>
+                                        <select class="inputtxt" formControlName="language">
+                                            <option value="English" > English </option>
+                                            <option value="Tagalog" > Tagalog </option>
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Language </div>
@@ -40,7 +40,7 @@
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="title" [placeholder]="periodical.title" [value]="periodical.title">
+                                        <input class="inputtxt" type="text" formControlName="title" [placeholder]="periodical.title">
                                         <span></span>
                                         <div class="labelline"> Title </div>
                                     </div>
@@ -72,12 +72,12 @@
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="publisher" [placeholder]="data.details.publisher" [value]="data.details.publisher">
+                                        <input class="inputtxt" type="text" formControlName="publisher" [placeholder]="periodical.publisher || 'N/A'" >
                                         <span></span>
                                         <div class="labelline"> Publisher </div>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="number" min="0" name="copyright" [placeholder]="data.details.copyright" [value]="data.details.copyright">
+                                        <input class="inputtxt" type="number" min="0" formControlName="copyright"  >
                                         <span></span>
                                         <div class="labelline"> Copyright </div>
                                     </div>
@@ -85,17 +85,17 @@
                                 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="number" min="0" name="volume"  [placeholder]="data.details.volume" [value]="data.details.volume">
+                                        <input class="inputtxt" type="text" formControlName="volume"  [placeholder]="periodical.volume || 'N/A'" >
                                         <span></span>
                                         <div class="labelline"> Volume </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="number" min="0" name="pages" [placeholder]="data.details.pages" [value]="data.details.pages">
+                                        <input class="inputtxt" type="number" min="0" formControlName="pages" [placeholder]="periodical.pages || 'N/A'" >
                                         <span></span>
                                         <div class="labelline"> Pages </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="issue" [placeholder]="data.details.issue" [value]="data.details.issue">
+                                        <input class="inputtxt" type="text" formControlName="issue" [placeholder]="periodical.issue || 'N/A'">
                                         <span></span>
                                         <div class="labelline"> Issue </div>
                                     </div>
@@ -104,7 +104,7 @@
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="remarks" [value]="periodical.remarks">
+                                        <input class="inputtxt" type="text" formControlName="remarks" [placeholder]="periodical.remarks || 'N/A'">
                                         <span></span>
                                         <div class="labelline"> Remarks </div>
                                     </div>
@@ -112,17 +112,17 @@
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="date" name="receive_date" [value]="data.details.receive_date">
+                                        <input class="inputtxt" type="date" formControlName="acquired_date" >
                                         <span></span>
                                         <div class="datelabel"> Date Received </div>
                                     </div> 
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="date" name="date_published" [value]="data.details.date_published">
+                                        <input class="inputtxt" type="date" formControlName="date_published" >
                                         <span></span>
                                         <div class="datelabel"> Publication Date </div>
                                     </div> 
                                     <div class="txt_field"> 
-                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;"> 
+                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;" (change)="imageUpload($event)"> 
                                         <span></span>
                                         <div class="uploadlabel"> Upload Image </div>
                                     </div>

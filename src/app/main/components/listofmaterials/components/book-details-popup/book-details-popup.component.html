@@ -20,7 +20,7 @@
 
                     <div class="details">
                         <div class="body-details">
-                            <img alt="book image" [src]="book.image_url!= null ? book.image_url: errorImage">
+                            <img alt="book image" [src]="book.image_url || errorImage">
                         </div>
 
                         <div class="body-details">
@@ -45,9 +45,6 @@
                                 </p>
                             </span>
                             <span>
-                                <h2> Publisher: </h2> <p> {{ data.details.publisher }} </p>
-                            </span>
-                            <span>
                                 <h2> Publisher: </h2> <p> {{ book.publisher }} </p>
                             </span>
                             <span>
@@ -60,16 +57,16 @@
                                 <h2> Author Number: </h2> <p> {{ book.author_number }} </p>
                             </span>
                             <span>
-                                <h2> Volume: </h2> <p> {{ book.volume != null ? book.volume : 'N/A' }} </p>
+                                <h2> Volume: </h2> <p> {{ book.volume || 'N/A' }} </p>
                             </span>
                             <span>
                                 <h2> Pages: </h2> <p> {{ book.pages }} </p>
                             </span>
                             <span>
-                                <h2> Edition: </h2> <p> {{ book.edition != null ? book.edition : 'N/A' }} </p>
+                                <h2> Edition: </h2> <p> {{ book.edition || 'N/A' }} </p>
                             </span>
                             <span>
-                                <h2> Source of Fund: </h2> <p> {{ book.source_of_fund ? book.source_of_fund : 'N/A' }} </p>
+                                <h2> Source of Fund: </h2> <p> {{ book.source_of_fund || 'N/A' }} </p>
                             </span>
                             <span>
                                 <h2> Date {{ book.source === 'Purchased' ? 'Purchased' : (book.source === 'Donated') ? 'Donated' : 'Acquired' }}: </h2> <p> 
@@ -81,7 +78,7 @@
                                 <h2> Price: </h2> <p> {{ book.price ? '₱ ' + book.price : 'N/A' }} </p>
                             </span>
                             <span>
-                                <h2> Remark: </h2> <p> {{ book.remark != null ? book.remark : 'N/A' }} </p>
+                                <h2> Remark: </h2> <p> {{ book.remarks || 'N/A' }} </p>
                             </span>
                         </div>
                     </div>

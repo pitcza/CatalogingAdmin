@@ -15,12 +15,12 @@
                             <div class="input_field">
                                 <div class="input-row">
                                     <div class="txt_field_shorter">
-                                        <input class="inputtxt" type="text" min="0" formControlName="accession" [value]="book.accession" >
+                                        <input class="inputtxt" type="text" min="0" formControlName="accession">
                                         <span></span>
                                         <div class="labelline"> Accession No. </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="title" [value]="book.title">
+                                        <input class="inputtxt" type="text" formControlName="title">
                                         <span></span>
                                         <div class="labelline"> Title </div>
                                     </div>
@@ -76,33 +76,34 @@
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="publisher" [placeholder]="book.publisher || 'N/A'" [value]="book.publisher">
+                                        <input class="inputtxt" type="text" formControlName="publisher" [placeholder]="book.publisher || 'N/A'">
                                         <span></span>
                                         <div class="labelline"> Publisher </div>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="number" min="1950" name="copyright" [value]="book.copyright">
+                                        <input class="inputtxt" type="number" min="1950" formControlName="copyright">
                                         <span></span>
                                         <div class="labelline"> Copyright </div>
                                     </div>
                                 </div>
 
+                                <!-- [selected]="location.location_short === book.location" -->
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <select class="inputtxt" name="location_id">
-                                            <option *ngFor="let location of locations" [value] = "location.location_short" [selected]="location.location_short === book.location">
+                                        <select class="inputtxt" formControlName="location">
+                                            <option *ngFor="let location of locations" [value] = "location.location_short" >
                                                 {{ location.location_short }}{{ location.location_full ? ': ' + location.location_full : '' }}</option>
                                         </select>
                                         <span></span>
                                         <div class="labelline"> Location </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="call_number" [placeholder]="book.call_number" [value]="book.call_number">
+                                        <input class="inputtxt" type="text" formControlName="call_number" [placeholder]="book.call_number">
                                         <span></span>
                                         <div class="labelline"> Call Number </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="author_number" [placeholder]="book.author_number || 'N/A'" [value]="book.author_number">
+                                        <input class="inputtxt" type="text" formControlName="author_number" [placeholder]="book.author_number || 'N/A'">
                                         <span></span>
                                         <div class="labelline"> Author Number </div>
                                     </div>
@@ -110,17 +111,17 @@
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text"  name="volume" [placeholder]="book.volume || 'N/A'" [value]="book.volume">
+                                        <input class="inputtxt" type="text"  formControlName="volume" [placeholder]="book.volume || 'N/A'">
                                         <span></span>
                                         <div class="labelline"> Volume </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" name="edition" [placeholder]="book.edition || 'N/A'" [value]="book.edition">
+                                        <input class="inputtxt" type="text" formControlName="edition" [placeholder]="book.edition || 'N/A'">
                                         <span></span>
                                         <div class="labelline"> Edition </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="number" min="0" name="pages" [placeholder]="book.pages" [value]="book.pages">
+                                        <input class="inputtxt" type="number" min="0" formControlName="pages" [placeholder]="book.pages">
                                         <span></span>
                                         <div class="labelline"> Pages </div>
                                     </div>
@@ -137,7 +138,7 @@
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" min="0" name="remarks" [placeholder]="book.remarks || 'N/A'" [value]="book.remarks ? book.remarks : ''">
+                                        <input class="inputtxt" type="text" min="0" formControlName="remarks" [placeholder]="book.remarks || 'N/A'">
                                         <span></span>
                                         <div class="labelline"> Remarks </div>
                                     </div>
@@ -145,22 +146,22 @@
                                 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <select class="inputtxt" id="language" name="source_of_fund" required>
-                                            <option value="Purchased" [selected]="book.source_of_fund == 'Purchased'"> Purchased </option>
-                                            <option value="Donated" [selected]="book.source_of_fund == 'Donated'"> Donated </option>
-                                            <option value="Replacement" [selected]="book.source_of_fund == 'Replacement'"> Replacement </option>
+                                        <select class="inputtxt" id="language" formControlName="source_of_fund" required (change)="sourceOfFundEvent($event)">
+                                            <option value="Purchased" > Purchased </option>
+                                            <option value="Donated" > Donated </option>
+                                            <option value="Replacement" > Replacement </option>
                                         </select>
                                         <span></span>
                                         <label class="labelline" for="fund"> Source of Fund </label>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="date" name="acquired_date" [value]="book.acquired_date">
+                                        <input class="inputtxt" type="date" formControlName="acquired_date">
                                         <span></span>
                                         <div class="datelabel"> Date Purchased/Donated </div>
                                     </div> 
                                     <div class="txt_field">
                                         <span class="peso-sign">₱</span>
-                                        <input class="inputtxt-price" type="number" min="0" name="price" [value]="book.price" [disabled]="editForm.get('source_of_fund')?.value != 'Purchased'">
+                                        <input class="inputtxt-price" type="number" min="0" formControlName="price" [value]="book.price">
                                         <span></span>
                                         <div class="labelline1"> Price </div>
                                     </div>
@@ -168,7 +169,7 @@
 
                                 <div class="input-row">
                                     <div class="txt_field"> 
-                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;"> 
+                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;" (change)="uploadImage($event)"> 
                                         <span></span>
                                         <div class="uploadlabel"> Upload Image </div>
                                     </div>

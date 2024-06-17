@@ -23,13 +23,17 @@
                     <div class="input-row">
                         <div class="entryarea">
                             <input type="text" formControlName="accession" >
+                            <!-- <span></span> -->
+                            <!-- <div class="labelline"> Accession No. </div> -->
+
+                            <!-- DI PA GUMAGANA VALIDATION DI KO ALAM BAKIT -->
                             <span [ngClass]="{ 
                                 'errorField': bookForm.get('accession')?.invalid && 
                                 (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched)
                             }"></span>
                             <div class="labelline" [ngClass]="{ 
                                 'errorLabel': bookForm.get('accession')?.invalid && 
-                                (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched) ? 'red' : 'black'
+                                (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched)
                             }"> Accession No. </div>
                         </div>
 
