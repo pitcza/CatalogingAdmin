@@ -17,6 +17,7 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { ReportsModule } from './components/reports/reports.module';
 import { MaterialModule } from '../modules/material/material.module';
 
+
 import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({

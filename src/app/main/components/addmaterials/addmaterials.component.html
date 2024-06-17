@@ -23,12 +23,12 @@
                     <div class="input-row">
                         <div class="entryarea">
                             <input type="text" formControlName="accession" >
-                            <span [ngClass]="{ 
-                                'errorField': bookForm.get('accession')?.invalid && 
+                            <span [ngClass]="{
+                                'errorField': bookForm.get('accession')?.invalid &&
                                 (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched)
                             }"></span>
-                            <div class="labelline" [ngClass]="{ 
-                                'errorLabel': bookForm.get('accession')?.invalid && 
+                            <div class="labelline" [ngClass]="{
+                                'errorLabel': bookForm.get('accession')?.invalid &&
                                 (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched) ? 'red' : 'black'
                             }"> Accession No. </div>
                         </div>
@@ -63,16 +63,16 @@
                             <!--- Display message based on the number of input fields ---->
                             <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
                             <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
-                
+
                     </div>
-            
+
                     <div class="input-row1">
                         <div class="entryarea9">
-                            <input type="text" formControlName="publisher"> 
+                            <input type="text" formControlName="publisher">
                             <span></span>
                             <div class="labelline9"> Publisher </div>
                         </div>
-                        <div class="entryarea8"> 
+                        <div class="entryarea8">
                             <select formControlName="copyright">
                                 <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
                             </select>
@@ -93,13 +93,13 @@
                         </div>
 
                         <div class="entryarea4">
-                            <input type="text" formControlName="call_number"> 
+                            <input type="text" formControlName="call_number">
                             <span></span>
                             <div class="labelline4"> Call Number </div>
                         </div>
 
                         <div class="entryarea4">
-                            <input type="text" formControlName="author_number"> 
+                            <input type="text" formControlName="author_number">
                             <span></span>
                             <div class="labelline4"> Author Number </div>
                         </div>
@@ -119,13 +119,13 @@
                         </div>
 
                         <div class="entryarea4">
-                            <input type="number" formControlName="pages"> 
+                            <input type="number" formControlName="pages">
                             <span></span>
                             <div class="labelline4"> Pages </div>
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea6">
                             <input type="text" formControlName="remarks">
                             <span></span>
@@ -133,7 +133,7 @@
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea7">
                             <input type="date" formControlName="acquired_date">
                             <span></span>
@@ -150,16 +150,18 @@
                             <div class="labelline3"> Source of Fund  </div>
                         </div>
 
-                        <div class="entryarea11"> 
-                            <input type="file" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'book')"> 
-                            <div class="labelline11"> Upload Image</div>
+                        <div class="entryarea11">
+                          <input type="file" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'book')">
+                          <div class="labelline11"> Upload Image</div>
+                          <img *ngIf="bookImageUrl" [src]="bookImageUrl" alt="Image Preview" class="image-preview">
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+
+                    <div class="input-row1">
                         <div class="entryarea5">
                             <span class="peso-sign">₱</span>
-                            <input type="number" formControlName="price"> 
+                            <input type="number" formControlName="price">
                             <span></span>
                             <div class="labelline5"> Price </div>
                         </div>
@@ -234,12 +236,12 @@
                             <!--- Display message based on the number of input fields ---->
                             <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
                             <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
-                
+
                     </div>
 
-                    <div class="input-row1"> 
-                        <div class="entryarea9"> 
-                            <input type="text" formControlName="publisher"> 
+                    <div class="input-row1">
+                        <div class="entryarea9">
+                            <input type="text" formControlName="publisher">
                             <span></span>
                             <div class="labelline9"> Publisher </div>
                         </div>
@@ -262,9 +264,9 @@
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea4">
-                            <input type="text" formControlName="volume"> 
+                            <input type="text" formControlName="volume">
                             <span></span>
                             <div class="labelline4"> Volume </div>
                         </div>
@@ -276,23 +278,23 @@
                         </div>
 
                         <div class="entryarea9">
-                            <input type="text" formControlName="issue"> 
+                            <input type="text" formControlName="issue">
                             <span></span>
                             <div class="labelline9"> Issue </div>
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea6">
-                            <input type="text" formControlName="remarks"> 
+                            <input type="text" formControlName="remarks">
                             <span></span>
                             <div class="labelline6"> Remarks </div>
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea7">
-                            <input type="date" formControlName="acquired_date"> 
+                            <input type="date" formControlName="acquired_date">
                             <span></span>
                             <div class="labelline7"> Date Received </div>
                         </div>
@@ -303,8 +305,8 @@
                             <div class="labelline7"> Publication Date </div>
                         </div>
 
-                        <div class="entryarea11"> 
-                            <input type="file" name="image_url" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'periodical')"> 
+                        <div class="entryarea11">
+                            <input type="file" name="image_url" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'periodical')">
                             <div class="labelline11"> Upload Image</div>
                         </div>
                     </div>
@@ -375,9 +377,9 @@
 
                     </div>
 
-                    <div class="input-row1"> 
-                        <div class="entryarea9"> 
-                            <input type="text" formControlName="publisher"> 
+                    <div class="input-row1">
+                        <div class="entryarea9">
+                            <input type="text" formControlName="publisher">
                             <span></span>
                             <div class="labelline9"> Publisher </div>
                         </div>
@@ -392,7 +394,7 @@
                         </div>
 
                         <div class="entryarea9">
-                            <input type="text" formControlName="volume"> 
+                            <input type="text" formControlName="volume">
                             <span></span>
                             <div class="labelline9"> Volume </div>
                         </div>
@@ -406,7 +408,7 @@
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea9">
                             <input type="text" formControlName="issue">
                             <span></span>
@@ -422,19 +424,19 @@
 
                     <div class="input-row1">
                         <div class="entryarea4">
-                            <input type="text" formControlName="pages"> 
+                            <input type="text" formControlName="pages">
                             <span></span>
                             <div class="labelline4"> Pages </div>
                         </div>
 
                         <div class="entryarea7">
-                            <input type="date"  formControlName="date_published"> 
+                            <input type="date"  formControlName="date_published">
                             <span></span>
                             <div class="labelline7"> Publication Date </div>
                         </div>
                     </div>
 
-                    <div class="input-row1"> 
+                    <div class="input-row1">
                         <div class="entryarea6">
                             <input type="text" formControlName="remarks">
                             <span></span>
