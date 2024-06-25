@@ -9,8 +9,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 
+// POP UPS
 import { EditdetailsComponent } from '../editdetails/editdetails.component';
 import { DetailsPopupComponent } from '../details-popup/details-popup.component';
+import { ImportProjectsComponent } from '../import-projects/import-projects.component';
 import Swal from 'sweetalert2';
 
 import { AddprojectComponent } from '../addproject/addproject.component';
@@ -185,7 +187,23 @@ export class ListofprojectsComponent implements OnInit {
     window.scrollTo(0, scrollPosition);
   }
 
-  Openpopup(details: any, title: any,component:any) {
+  // IMPORT PROJECTS POPUP
+  isModalOpen: boolean = false
+  importProjects(){
+    if(this.isModalOpen) {
+      return
+    }
+    this.isModalOpen = true
+
+    let modal = this.dialog.open(ImportProjectsComponent, {});
+    modal.afterClosed().subscribe(
+      result => {
+        this.isModalOpen = false
+      }
+    )
+  }
+
+  Openpopup(details: any, title: any, component:any) {
     var _popup = this.dialog.open(component, {
       width: '40%',
       enterAnimationDuration: '100ms',

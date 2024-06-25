@@ -10,8 +10,10 @@ import { AddprojectComponent } from './components/addproject/addproject.componen
 // POP UPS
 import { EditdetailsComponent } from './components/editdetails/editdetails.component';
 import { DetailsPopupComponent } from './components/details-popup/details-popup.component';
+import { ImportProjectsComponent } from './components/import-projects/import-projects.component';
 
-import { MatIcon, MatIconModule, MatIconRegistry } from '@angular/material/icon';
+// ANGULAR MAT
+import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatHint } from '@angular/material/form-field';
@@ -20,7 +22,8 @@ import { MatHint } from '@angular/material/form-field';
   declarations: [
     AddprojectComponent,
     EditdetailsComponent,
-    DetailsPopupComponent
+    DetailsPopupComponent,
+    ImportProjectsComponent
   ],
   imports: [
     CommonModule,

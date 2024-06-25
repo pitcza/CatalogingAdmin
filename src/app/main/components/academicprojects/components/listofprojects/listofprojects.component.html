@@ -4,10 +4,16 @@
     <div class="content">
         <div class="head">
             <h1> Academic Projects </h1>
-            <a (click)="redirectToProjectForm()" class="add-project"> 
-                <span> <i class='bx bx-plus-circle'></i> </span>
-                <span> Add Project </span>
-            </a>
+            <div class="add-btns">
+                <a (click)="redirectToProjectForm()" class="add-project"> 
+                    <!-- <span> <i class='bx bx-plus-circle'></i> </span> -->
+                    <span> Add Project </span>
+                </a>
+                <a class="add-project" (click)="importProjects()" (closedPopup)="closePopup()"> 
+                    <!-- <span> <i class='bx bx-import'></i> </span> -->
+                    <span> Import </span>
+                </a>
+            </div>
         </div>
         
         <div class="projects-table">

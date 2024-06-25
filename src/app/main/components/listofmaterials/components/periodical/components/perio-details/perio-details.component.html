@@ -2,78 +2,96 @@
     <div class="container">
         <div class="content">
             <div class="details-content">
-                <!-- HEADER - TITLE -->
+                <!-- HEADER -->
                 <div class="detailsheader">
                     <h1> Periodical: {{ periodical.periodical_type == 0 ? 'Journal' : 
                                             periodical.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} 
                     </h1>
                     <button class="exit-button" (click)="closepopup()"> &times; </button>
                 </div>
-                
-                <!-- BODY - DETAILS -->
+
+                <!-- BODY -->
                 <div class="detailsbody">
-                    <div class="mat-title">
-                        <div class="material-title">
-                            <span>
-                                <h2> {{ periodical.title }} </h2>
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="details">
-                        <div class="body-details">
-                            <img alt="book image" [src]="periodical.image_url ? periodical.image_url : errorImage">
+                    <div class="body">
+                        <div class="details">
+                            <!-- MATERIAL IMAGE -->
+                            <div class="mat-image">
+                                <img class="cover" alt="periodical image" [src]="periodical.image != null ? periodical.image : errorImage">
+                            </div>
+
+                            <div class="mat-details">
+                                <!-- MATERIAL AUTHOR -->
+                                <span class="top-details">
+                                    <h2 class="title">{{ periodical.title }}</h2>
+                                    <h2 class="mat-authors"> 
+                                        <ng-container *ngIf="periodical.authors">
+                                            <ng-container *ngIf="periodical.authors.length > 1">
+                                                <p>
+                                                    by {{ periodical.authors[0] }} et al.
+                                                </p>
+                                            </ng-container>
+                                            <ng-container *ngIf="periodical.authors.length === 1">
+                                                <p>
+                                                    by {{ periodical.authors[0] }}
+                                                </p>
+                                            </ng-container>
+                                        </ng-container>    
+                                
+                                        <ng-container *ngIf="!periodical.authors"> Author/s: N/A </ng-container>
+                                    </h2>
+                                </span>
+
+                                <!-- PUBLISHER -->
+                                <span class="mat-publisher">
+                                    <h2> Published by </h2> 
+                                    <p> {{ periodical.publisher }} </p>
+                                    <span>
+                                        <h2> Publication Date: </h2> <p> {{ periodical.date_published | date: 'mediumDate' }} </p>
+                                    </span>
+                                </span>
+
+                                <!-- VOLUME, ISSUE, AND PAGES -->
+                                <span class="bottom-details">
+                                    <span> <h2>Volume {{ periodical.volume != null ? periodical.volume : 'N/A' }}   |   Issue {{ periodical.issue != null ? periodical.issue : 'N/A' }}</h2> </span>
+                                    <span> <h2>{{ periodical.pages }} Pages</h2> </span>
+                                </span>
+
+                            </div>
                         </div>
 
-                        <div class="body-details">
-                            <span>
-                                <h2> Accession Number: </h2> <p> {{ periodical.accession }} </p>
-                            </span>
-                            <span>
-                                <h2> Author/s: </h2> 
-                                <p>
-                                <ng-container *ngFor="let author of periodical.authors; let last = last">
-                                        {{ author }}{{ !last ? ', ' : '' }}
-                                    <br>
-                                </ng-container>    
-                                </p>
-                            </span>
-                            <span>
-                                <h2> Publisher: </h2> <p> {{ periodical.publisher }} </p>
-                            </span>
-                            <span>
-                                <h2> Publication Date: </h2> <p> {{ periodical.date_published | date: 'mediumDate' }} </p>
-                            </span>
-                            <span>
-                                <h2> Copyright: </h2> <p> {{ periodical.copyright }} </p>
-                            </span>
-                            <span>
-                                <h2> Volume: </h2> <p> {{ periodical.volume != null ? periodical.volume : 'N/A' }} </p>
-                            </span>
-                            <span>
-                                <h2> Pages: </h2> <p> {{ periodical.pages }} </p>
-                            </span>
-                            <span>
-                                <h2> Issue: </h2> <p> {{ periodical.issue != null ? periodical.issue : 'N/A' }} </p>
-                            </span>
-                            <span>
-                                <h2> Language: </h2> <p> {{ periodical.language | titlecase }} </p>
-                            </span>
-                            <span>
-                                <h2> Date Received: </h2> <p> {{ periodical.acquired_date | date: 'mediumDate' }} </p>
-                            </span>
-                            <span>
-                                <h2> Remark: </h2> <p> {{ periodical.remarks != null ? periodical.remarks : 'N/A' }} </p>
-                            </span>
+                        <div class="details">
+                            <!-- COPYRIGHT, REMARK, AND DATE RECEIVED -->
+                            <div class="mat-content">
+                                <div class="mat-details">
+                                    <span>
+                                        <h2> Copyright: <p> {{ periodical.copyright }} </p> </h2>
+                                        <h2> Remark: <p> {{ periodical.remarks != null ? periodical.remarks : 'N/A' }} </p> </h2>
+                                        <h2> Date Received: <p> {{ periodical.acquired_date | date: 'mediumDate' }} </p> </h2>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- ACCESSION NO. AND LANGUAGE -->
+                            <div class="mat-info">
+                                <span class="info">
+                                    <h2> Accession No. </h2> 
+                                    <p>{{ periodical.accession }}</p>
+                                </span>
+                                <span class="info">
+                                    <h2> Language </h2> 
+                                    <p>{{ periodical.language }}</p>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                
-                    <!-- BUTTONS -->
+
                     <div class="button-container">
+                        <!--<button class="edit-btn"> Edit </button>-->
                         <button class="delete-btn" (click)="archiveBox()"> Archive </button>
                     </div>
                 
                 </div>
+                
             </div>
         </div>
     </div>

@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 999;
 }
 
 .details-content {
@@ -36,7 +36,7 @@
     padding-bottom: 15px;
 }
 
-// CLOSE BUTTON
+// CLOSE ICON
 .exit-button {
     position: relative;
     top: 0;
@@ -85,109 +85,103 @@ h1 {
 
 // BODY DETAILS //
 .detailsbody {
-    padding: 100px 30px 10px 30px;
+    padding: 100px 30px 30px 30px;
     height: auto; /* Adjust the height as needed */
 }
 
 .details {
-    display: flex;
-    justify-content: space-between;
+    margin-bottom: 30px;
 }
 
-// MATERIAL TITLE
-.mat-title {
-    display: flex;
-    justify-content: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.mat-title .material-title {
-    text-align: left;
-    padding: 15px;
-    background-color: var(--container-color);
-    width: 100%;
-}
-
-.material-title span {
-    display: flex;
-    justify-content: center;
-}
-
-.material-title h2 {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-}
-
-img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-.details .body-details {
-    flex-basis: 50%;
-    text-align: left;
-    padding: 15px;
-}
-
-.body-details span {
-    display: flex;
+.details .mat-details {
     padding: 10px;
-    width: 100%;
-    transition: all 0.5s ease;
+
+    .title {
+        font-size: 22px;
+        font-weight: 800;
+        padding-bottom: 15px;
+        padding-top: 15px;
+        margin-top: 15px;
+        border-top: 1px solid var(--table-border);
+    }
+
+    .mat-authors {
+        font-size: 15px;
+        font-weight: 400;
+        margin-bottom: 15px;
+    }
+
+    .mat-abstract {
+        padding: 15px 0;
+        margin: 15px 0;
+        line-height: 20px;
+
+        h2 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        p {
+            text-align: justify;
+            font-size: 15px;
+            font-weight: 400;
+            text-indent: 3em;
+        }
+    }
+
+    .mat-publisher, .mat-subject, .mat-remark {
+        display: block;
+        line-height: 25px;
+        padding: 15px 0;
+        border-top: 1px solid var(--table-border);
+        border-bottom: 1px solid var(--table-border);
+        margin: 15px 0;
+
+        h2 {
+            display: flex;
+            font-size: 15px;
+            font-weight: 700;
+            margin-right: 5px;
+            p {
+                font-size: 15px;
+                font-weight: 400;
+                padding-left: 5px;
+            }
+        }
+        p {
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        span {
+            display: flex;
+            margin-top: 2px;
+        }
+    }
+
+    .mid-details {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+        
+        h2 {
+            display: flex;
+            font-size: 15px;
+            font-weight: 700;
+            margin-right: 5px;
+
+            p {
+                font-size: 15px;
+                font-weight: 400;
+                padding-left: 5px;
+            }
+        }
+    }
 }
 
-.body-details span:hover {
-    background-color: var(--container-color);
-}
-
-.body-details h2 {
-    font-size: 15px;
-    font-weight: bold;
-    padding-right: 10px;
-}
-
-.body-details p {
-    font-size: 15px;
-    font-weight: 400;
-    text-align: justify;
-}
-
-.details .art-abstract {
-    text-align: left;
-    margin: 15px;
-    padding: 10px;
-    width: 100%;
-    transition: all 0.5s ease;
-}
-
-.art-abstract:hover {
-    background-color: var(--container-color);
-}
-
-.art-abstract span {
-    display: flex;
-}
-
-.art-abstract h2 {
-    font-size: 15px;
-    font-weight: bold;
-    padding-right: 10px;
-    padding-bottom: 15px;
-}
-
-.art-abstract p {
-    font-size: 15px;
-    font-weight: 400;
-    text-align: justify;
-}
-
-// BUTTON
+// BUTTONS
 .button-container {
     margin-top: 20px;
-    margin-bottom: 20px;
     display: flex;
     justify-content: flex-end;
 }
