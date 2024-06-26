@@ -24,8 +24,8 @@
     color: white;
     top: 0;
     border-radius: 3px;
-    font-size: 16px;
-    width: 150px;
+    font-size: 15px;
+    width: 140px;
     height: 40px;
     box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
     transition: .3s;
@@ -33,6 +33,7 @@
 }
 
 .head a {
+    font-weight: 700;
     padding: 10px;
     text-align: center;
     align-items: center;
@@ -499,12 +500,13 @@ input[type="file"]::file-selector-button {
 }
 
 .buttons a, .buttons input {
+    font-family: 'Montserrat';
     border: none;
     padding: 10px;
     text-align: center;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     border-radius: 3px;
     color: white;
     text-decoration: none;

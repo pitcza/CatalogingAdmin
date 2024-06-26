@@ -21,6 +21,7 @@ export class AddmaterialsComponent implements OnInit {
   articleForm: FormGroup;
   bookImage: any = null;
   periodicalImage: any = null;
+  bookImageUrl: string | ArrayBuffer | null = null;  // Add this line
 
   constructor(
     private formBuilder: FormBuilder,
@@ -78,7 +79,7 @@ export class AddmaterialsComponent implements OnInit {
 
   values = [''];
   authors: string[] = [''];
-  
+
 
   ngOnInit(): void {
     this.getLocations();
@@ -91,7 +92,7 @@ export class AddmaterialsComponent implements OnInit {
   protected getLocations() {
     this.bookService.getLocations().subscribe((res: any) => {
       this.locations = res;
-    })
+    });
   }
 
   // ----- MULTIPLE AUTHORS FUNCTION -----//
@@ -144,6 +145,18 @@ export class AddmaterialsComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       const file = input.files[0];
+      const reader = new FileReader();  // Add this
+
+      reader.onload = () => {  // Add this block
+        if (type == 'book') {
+          this.bookImageUrl = reader.result;  // Add this line
+        } else if (type == 'periodical') {
+          // Handle other cases if needed
+        }
+      };
+
+      reader.readAsDataURL(file);  // Add this line
+
       if(type == 'book') {
         this.bookImage = file;
       } else if (type == 'periodical') {
@@ -165,7 +178,7 @@ export class AddmaterialsComponent implements OnInit {
       case 'article':
         var addForm = this.articleForm;
         break;
-      
+
       default:
         return;
     }
@@ -175,10 +188,10 @@ export class AddmaterialsComponent implements OnInit {
     });
 
     if(addForm.valid) {
-      
+
       // pass datas to formdata to allow sending of files
       let form = new FormData();
-      
+
       Object.entries(addForm.value).forEach(([key, value]: [string, any]) => {
         if(value != '' && value != null)
           form.append(key, value);
@@ -250,7 +263,7 @@ export class AddmaterialsComponent implements OnInit {
       confirmButtonColor: "#777777",
     });
   }
-  
+
   displayErrors(type: string) {
     if(type == 'book') {
       var form = this.bookForm;
