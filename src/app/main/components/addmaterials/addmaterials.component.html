@@ -306,9 +306,10 @@
                         </div>
 
                         <div class="entryarea11">
-                            <input type="file" name="image_url" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'periodical')">
+                            <input type="file" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'book')">
                             <div class="labelline11"> Upload Image</div>
-                        </div>
+                            <img *ngIf="bookImageUrl" [src]="bookImageUrl" alt="Image Preview" class="image-preview">
+                          </div>
                     </div>
 
                     <div class="perio-btn">
