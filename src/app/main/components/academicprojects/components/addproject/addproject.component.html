@@ -164,10 +164,35 @@
 
 
                     <div class="input-row" id="no-add-function">
-                        <div class="txt_field">
-                            <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;">
-                            <span></span>
-                            <div class="uploadlabel"> Project Cover </div>
+                        <div class="img-content">
+                            <div class="left">
+                                <div class="txt_field">
+                                    <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" (change)="onFileChange($event)" style="padding-left: 110px;">
+                                    <span></span>
+                                    <div class="uploadlabel"> Project Cover </div>
+                                </div>
+                                <div class="img-crop">
+                                    <ng-container *ngIf="imgChangeEvt">
+                                        <image-cropper
+                                          [imageChangedEvent]="imgChangeEvt"
+                                          [aspectRatio]="3/4"
+                                          [maintainAspectRatio]="true"
+                                          [resizeToWidth]="500"
+                                          format="png"
+                                          (imageCropped)="cropImg($event)"
+                                          (imageLoaded)="imgLoad()"
+                                          (cropperReady)="initCropper()"
+                                          (loadImageFailed)="imgFailed()"
+                                        >
+                                        </image-cropper>
+                                      </ng-container>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="cropped-image-preview" *ngIf="cropImagePreview">
+                                    <img [src]="cropImagePreview" alt="Cropped Image Preview">
+                                </div>
+                            </div>
                         </div>
                         
                     </div>

@@ -17,13 +17,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatHint } from '@angular/material/form-field';
+import { ImageCropperComponent } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
     AddprojectComponent,
     EditdetailsComponent,
     DetailsPopupComponent,
-    ImportProjectsComponent
+    ImportProjectsComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +34,8 @@ import { MatHint } from '@angular/material/form-field';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatHint
+    MatHint,
+    ImageCropperComponent
   ]
 })
 export class AcademicprojectsModule { }

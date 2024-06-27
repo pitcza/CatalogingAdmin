@@ -280,35 +280,6 @@ option {
     }
 }
 
-// INPUT FILE LABEL AND BUTTON
-.txt_field .uploadlabel {
-    position: absolute;
-    top: 0;
-    margin-top: -20px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: var(--input-border);
-    position: absolute;
-    left: 10px;
-}
-
-input[type="file"]::file-selector-button {
-    border-top-left-radius: 5px;
-    font-family: 'Montserrat';
-    color: var(--white);
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-left: -0px;
-    width: 100px;
-    height: 58.5px;
-    cursor: pointer;
-    background-color: var(--main-green);
-    border: none;
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
-    transition: background-color 200ms;
-}
-
 // TEXTAREA
 .input-row .txtarea {
     flex-basis: 100%;
@@ -489,6 +460,78 @@ input[type="file"]::file-selector-button {
     background-size: 100%;
     transition: background 0s;
 }
+
+// INPUT FILE LABEL AND BUTTON
+.txt_field .uploadlabel {
+    position: absolute;
+    top: 0;
+    margin-top: -20px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--input-border);
+    position: absolute;
+    left: 10px;
+}
+
+input[type="file"]::file-selector-button {
+    border-top-left-radius: 5px;
+    font-family: 'Montserrat';
+    color: var(--white);
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: -0px;
+    width: 100px;
+    height: 58.5px;
+    cursor: pointer;
+    background-color: var(--main-green);
+    border: none;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    transition: background-color 200ms;
+}
+
+// FOR IMAGE 
+.img-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    .left {
+        flex: 1;
+        padding-right: 20px;
+
+        .img-crop {
+            width: 100%; /* Ensure the image cropper takes up full width */
+            max-width: 80vw; /* Limit maximum width of the cropper relative to viewport width */
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box; /* Ensure padding is included in width calculation */
+          }
+    }
+
+    .right {
+        flex: 1;
+        padding-left: 20px;
+
+        h2 {
+            width: 300px;
+        }
+
+        .cropped-image-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+          }
+          
+          .cropped-image-preview img {
+            max-width: 100%; /* Ensure the image does not exceed its container */
+            max-height: 100%; /* Ensure the image does not exceed its container */
+            object-fit: contain; /* Preserve aspect ratio and fit within the container */
+          }
+    }
+}
+
 // ----- END OF FORM INPUT SCSS ----- //
 
 // BUTTONS //
