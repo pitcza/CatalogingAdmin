@@ -95,24 +95,27 @@ export class AddmaterialsComponent implements OnInit {
     });
   }
 
-  // ----- MULTIPLE AUTHORS FUNCTION -----//
+  // MULTIPLE AUTHORS FUNCTION     
+
   removevalue(i: any) {
     this.values.splice(i, 1);
   }
 
   addvalue() {
-    if (this.values.length < 3) {
+    if (this.values.length < 5) {
       this.values.push('');
     }
+    console.log(this.values)
   }
 
   updateValue(event: Event, i: number) {
     let input = event.target as HTMLInputElement;
     this.values[i] = input.value;
+    console.log(this.values)
   }
 
   isMaxLimitReached(): boolean {
-    return this.values.length >= 3;
+    return this.values.length >= 5;
   }
 
   addAuthor() {

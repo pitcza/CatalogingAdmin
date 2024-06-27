@@ -14,11 +14,13 @@
 		<input type="radio" id="tab1" name="css-tabs" checked="checked">
 		<input type="radio" id="tab2" name="css-tabs" (change)="emptyValues()">
 		<input type="radio" id="tab3" name="css-tabs" (change)="emptyValues()">
+        <input type="radio" id="tab4" name="css-tabs" (change)="emptyValues()">
 
 		<ul class="tabs">
 			<li class="tab"><label for="tab1">Books</label></li>
 			<li class="tab"><label for="tab2">Periodicals</label></li>
 			<li class="tab"><label for="tab3">Articles</label></li>
+            <li class="tab"><label for="tab4">Audio Video</label></li>
 		</ul>
 
 <!------------------------------ Books Tab ------------------------------------------->
@@ -68,8 +70,8 @@
                         </div>
 
                             <!--- Display message based on the number of input fields ---->
-                            <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
-                            <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
+                            <p *ngIf="values.length < 5">Add more AUTHOR if necessary</p>
+                            <p *ngIf="values.length === 5">Maximum AUTHORS reached</p>
 
                     </div>
 
@@ -234,15 +236,15 @@
                                     </button>
                                 </div>
                             </ng-container>
-                        </div>
 
-                        <div class="addbtn">
+                        </div>
+                            <div class="addbtn">
                             <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
                         </div>
 
                             <!--- Display message based on the number of input fields ---->
-                            <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
-                            <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
+                            <p *ngIf="values.length < 5">Add more AUTHOR if necessary</p>
+                            <p *ngIf="values.length === 5">Maximum AUTHORS reached</p>
 
                     </div>
 
@@ -373,17 +375,17 @@
                                 </button>
                             </div>
                         </ng-container>
-                        </div>
-
-                        <div class="addbtn">
-                            <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
-                        </div>
-
-                            <!--- Display message based on the number of input fields ---->
-                            <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
-                            <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
 
                     </div>
+                        <div class="addbtn">
+                        <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                    </div>
+
+                        <!--- Display message based on the number of input fields ---->
+                        <p *ngIf="values.length < 5">Add more AUTHOR if necessary</p>
+                        <p *ngIf="values.length === 5">Maximum AUTHORS reached</p>
+
+                </div>
 
                     <div class="input-row1">
                         <div class="entryarea9">
@@ -459,6 +461,176 @@
                 </div>
             </form>
         </div>
+
+<!------------------------------ Audio Video Tab ---------------------------------------->
+
+
+        <div class="tab-content">
+            <form id="book-form" enctype="multipart/form-data" [formGroup]="bookForm" (ngSubmit)="materialSubmit('book')">
+                <div class="container">
+
+                    <!-- <div class="input-row">
+                        <div class="entryarea">
+                            <input type="text" formControlName="accession" >
+                            <span [ngClass]="{
+                                'errorField': bookForm.get('accession')?.invalid &&
+                                (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched)
+                            }"></span>
+                            <div class="labelline" [ngClass]="{
+                                'errorLabel': bookForm.get('accession')?.invalid &&
+                                (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched) ? 'red' : 'black'
+                            }"> Accession No. </div>
+                        </div>
+
+                        <div class="entryarea  ">
+                            <input type="text" formControlName="title">
+                            <span></span>
+                            <div class="labelline"> Title</div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="author-container">
+                            <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
+                                <div class="multiple-author">
+                                    <div class="entryarea2">
+                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
+                                        <span></span>
+                                        <div class="labelline2"> Author </div>
+                                    </div>
+                                    <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
+                                        <i class='bx bx-x'></i>
+                                    </button>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                            <div class="addbtn">
+                            <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                        </div> --->
+
+                            <!--- Display message based on the number of input fields ---->
+
+                           <!--- <p *ngIf="values.length < 5">Add more AUTHOR if necessary</p>
+                            <p *ngIf="values.length === 5">Maximum AUTHORS reached</p>
+
+                    </div>
+
+                    <div class="input-row1">
+                        <div class="entryarea9">
+                            <input type="text" formControlName="publisher">
+                            <span></span>
+                            <div class="labelline9"> Publisher </div>
+                        </div>
+                        <div class="entryarea8">
+                            <select formControlName="copyright">
+                                <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
+                            </select>
+                            <span></span>
+                            <div class="labelline8"> Copyright </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1">
+                        <div class="entryarea3">
+                            <select formControlName="location">
+                                <option *ngFor="let location of locations" [value] = "location.location_short">
+                                    {{ location.location_short }}{{ location.full_location ? ': ' + location.location_full : '' }}
+                                </option>
+                            </select>
+                            <span class="source"></span>
+                            <div class="labelline3"> Location </div>
+                        </div>
+
+                        <div class="entryarea4">
+                            <input type="text" formControlName="call_number">
+                            <span></span>
+                            <div class="labelline4"> Call Number </div>
+                        </div>
+
+                        <div class="entryarea4">
+                            <input type="text" formControlName="author_number">
+                            <span></span>
+                            <div class="labelline4"> Author Number </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1">
+                        <div class="entryarea4">
+                            <input type="text" formControlName="volume">
+                            <span></span>
+                            <div class="labelline4"> Volume </div>
+                        </div>
+
+                        <div class="entryarea4">
+                            <input type="text" formControlName="edition">
+                            <span></span>
+                            <div class="labelline4"> Edition </div>
+                        </div>
+
+                        <div class="entryarea4">
+                            <input type="number" formControlName="pages">
+                            <span></span>
+                            <div class="labelline4"> Pages </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1">
+                        <div class="entryarea6">
+                            <input type="text" formControlName="remarks">
+                            <span></span>
+                            <div class="labelline6"> Remarks </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row1">
+                        <div class="entryarea7">
+                            <input type="date" formControlName="acquired_date">
+                            <span></span>
+                            <div class="labelline7"> Date Purchased/Donated </div>
+                        </div>
+
+                        <div class="entryarea3">
+                            <select id="funds" formControlName="source_of_fund" (change)="changedFunds($event)">
+                                <option value="Donated"> Donated </option>
+                                <option value="Purchased" selected> Purchased </option>
+                                <option value="Replacement"> Replacement </option>
+                            </select>
+                            <span class="source"></span>
+                            <div class="labelline3"> Source of Fund  </div>
+                        </div>
+
+                        <div class="entryarea11">
+                        <input type="file" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'book')">
+                        <div class="labelline11"> Upload Image</div>
+                        <img *ngIf="bookImageUrl" [src]="bookImageUrl" alt="Image Preview" class="image-preview">
+                        </div>
+                    </div>
+
+
+                    <div class="input-row1">
+                        <div class="entryarea5">
+                            <span class="peso-sign">₱</span>
+                            <input type="number" formControlName="price">
+                            <span></span>
+                            <div class="labelline5"> Price </div>
+                        </div>
+
+                        <div class="entryarea10">
+                            <input type="number" formControlName="copies" >
+                            <span></span>
+                            <div class="labelline10"> Copies </div>
+                        </div>
+                    </div>
+
+                    <div class="book-btn">
+                        <input class= " button" type="submit" value="Add" id="submit">
+                            <button></button>
+                    </div> -->
+                </div> 
+            </form> 
+        </div> 
+        
     </div>
 </div>
 </div>
