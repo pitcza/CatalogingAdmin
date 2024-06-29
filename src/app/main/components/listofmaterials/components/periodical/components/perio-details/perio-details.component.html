@@ -16,7 +16,7 @@
                         <div class="details">
                             <!-- MATERIAL IMAGE -->
                             <div class="mat-image">
-                                <img class="cover" alt="periodical image" [src]="periodical.image != null ? periodical.image : errorImage">
+                                <img class="cover" alt="periodical image" [src]="periodical.image_url || errorImage">
                             </div>
 
                             <div class="mat-details">

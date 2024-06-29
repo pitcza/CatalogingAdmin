@@ -10,6 +10,7 @@ import { NewspapersComponent } from './components/newspapers/newspapers.componen
 import { EditArticleComponent } from './components/edit-article/edit-article.component';
 import { ArticleDetailsComponent } from './components/article-details/article-details.component';
 import { MaterialModule } from '../../../../../modules/material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { MaterialModule } from '../../../../../modules/material/material.module'
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     // MaterialModule,
     ArticleRoutingModule
   ]

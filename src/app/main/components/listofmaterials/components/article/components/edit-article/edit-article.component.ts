@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DataService } from '../../../../../../../services/data.service';
 import { Inject } from '@angular/core';
@@ -21,17 +21,50 @@ interface MyOption {
 export class EditArticleComponent implements OnInit{
 
   constructor(private ref: MatDialogRef<EditArticleComponent>, 
-    private buildr: FormBuilder,
+    private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private articleService: ArticleService
-  ) { }
+  ) { 
+    this.editForm = formBuilder.group({
+      accession: ['', [Validators.required, Validators.maxLength(20)]],
+      title: ['', [Validators.required, Validators.maxLength(255)]],
+      authors: ['', [Validators.required, Validators.maxLength(255)]],
+      publisher: ['', [Validators.required, Validators.maxLength(100)]],
+      remarks: ['', Validators.maxLength(255)],
+      pages: ['', [Validators.required, Validators.maxLength(20)]],
+      periodical_type: ['0', Validators.required],
+      abstract: ['', [Validators.required, Validators.maxLength(4096)]],
+      volume: ['', [Validators.required, Validators.maxLength(50)]],
+      issue: ['', [Validators.required, Validators.maxLength(50)]],
+      language: ['English', Validators.required],
+      subject: ['', [Validators.required, Validators.maxLength(255)]],
+      date_published: ['', Validators.required]
+    });
+  }
 
   article: any;
+  image: any;
+  editForm: FormGroup;
 
   ngOnInit(): void {
     this.articleService.getRecord(this.data.details).subscribe((res: any) => {
       this.article = res;
       this.values = this.article.authors;
+
+      this.editForm.patchValue({
+        accession: this.article.accession,
+        title: this.article.title,
+        publisher: this.article.publisher,
+        remarks: this.article.remarks,
+        pages: this.article.pages,
+        periodical_type: '' + this.article.periodical_type,
+        abstract: this.article.abstract,
+        volume: this.article.volume,
+        issue: this.article.issue,
+        language: this.article.language,
+        subject: this.article.subject,
+        date_published: this.article.date_published
+      });
     })
   }
 
@@ -151,95 +184,48 @@ export class EditArticleComponent implements OnInit{
   // ----- END OF AUTHORS ----- //
   
   protected updateBox() {
-    var form = document.getElementById('edit-form') as HTMLFormElement;
+    this.editForm.patchValue({
+      authors: JSON.stringify(this.values)
+    });
 
-      // Get the form elements
-    const elements = form.elements;
+    if(this.editForm.valid) {
+      
+      // pass datas to formdata to allow sending of files
+      let form = new FormData();
+      
+      Object.entries(this.editForm.value).forEach(([key, value]: [string, any]) => {
+        if(value != '' && value != null)
+          form.append(key, value);
+      });
 
-    // Create an object to store form values
-    // var formData : { [key: string]: any } = {};
-
-    let formData = new FormData();
-    let valid = true;
-    let authors = [];
-    const fields = ['title', 'author', 'copyright', 'pages', 'acquired_date', 'source_of_fund',
-      'location_id', 'price', 'call_number', 'copies'];
-
-    // Loop through each form element
-    for (let i = 0; i < elements.length; i++) {
-      const element = elements[i] as HTMLInputElement;
-
-      // Check if the element is an input field
-      if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
-
-        if(element.name == 'author') {
-          authors.push(element.value)
-        }
-        else if (element.type !== 'file' && element.id !== 'submit') {
-          formData.append(element.name, element.value);
-        } else if (element.type === 'file' && element.files && element.files.length > 0) {
-          formData.append(element.name, element.files[0]);
-        }
-
-      }
-    }
-
-    formData.append('authors', JSON.stringify(authors));
-    if(valid) {
-      formData.append('_method', 'PUT');
-      this.articleService.updateRecord(this.data.details, formData).subscribe({
+      this.articleService.updateRecord(this.data.details, form).subscribe({
         next: (res: any) => {
-          console.log(res)
           Swal.fire({
-            title: "Update successful!",
-            text: "The changes have been saved.",
-            icon: "success",
-            confirmButtonColor: "#4F6F52",
-            scrollbarPadding: false,
-            willOpen: () => {
-              document.body.style.overflowY = 'scroll';
-            },
-            willClose: () => {
-              document.body.style.overflowY = 'scroll';
-            },
-            timer: 5000,
+            title: 'Success',
+            text: "Article of accession " + form.get('accession') + " has been successfully updated!",
+            icon: 'success',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
           });
-          this.ref.close('Changed Data');
         },
-        error:(err: any) => {
-          console.log(err);
+        error: (err: any) => {
           Swal.fire({
-            title: 'Error',
-            text: "Oops an error occured",
+            title: 'Oops! Server Side Error!',
+            text: 'Please try again later or contact the developers',
             icon: 'error',
             confirmButtonText: 'Close',
             confirmButtonColor: "#777777",
-            scrollbarPadding: false,
-            willOpen: () => {
-              document.body.style.overflowY = 'scroll';
-            },
-            willClose: () => {
-              document.body.style.overflowY = 'scroll';
-            },
           });
         }
       });
-    
-  } else {
-    Swal.fire({
-      title: 'Oops! Error on form',
-      text: 'Please check if required fields have values',
-      icon: 'error',
-      confirmButtonText: 'Close',
-      confirmButtonColor: "#777777",
-      scrollbarPadding: false,
-      willOpen: () => {
-        document.body.style.overflowY = 'scroll';
-      },
-      willClose: () => {
-        document.body.style.overflowY = 'scroll';
-      },
-    });
+    } else {
+      Swal.fire({
+        title: 'Oops! Form Submission Error!',
+        text: 'Please kindly check the form.',
+        icon: 'error',
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+      });
+    }
   }
-}
 }

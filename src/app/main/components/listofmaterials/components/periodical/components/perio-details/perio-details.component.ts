@@ -24,7 +24,6 @@ export class PerioDetailsComponent implements OnInit {
   ) { }
 
   periodical: any;
-  protected image: any;
   errorImage = '../../../../../../assets/images/NoImage.png';
 
   ngOnInit(): void {

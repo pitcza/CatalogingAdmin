@@ -14,7 +14,7 @@
                         <div class="details">
                             <!-- MATERIAL IMAGE -->
                             <div class="mat-image">
-                                <img class="cover" alt="book image" [src]="book.image != null ? book.image : errorImage">
+                                <img class="cover" alt="book image" [src]="book.image_url || errorImage">
                             </div>
 
                             <div class="mat-details">
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="mat-source">
                                     <span>
-                                        <h2> Source of Fund: <p> {{ book.source_of_fund ? book.source_of_fund : 'N/A' }} </p> </h2>
+                                        <h2> Source of Fund: <p> {{ book.source_of_fund || 'N/A' }} </p> </h2>
 
                                         <h2> 
                                             {{ book.source === 'Purchased' ? 'Purchased' : (book.source === 'Donated') ? 'Donated' : 'Acquired' }} on

@@ -14,10 +14,10 @@ export class BookService {
     private headers: HeaderService
   ) { }
 
-  url = apiUrl + 'books/';
+  url = apiUrl + 'materials/books/';
 
   public getLocations() {
-    return this.http.get(this.url + 'locations', { headers: this.headers.get() });
+    return this.http.get(apiUrl + 'books/locations', { headers: this.headers.get() });
   }
 
   public getAll() {
@@ -25,7 +25,7 @@ export class BookService {
   }
 
   public getRecord(accession: string) {
-    return this.http.get(apiUrl + 'book/id/' + accession, { headers: this.headers.get() });
+    return this.http.get(apiUrl + 'material/id/' + accession, { headers: this.headers.get() });
   }
 
   public addRecord(form: FormData) {

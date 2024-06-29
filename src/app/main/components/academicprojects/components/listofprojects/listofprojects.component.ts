@@ -91,16 +91,17 @@ export class ListofprojectsComponent implements OnInit {
 
     this.projectService.getPrograms().subscribe((res: any) => {
       this.programs = res;
-      console.log(res)
 
       // Extract unique department names from programs
       const uniqueDepartments = new Set<string>();
       this.programs.forEach((program: any) => {
-          uniqueDepartments.add(program.department.department);
+          uniqueDepartments.add(program.department_short);
       });
 
       // Convert the Set back to an array
       this.departments = Array.from(uniqueDepartments);
+
+      console.log(this.departments)
     })
   }
 

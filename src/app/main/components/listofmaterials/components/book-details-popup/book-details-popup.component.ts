@@ -4,7 +4,6 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
-import { DataService } from '../../../../../services/data.service';
 
 import { Router } from '@angular/router';
 import { BookService } from '../../../../../services/materials/book/book.service';
@@ -23,13 +22,15 @@ export class BookDetailsPopupComponent {
     private router: Router
   ) { }
 
-  protected image: any;
   errorImage = '../../../../../../assets/images/NoImage.png';
   book: any;
 
   ngOnInit(): void {
     this.bookService.getRecord(this.data.accession).subscribe({
-      next: (res: any) =>  this.book = res,
+      next: (res: any) =>  {
+        this.book = res
+        console.log(this.book)
+      },
       error: (err: any) => console.log(err)
     })
   }

@@ -57,6 +57,7 @@ export class EditBookComponent implements OnInit{
   ngOnInit(): void {
     this.bookService.getRecord(this.data.accession).subscribe((res: any) => {
       this.book = res;
+      console.log(this.book)
       this.editForm.patchValue({
         accession: this.book.accession,
         title: this.book.title,
@@ -283,6 +284,7 @@ export class EditBookComponent implements OnInit{
         }
       });
     } else {
+      console.log(this.editForm)
       Swal.fire({
         title: 'Oops! Submission Error!',
         text: 'Invalid Form',
