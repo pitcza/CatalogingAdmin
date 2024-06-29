@@ -5,6 +5,9 @@ import { DataService } from '../../../../../services/data.service';
 import { text } from 'stream/consumers';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-addproject',
   templateUrl: './addproject.component.html',
@@ -28,7 +31,37 @@ export class AddprojectComponent implements OnInit {
     private router: Router,
     private ds: DataService,
     private cd: ChangeDetectorRef, // for keywords
+    private sanitizer: DomSanitizer // for img preview
   ) { }
+
+  imgChangeEvt: any = null;
+  cropImagePreview: SafeUrl | undefined;
+
+  onFileChange(event: any) {
+    this.imgChangeEvt = event;
+    // Reset cropImagePreview when a new file is selected
+    this.cropImagePreview = undefined;
+    this.cd.detectChanges();
+  }
+
+  cropImg(event: ImageCroppedEvent) {
+    if (event?.objectUrl) {
+      this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      this.cd.detectChanges();
+    }
+  }
+
+  imgLoad() {
+    this.cd.detectChanges();
+  }
+
+  initCropper() {
+    this.cd.detectChanges();
+  }
+
+  imgFailed() {
+    alert("Image failed to show.")
+  }
 
   ngAfterViewInit(): void {
     this.cd.detectChanges();
