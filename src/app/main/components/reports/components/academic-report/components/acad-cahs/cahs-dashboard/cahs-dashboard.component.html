@@ -30,17 +30,33 @@
                 </div>
             </div>
         </div>
-        <div class="printbtn"> 
+        <div class="buttons"> 
+            <div class="dropdown1"> 
+                <button class="printbtn"> 
+                    <span class="print-icon"> <i class='bx bxs-printer'></i> </span>
+                    <span class="export"> Export </span>
+                </button>
+
+                <div class="dropdown-content1">
+                    <a class="pdf">
+                        <span class="material-icon"> <i class='bx bxs-file-pdf'></i> </span>
+                        <span class="material"> PDF </span>
+                    </a>
+                </div>
+            </div>
+            <hr>
+        </div>
+
+        <!-- <div class="printbtn"> 
             <button class="print" (click)="printMaterials()">
                 <span class="print-icon"><i class='bx bxs-printer'></i></span>
                 <a>Export</a>
             </button>
-        </div>
-    <hr> 
+        </div> -->
+    </div>
 <!---------------------------------------- TABLE ---------------------------------------------->
 
-        <div class="table">
-            <router-outlet></router-outlet>
-        </div>
+    <div class="table">
+        <router-outlet></router-outlet>
     </div>
 </main>
