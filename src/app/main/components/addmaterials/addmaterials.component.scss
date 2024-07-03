@@ -1460,6 +1460,6 @@ input[type="file"]::file-selector-button {
     color: red;
 }
 
-.errorField {
-    border-bottom: red 1px solid;
+.errorField::before {
+    background-color: red ;
 }

@@ -13,7 +13,7 @@
                         <div class="details">
                             <!-- PROJECT IMAGE -->
                             <div class="mat-image">
-                                <img class="cover" alt="project image" [src]="project.image != null ? project.image : errorImage">
+                                <img class="cover" alt="project image" [src]="project.image_url || errorImage">
                             </div>
 
                             <div class="mat-details">

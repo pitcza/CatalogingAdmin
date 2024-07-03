@@ -22,6 +22,7 @@ export class AddmaterialsComponent implements OnInit {
   bookImage: any = null;
   periodicalImage: any = null;
   bookImageUrl: string | ArrayBuffer | null = null;  // Add this line
+  periodicalImageUrl: string | ArrayBuffer | null = null;  // Add this line
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,31 +31,31 @@ export class AddmaterialsComponent implements OnInit {
     private articleService: ArticleService
   ) {
     let sharedFields = {
-      accession: ['', Validators.required],
+      accession: ['', [Validators.required, Validators.maxLength(20)]],
       title: ['', [Validators.required, Validators.maxLength(255)]],
-      authors: ['', Validators.required],
-      publisher: ['', Validators.required],
-      remarks: [''],
-      pages: ['', Validators.required],
+      authors: ['', [Validators.required, Validators.maxLength(255)]],
+      publisher: ['', [Validators.required, Validators.maxLength(100)]],
+      remarks: ['', Validators.maxLength(255)],
+      pages: ['', [Validators.required, Validators.maxLength(20)]],
     };
 
     this.bookForm = formBuilder.group(Object.assign({}, sharedFields, {
       copyright: [2024, Validators.required],
-      volume: [''],
-      edition: [''],
+      volume: ['', Validators.maxLength(50)],
+      edition: ['', Validators.maxLength(50)],
       acquired_date: ['', Validators.required],
       source_of_fund: ['Purchased', Validators.required],
       price: [''],
       location: ['ABCOMM', Validators.required],
-      call_number: ['', Validators.required],
-      author_number: ['', Validators.required],
+      call_number: ['', [Validators.required, Validators.maxLength(20)]],
+      author_number: ['', [Validators.required, Validators.maxLength(20)]],
       copies: [1, Validators.required]
     }));
 
     this.periodicalForm = formBuilder.group(Object.assign({}, sharedFields, {
       periodical_type: ['0', Validators.required],
-      volume: ['', Validators.required],
-      issue: ['', Validators.required],
+      volume: ['', [Validators.required, Validators.maxLength(50)]],
+      issue: ['', [Validators.required, Validators.maxLength(50)]],
       language: ['English', Validators.required],
       acquired_date: ['', Validators.required],
       date_published: ['', Validators.required],
@@ -63,12 +64,12 @@ export class AddmaterialsComponent implements OnInit {
 
     this.articleForm = formBuilder.group(Object.assign({}, sharedFields, {
       periodical_type: ['0', Validators.required],
-      abstract: ['', Validators.required],
-      volume: ['', Validators.required],
-      issue: ['', Validators.required],
+      abstract: ['', [Validators.required, Validators.maxLength(4096)]],
+      volume: ['', [Validators.required, Validators.maxLength(50)]],
+      issue: ['', [Validators.required, Validators.maxLength(50)]],
       language: ['English', Validators.required],
-      subject: ['', Validators.required],
-      date_published: ['', Validators.required],
+      subject: ['', [Validators.required, Validators.maxLength(255)]],
+      date_published: ['', Validators.required]
     }));
   }
 
@@ -154,7 +155,7 @@ export class AddmaterialsComponent implements OnInit {
         if (type == 'book') {
           this.bookImageUrl = reader.result;  // Add this line
         } else if (type == 'periodical') {
-          // Handle other cases if needed
+          this.periodicalImageUrl = reader.result;
         }
       };
 

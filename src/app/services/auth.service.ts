@@ -3,7 +3,6 @@ import { HeaderService } from './header.service';
 import { HttpClient } from '@angular/common/http';
 import { response } from 'express';
 import { tap } from 'rxjs';
-import { apiUrl } from '../../config/url';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +14,9 @@ export class AuthService {
     private headers: HeaderService
   ) { }
 
+  apiUrl = 'http://127.0.0.1:8000/api/';
   public login(formData: FormData) {
-    return this.http.post(apiUrl+'login', formData).pipe(
+    return this.http.post(this.apiUrl+'login', formData).pipe(
       tap((res: any) => {
         if(res.token) {
           sessionStorage.setItem('auth-token', res.token);
@@ -32,14 +32,14 @@ export class AuthService {
   }
 
   public user() {
-    return this.http.get(apiUrl + 'user', { headers: this.headers.get() });
+    return this.http.get(this.apiUrl + 'user', { headers: this.headers.get() });
   }
 
   public refresh() {
-    return this.http.post(apiUrl + 'refresh', {}, { headers: this.headers.get() })
+    return this.http.post(this.apiUrl + 'refresh', {}, { headers: this.headers.get() })
   }
 
   public logout() {
-    return this.http.post(apiUrl + 'logout', {}, { headers: this.headers.get() })
+    return this.http.post(this.apiUrl + 'logout', {}, { headers: this.headers.get() })
   }
 }

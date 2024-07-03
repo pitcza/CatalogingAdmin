@@ -36,9 +36,9 @@
                                 'errorField': bookForm.get('accession')?.invalid &&
                                 (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched)
                             }"></span>
-                            <div class="labelline" [ngClass]="{
-                                'errorLabel': bookForm.get('accession')?.invalid &&
-                                (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched) ? 'red' : 'black'
+                            <div class="labelline" [ngClass]="{ 
+                                'errorLabel': bookForm.get('accession')?.invalid && 
+                                (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched)
                             }"> Accession No. </div>
                         </div>
 
@@ -315,7 +315,7 @@
                         </div>
 
                         <div class="entryarea11">
-                            <input type="file" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'book')">
+                            <input type="file" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'periodical')">
                             <div class="labelline11"> Upload Image</div>
                             <img *ngIf="bookImageUrl" [src]="bookImageUrl" alt="Image Preview" class="image-preview">
                           </div>

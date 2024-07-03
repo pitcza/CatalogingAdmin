@@ -27,6 +27,7 @@ export class DetailsPopupComponent implements OnInit{
   ngOnInit(): void {
     this.projectService.getRecord(this.data.details).subscribe((res:any) => {
       this.project = res;
+      console.log(this.project)
     })
   }
 

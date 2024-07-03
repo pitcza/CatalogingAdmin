@@ -15,9 +15,9 @@ import { BookService } from '../../../../../services/materials/book/book.service
 })
 export class EditBookComponent implements OnInit{
 
-  protected locations: any = null;
+  protected locations: any;
   book: any;
-  isPurchased = false;
+  image: any;
   year: number[] = [];
   currentYear = new Date().getFullYear();
   maxAuthors = 3;
@@ -57,9 +57,25 @@ export class EditBookComponent implements OnInit{
   ngOnInit(): void {
     this.bookService.getRecord(this.data.accession).subscribe((res: any) => {
       this.book = res;
+      console.log(this.book)
+      this.editForm.patchValue({
+        accession: this.book.accession,
+        title: this.book.title,
+        publisher: this.book.publisher,
+        copyright: this.book.copyright,
+        location: this.book.location,
+        call_number: this.book.call_number,
+        author_number: this.book.author_number,
+        volume: this.book.volume,
+        edition: this.book.edition,
+        pages: this.book.pages,
+        remarks: this.book.remarks,
+        acquired_date: this.book.acquired_date,
+        source_of_fund: this.book.source_of_fund,
+        price: this.book.price,
+      });
 
       this.values = this.book.authors;
-      console.log(this.book)
     })
 
     this.bookService.getLocations().subscribe((res: any) => {
@@ -74,10 +90,18 @@ export class EditBookComponent implements OnInit{
   sourceOfFundEvent(event: Event) {
     let type = (event.target as HTMLSelectElement).value;
 
-    if(type == '0') {
-      this.isPurchased = true;
+    if(type == 'Purchased') {
+      this.editForm.get('price')?.enable();
     } else {
-      this.isPurchased = false;
+      this.editForm.get('price')?.disable();
+    }
+  }
+
+  uploadImage(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+        this.image = file;
     }
   }
 
@@ -221,118 +245,53 @@ export class EditBookComponent implements OnInit{
   // ----- END OF AUTHORS ----- //
 
   protected updateBook() {
-    console.log(this.editForm)
-    // var form = document.getElementById('edit-form') as HTMLFormElement;
+    this.editForm.patchValue({
+      authors: JSON.stringify(this.values)
+    });
 
-    //   // Get the form elements
-    // const elements = form.elements;
-    
-    // let valid = true;
-    // let validFile = true;
-    // const fields = ['accession', 'title', 'author', 'copyright', 'pages', 'acquired_date', 'source_of_fund',
-    //   'location_id', 'price', 'call_number', 'copies'];
+    if(this.editForm.valid) {
+      
+      // pass datas to formdata to allow sending of files
+      let form = new FormData();
+      
+      Object.entries(this.editForm.value).forEach(([key, value]: [string, any]) => {
+        if(value != '' && value != null)
+          form.append(key, value);
+      });
 
-    // let formData = new FormData();
-    // let authors = [];
+      if(this.image) {
+        form.append('image_url', this.image);
+      }
 
-    // // Loop through each form element
-    // for (let i = 0; i < elements.length; i++) {
-    //   const element = elements[i] as HTMLInputElement;
-
-    //   // Check if the element is an input field
-    //   if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
-
-    //     if(element.name == 'author') {
-    //       authors.push(element.value);
-    //     } else if (element.type !== 'file' && element.id !== 'submit') {
-    //       formData.append(element.name, element.value);
-    //     } else if (element.type === 'file' && element.files && element.files.length > 0) {
-    //       const file = element.files[0];
-    //           if(file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
-    //             formData.append(element.name, element.files[0]);
-    //           } else {
-    //             validFile = false;
-    //           }
-    //     }
-
-    //     if(fields.includes(element.name) && element.value == '') {
-    //       valid = false;
-    //       element.style.borderColor = 'red';
-    //     } else 
-    //         element.style.borderColor = 'black';
-
-    //   }
-    // }
-
-    // formData.append('authors', JSON.stringify(authors));
-    // if(valid && validFile) {
-    //   this.bookService.updateRecord(this.data.accession, formData).subscribe({
-    //     next: (res: any) => {
-    //       console.log(res)
-    //       Swal.fire({
-    //         title: "Update successful!",
-    //         text: "The changes have been saved.",
-    //         icon: "success",
-    //         confirmButtonColor: "#4F6F52",
-    //         scrollbarPadding: false,
-    //         willOpen: () => {
-    //           document.body.style.overflowY = 'scroll';
-    //         },
-    //         willClose: () => {
-    //           document.body.style.overflowY = 'scroll';
-    //         },
-    //         timer: 5000,
-    //       });
-    //       this.ref.close('Changed Data');
-    //     },
-    //     error:(err: any) => {
-    //       console.log(err);
-    //       Swal.fire({
-    //         title: 'Error',
-    //         text: "Oops an error occured",
-    //         icon: 'error',
-    //         confirmButtonText: 'Close',
-    //         confirmButtonColor: "#777777",
-    //         scrollbarPadding: false,
-    //         willOpen: () => {
-    //           document.body.style.overflowY = 'scroll';
-    //         },
-    //         willClose: () => {
-    //           document.body.style.overflowY = 'scroll';
-    //         }
-    //       });
-    //     }
-    //   });
-    // } else if (!validFile) {
-    //   Swal.fire({
-    //     title: 'Oops! Error on form',
-    //     text: 'Invalid image. Must be of type png, jpeg, or jpg.',
-    //     icon: 'error',
-    //     confirmButtonText: 'Close',
-    //     confirmButtonColor: "#777777",
-    //     scrollbarPadding: false,
-    //     willOpen: () => {
-    //       document.body.style.overflowY = 'scroll';
-    //     },
-    //     willClose: () => {
-    //       document.body.style.overflowY = 'scroll';
-    //     }
-    //   });
-    // } else {
-    //   Swal.fire({
-    //     title: 'Oops! Error on form',
-    //     text: 'Please check if required fields have values',
-    //     icon: 'error',
-    //     confirmButtonText: 'Close',
-    //     confirmButtonColor: "#777777",
-    //     scrollbarPadding: false,
-    //     willOpen: () => {
-    //       document.body.style.overflowY = 'scroll';
-    //     },
-    //     willClose: () => {
-    //       document.body.style.overflowY = 'scroll';
-    //     }
-    //   });
-    // }
+      this.bookService.updateRecord(this.data.accession, form).subscribe({
+        next: (res: any) => {
+          Swal.fire({
+            title: 'Success',
+            text: "Book has been updated successfully!",
+            icon: 'success',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+          });
+        },
+        error: (err: any) => {
+          Swal.fire({
+            title: 'Oops! Server Side Error!',
+            text: 'Please try again later or contact the developers',
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+          });
+        }
+      });
+    } else {
+      console.log(this.editForm)
+      Swal.fire({
+        title: 'Oops! Submission Error!',
+        text: 'Invalid Form',
+        icon: 'error',
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+      });
+    }
   }
 }

@@ -13,7 +13,7 @@ export class PeriodicalService {
     private headers: HeaderService
   ) { }
 
-  url = apiUrl + 'periodicals/';
+  url = apiUrl + 'materials/periodicals/';
 
   public getJournals() {
     return this.http.get(this.url + 'type/0', { headers: this.headers.get() });
@@ -28,7 +28,7 @@ export class PeriodicalService {
   }
 
   public getRecord(accession: string) {
-    return this.http.get(apiUrl + 'periodical/id/' + accession, { headers: this.headers.get() });
+    return this.http.get(apiUrl + 'material/id/' + accession, { headers: this.headers.get() });
   }
 
   public addRecord(form: FormData) {

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, forwardRef,  Input, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Inject } from '@angular/core';
@@ -22,7 +22,7 @@ import { ProjectService } from '../../../../../services/materials/project/projec
 })
 
 export class EditdetailsComponent implements OnInit{
-
+  
   programs: any;
   departments: any;
   departmentFilter = '';
@@ -31,11 +31,25 @@ export class EditdetailsComponent implements OnInit{
   project: any;
   values = [''];
   tags = [''];
+  image: any;
+  projectImage: any;
+  editForm: FormGroup = this.formBuilder.group({
+    accession: ['', Validators.required],
+    category: [{value: '', disabled: true}, Validators.required],
+    title: ['', [Validators.required, Validators.maxLength(255)]],
+    authors: ['', Validators.required],
+    program: ['', Validators.required],
+    image_url: [''],
+    date_published: ['', Validators.required],
+    language: [2024, Validators.required],
+    abstract: [''],
+    keywords: ['']
+  });
 
   constructor(
     private router: Router, 
     private ref: MatDialogRef<EditdetailsComponent>, 
-    private buildr: FormBuilder,
+    private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private projectService: ProjectService,
     private cd: ChangeDetectorRef, // for keywords
@@ -48,21 +62,32 @@ export class EditdetailsComponent implements OnInit{
   ngOnInit() {
     this.projectService.getRecord(this.data.details).subscribe((res: any) => {
       this.project = res;
-      console.log(this.project)
-      
-    if(this.project.authors != null) {
-      this.values.splice(0, 1);
-      this.project.authors.forEach((author: any) => {
-        this.values.push(author)
-      });
-    }
 
-    if(this.project.keywords) {
-      this.tags.splice(0, 1);
-        this.project.keywords.forEach((keyword: any) => {
-          this.tags.push(keyword)
-      }); 
-    }
+      if(this.project.authors != null) {
+        this.values.splice(0, 1);
+        this.project.authors.forEach((author: any) => {
+          this.values.push(author)
+        });
+      }
+
+      if(this.project.keywords) {
+        this.tags.splice(0, 1);
+          this.project.keywords.forEach((keyword: any) => {
+            this.tags.push(keyword)
+        }); 
+      }
+      
+      this.editForm.patchValue({
+        accession: this.project.accession,
+        category: this.project.category,
+        title: this.project.title,
+        authors: this.project.authors,
+        program: this.project.program,
+        date_published: this.project.date_published,
+        language: this.project.language,
+        abstract: this.project.abstract,
+        keywords: this.project.keywords
+      });
     });
 
     this.projectService.getPrograms().subscribe({
@@ -242,65 +267,31 @@ export class EditdetailsComponent implements OnInit{
     this.ref.close('Closed using function');
   }
 
-  // UPDATE POPUP
-  protected updateBox() {
-    var form = document.getElementById('edit-form') as HTMLFormElement;
+  addImage(event: Event) {
+    const input = event.target as HTMLInputElement;
 
-      // Get the form elements
-    const elements = form.elements;
+    // Check if there are files selected
+    if (input.files && input.files.length) {
+      const file = input.files[0];  // Get the first selected file
 
-    let formData = new FormData();
-    let authorElements: any[] = [];
-    let keywords: any[] = [];
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();  // Create a new FileReader instance
 
-    // Loop through each form element
-    for (let i = 0; i < elements.length; i++) {
-      const element = elements[i] as HTMLInputElement;
+        // Define the onload callback for the FileReader
+        reader.onload = () => {
+          this.projectImage = reader.result;  // Set the image property to the result
+        };
 
-      // Check if the element is an input field
-      if ((element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'DATE'
-      || element.tagName === 'TEXTAREA') && element.id != 'submit-button') {
+        reader.readAsDataURL(file);  // Read the file as a data URL
 
-        if (element.type === 'file' && element.files && element.files.length > 0) {
-          formData.append(element.name, element.files[0]);
-        } else if (element.name === 'author') {
-          authorElements.push(element.value)
-        } else if (element.name === 'keywords') {
-          keywords.push(element.value)
-        } else {
-          formData.append(element.name, element.value)
-        }
+        this.image = file;  // Optionally store the file object itself
 
-      }
-    }
-    
-    formData.append('authors', JSON.stringify(authorElements));
-    formData.append('keywords', JSON.stringify(keywords))
-    formData.append('_method', 'PUT');
-    this.projectService.updateRecord(this.data.details, formData).subscribe({
-      next: (res: any) => {
-        console.log(res)
+      } else {
+        input.value = ''; // removes the file
         Swal.fire({
-          title: "Update successful!",
-          text: "The changes have been saved.",
-          icon: "success",
-          confirmButtonColor: "#4F6F52",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          timer: 5000
-        });
-        this.ref.close('Changed Data');
-      },
-      error:(err: any) => {
-        console.log(err);
-        Swal.fire({
-          title: 'Error',
-          text: "Oops an error occured",
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
           icon: 'error',
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
@@ -313,7 +304,82 @@ export class EditdetailsComponent implements OnInit{
           }
         });
       }
+    } 
+  }
+
+  // UPDATE POPUP
+  protected update() {
+    console.log(this.image)
+
+    this.editForm.get('category')?.enable();
+    this.editForm.patchValue({
+      authors: JSON.stringify(this.values),
+      keywords: JSON.stringify(this.tags)
     });
+
+    if(this.editForm.valid) {
+      let form = new FormData();
+
+      Object.entries(this.editForm.value).forEach(([key, value]: [string, any]) => {
+        if(value != '' && value != null)
+          form.append(key, value);
+      });
+
+      if(this.image)
+        form.append('image_url', this.image);
+
+      this.projectService.updateRecord(this.data.details, form).subscribe({
+        next: (res: any) => {
+          Swal.fire({
+            title: "Update successful!",
+            text: "The changes have been saved.",
+            icon: "success",
+            confirmButtonColor: "#4F6F52",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            timer: 5000
+          });
+          this.ref.close('Changed Data');
+        },
+        error:(err: any) => {
+          console.log(err);
+          Swal.fire({
+            title: 'Error',
+            text: "Oops a server error occured",
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            }
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: "Oops an error occured",
+        icon: 'error',
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+        scrollbarPadding: false,
+        willOpen: () => {
+          document.body.style.overflowY = 'scroll';
+        },
+        willClose: () => {
+          document.body.style.overflowY = 'scroll';
+        }
+      });
+    }
   }
 
   // ARCHIVE POPUP

@@ -20,7 +20,7 @@
 
             <div class="table-head">
                 <div class="table-filters">
-                    <select id="filter-department" (change)="applyFilter($event, 'department')" (change)="changedDepartment($event)">
+                    <select id="filter-department" (change)="applyFilter($event, 'department')">
                         <option selected value=""> All College </option>
                         <option *ngFor="let x of departments" [value] = "x">{{ x }}</option>
                     </select>

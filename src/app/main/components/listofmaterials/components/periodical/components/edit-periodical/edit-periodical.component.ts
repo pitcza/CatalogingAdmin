@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DataService } from '../../../../../../../services/data.service';
 import { Inject } from '@angular/core';
@@ -20,9 +20,11 @@ export class EditPeriodicalComponent implements OnInit{
   year: number[] = [];
   currentYear = new Date().getFullYear();
   periodical: any;
+  editForm: FormGroup;
+  image: any;
 
   constructor(private ref: MatDialogRef<EditPeriodicalComponent>, 
-    private buildr: FormBuilder,
+    private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
     private periodicalService: PeriodicalService
@@ -31,12 +33,43 @@ export class EditPeriodicalComponent implements OnInit{
     for(let i = 1991; i <= this.currentYear; i++) {
       this.year.push(i);
     }
+
+    this.editForm = formBuilder.group({
+      accession: ['', Validators.required],
+      title: ['', [Validators.required, Validators.maxLength(255)]],
+      authors: ['', Validators.required],
+      publisher: ['', Validators.required],
+      remarks: [''],
+      pages: ['', Validators.required],
+      periodical_type: ['0', Validators.required],
+      volume: ['', Validators.required],
+      issue: ['', Validators.required],
+      language: ['English', Validators.required],
+      acquired_date: ['', Validators.required],
+      date_published: ['', Validators.required],
+      copyright: [2024, Validators.required]
+    });
    }
 
   ngOnInit(): void {
     this.periodicalService.getRecord(this.data.details).subscribe((res: any) => {
       this.periodical = res;
       this.values = this.periodical.authors;
+
+      this.editForm.patchValue({
+        accession: this.periodical.accession,
+        title: this.periodical.title,
+        publisher: this.periodical.publisher,
+        remarks: this.periodical.remarks,
+        pages: this.periodical.pages,
+        periodical_type: this.periodical.periodical_type,
+        volume: this.periodical.volume,
+        issue: this.periodical.issue,
+        language: this.periodical.language,
+        acquired_date: this.periodical.acquired_date,
+        date_published: this.periodical.date_published,
+        copyright: this.periodical.copyright
+      });
     })
   }
    
@@ -155,98 +188,60 @@ export class EditPeriodicalComponent implements OnInit{
   }
   // ----- END OF AUTHORS ----- //
   
-  protected updateBox() {
-    var form = document.getElementById('edit-form') as HTMLFormElement;
-
-      // Get the form elements
-    const elements = form.elements
-
-    let formData = new FormData();
-    let valid = true;
-    let validFile = true;
-    const fields = ['title', 'author', 'copyright', 'pages', 'acquired_date', 'source_of_fund',
-      'location_id', 'price', 'call_number', 'copies'];
-    let authors = [];
-
-    // Loop through each form element
-    for (let i = 0; i < elements.length; i++) {
-      const element = elements[i] as HTMLInputElement;
-
-      // Check if the element is an input field
-      if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
-
-        if(element.name == 'author') {
-          authors.push(element.value);
-        } else if (element.type !== 'file' && element.id !== 'submit') {
-          formData.append(element.name, element.value);
-        } else if (element.type === 'file' && element.files && element.files.length > 0) {
-          formData.append(element.name, element.files[0]);const file = element.files[0];
-          if(file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
-            formData.append(element.name, element.files[0]);
-          } else {
-            validFile = false;
-          }
-        }
-
-        if(fields.includes(element.name) && element.value == '') {
-          valid = false;
-          element.style.borderColor = 'red';
-        } else 
-            element.style.borderColor = 'black';
-
-      }
+  imageUpload(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+      this.image = file;
     }
+  }
 
-    formData.append('authors', JSON.stringify(authors));
-    if(valid && validFile) {
-      formData.append('_method', 'PUT');
-      this.periodicalService.updateRecord(this.data.details, formData).subscribe({
+  protected updateBox() {
+    this.editForm.patchValue({
+      authors: JSON.stringify(this.values)
+    });
+
+    if(this.editForm.valid) {
+      
+      // pass datas to formdata to allow sending of files
+      let form = new FormData();
+      
+      Object.entries(this.editForm.value).forEach(([key, value]: [string, any]) => {
+        if(value != '' && value != null)
+          form.append(key, value);
+      });
+
+      if(this.image) {
+        form.append('image_url', this.image);
+      }
+
+      this.periodicalService.updateRecord(this.data.details, form).subscribe({
         next: (res: any) => {
           Swal.fire({
-            title: "Update successful!",
-            text: "The changes have been saved.",
-            icon: "success",
-            confirmButtonColor: "#4F6F52",
-            scrollbarPadding: false,
-            willOpen: () => {
-              document.body.style.overflowY = 'scroll';
-            },
-            willClose: () => {
-              document.body.style.overflowY = 'scroll';
-            },
-            timer: 5000,
+            title: 'Success',
+            text: "Periodical of accession " + form.get('accession') + " has been successfully updated!",
+            icon: 'success',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
           });
-          this.ref.close('Changed Data');
         },
-        error:(err: any) => {
-          console.log(err);
+        error: (err: any) => {
           Swal.fire({
-            title: 'Error',
-            text: "Oops an error occured",
+            title: 'Oops! Server Side Error!',
+            text: 'Please try again later or contact the developers',
             icon: 'error',
             confirmButtonText: 'Close',
             confirmButtonColor: "#777777",
-            scrollbarPadding: false,
           });
         }
       });
-    } else if (!validFile) {
-      Swal.fire({
-        title: 'Oops! Error on form',
-        text: 'Invalid image. Must be of type png, jpeg, or jpg.',
-        icon: 'error',
-        confirmButtonText: 'Close',
-        confirmButtonColor: "#777777",
-        scrollbarPadding: false,
-      });
     } else {
       Swal.fire({
-        title: 'Oops! Error on form',
-        text: 'Please check if required fields have values',
+        title: 'Oops! Form Submission Error!',
+        text: 'Please kindly check the form.',
         icon: 'error',
         confirmButtonText: 'Close',
         confirmButtonColor: "#777777",
-        scrollbarPadding: false,
       });
     }
   }
