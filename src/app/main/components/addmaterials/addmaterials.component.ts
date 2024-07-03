@@ -16,6 +16,7 @@ import { kMaxLength } from 'buffer';
 })
 export class AddmaterialsComponent implements OnInit {
 
+  bookSubmit = false; periodicalSubmit = false; articleSubmit = false;
   bookForm: FormGroup;
   periodicalForm: FormGroup;
   articleForm: FormGroup;
@@ -32,7 +33,7 @@ export class AddmaterialsComponent implements OnInit {
   ) {
     let sharedFields = {
       accession: ['', [Validators.required, Validators.maxLength(20)]],
-      title: ['', [Validators.required, Validators.maxLength(255)]],
+      title: ['', [Validators.required, Validators.maxLength(150)]],
       authors: ['', [Validators.required, Validators.maxLength(255)]],
       publisher: ['', [Validators.required, Validators.maxLength(100)]],
       remarks: ['', Validators.maxLength(255)],
@@ -45,12 +46,15 @@ export class AddmaterialsComponent implements OnInit {
       edition: ['', Validators.maxLength(50)],
       acquired_date: ['', Validators.required],
       source_of_fund: ['Purchased', Validators.required],
-      price: [''],
+      price: ['', [Validators.required, Validators.min(1)]],
       location: ['ABCOMM', Validators.required],
       call_number: ['', [Validators.required, Validators.maxLength(20)]],
       author_number: ['', [Validators.required, Validators.maxLength(20)]],
-      copies: [1, Validators.required]
+      copies: [1, [Validators.required, Validators.min(1)]]
     }));
+    
+    this.bookForm.get('accession')?.addValidators(Validators.pattern('^[0-9]+$'));
+    this.bookForm.updateValueAndValidity();
 
     this.periodicalForm = formBuilder.group(Object.assign({}, sharedFields, {
       periodical_type: ['0', Validators.required],
@@ -78,8 +82,9 @@ export class AddmaterialsComponent implements OnInit {
   currentYear = new Date().getFullYear();
   year: number[] = [];
 
-  values = [''];
-  authors: string[] = [''];
+  bookAuthors = [''];
+  periodicalAuthors = [''];
+  articleAuthors = [''];
 
 
   ngOnInit(): void {
@@ -98,98 +103,205 @@ export class AddmaterialsComponent implements OnInit {
 
   // MULTIPLE AUTHORS FUNCTION     
 
-  removevalue(i: any) {
-    this.values.splice(i, 1);
+  removevalue(i: any, type: string) {
+    this.getAuthorSet(type).splice(i, 1);
   }
 
-  addvalue() {
-    if (this.values.length < 5) {
-      this.values.push('');
+  addvalue(type: string) {
+    if (this.getAuthorSet(type).length < 5) {
+      this.getAuthorSet(type).push('');
     }
-    console.log(this.values)
   }
 
-  updateValue(event: Event, i: number) {
+  updateValue(event: Event, i: number, type: string) {
     let input = event.target as HTMLInputElement;
-    this.values[i] = input.value;
-    console.log(this.values)
+    this.getAuthorSet(type)[i] = input.value;
   }
 
-  isMaxLimitReached(): boolean {
-    return this.values.length >= 5;
+  isMaxLimitReached(type: string): boolean {
+    return this.getAuthorSet(type).length >= 5;
   }
-
-  addAuthor() {
-    this.authors = [...this.authors, ''];
-  }
-
-  removeAuthor(index: number) {
-    this.authors.splice(index, 1);
-    this.authors = [...this.authors];
-  }
-
+  
   trackByIndex(index: number, item: any): number {
     return index;
   }
 
   emptyValues() {}
 
-  changedFunds(event: Event) {
-    let price = (document.getElementById('funds') as HTMLInputElement).value;
-    if(price == 'Purchased'){
-      this.bookForm.get('price')?.enable();
-      this.bookForm.get('price')?.addValidators(Validators.required);
-    } else {
-      this.bookForm.get('price')?.disable();
-      this.bookForm.get('price')?.clearValidators();
+  getAuthorSet(type: string) {
+    switch(type){
+      case 'book':
+        return this.bookAuthors;
+
+      case 'periodical':
+        return this.periodicalAuthors;
+
+      case 'article':
+        return this.articleAuthors;
+
+      default:
+        return [];
     }
+  }
+
+  // END OF AUTHORS
+
+  changedFunds(event: Event) {
+    let price = (event?.target as HTMLInputElement).value;
+    let priceControl = this.bookForm.get('price');
+    if(price == 'Purchased'){
+      priceControl?.enable();
+      priceControl?.addValidators([Validators.required, Validators.min(1)]);
+    } else {
+      priceControl?.disable();
+      priceControl?.clearValidators();
+    }
+    priceControl?.updateValueAndValidity();
   }
 
   imageUpload(event: Event, type: string): void {
     const input = event.target as HTMLInputElement;
+
+    // Check if there are files selected
     if (input.files && input.files.length) {
-      const file = input.files[0];
-      const reader = new FileReader();  // Add this
+      const file = input.files[0];  // Get the first selected file
 
-      reader.onload = () => {  // Add this block
-        if (type == 'book') {
-          this.bookImageUrl = reader.result;  // Add this line
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();  // Create a new FileReader instance
+
+        // Define the onload callback for the FileReader
+        reader.onload = () => {
+          if (type == 'book') {
+            this.bookImageUrl = reader.result;  // Add this line
+          } else if (type == 'periodical') {
+            this.periodicalImageUrl = reader.result;
+          }
+        };
+
+        reader.readAsDataURL(file);  // Read the file as a data URL
+
+        if(type == 'book') {
+          this.bookImage = file;
         } else if (type == 'periodical') {
-          this.periodicalImageUrl = reader.result;
+          this.periodicalImage = file;
         }
-      };
 
-      reader.readAsDataURL(file);  // Add this line
-
-      if(type == 'book') {
-        this.bookImage = file;
-      } else if (type == 'periodical') {
-        this.periodicalImage = file;
+      } else {
+        input.value = ''; // removes the file
+        Swal.fire({
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
+        });
       }
+    } 
+  }
+
+  getFormSet(type: string) {
+    let dummyForm: FormGroup = this.formBuilder.group({
+      key: ['']
+    });
+
+    switch(type) {
+      case 'book':
+        return this.bookForm;
+
+      case 'periodical':
+        return this.periodicalForm;
+
+      case 'article':
+        return this.articleForm;
+
+      default:
+        return dummyForm;
     }
   }
 
-  protected materialSubmit(type: string) {
+  isInvalid(controlName: string, type: string): boolean {
+    const control = this.getFormSet(type).get(controlName);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
+
+  invalidAuthor(i: number, type: string) {
+    let authorInput = this.getAuthorSet(type)[i];
+    let submit = false;
     switch(type) {
       case 'book':
-        var addForm = this.bookForm;
+        submit = this.bookSubmit;
         break;
 
       case 'periodical':
-        var addForm = this.periodicalForm;
+        submit = this.periodicalSubmit;
         break;
 
       case 'article':
-        var addForm = this.articleForm;
+        submit = this.articleSubmit;
         break;
-
-      default:
-        return;
     }
 
-    addForm.patchValue({
-      authors: JSON.stringify(this.values)
+    return (authorInput.length < 1 || authorInput.length > 50) && submit;
+  }
+
+  validateAuthors(type: string) {
+    let valid = true;
+    let isNull = false;
+    let isExceeded = false;
+
+    this.getAuthorSet(type).forEach(author => {
+      if(author.length > 50) {
+        valid = false;
+        isExceeded = true;
+      }
+      
+      if(author.length < 1) {
+        valid = false;
+        isNull = true;
+      }
     });
+
+    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
+  }
+
+  protected materialSubmit(type: string) {
+
+    let addForm = this.getFormSet(type);
+
+    switch(type) {
+      case 'book':
+        this.bookSubmit = true;
+        break;
+
+      case 'periodical':
+        this.periodicalSubmit = true;
+        break;
+
+      case 'article':
+        this.articleSubmit = true;
+        break;
+    }
+
+    if(this.validateAuthors(type).valid) {
+      addForm.patchValue({
+        authors: JSON.stringify(this.getAuthorSet(type))
+      });
+    }
 
     if(addForm.valid) {
 
@@ -243,9 +355,9 @@ export class AddmaterialsComponent implements OnInit {
         });
       }
     } else {
+      this.markFormGroupTouched(addForm);
       this.displayErrors(type);
     }
-
   }
 
   successMessage(title:string) {
@@ -280,7 +392,10 @@ export class AddmaterialsComponent implements OnInit {
     }
 
     let maxLengthFields = '';
-    let requiredFields = '';
+    let minIntFields = '';
+    let integerFields = '';
+    let required = false;
+
     Object.keys(form.controls).forEach(key => {
       const control = form.get(key);
       if (control && control.errors) {
@@ -288,11 +403,21 @@ export class AddmaterialsComponent implements OnInit {
         Object.keys(controlErrors).forEach(errorKey => {
           switch (errorKey) {
             case 'required':
-              requiredFields += `${key}, `;
+              required = true;
               break;
 
             case 'maxlength':
               maxLengthFields += `${key}, `;
+              break;
+
+            case 'min':
+              minIntFields += `${key}, `;
+              break;
+
+            case 'pattern':
+              if(controlErrors['pattern']['requiredPattern'] == '^[0-9]+$') {
+                integerFields += `${key}, `;
+              }
               break;
 
             default:
@@ -302,17 +427,31 @@ export class AddmaterialsComponent implements OnInit {
       }
     });
 
+    if(this.validateAuthors(type).maxLength) {
+      maxLengthFields += 'authors, '
+    }
+
     let errorText = '';
-    console.log(requiredFields)
-    if(requiredFields.length > 1) {
-      errorText = errorText + '<b>Required Fields: </b>' + requiredFields.substring(0, requiredFields.length - 2) + '<br>';
-    } else if(maxLengthFields.length > 1) {
-      errorText += '<b>Fields Exceeding Allowed Lengths: </b>' + maxLengthFields.substring(0, maxLengthFields.length - 2);
+    
+    if(required) {
+      errorText += 'Please fill up required fields <br>'
+    } 
+    
+    if(maxLengthFields.length > 0) {
+      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
+    }
+
+    if(minIntFields.length > 0) {
+      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
+    }
+
+    if(integerFields.length > 0) {
+      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
     }
 
     Swal.fire({
-      title: 'Oops! Submission Error!',
-      html: errorText,
+      title: 'Oops! Invalid Form!',
+      html: `<div style="font-weight: 500;">${errorText}</div>`,
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",

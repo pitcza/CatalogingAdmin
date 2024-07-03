@@ -164,7 +164,7 @@ h1 {
     background-color: var(--input-hover);
 }
 
-.txt_field .inputtxt:valid ~ .labelline {
+.txt_field .inputtxt ~ .labelline {
     top: 17px;
     font-size: 12px;
     letter-spacing: 0.5px;
@@ -494,3 +494,12 @@ input[type="file"]::file-selector-button {
     background-color: var(--cancel-hover);
 }
 // END OF BUTTONS //
+
+.errorLabel {
+    color: red;
+}
+
+.errorSpan::before {
+    background-color: red;
+    border-bottom: 1px solid red;
+}

@@ -22,6 +22,7 @@ export class EditPeriodicalComponent implements OnInit{
   periodical: any;
   editForm: FormGroup;
   image: any;
+  imageUrl: any;
 
   constructor(private ref: MatDialogRef<EditPeriodicalComponent>, 
     private formBuilder: FormBuilder,
@@ -73,8 +74,8 @@ export class EditPeriodicalComponent implements OnInit{
     })
   }
    
-  closepopup() {
-    this.ref.close('Closed using function');
+  closepopup(text: string) {
+    this.ref.close(text);
   }
 
   // ARCHIVE POPUP
@@ -97,7 +98,7 @@ export class EditPeriodicalComponent implements OnInit{
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('Closed using function');
+        this.closepopup('Archive');
         Swal.fire({
           title: "Archiving complete!",
           text: "Periodical has been safely archived.",
@@ -131,7 +132,7 @@ export class EditPeriodicalComponent implements OnInit{
       },
     }).then((result) => {
       if (result.isConfirmed) {
-          this.ref.close('Closed using function');
+          this.closepopup('');
           const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -159,14 +160,6 @@ export class EditPeriodicalComponent implements OnInit{
     return index;
   }
 
-  removeAuthor(event: Event) {
-    let targetElement = event.target;
-
-    // Get the author div
-    let element = ((targetElement as HTMLElement).parentNode)?.parentNode;
-    element?.parentNode?.removeChild(element);
-  }
-
   removevalue(i: any){
     this.values.splice(i, 1);
   }
@@ -179,8 +172,7 @@ export class EditPeriodicalComponent implements OnInit{
   }
 
   updateValue($event: Event, index: number) {
-    // this.values[index] = $event.target.value;
-    console.log($event)
+    this.values[index] = ($event.target as HTMLInputElement).value;
   }
 
   isMaxLimitReached(): boolean {
@@ -190,19 +182,63 @@ export class EditPeriodicalComponent implements OnInit{
   
   imageUpload(event: Event): void {
     const input = event.target as HTMLInputElement;
+
+    // Check if there are files selected
     if (input.files && input.files.length) {
-      const file = input.files[0];
-      this.image = file;
-    }
+      const file = input.files[0];  // Get the first selected file
+
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();  // Create a new FileReader instance
+
+        // Define the onload callback for the FileReader
+        reader.onload = () => this.imageUrl = reader.result; 
+
+        reader.readAsDataURL(file);  // Read the file as a data URL
+
+        this.image = file;
+
+      } else {
+        input.value = ''; // removes the file
+        Swal.fire({
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
+        });
+      }
+    } 
+  }
+
+  validateAuthors() {
+    let valid = true;
+    let isNull = false;
+    let isExceeded = false;
+
+      if(this.values.length > 50) {
+        valid = false;
+        isExceeded = true;
+      }
+
+    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
   }
 
   protected updateBox() {
-    this.editForm.patchValue({
-      authors: JSON.stringify(this.values)
-    });
 
-    if(this.editForm.valid) {
-      
+    if(this.editForm.valid && this.validateAuthors().valid) {
+
+      this.editForm.patchValue({
+        authors: JSON.stringify(this.values)
+      });
+
       // pass datas to formdata to allow sending of files
       let form = new FormData();
       

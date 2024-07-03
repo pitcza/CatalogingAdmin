@@ -11,11 +11,11 @@
 
         <div class="addproject">
 
-            <form id="project-form">
+            <form id="project-form" [formGroup]="form" (submit)="submit()">
                 <div class="input_field">
                     <div class="input-row" id="no-add-function">
                         <div class="txt_field_short">
-                            <input class="inputtxt" type="text" formControlName="accession" required>
+                            <input class="inputtxt" type="text" formControlName="accession" [ngClass]="{'is-invalid': isInvalid('name')}"   >
                             <span></span>
                             <div class="labelline"> Accession No. </div>
                         </div>
@@ -29,7 +29,7 @@
                         <div class="txt_field_short">
                             <select class="inputtxt" id="filter-program" (change)="changedProgram($event)" formControlName="program">
                                 <ng-container *ngFor="let x of programs">
-                                    <option *ngIf="x.department.department == departmentFilter" [value] = "x.id">{{ x.program }}</option>
+                                    <option *ngIf="x.department_short == departmentFilter" [value] = "x.program_short">{{ x.program_short }}</option>
                                 </ng-container>
                             </select>
                             <span></span>
@@ -56,7 +56,7 @@
                         <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
                             <div class="multiple-author">
                                 <div class="txt_field">
-                                    <input class="inputtxt" type="text" formControlName="author" (input)="updateValue($event, i)" [value]="x" required>
+                                    <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x" required>
                                     <span></span>
                                     <div class="labelline"> Author </div>
                                 </div>
