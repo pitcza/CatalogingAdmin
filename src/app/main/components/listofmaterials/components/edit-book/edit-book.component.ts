@@ -416,4 +416,9 @@ export class EditBookComponent implements OnInit{
       confirmButtonColor: "#777777",
     });
   }
+
+  isFieldFilled(fieldName: string): boolean {
+    const control = this.editForm.get(fieldName);
+    return !!control && control.value !== null && control.value !== '';
+  }
 }

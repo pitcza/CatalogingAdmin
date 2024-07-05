@@ -165,7 +165,7 @@ export class EditPeriodicalComponent implements OnInit{
   }
 
   addvalue(){
-    if (this.values.length < 3) {
+    if (this.values.length < 5) {
       this.values.push('');
     }
     console.log(this.values)
@@ -176,7 +176,7 @@ export class EditPeriodicalComponent implements OnInit{
   }
 
   isMaxLimitReached(): boolean {
-    return this.values.length >= 3;
+    return this.values.length >= 5;
   }
   // ----- END OF AUTHORS ----- //
   
@@ -280,5 +280,16 @@ export class EditPeriodicalComponent implements OnInit{
         confirmButtonColor: "#777777",
       });
     }
+  }
+
+  isInvalid(controlName: string): boolean {
+    const control = this.editForm.get(controlName);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
+  
+  // FOR LABEL PO, YUNG SA ANIMATION NA NATAAS-BABA
+  isFieldFilled(fieldName: string): boolean {
+    const control = this.editForm.get(fieldName);
+    return !!control && control.value !== null && control.value !== '';
   }
 }

@@ -52,6 +52,7 @@ export class AddprojectComponent implements OnInit {
     private sanitizer: DomSanitizer // for img preview
   ) { }
 
+  // ----- PREVIEW AND CROP IMAGE ----- //
   imgChangeEvt: any = null;
   cropImagePreview: SafeUrl | undefined;
 
@@ -161,6 +162,7 @@ export class AddprojectComponent implements OnInit {
 
   onChipBarClick(): void {
     this.inputField.nativeElement.focus();
+    this.cd.detectChanges();
   }
 
   removeItem(index: number): void {
@@ -187,6 +189,7 @@ export class AddprojectComponent implements OnInit {
             // this.tags.push();
             this.tags = [...this.tags, value];
             this.triggerChange(); // call trigger method
+            this.cd.detectChanges();
           }
           this.inputField.nativeElement.value = '';
           event.preventDefault();
@@ -229,10 +232,11 @@ export class AddprojectComponent implements OnInit {
   isMaxTagsReached(): boolean {
     return this.tags.length >= this.maxTags;
   }
-  // END OF KEYWORDS
 
-  // IMAGE PREVIEW AND CROP
-  
+  getRemainingTags(): number {
+    return this.maxTags - this.tags.length;
+  }
+  // END OF KEYWORDS  
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {

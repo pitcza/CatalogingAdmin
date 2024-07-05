@@ -96,14 +96,20 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   isSidebarCollapsed = false;
-  isOverlayActive = false;
+  isSidebarOverlay = false;
 
   toggleSidebar() {
-    if (window.innerWidth <= 1320) {
-      this.isOverlayActive = !this.isOverlayActive;
-      this.isSidebarCollapsed = !this.isSidebarCollapsed;
+    if (window.innerWidth <= 768) {
+      if (this.isSidebarOverlay) {
+        this.isSidebarOverlay = false;
+        this.isSidebarCollapsed = true;
+      } else {
+        this.isSidebarOverlay = true;
+        this.isSidebarCollapsed = false;
+      }
     } else {
       this.isSidebarCollapsed = !this.isSidebarCollapsed;
+      this.isSidebarOverlay = false;
     }
   }
 
@@ -114,11 +120,12 @@ export class MainComponent implements OnInit, OnDestroy {
 
   checkScreenWidth() {
     const screenWidth = window.innerWidth;
-    if (screenWidth <= 1320) {
+    if (screenWidth <= 768) {
       this.isSidebarCollapsed = true;
+      this.isSidebarOverlay = false;
     } else {
-      this.isSidebarCollapsed = false;
-      this.isOverlayActive = false;
+      this.isSidebarCollapsed = screenWidth <= 1320;
+      this.isSidebarOverlay = false;
     }
   }
 }

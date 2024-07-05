@@ -21,12 +21,12 @@
                                             <option value="2" > Newspaper </option>
                                         </select>
                                         <span></span>
-                                        <div class="labelline"> Type of Material </div>
+                                        <div class="labelline1"> Type of Material </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="accession" [placeholder]="article.accession">
-                                        <span></span>
-                                        <div class="labelline"> Accession No. </div>
+                                        <input class="inputtxt" type="text" formControlName="accession">
+                                        <span [ngClass]="{ 'errorSpan': isInvalid('accession') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('accession'), 'moved-up': isFieldFilled('accession') }"> Accession No. </div>
                                     </div>
                                     <div class="txt_field">
                                         <select class="inputtxt" formControlName="language">
@@ -34,14 +34,14 @@
                                             <option value="Tagalog" > Tagalog </option>
                                         </select>
                                         <span></span>
-                                        <div class="labelline"> Language </div>
+                                        <div class="labelline1"> Language </div>
                                     </div>
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="title" [placeholder]="article.title" >
-                                        <span></span>
-                                        <div class="labelline"> Title </div>
+                                        <input class="inputtxt" type="text" formControlName="title">
+                                        <span [ngClass]="{ 'errorSpan': isInvalid('title') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('title'), 'moved-up': isFieldFilled('title') }"> Title </div>
                                     </div>
                                 </div>
                                 
@@ -52,8 +52,8 @@
                                         <div class="multiple-author">
                                             <div class="txt_field">
                                                 <input class="inputtxt" type="text" name="author" [value]="x">
-                                                <span></span>
-                                                <div class="labelline"> Author </div>
+                                                <span [ngClass]="{ 'errorSpan': isInvalid('author') }"></span>
+                                                <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid(x)}"> Author </div>
                                             </div>
                                             <button type="button" class="removebtn" *ngIf="values.length > 1" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
                                         </div>
@@ -64,21 +64,20 @@
                                     </div>
                                     
                                     <!-- Display message based on the number of input fields -->
-                                    <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
-                                    <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
-
+                                    <p *ngIf="!isMaxLimitReached()">Add more AUTHOR if necessary</p>
+                                    <p *ngIf="isMaxLimitReached()">Maximum AUTHORS reached</p>
                                 </div>
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="publisher" [placeholder]="article.publisher || 'N/A'">
-                                        <span></span>
-                                        <div class="labelline"> Publisher </div>
+                                        <input class="inputtxt" type="text" formControlName="publisher">
+                                        <span [ngClass]="{ 'errorSpan': isInvalid('publisher') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('publisher'), 'moved-up': isFieldFilled('publisher') }"> Publisher </div>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="number" min="0" formControlName="volume" [placeholder]="article.volume || 'N/A'" >
-                                        <span></span>
-                                        <div class="labelline"> Volume </div>
+                                        <input class="inputtxt" type="number" min="0" formControlName="volume">
+                                        <span [ngClass]="{ 'errorSpan': isInvalid('volume') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('volume'), 'moved-up': isFieldFilled('volume') }"> Volume </div>
                                     </div>
                                 </div>
 
@@ -92,14 +91,14 @@
 
                                 <div class="input-row">
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="text" formControlName="issue" [placeholder]="article.issue || 'N/A'">
-                                        <span></span>
-                                        <div class="labelline"> Issue </div>
+                                        <input class="inputtxt" type="text" formControlName="issue">
+                                        <span [ngClass]="{ 'errorSpan': isInvalid('issue') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('issue'), 'moved-up': isFieldFilled('issue') }"> Issue </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="subject" [placeholder]="article.subject || 'N/A'">
-                                        <span></span>
-                                        <div class="labelline"> Subject </div>
+                                        <input class="inputtxt" type="text" formControlName="subject">
+                                        <span [ngClass]="{ 'errorSpan': isInvalid('subject') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('subject'), 'moved-up': isFieldFilled('subject') }"> Subject </div>
                                     </div>
                                 </div>
 
@@ -118,21 +117,21 @@
                                 
                                 <div class="input-row">
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="text" formControlName="pages" [placeholder]="article.pages" >
-                                        <span></span>
-                                        <div class="labelline"> Pages </div>
+                                        <input class="inputtxt" type="text" formControlName="pages">
+                                        <span [ngClass]="{ 'errorSpan': isInvalid('pages') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('pages'), 'moved-up': isFieldFilled('pages') }"> Pages </div>
                                     </div> 
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="date" formControlName="date_published" >
-                                        <span></span>
-                                        <div class="datelabel"> Publication Date </div>
+                                        <input class="inputtxt" type="date" formControlName="date_published">
+                                        <span [ngClass]="{ 'errorSpan': isInvalid('date_published') }"></span>
+                                        <div class="datelabel" [ngClass]="{ 'errorLabel': isInvalid('date_published'), 'moved-up': isFieldFilled('date_published') }"> Publication Date </div>
                                     </div> 
                                 </div>
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="remarks" >
-                                        <span></span>
-                                        <div class="labelline"> Remarks </div>
+                                        <input class="inputtxt" type="text" formControlName="remarks">
+                                        <span ></span>
+                                        <div class="labelline" [ngClass]="{ 'moved-up': isFieldFilled('remarks') }"> Remarks </div>
                                     </div>
                                 </div>
                             </div>

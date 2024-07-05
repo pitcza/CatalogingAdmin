@@ -116,11 +116,21 @@ h1 {
     }
 
     .mat-authors {
-        font-size: 15px;
-        font-weight: 400;
+        display: flex;
+        line-height: 20px;
         padding-bottom: 15px;
         border-bottom: 1px solid var(--table-border);
         margin-bottom: 15px;
+        
+        h2 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-right: 15px;
+        }
+        p {
+            font-size: 15px;
+            font-weight: 400;
+        }
     }
 
     .mat-publisher {

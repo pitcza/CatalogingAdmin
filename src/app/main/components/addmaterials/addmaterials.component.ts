@@ -304,56 +304,76 @@ export class AddmaterialsComponent implements OnInit {
     }
 
     if(addForm.valid) {
-
-      // pass datas to formdata to allow sending of files
-      let form = new FormData();
-
-      Object.entries(addForm.value).forEach(([key, value]: [string, any]) => {
-        if(value != '' && value != null)
-          form.append(key, value);
-      });
-
-      if(type == 'book') {
-        if(this.bookImage) {
-          form.append('image_url', this.bookImage);
+      Swal.fire({
+        title: "Are you sure you want to add a new maretial?",
+        text: "This action will create a new " + type + ".",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        confirmButtonColor: "#4F6F52",
+        cancelButtonColor: "#777777",
+        scrollbarPadding: false,
+        willOpen: () => {
+          document.body.style.overflowY = 'scroll';
+        },
+        willClose: () => {
+          document.body.style.overflowY = 'scroll';
         }
-      } else if(type == 'periodical') {
-        if(this.periodicalImage) {
-          form.append('image_url', this.periodicalImage);
+      }).then((result) => {
+      if (result.isConfirmed) {
+
+        // pass datas to formdata to allow sending of files
+        let form = new FormData();
+
+        Object.entries(addForm.value).forEach(([key, value]: [string, any]) => {
+          if(value != '' && value != null)
+            form.append(key, value);
+        });
+
+        if(type == 'book') {
+          if(this.bookImage) {
+            form.append('image_url', this.bookImage);
+          }
+        } else if(type == 'periodical') {
+          if(this.periodicalImage) {
+            form.append('image_url', this.periodicalImage);
+          }
+        }
+
+        let formTitle = '';
+        formTitle += form.get('title');
+
+        if(type == 'book') {
+          this.bookService.addRecord(form).subscribe({
+            next: (res: any) => {
+              this.successMessage(formTitle)
+              },
+            error: (err: any) => {
+              this.serverErrors();
+            }
+          });
+        } else if(type == 'periodical') {
+          this.periodicalService.addRecord(form).subscribe({
+            next: (res: any) => {
+              this.successMessage(formTitle)
+              },
+            error: (err: any) => {
+              this.serverErrors();
+            }
+          });
+        } else if(type == 'article') {
+          this.articleService.addRecord(form).subscribe({
+            next: (res: any) => {
+              this.successMessage(formTitle)
+              },
+            error: (err: any) => {
+              this.serverErrors();
+            }
+          });
         }
       }
-
-      let formTitle = '';
-      formTitle += form.get('title');
-
-      if(type == 'book') {
-        this.bookService.addRecord(form).subscribe({
-          next: (res: any) => {
-            this.successMessage(formTitle)
-            },
-          error: (err: any) => {
-            this.serverErrors();
-          }
-        });
-      } else if(type == 'periodical') {
-        this.periodicalService.addRecord(form).subscribe({
-          next: (res: any) => {
-            this.successMessage(formTitle)
-            },
-          error: (err: any) => {
-            this.serverErrors();
-          }
-        });
-      } else if(type == 'article') {
-        this.articleService.addRecord(form).subscribe({
-          next: (res: any) => {
-            this.successMessage(formTitle)
-            },
-          error: (err: any) => {
-            this.serverErrors();
-          }
-        });
-      }
+    });
     } else {
       this.markFormGroupTouched(addForm);
       this.displayErrors(type);
@@ -367,6 +387,13 @@ export class AddmaterialsComponent implements OnInit {
       icon: 'success',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     });
   }
 
@@ -377,6 +404,13 @@ export class AddmaterialsComponent implements OnInit {
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     });
   }
 
@@ -455,6 +489,13 @@ export class AddmaterialsComponent implements OnInit {
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
     });
   }
 }
