@@ -137,7 +137,7 @@ td {
 
 .tbl-header2 {
     height: 60px;
-    padding-left: 10.4%;
+    padding-left: 10.2%;
 }
 
 th {
@@ -155,8 +155,11 @@ table tr:hover{
     background-color: var(--table-hover);
 }
 
-table td:nth-child(1) {
+.left-align {
     text-align: left;
+}
+
+table td:nth-child(1) {
     min-width: 400px;
     max-width: 400px;
 }

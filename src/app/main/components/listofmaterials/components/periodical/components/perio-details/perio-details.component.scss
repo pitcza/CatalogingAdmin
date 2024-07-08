@@ -116,11 +116,21 @@ h1 {
     }
 
     .mat-authors {
-        font-size: 15px;
-        font-weight: 400;
+        display: flex;
+        line-height: 20px;
         padding-bottom: 15px;
         border-bottom: 1px solid var(--table-border);
         margin-bottom: 15px;
+        
+        h2 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-right: 15px;
+        }
+        p {
+            font-size: 15px;
+            font-weight: 400;
+        }
     }
 
     .mat-publisher {
@@ -142,7 +152,7 @@ h1 {
 
         span {
             display: flex;
-            margin-top: 10px;
+            margin-top: 5px;
         }
     }
 
@@ -170,7 +180,7 @@ h1 {
             display: flex;
             font-size: 15px;
             font-weight: 700;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
             p {
                 font-weight: 400;
                 padding-left: 10px;

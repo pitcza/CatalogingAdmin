@@ -18,11 +18,13 @@ export class EditBookComponent implements OnInit{
   protected locations: any;
   book: any;
   image: any;
+  imageUrl: any;
   year: number[] = [];
   currentYear = new Date().getFullYear();
   maxAuthors = 3;
   editForm: FormGroup;
-  values = [];
+  values = [''];
+  submit = false;
 
   constructor(
     private ref: MatDialogRef<EditBookComponent>, 
@@ -83,8 +85,8 @@ export class EditBookComponent implements OnInit{
     })
   }
 
-  closepopup() {
-    this.ref.close('Closed using function');
+  closepopup(text: string) {
+    this.ref.close(text);
   }
 
   sourceOfFundEvent(event: Event) {
@@ -94,14 +96,6 @@ export class EditBookComponent implements OnInit{
       this.editForm.get('price')?.enable();
     } else {
       this.editForm.get('price')?.disable();
-    }
-  }
-
-  uploadImage(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length) {
-      const file = input.files[0];
-        this.image = file;
     }
   }
 
@@ -125,7 +119,7 @@ export class EditBookComponent implements OnInit{
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('Closed using function');
+        this.closepopup('Archive');
         Swal.fire({
           title: "Archiving complete!",
           text: "Book has been safely archived.",
@@ -158,7 +152,7 @@ export class EditBookComponent implements OnInit{
       }
     }).then((result) => {
       if (result.isConfirmed) {
-          this.ref.close('Closed using function');
+          this.closepopup('');
           const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -179,78 +173,136 @@ export class EditBookComponent implements OnInit{
   }
 
   // ----- AUTHORS ----- //
-  get authors(): FormArray {
-    return this.editForm.get('authors') as FormArray;
+  removeValue(i: any) {
+    this.values.splice(i, 1);
   }
 
-  addAuthor(): void {
-    if (this.authors.length < this.maxAuthors) {
-      this.authors.push(this.formBuilder.control('', Validators.required));
+  addValue() {
+    if (this.values.length < 5) {
+      this.values.push('');
     }
   }
 
-  removeAuthor(index: number): void {
-    if (this.authors.length > 1) {
-      this.authors.removeAt(index);
-    }
+  updateValue(event: Event, i: number) {
+    let input = event.target as HTMLInputElement;
+    this.values[i] = input.value;
   }
 
   isMaxLimitReached(): boolean {
-    return this.authors.length >= this.maxAuthors;
+    return this.values.length >= 5;
   }
-
-  trackByIndex(index: number, obj: any): any {
+  
+  trackByIndex(index: number): number {
     return index;
   }
-
-  onSubmit() {
-    if (this.editForm.valid) {
-      console.log(this.editForm.value);
-    }
-  }
-  // values = [''];
-
-  // // Track by function to minimize re-renders
-  // trackByIndex(index: number, item: any): number {
-  //   return index;
+  // get authors(): FormArray {
+  //   return this.editForm.get('authors') as FormArray;
   // }
 
-  // removeAuthor(event: Event) {
-  //   let targetElement = event.target;
-
-  //   // Get the author div
-  //   let element = ((targetElement as HTMLElement).parentNode)?.parentNode;
-  //   element?.parentNode?.removeChild(element);
-  // }
-
-  // removevalue(i: any){
-  //   this.values.splice(i, 1);
-  // }
-
-  // addvalue(){
-  //   if (this.values.length < 3) {
-  //     this.values.push('');
+  // addAuthor(): void {
+  //   if (this.authors.length < this.maxAuthors) {
+  //     this.authors.push(this.formBuilder.control('', Validators.required));
   //   }
-  //   console.log(this.values)
   // }
 
-  // updateValue($event: Event, index: number) {
-  //   // this.values[index] = $event.target.value;
-  //   console.log($event)
+  // removeAuthor(index: number): void {
+  //   if (this.authors.length > 1) {
+  //     this.authors.removeAt(index);
+  //   }
   // }
 
   // isMaxLimitReached(): boolean {
-  //   return this.values.length >= 3;
+  //   return this.authors.length >= this.maxAuthors;
   // }
+
+  // trackByIndex(index: number, obj: any): any {
+  //   return index;
+  // }
+
   // ----- END OF AUTHORS ----- //
 
-  protected updateBook() {
-    this.editForm.patchValue({
-      authors: JSON.stringify(this.values)
-    });
+  imageUpload(event: Event): void {
+    const input = event.target as HTMLInputElement;
 
-    if(this.editForm.valid) {
+    // Check if there are files selected
+    if (input.files && input.files.length) {
+      const file = input.files[0];  // Get the first selected file
+
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();  // Create a new FileReader instance
+
+        // Define the onload callback for the FileReader
+        reader.onload = () => this.imageUrl = reader.result; 
+
+        reader.readAsDataURL(file);  // Read the file as a data URL
+
+        this.image = file;
+
+      } else {
+        input.value = ''; // removes the file
+        Swal.fire({
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
+        });
+      }
+    } 
+  }
+
+  isInvalid(controlName: string): boolean {
+    const control = this.editForm.get(controlName);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
+
+  invalidAuthor(i: number) {
+    let authorInput = this.values[i];
+
+    return (authorInput.length < 1 || authorInput.length > 50) && this.submit;
+  }
+  
+  validateAuthors() {
+    let valid = true;
+    let isNull = false;
+    let isExceeded = false;
+
+    for(let i = 0; i < this.values.length; i++) {
+      if(this.values.length > 50) {
+        valid = false;
+        isExceeded = true;
+      }
+    }
       
+
+    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
+  }
+
+  protected updateBook() {
+
+    this.submit = true;
+
+    if(this.editForm.valid && this.validateAuthors().valid) {
+      
+      this.editForm.patchValue({
+        authors: JSON.stringify(this.values)
+      });
+
       // pass datas to formdata to allow sending of files
       let form = new FormData();
       
@@ -265,33 +317,108 @@ export class EditBookComponent implements OnInit{
 
       this.bookService.updateRecord(this.data.accession, form).subscribe({
         next: (res: any) => {
-          Swal.fire({
-            title: 'Success',
-            text: "Book has been updated successfully!",
-            icon: 'success',
-            confirmButtonText: 'Close',
-            confirmButtonColor: "#777777",
-          });
+          this.successMessage('Book');
+          this.closepopup('Update');
         },
-        error: (err: any) => {
-          Swal.fire({
-            title: 'Oops! Server Side Error!',
-            text: 'Please try again later or contact the developers',
-            icon: 'error',
-            confirmButtonText: 'Close',
-            confirmButtonColor: "#777777",
-          });
-        }
+        error: (err: any) => this.serverErrors()
       });
     } else {
-      console.log(this.editForm)
-      Swal.fire({
-        title: 'Oops! Submission Error!',
-        text: 'Invalid Form',
-        icon: 'error',
-        confirmButtonText: 'Close',
-        confirmButtonColor: "#777777",
-      });
+      this.markFormGroupTouched(this.editForm);
+      this.displayErrors();
     }
+  }
+
+  successMessage(title:string) {
+    Swal.fire({
+      title: 'Success',
+      text: title + " has been added successfully",
+      icon: 'success',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+    });
+  }
+
+  serverErrors() {
+    Swal.fire({
+      title: 'Oops! Server Side Error!',
+      text: 'Please try again later or contact the developers',
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+    });
+  }
+
+  displayErrors() {
+
+    let maxLengthFields = '';
+    let minIntFields = '';
+    let integerFields = '';
+    let required = false;
+
+    Object.keys(this.editForm.controls).forEach(key => {
+      const control = this.editForm.get(key);
+      if (control && control.errors) {
+        const controlErrors = control.errors;
+        Object.keys(controlErrors).forEach(errorKey => {
+          switch (errorKey) {
+            case 'required':
+              required = true;
+              break;
+
+            case 'maxlength':
+              maxLengthFields += `${key}, `;
+              break;
+
+            case 'min':
+              minIntFields += `${key}, `;
+              break;
+
+            case 'pattern':
+              if(controlErrors['pattern']['requiredPattern'] == '^[0-9]+$') {
+                integerFields += `${key}, `;
+              }
+              break;
+
+            default:
+              break;
+          }
+        });
+      }
+    });
+
+    if(this.validateAuthors().maxLength) {
+      maxLengthFields += 'authors, '
+    }
+
+    let errorText = '';
+    
+    if(required) {
+      errorText += 'Please fill up required fields <br>'
+    } 
+    
+    if(maxLengthFields.length > 0) {
+      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
+    }
+
+    if(minIntFields.length > 0) {
+      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
+    }
+
+    if(integerFields.length > 0) {
+      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
+    }
+
+    Swal.fire({
+      title: 'Oops! Invalid Form!',
+      html: `<div style="font-weight: 500;">${errorText}</div>`,
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+    });
+  }
+
+  isFieldFilled(fieldName: string): boolean {
+    const control = this.editForm.get(fieldName);
+    return !!control && control.value !== null && control.value !== '';
   }
 }

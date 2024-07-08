@@ -96,24 +96,6 @@ span {
     border: 1.5px solid var(--main-green);
 }
 
-//SELECT OPTION
-// .table-filters select {
-//     -webkit-appearance: none;
-//     -moz-appearance: none;
-//     appearance: none;
-//     /* Add some padding to align text with border */
-//     padding-right: 20px;
-//     /* Add a background image for custom arrow */
-//     background-image: url('../../../../../../assets/icons/down-arrow.png');
-//     background-repeat: no-repeat;
-//     background-position: center right 5px;
-// }
-
-// option {
-//     background-color: var(--white);
-// }
-//SELECT OPTION
-
 // SEARCH BAR
 .table-head input[type=text] {
     font-family: 'Montserrat';
@@ -164,7 +146,29 @@ input:focus{
     margin-bottom: 30px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     border: 0.5px solid var(--table-border);
+    overflow-x: auto;
 }
+
+// SCROLLBAR //
+.projects-table::-webkit-scrollbar {
+    height: 5px;
+}
+
+.projects-table::-webkit-scrollbar-thumb {
+    background-color: var(--table-border);
+    border-radius: 5px;
+}
+
+.projects-table::-webkit-scrollbar-track {
+    background-color: var(--white); 
+    margin-top: 90px;
+    margin-bottom: 10px;
+}
+
+.projects-table::-webkit-scrollbar-thumb:hover {
+    background-color: var(--table-darkhover);
+}
+// END OF SCROLLBAR //
 
 ng-template {
     display: contents;
@@ -174,9 +178,10 @@ ng-template {
 table {
     border-radius: 5px;
     border: 1px solid var(--table-border);
+    table-layout: fixed;
+    padding: 10px;
 }
 
-table,
 th,
 td {
     font-family: 'Montserrat';

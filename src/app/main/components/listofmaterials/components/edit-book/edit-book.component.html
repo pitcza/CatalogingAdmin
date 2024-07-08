@@ -15,14 +15,14 @@
                             <div class="input_field">
                                 <div class="input-row">
                                     <div class="txt_field_shorter">
-                                        <input class="inputtxt" type="text" min="0" formControlName="accession">
-                                        <span></span>
-                                        <div class="labelline"> Accession No. </div>
+                                        <input class="inputtxt" type="text" formControlName="accession">
+                                        <span [ngClass]="{'errorSpan': isInvalid('accession') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('accession'), 'moved-up': isFieldFilled('accession') }"> Accession No. </div>
                                     </div>
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" formControlName="title">
-                                        <span></span>
-                                        <div class="labelline"> Title </div>
+                                        <span [ngClass]="{'errorSpan': isInvalid('title') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('title'), 'moved-up': isFieldFilled('title') }"> Title </div>
                                     </div>
                                 </div>
                                 
@@ -30,60 +30,40 @@
                                 <div class="input-row">
                                     <div class="author-container">
                                         <ng-container formArrayName="authors">
-                                          <div *ngFor="let author of values; let i = index; trackBy: trackByIndex" class="multiple-author">
+                                        <div *ngFor="let author of values; let i = index; trackBy: trackByIndex" class="multiple-author">
                                             <div class="txt_field">
-                                              <input class="inputtxt" type="text" name="author" placeholder="Author" [value]="author">
-                                              <span></span>
-                                              <div class="labelline"> Author </div>
+                                                <input class="inputtxt" type="text" name="author" [value]="author" (keyup)="updateValue($event, i)">
+                                                <span  [ngClass]="{'errorSpan': invalidAuthor(i) }"></span>
+                                                <div class="labelline1" [ngClass]="{ 'errorLabel': invalidAuthor(i) }"> Author </div>
                                             </div>
-                                            <button type="button" class="removebtn" *ngIf="authors.length > 1" (click)="removeAuthor(i)">
-                                              <i class='bx bx-x'></i>
+                                            <button type="button" class="removebtn" *ngIf="values.length > 1" (click)="removeValue(i)">
+                                                <i class='bx bx-x'></i>
                                             </button>
-                                          </div>
-                                        </ng-container>
-                                      </div>
-                                      
-                                      <div class="addbtn">
-                                        <button type="button" class="add-author" (click)="addAuthor()" [disabled]="isMaxLimitReached()">ADD</button>
-                                      </div>
-                                      
-                                      <!-- Display message based on the number of input fields -->
-                                      <p *ngIf="authors.length < maxAuthors">Add more AUTHOR if necessary</p>
-                                      <p *ngIf="isMaxLimitReached()">Maximum AUTHORS reached</p>
-                                </div>
-                                <!-- <div class="input-row">
-                                    <div class="author-container">
-                                    <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
-                                        <div class="multiple-author">
-                                            <div class="txt_field">
-                                                <input class="inputtxt" type="text" name="author" [value]="x">
-                                                <span></span>
-                                                <div class="labelline"> Author </div>
-                                            </div>
-                                            <button type="button" class="removebtn" *ngIf="values.length > 1" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
                                         </div>
-                                    </ng-container>
+                                        </ng-container>
                                     </div>
+                                      
                                     <div class="addbtn">
-                                        <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                                        <button type="button" class="add-author" (click)="addValue()" [disabled]="isMaxLimitReached()">ADD</button>
                                     </div>
                                     
-                                    Display message based on the number of input fields
-                                    <p *ngIf="values.length < 3">Add more AUTHOR if necessary</p>
-                                    <p *ngIf="values.length === 3">Maximum AUTHORS reached</p>
-
-                                </div> -->
+                                    <!-- Display message based on the number of input fields -->
+                                    <p *ngIf="!isMaxLimitReached()">Add more AUTHOR if necessary</p>
+                                    <p *ngIf="isMaxLimitReached()">Maximum AUTHORS reached</p>
+                                </div>
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="publisher" [placeholder]="book.publisher || 'N/A'">
-                                        <span></span>
-                                        <div class="labelline"> Publisher </div>
+                                        <input class="inputtxt" type="text" formControlName="publisher">
+                                        <span [ngClass]="{'errorSpan': isInvalid('publisher') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('publisher'), 'moved-up': isFieldFilled('publisher') }"> Publisher </div>
                                     </div>
                                     <div class="txt_field_short">
-                                        <input class="inputtxt" type="number" min="1950" formControlName="copyright">
+                                        <select class="inputtxt" formControlName="copyright">
+                                            <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
+                                        </select>
                                         <span></span>
-                                        <div class="labelline"> Copyright </div>
+                                        <div class="labelline1"> Copyright </div>
                                     </div>
                                 </div>
 
@@ -95,43 +75,43 @@
                                                 {{ location.location_short }}{{ location.location_full ? ': ' + location.location_full : '' }}</option>
                                         </select>
                                         <span></span>
-                                        <div class="labelline"> Location </div>
+                                        <div class="labelline1"> Location </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="call_number" [placeholder]="book.call_number">
-                                        <span></span>
-                                        <div class="labelline"> Call Number </div>
+                                        <input class="inputtxt" type="text" formControlName="call_number" >
+                                        <span [ngClass]="{'errorSpan': isInvalid('call_number') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('call_number'), 'moved-up': isFieldFilled('call_number') }"> Call Number </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="author_number" [placeholder]="book.author_number || 'N/A'">
-                                        <span></span>
-                                        <div class="labelline"> Author Number </div>
-                                    </div>
-                                </div>
-
-                                <div class="input-row">
-                                    <div class="txt_field">
-                                        <input class="inputtxt" type="text"  formControlName="volume" [placeholder]="book.volume || 'N/A'">
-                                        <span></span>
-                                        <div class="labelline"> Volume </div>
-                                    </div>
-                                    <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="edition" [placeholder]="book.edition || 'N/A'">
-                                        <span></span>
-                                        <div class="labelline"> Edition </div>
-                                    </div>
-                                    <div class="txt_field">
-                                        <input class="inputtxt" type="number" min="0" formControlName="pages" [placeholder]="book.pages">
-                                        <span></span>
-                                        <div class="labelline"> Pages </div>
+                                        <input class="inputtxt" type="text" formControlName="author_number" >
+                                        <span [ngClass]="{ 'errorSpan': isInvalid('author_number') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('author_number'), 'moved-up': isFieldFilled('author_number') }"> Author Number </div>
                                     </div>
                                 </div>
 
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" min="0" formControlName="remarks" [placeholder]="book.remarks || 'N/A'">
+                                        <input class="inputtxt" type="text"  formControlName="volume">
                                         <span></span>
-                                        <div class="labelline"> Remarks </div>
+                                        <div class="labelline" [ngClass]="{ 'moved-up': isFieldFilled('volume') }"> Volume </div>
+                                    </div>
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" formControlName="edition" >
+                                        <span></span>
+                                        <div class="labelline" [ngClass]="{ 'moved-up': isFieldFilled('edition') }"> Edition </div>
+                                    </div>
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="number" min="0" formControlName="pages" >
+                                        <span [ngClass]="{'errorSpan': isInvalid('pages') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('pages'), 'moved-up': isFieldFilled('pages') }"> Pages </div>
+                                    </div>
+                                </div>
+
+                                <div class="input-row">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" min="0" formControlName="remarks" >
+                                        <span></span>
+                                        <div class="labelline" [ngClass]="{ 'moved-up': isFieldFilled('remarks') }"> Remarks </div>
                                     </div>
                                 </div>
                                 
@@ -143,24 +123,24 @@
                                             <option value="Replacement" > Replacement </option>
                                         </select>
                                         <span></span>
-                                        <label class="labelline" for="fund"> Source of Fund </label>
+                                        <label class="labelline1" for="fund"> Source of Fund </label>
                                     </div>
                                     <div class="txt_field">
                                         <input class="inputtxt" type="date" formControlName="acquired_date">
-                                        <span></span>
-                                        <div class="datelabel"> Date Purchased/Donated </div>
+                                        <span [ngClass]="{'errorSpan': isInvalid('acquired_date') }"></span>
+                                        <div class="datelabel" [ngClass]="{ 'errorLabel': isInvalid('acquired_date') }"> Date Purchased/Donated </div>
                                     </div> 
                                     <div class="txt_field">
                                         <span class="peso-sign">₱</span>
-                                        <input class="inputtxt-price" type="number" min="0" formControlName="price" [value]="book.price">
-                                        <span></span>
-                                        <div class="labelline1"> Price </div>
+                                        <input class="inputtxt-price" type="number" formControlName="price" >
+                                        <span [ngClass]="{'errorSpan': isInvalid('price') }"></span>
+                                        <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('price') }"> Price </div>
                                     </div>
                                 </div>
 
                                 <div class="input-row">
                                     <div class="txt_field"> 
-                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;" (change)="uploadImage($event)"> 
+                                        <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;" (change)="imageUpload($event)"> 
                                         <span></span>
                                         <div class="uploadlabel"> Upload Image </div>
                                     </div>

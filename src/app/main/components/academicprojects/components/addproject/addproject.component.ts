@@ -2,11 +2,13 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, E
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { DataService } from '../../../../../services/data.service';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { text } from 'stream/consumers';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ProjectService } from '../../../../../services/materials/project/project.service';
 
 @Component({
   selector: 'app-addproject',
@@ -26,14 +28,31 @@ export class AddprojectComponent implements OnInit {
   departmentFilter = '';
   programFilter: any;
   programCategory: any;
+  image: any;
+  projectImage: any;
+  form: FormGroup = this.formBuilder.group({
+    accession: ['', Validators.required],
+    category: [{value: '', disabled: true}, Validators.required],
+    title: ['', [Validators.required, Validators.maxLength(255)]],
+    authors: ['', Validators.required],
+    program: ['', Validators.required],
+    image_url: [''],
+    date_published: ['', Validators.required],
+    language: [2024, Validators.required],
+    abstract: [''],
+    keywords: ['']
+  });
 
   constructor(
     private router: Router,
+    private formBuilder: FormBuilder,
     private ds: DataService,
+    private projectService: ProjectService,
     private cd: ChangeDetectorRef, // for keywords
     private sanitizer: DomSanitizer // for img preview
   ) { }
 
+  // ----- PREVIEW AND CROP IMAGE ----- //
   imgChangeEvt: any = null;
   cropImagePreview: SafeUrl | undefined;
 
@@ -68,16 +87,17 @@ export class AddprojectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ds.get('programs').subscribe({
+    this.projectService.getPrograms().subscribe({
       next: (res: any) => {
         this.programs = res;
-        this.departmentFilter = res[0].department.department;
-        this.programFilter = res[0].program;
-        this.programCategory = res[0].category;
+        this.departmentFilter = this.programs[0].department_short;
+        this.programFilter = this.programs[0].program_short;
+        this.programCategory = this.programs[0].category;
+
         // Extract unique department names from programs
         const uniqueDepartments = new Set<string>();
         this.programs.forEach((program: any) => {
-            uniqueDepartments.add(program.department.department);
+            uniqueDepartments.add(program.department_short);
         });
 
         // Convert the Set back to an array
@@ -86,8 +106,7 @@ export class AddprojectComponent implements OnInit {
         // Manually trigger change detection after setting values
         this.cd.detectChanges();
       }
-    })
-    this.submit();
+    });
   }
 
   // ----- MULTIPLE AUTHORS FUNCTION -----//
@@ -143,6 +162,7 @@ export class AddprojectComponent implements OnInit {
 
   onChipBarClick(): void {
     this.inputField.nativeElement.focus();
+    this.cd.detectChanges();
   }
 
   removeItem(index: number): void {
@@ -169,6 +189,7 @@ export class AddprojectComponent implements OnInit {
             // this.tags.push();
             this.tags = [...this.tags, value];
             this.triggerChange(); // call trigger method
+            this.cd.detectChanges();
           }
           this.inputField.nativeElement.value = '';
           event.preventDefault();
@@ -211,21 +232,21 @@ export class AddprojectComponent implements OnInit {
   isMaxTagsReached(): boolean {
     return this.tags.length >= this.maxTags;
   }
-  // END OF KEYWORDS
 
-  // IMAGE PREVIEW AND CROP
-  
+  getRemainingTags(): number {
+    return this.maxTags - this.tags.length;
+  }
+  // END OF KEYWORDS  
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {
     const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
-    this.departmentFilter = selectDepartment;
-    console.log(selectDepartment)
+    this.departmentFilter = selectDepartment; 
     
     this.programs.some((x: any) => {
-      if(x.department.department == this.departmentFilter) {
+      if(x.department_short == this.departmentFilter) {
         this.programCategory = x.category;
-        this.programFilter = x.id;
+        this.programFilter = x.program_short;
         return true; 
       }
       return false; 
@@ -237,6 +258,17 @@ export class AddprojectComponent implements OnInit {
   changedProgram(event: Event) {
     const selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
     this.programFilter = selectProgram;
+
+    this.programs.some((x: any) => {
+      if(x.department_short == this.departmentFilter) {
+        this.programCategory = x.category;
+        this.form.patchValue({
+          category: this.programCategory
+        });
+        return true; 
+      }
+      return false; 
+    });
 
     this.changeCategory();
   }
@@ -252,70 +284,34 @@ export class AddprojectComponent implements OnInit {
     });
   }
 
-  /* SUBMIT FORM */
-  submit() {
-    var form = document.getElementById('project-form') as HTMLFormElement;
+  addImage(event: Event) {
+    const input = event.target as HTMLInputElement;
 
-    form.addEventListener('submit', (event) => {
+    // Check if there are files selected
+    if (input.files && input.files.length) {
+      const file = input.files[0];  // Get the first selected file
 
-      // Prevent the default form submission behavior
-      event.preventDefault();
-  
-      // Get the form elements
-      const elements = form.elements;
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();  // Create a new FileReader instance
 
-      let formData = new FormData();
+        // Define the onload callback for the FileReader
+        reader.onload = () => {
+          this.projectImage = reader.result;  // Set the image property to the result
+        };
 
-      let fields = ['program_id', 'category', 'title', 'author', 'language', 'date_published', 'abstract', 'keywords'];
-      let valid = true;
-      let validFile = true;
-      let authorElements: any[] = [];
-      let keywords: any[] = [];
-  
-      // Loop through each form element
-      for (let i = 0; i < elements.length; i++) {
-          var element = elements[i] as HTMLInputElement;
-        
-          // Check if the element is an input field
-          if (element.type === 'file' && element.files && element.files.length > 0) {
-            const file = element.files[0];
-            if(file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
-              formData.append(element.name, element.files[0]);
-            } else {
-              validFile = false;
-            }
-          } else if (element.name == 'author') {
-            authorElements.push(element.value.trim())
-          } else if (element.name == 'keywords') {
-            keywords.push(element.value.trim())
-          } else if ((element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'DATE'
-          || element.tagName === 'TEXTAREA') && element.id != 'submit-button') {
-            formData.append(element.name, element.value);
-          } 
-          if(fields.includes(element.name) && element.value == '') {
-            valid = false;
-            element.style.borderColor = 'red';
-          } else 
-              element.style.borderColor = 'black';
-      }
+        reader.readAsDataURL(file);  // Read the file as a data URL
 
-      formData.append('authors', JSON.stringify(authorElements));
+        this.image = file;  // Optionally store the file object itself
 
-      formData.append('keywords', JSON.stringify(keywords));
-      console.log(formData.get('keywords'));
-      console.log(formData.get('authors'));
-
-
-      if(valid && validFile) {
+      } else {
+        input.value = ''; // removes the file
         Swal.fire({
-          title: "Are you sure you want to add a new project?",
-          text: "This action will create a new project.",
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonText: 'Yes',
-          cancelButtonText: 'No',
-          confirmButtonColor: "#4F6F52",
-          cancelButtonColor: "#777777",
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
           scrollbarPadding: false,
           willOpen: () => {
             document.body.style.overflowY = 'scroll';
@@ -323,78 +319,87 @@ export class AddprojectComponent implements OnInit {
           willClose: () => {
             document.body.style.overflowY = 'scroll';
           }
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.ds.post('projects/process', formData).subscribe({
-              next: (res: any) => {
-                this.router.navigate(['main/academicprojects/listofprojects']); // redirect to list kapag nag add
-                console.log(res)
-                Swal.fire({
-                  title: 'Success',
-                  text: formData.get('title') + " has been added successfully",
-                  icon: 'success',
-                  confirmButtonColor: "#4F6F52",
-                  scrollbarPadding: false,
-                  willOpen: () => {
-                    document.body.style.overflowY = 'scroll';
-                  },
-                  willClose: () => {
-                    document.body.style.overflowY = 'scroll';
-                  },
-                  timer: 5000
-                });
-              },
-              error:(err: any) => {
-                Swal.fire({
-                  title: 'Error',
-                  text: "Oops an error occured",
-                  icon: 'error',
-                  confirmButtonText: 'Close',
-                  confirmButtonColor: "#777777",
-                  scrollbarPadding: false,
-                  willOpen: () => {
-                    document.body.style.overflowY = 'scroll';
-                  },
-                  willClose: () => {
-                    document.body.style.overflowY = 'scroll';
-                  }
-                });
-              }
-            })
-          } else if(!validFile) {
-            Swal.fire({
-              title: 'Oops! Error on form',
-              text: 'Invalid image. Must be of type png, jpeg, or jpg.',
-              icon: 'error',
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-              scrollbarPadding: false,
-              willOpen: () => {
-                document.body.style.overflowY = 'scroll';
-              },
-              willClose: () => {
-                document.body.style.overflowY = 'scroll';
-              }
-            });
-          } else {
-            Swal.fire({
-              title: 'Oops! Error on form',
-              text: 'Please check if required fields have values',
-              icon: 'error',
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-              scrollbarPadding: false,
-              willOpen: () => {
-                document.body.style.overflowY = 'scroll';
-              },
-              willClose: () => {
-                document.body.style.overflowY = 'scroll';
-              }
-            });
-          }
         });
       }
+    } 
+  }
+
+  isInvalid(controlName: string): boolean {
+    const control = this.form.get(controlName);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
+
+  // SUBMIT POPUP
+  protected submit() {
+
+    this.form.get('category')?.enable();
+    this.form.patchValue({
+      authors: JSON.stringify(this.values),
+      keywords: JSON.stringify(this.tags)
     });
+
+    if(this.form.valid) {
+      let form = new FormData();
+
+      Object.entries(this.form.value).forEach(([key, value]: [string, any]) => {
+        if(value != '' && value != null)
+          form.append(key, value);
+      });
+
+      if(this.image)
+        form.append('image_url', this.image);
+
+      this.projectService.addRecord(form).subscribe({
+        next: (res: any) => {
+          Swal.fire({
+            title: "Update successful!",
+            text: "The changes have been saved.",
+            icon: "success",
+            confirmButtonColor: "#4F6F52",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            timer: 5000
+          });
+        },
+        error:(err: any) => {
+          console.log(err);
+          Swal.fire({
+            title: 'Error',
+            text: "Oops a server error occured",
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            }
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: "Oops an error occured",
+        icon: 'error',
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+        scrollbarPadding: false,
+        willOpen: () => {
+          document.body.style.overflowY = 'scroll';
+        },
+        willClose: () => {
+          document.body.style.overflowY = 'scroll';
+        }
+      });
+    }
   }
 
   // POP UP FUNCTION CONTENT

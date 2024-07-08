@@ -395,6 +395,7 @@
 }
 
 .entryarea2 input {
+    font-family: 'Montserrat';
     position: absolute;
     margin-top: -25px;
     width: 100%;
@@ -1512,6 +1513,6 @@ input[type="file"]::file-selector-button {
     color: red;
 }
 
-.errorField::before {
-    background-color: red ;
+.errorSpan::before {
+    background-color: red;
 }

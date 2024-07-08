@@ -167,7 +167,7 @@ export class EditArticleComponent implements OnInit{
   }
 
   addvalue(){
-    if (this.values.length < 3) {
+    if (this.values.length < 5) {
       this.values.push('');
     }
     console.log(this.values)
@@ -179,7 +179,7 @@ export class EditArticleComponent implements OnInit{
   }
 
   isMaxLimitReached(): boolean {
-    return this.values.length >= 3;
+    return this.values.length >= 5;
   }
   // ----- END OF AUTHORS ----- //
   
@@ -205,8 +205,16 @@ export class EditArticleComponent implements OnInit{
             text: "Article of accession " + form.get('accession') + " has been successfully updated!",
             icon: 'success',
             confirmButtonText: 'Close',
-            confirmButtonColor: "#777777",
+            confirmButtonColor: "#4F6F52",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            }
           });
+          this.ref.close('Changed Data');
         },
         error: (err: any) => {
           Swal.fire({
@@ -215,6 +223,7 @@ export class EditArticleComponent implements OnInit{
             icon: 'error',
             confirmButtonText: 'Close',
             confirmButtonColor: "#777777",
+            scrollbarPadding: false,
           });
         }
       });
@@ -225,7 +234,25 @@ export class EditArticleComponent implements OnInit{
         icon: 'error',
         confirmButtonText: 'Close',
         confirmButtonColor: "#777777",
+        scrollbarPadding: false,
+        willOpen: () => {
+          document.body.style.overflowY = 'scroll';
+        },
+        willClose: () => {
+          document.body.style.overflowY = 'scroll';
+        }
       });
     }
+  }
+
+  isInvalid(controlName: string): boolean {
+    const control = this.editForm.get(controlName);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
+  
+  // FOR LABEL PO, YUNG SA ANIMATION NA NATAAS-BABA
+  isFieldFilled(fieldName: string): boolean {
+    const control = this.editForm.get(fieldName);
+    return !!control && control.value !== null && control.value !== '';
   }
 }
