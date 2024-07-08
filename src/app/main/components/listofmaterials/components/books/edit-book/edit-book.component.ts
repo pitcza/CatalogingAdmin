@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { BookService } from '../../../../../services/materials/book/book.service';
+import { BookService } from '../../../../../../services/materials/book/book.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-book',
   templateUrl: './edit-book.component.html',
-  styleUrl: './edit-book.component.scss'
+  styleUrl: './edit-book.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule
+  ],
 })
 export class EditBookComponent implements OnInit{
 
@@ -331,7 +337,7 @@ export class EditBookComponent implements OnInit{
   successMessage(title:string) {
     Swal.fire({
       title: 'Success',
-      text: title + " has been added successfully",
+      text: title + " has been updated successfully",
       icon: 'success',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",

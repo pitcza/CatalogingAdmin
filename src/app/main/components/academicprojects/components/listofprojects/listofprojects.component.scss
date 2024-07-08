@@ -82,14 +82,23 @@ span {
     background: var(--white);
     font-family: 'Montserrat';
     padding: 5px;
+    padding-left: 10px;
     font-size: 14px;
     font-weight: 500;
-    width: 12em;
+    width: 12.5em;
     height: 2.5em;
     border: 1px solid var(--table-border);
     border-radius: 7px;
     transition: all 0.5s ease;
     outline: none;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('../../../../../../assets/icons/pagearrow.png');
+    background-size: 16px;
+    background-repeat: no-repeat;
+    background-position: center right 5px;
 }
 
 .table-filters select:focus {
@@ -362,3 +371,72 @@ tr {
         display: none;
     }
 }
+
+$primary-color: #000;
+$disabled-color: #ccc;
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    font-size: 16px;
+    padding: 10px;
+
+    label {
+        margin-right: 10px;
+    }
+
+    select {
+        font-family: 'Montserrat';
+        margin-right: 25px;
+        padding: 12px;
+        border-radius: 4px;
+        background-color: var(--container-color);
+        border: 1px solid var(--table-border);
+
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        padding-right: 35px;
+        background-image: url('../../../../../../assets/icons/pagearrow.png');
+        background-size: 14px;
+        background-repeat: no-repeat;
+        background-position: center right 7px;
+        transition: all 0.3s ease;
+
+        
+        // Styling for hover effect on options
+         option:hover {
+            background-color: lightgreen;
+        }
+    }
+
+    select:hover {
+        border: 1px solid black;
+    }
+
+    select:focus {
+        outline-color: var(--main-green);
+        background-image: url('../../../../../../assets/icons/arrowfocus.png');
+    }
+
+    .pagination-info {
+        margin-right: 20px;
+    }
+
+    .pagination-button {
+        background: none;
+        border: none;
+        color: $primary-color;
+        font-size: 24px;
+        margin: 0 5px;
+        cursor: pointer;
+
+        &:disabled {
+        color: $disabled-color;
+        cursor: not-allowed;
+        }
+    }
+}
+
+

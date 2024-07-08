@@ -13,8 +13,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 
-import { EditBookComponent } from '../edit-book/edit-book.component';
-import { BookDetailsPopupComponent } from '../book-details-popup/book-details-popup.component';
+import { EditBookComponent } from './edit-book/edit-book.component';
+import { BookDetailsPopupComponent } from './book-details-popup/book-details-popup.component';
+
 import { DataService } from '../../../../../services/data.service';
 import { get } from 'http';
 import { filter } from 'rxjs';
