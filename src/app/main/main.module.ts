@@ -20,13 +20,16 @@ import { MaterialModule } from '../modules/material/material.module';
 
 import { LoadingComponent } from './components/loading/loading.component';
 
+import { ImportComponent } from './components/addmaterials/import/import.component';
+
 @NgModule({
   declarations: [
     AddmaterialsComponent,
     AcademicprojectsComponent,
     ListofmaterialsComponent,
     ReportsComponent,
-    LoadingComponent
+    LoadingComponent,
+    ImportComponent
   ],
   imports: [
     CommonModule,

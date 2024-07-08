@@ -8,6 +8,9 @@ import { share } from 'rxjs';
 import { PeriodicalService } from '../../../services/materials/periodical/periodical.service';
 import { ArticleService } from '../../../services/materials/article/article.service';
 import { kMaxLength } from 'buffer';
+import { ImportComponent } from './import/import.component';
+
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-addmaterials',
@@ -23,13 +26,18 @@ export class AddmaterialsComponent implements OnInit {
   periodicalImage: any = null;
   bookImageUrl: string | ArrayBuffer | null = null;  // Add this line
   periodicalImageUrl: string | ArrayBuffer | null = null;  // Add this line
+  isModalOpen: boolean = false;
+  dialogRef: MatDialog;
 
   constructor(
     private formBuilder: FormBuilder,
     private bookService: BookService,
     private periodicalService: PeriodicalService,
-    private articleService: ArticleService
+    private articleService: ArticleService, 
+    private dialog: MatDialog
   ) {
+    this.dialogRef = dialog;
+
     let sharedFields = {
       accession: ['', [Validators.required, Validators.maxLength(20)]],
       title: ['', [Validators.required, Validators.maxLength(255)]],
@@ -318,4 +326,22 @@ export class AddmaterialsComponent implements OnInit {
       confirmButtonColor: "#777777",
     });
   }
+  
+  importmaterialBtnClick() {
+    if(this.isModalOpen) {
+      return
+    }
+    
+    this.isModalOpen = true
+
+    let modal = this.dialogRef.open(ImportComponent, {});
+    modal.afterClosed().subscribe(
+      (      result: { success: any; }) => {
+        this.isModalOpen = false
+
+      }
+    )
+  }
+
 }
+

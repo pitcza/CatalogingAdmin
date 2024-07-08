@@ -302,8 +302,10 @@ hr {
 .dropdown-content .newspapers {
     border-bottom: 1px solid var(--black);
 }
-
 .dropdown-content .articles {
+    border-bottom: 1px solid var(--black);
+}
+.dropdown-content .audiovisuals {
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
 }

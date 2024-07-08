@@ -6,6 +6,7 @@ import { ArticlesComponent } from './components/articles/articles.component';
 import { JournalsComponent } from './components/journals/journals.component';
 import { MagazinesComponent } from './components/magazines/magazines.component';
 import { NewspapersComponent } from './components/newspapers/newspapers.component';
+import { AudiovisualsComponent } from './components/audiovisuals/audiovisuals.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
 { path: 'articles', component: ArticlesComponent},
 { path: 'journals', component: JournalsComponent}, 
 { path: 'magazines', component: MagazinesComponent}, 
-{ path: 'newspapers', component: NewspapersComponent}
+{ path: 'newspapers', component: NewspapersComponent}, 
+{ path: 'audiovisuals', component: AudiovisualsComponent}
 ];
 
 @NgModule({

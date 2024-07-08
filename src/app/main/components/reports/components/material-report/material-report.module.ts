@@ -9,6 +9,7 @@ import { JournalsComponent } from './components/journals/journals.component';
 import { MagazinesComponent } from './components/magazines/magazines.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { NewspapersComponent } from './components/newspapers/newspapers.component';
+import { AudiovisualsComponent } from './components/audiovisuals/audiovisuals.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { NewspapersComponent } from './components/newspapers/newspapers.componen
     MagazinesComponent,
     ArticlesComponent,
     NewspapersComponent, 
+    AudiovisualsComponent
   ]
 })
 export class MaterialReportModule { }
