@@ -489,30 +489,29 @@
 
                     <div class="input-row">
                         <div class="author-container">
-                            <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
+                            <ng-container *ngFor="let x of articleAuthors; let i = index; trackBy: trackByIndex">
                                 <div class="multiple-author">
                                     <div class="entryarea2">
-                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
-                                        <span></span>
-                                        <div class="labelline2"> Author </div>
+                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i, 'article')" [value]="x">
+                                        <span [ngClass]="{ 'errorSpan': invalidAuthor(i, 'article')}"></span>
+                                        <div class="labelline2" [ngClass]="{ 'errorLabel': invalidAuthor(i, 'article')}"> Author </div>
                                     </div>
-                                    <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
+                                    <button type="button" class="removebtn" (click)="removevalue(i, 'article')" *ngIf="articleAuthors.length > 1">
                                         <i class='bx bx-x'></i>
                                     </button>
                                 </div>
                             </ng-container>
-
+    
                         </div>
                             <div class="addbtn">
-                            <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
-                        </div> 
-
+                            <button type="button" class="add-author" (click)="addvalue('article')" [disabled]="isMaxLimitReached('article')">ADD</button>
+                        </div>
+    
                             <!--- Display message based on the number of input fields ---->
-
-                            <p *ngIf="values.length < 5">Add more AUTHOR if necessary</p>
-                            <p *ngIf="values.length === 5">Maximum AUTHORS reached</p>
-
-                    </div> 
+                            <p *ngIf="articleAuthors.length < 5">Add more AUTHOR if necessary</p>
+                            <p *ngIf="articleAuthors.length === 5">Maximum AUTHORS reached</p>
+    
+                    </div>
 
                     <div class="input-row1">
                         <div class="entryarea9">
