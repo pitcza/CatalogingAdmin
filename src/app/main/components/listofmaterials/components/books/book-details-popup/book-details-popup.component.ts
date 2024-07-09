@@ -1,17 +1,22 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 
 import { Router } from '@angular/router';
-import { BookService } from '../../../../../services/materials/book/book.service';
+import { BookService } from '../../../../../../services/materials/book/book.service';
 
 @Component({
   selector: 'app-book-details-popup',
   templateUrl: './book-details-popup.component.html',
   styleUrl: './book-details-popup.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule
+  ],
 })
 export class BookDetailsPopupComponent {
   constructor(

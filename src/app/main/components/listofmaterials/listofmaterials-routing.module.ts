@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BooksComponent } from './components/books/books.component';
 import { PeriodicalComponent } from './components/periodical/periodical.component';
 import { ArticleComponent } from './components/article/article.component';
+import { AudioVisualComponent } from './components/audio-visual/audio-visual.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'books', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
       loadChildren: ()=>import('../listofmaterials/components/article/article.module').then((m)=>m.ArticleModule)
     }]
   },
+  { path: 'audio-visuals', component: AudioVisualComponent},
 ];
 
 @NgModule({

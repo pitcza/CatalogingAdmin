@@ -16,7 +16,7 @@ export class AuthService {
 
   apiUrl = 'http://127.0.0.1:8000/api/';
   public login(formData: FormData) {
-    return this.http.post(this.apiUrl+'login', formData).pipe(
+    return this.http.post(this.apiUrl+'login/cataloging', formData).pipe(
       tap((res: any) => {
         if(res.token) {
           sessionStorage.setItem('auth-token', res.token);

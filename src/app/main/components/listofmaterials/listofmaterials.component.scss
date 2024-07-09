@@ -84,6 +84,10 @@ main {
 }
 
 .dropdown-content .articles {
+    border-top: 1px solid var(--black);
+}
+
+.dropdown-content .audio-visuals {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     border-top: 1px solid var(--black);
