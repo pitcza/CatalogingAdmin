@@ -13,7 +13,6 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 // POP UPS
 import { EditdetailsComponent } from '../editdetails/editdetails.component';
 import { DetailsPopupComponent } from '../details-popup/details-popup.component';
-import { ImportProjectsComponent } from '../import-projects/import-projects.component';
 import Swal from 'sweetalert2';
 
 import { LoadingComponent } from '../../../loading/loading.component';
@@ -175,22 +174,6 @@ export class ListofprojectsComponent implements OnInit {
     this.Openpopup(details, 'Project Detail',DetailsPopupComponent);
     const scrollPosition = window.scrollY;
     window.scrollTo(0, scrollPosition);
-  }
-
-  // IMPORT PROJECTS POPUP
-  isModalOpen: boolean = false
-  importProjects(){
-    if(this.isModalOpen) {
-      return
-    }
-    this.isModalOpen = true
-
-    let modal = this.dialog.open(ImportProjectsComponent, {});
-    modal.afterClosed().subscribe(
-      result => {
-        this.isModalOpen = false
-      }
-    )
   }
 
   Openpopup(details: any, title: any, component:any) {

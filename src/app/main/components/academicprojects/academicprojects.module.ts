@@ -10,7 +10,6 @@ import { AddprojectComponent } from './components/addproject/addproject.componen
 // POP UPS
 import { EditdetailsComponent } from './components/editdetails/editdetails.component';
 import { DetailsPopupComponent } from './components/details-popup/details-popup.component';
-import { ImportProjectsComponent } from './components/import-projects/import-projects.component';
 
 // ANGULAR MAT
 import { MatIconModule } from '@angular/material/icon';
@@ -24,7 +23,6 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
     AddprojectComponent,
     EditdetailsComponent,
     DetailsPopupComponent,
-    ImportProjectsComponent,
   ],
   imports: [
     CommonModule,
