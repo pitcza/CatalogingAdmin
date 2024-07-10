@@ -16,6 +16,10 @@ export class BookService {
 
   url = apiUrl + 'materials/books/';
 
+  public importBooks(form: FormData) {
+    return this.http.post(this.url + 'import', form, {headers: this.headers.get() });
+  }
+
   public getLocations() {
     return this.http.get(apiUrl + 'books/locations', { headers: this.headers.get() });
   }
