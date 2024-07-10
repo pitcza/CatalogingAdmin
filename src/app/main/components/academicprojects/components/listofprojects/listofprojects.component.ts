@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
+import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,28 +32,24 @@ import { ProjectService } from '../../../../../services/materials/project/projec
     MatFormFieldModule, 
     MatCardModule,
     MatSortModule,
+    MatPaginatorModule, 
     CommonModule,
     MainModule,
   ],
 })
 export class ListofprojectsComponent implements OnInit {
-
-  // FOR PAGINATION NA NAGANA
-  itemsPerPage = 10;
-  currentPage = 0;
-  totalItems = 0;
-  totalPages = 0;
-
   redirectToProjectForm() {
     this.router.navigate(['main/academicprojects/addproject']);
   }
   
   displayedColumns: string[] = [ 'program', 'category', 'title', 'author', 'date_published', 'action'];
   
+  @ViewChild(MatPaginator, {static:true}) paginator!: MatPaginator;
   @ViewChild(MatSort, {static:true}) sort !: MatSort;
 
   constructor(
     private router: Router,
+    private paginatorIntl: MatPaginatorIntl,
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
     private projectService: ProjectService
@@ -69,64 +66,7 @@ export class ListofprojectsComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
-    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage); // PAGINATION
   }
-
-  // PAGINATION FUNCTIONS
-  ngAfterViewInit() {
-    this.totalItems = this.dataSource.data.length;
-    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-    this.updatePaginationInfo();
-  }
-
-  updatePagination(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.itemsPerPage = parseInt(selectElement.value);
-    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-    this.currentPage = 0; // Reset to first page
-    this.updatePaginationInfo();
-  }
-
-  updatePaginationInfo() {
-    const startIndex = this.currentPage * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    const paginatedData = this.projects.slice(startIndex, endIndex);
-    this.dataSource = new MatTableDataSource(paginatedData);
-    this.dataSource.sort = this.sort;
-  }
-
-  getFirstItemNumber(): number {
-    return this.currentPage * this.itemsPerPage + 1;
-  }
-
-  getLastItemNumber(): number {
-    return Math.min((this.currentPage + 1) * this.itemsPerPage, this.totalItems);
-  }
-
-  goToFirstPage() {
-    this.currentPage = 0;
-    this.updatePaginationInfo();
-  }
-
-  goToPreviousPage() {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      this.updatePaginationInfo();
-    }
-  }
-
-  goToNextPage() {
-    if (this.currentPage < this.totalPages - 1) {
-      this.currentPage++;
-      this.updatePaginationInfo();
-    }
-  }
-
-  goToLastPage() {
-    this.currentPage = this.totalPages - 1;
-    this.updatePaginationInfo();
-  }
-  // END ON PAGINATION FUNCTIONS
 
   getData() {
     this.isLoading = true;
@@ -134,9 +74,7 @@ export class ListofprojectsComponent implements OnInit {
       this.projects = res;
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
-      this.totalItems = this.projects.length;
-      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-      this.updatePaginationInfo();
+      this.dataSource.paginator = this.paginator;
       this.isLoading = false;
     });
 

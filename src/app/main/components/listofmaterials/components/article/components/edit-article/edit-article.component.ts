@@ -266,6 +266,13 @@ export class EditArticleComponent implements OnInit{
       icon: 'success',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     });
   }
 
@@ -276,6 +283,13 @@ export class EditArticleComponent implements OnInit{
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     });
   }
 
@@ -339,6 +353,13 @@ export class EditArticleComponent implements OnInit{
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     });
   }
 }

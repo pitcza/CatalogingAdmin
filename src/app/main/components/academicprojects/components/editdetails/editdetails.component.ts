@@ -47,6 +47,19 @@ export class EditdetailsComponent implements OnInit{
     keywords: ['']
   });
 
+  titleTooLong: boolean = false;  
+  checkTitleLength() {
+    const titleControl = this.editForm.get('title');
+    if (titleControl) {
+      this.titleTooLong = titleControl.value.length > 255;
+    }
+  }
+
+  isFieldFilled(fieldName: string): boolean {
+    const control = this.editForm.get(fieldName);
+    return !!control && control.value !== null && control.value !== '';
+  }
+
   constructor(
     private router: Router, 
     private ref: MatDialogRef<EditdetailsComponent>, 
@@ -469,6 +482,13 @@ export class EditdetailsComponent implements OnInit{
       icon: 'success',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     });
   }
 
@@ -479,6 +499,13 @@ export class EditdetailsComponent implements OnInit{
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     });
   }
 
@@ -551,6 +578,13 @@ export class EditdetailsComponent implements OnInit{
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     });
   }
 }

@@ -43,11 +43,25 @@ export class AddprojectComponent implements OnInit {
     keywords: ['']
   });
 
+  titleTooLong: boolean = false;  
+  checkTitleLength() {
+    const titleControl = this.form.get('title');
+    if (titleControl) {
+      this.titleTooLong = titleControl.value.length > 255;
+    }
+  }
+
+  isFieldFilled(fieldName: string): boolean {
+    const control = this.form.get(fieldName);
+    return !!control && control.value !== null && control.value !== '';
+  }
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private ds: DataService,
     private projectService: ProjectService,
+    private elementRef: ElementRef,
     private cd: ChangeDetectorRef, // for keywords
     private sanitizer: DomSanitizer // for img preview
   ) { }
@@ -79,7 +93,21 @@ export class AddprojectComponent implements OnInit {
   }
 
   imgFailed() {
-    alert("Image failed to show.")
+    Swal.fire({
+      title: 'Error',
+      text: "Image failed to show. Please try again.",
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+      timer: 2500,
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
+    });
   }
 
   ngAfterViewInit(): void {

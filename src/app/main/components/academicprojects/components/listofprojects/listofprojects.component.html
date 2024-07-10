@@ -128,18 +128,9 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
                 </table>
 
-                <div class="pagination">
-                    <label for="items-per-page">Items per page:</label>
-                    <select id="items-per-page" (change)="updatePagination($event)">
-                      <option value="10">10</option>
-                      <option value="20">20</option>
-                    </select>
-                    <span class="pagination-info">{{getFirstItemNumber()}} – {{getLastItemNumber()}} of {{totalItems}}</span>
-                    <button class="pagination-button" (click)="goToFirstPage()" [disabled]="currentPage === 0"> <i class='bx bx-arrow-to-left'></i> </button>
-                    <button class="pagination-button" (click)="goToPreviousPage()" [disabled]="currentPage === 0"> <i class='bx bx-chevron-left'></i> </button>
-                    <button class="pagination-button" (click)="goToNextPage()" [disabled]="currentPage >= totalPages - 1"> <i class='bx bx-chevron-right' ></i> </button>
-                    <button class="pagination-button" (click)="goToLastPage()" [disabled]="currentPage >= totalPages - 1"> <i class='bx bx-arrow-to-right'></i> </button>
-                </div>
+                <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons
+                            aria-label="Select page of periodic elements">
+                </mat-paginator>
                 
             </div>   
             

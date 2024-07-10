@@ -9,9 +9,27 @@
                 </div>
                 
                 <div class="detailsbody">
-                
+                    <form id="edit-form" enctype="multipart/form-data">
+                    <div class="input-row">
+                        <div class="txt_field"> 
+                            <input class="inputtxt" type="file" accept=".xls, .xlsx, .sql, .csv" name="database_file" style="padding-left: 110px;"> 
+                            <span></span>
+                            <div class="uploadlabel"> Choose "Academic Projects" Database File to Import </div>
+                        </div>
+                    </div>
+                    </form>
                 </div>
     
+                <div class="buttons">
+                    <a class="add" (click)="addBox()">
+                        <span> Add </span>
+                        <!-- <input id="submit-button" class="add" type="submit" value="Add"> -->
+                    </a>
+
+                    <a class="cancel" (click)="cancelBox()">
+                        <span> Cancel </span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

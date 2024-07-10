@@ -107,8 +107,8 @@ export class NewspapersComponent implements OnInit {
   // ARCHIVE POP UP
   archiveBox(id: string){
     Swal.fire({
-      title: "Archive Book",
-      text: "Are you sure want to archive this article?",
+      title: "Archive Newspaper",
+      text: "Are you sure want to archive this newspaper?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -128,7 +128,7 @@ export class NewspapersComponent implements OnInit {
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
-              text: "Article has been safely archived.",
+              text: "Newspaper has been safely archived.",
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",

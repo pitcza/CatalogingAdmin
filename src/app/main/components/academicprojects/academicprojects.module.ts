@@ -35,7 +35,7 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
     MatDatepickerModule,
     MatNativeDateModule,
     MatHint,
-    ImageCropperComponent
+    ImageCropperComponent,
   ]
 })
 export class AcademicprojectsModule { }

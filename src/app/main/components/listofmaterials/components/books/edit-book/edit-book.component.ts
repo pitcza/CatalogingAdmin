@@ -329,6 +329,13 @@ export class EditBookComponent implements OnInit{
       icon: 'success',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     });
   }
 
@@ -339,6 +346,13 @@ export class EditBookComponent implements OnInit{
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     });
   }
 
@@ -408,6 +422,13 @@ export class EditBookComponent implements OnInit{
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
     });
   }
 

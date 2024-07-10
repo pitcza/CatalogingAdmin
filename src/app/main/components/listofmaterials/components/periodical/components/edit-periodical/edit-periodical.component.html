@@ -54,7 +54,7 @@
                                             <div class="txt_field">
                                                 <input class="inputtxt" type="text" name="authors" [value]="x" (keyup)="updateValue($event, i)">
                                                 <span [ngClass]="{'errorSpan': invalidAuthor(i) }" [ngClass]="{ 'errorSpan': isInvalid(x) }"></span>
-                                                <div class="labelline" [ngClass]="{ 'errorLabel': invalidAuthor(i) }" [ngClass]="{ 'errorLabel': isInvalid(x)}"> Author </div>
+                                                <div class="labelline1" [ngClass]="{ 'errorLabel': invalidAuthor(i) }" [ngClass]="{ 'errorLabel': isInvalid(x)}"> Author </div>
                                             </div>
                                             <button type="button" class="removebtn" *ngIf="values.length > 1" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
                                         </div>
@@ -93,10 +93,7 @@
                                     <div class="txt_field">
                                         <input class="inputtxt" type="number" min="0" formControlName="pages" >
                                         <span [ngClass]="{'errorSpan': isInvalid('pages') }"></span>
-                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('pages') }"> Pages </div>
-                                        <input class="inputtxt" type="number" min="0" formControlName="pages">
-                                        <span></span>
-                                        <div class="labelline" [ngClass]="{ 'moved-up': isFieldFilled('pages') }"> Pages </div>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('pages'), 'moved-up': isFieldFilled('pages') }"> Pages </div>
                                     </div>
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" formControlName="issue">
