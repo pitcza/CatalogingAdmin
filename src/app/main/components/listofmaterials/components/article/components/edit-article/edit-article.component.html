@@ -51,7 +51,7 @@
                                     <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
                                         <div class="multiple-author">
                                             <div class="txt_field">
-                                                <input class="inputtxt" type="text" name="author" [value]="x">
+                                                <input class="inputtxt" type="text" name="author" [value]="x" (keyup)="updateValue($event, i)">
                                                 <span [ngClass]="{ 'errorSpan': isInvalid('author') }"></span>
                                                 <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid(x)}"> Author </div>
                                             </div>

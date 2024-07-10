@@ -44,9 +44,9 @@ export class EditBookComponent implements OnInit{
     }
 
     this.editForm = formBuilder.group({
-      accession: ['', Validators.required],
+      accession: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       title: ['', [Validators.required, Validators.maxLength(255)]],
-      authors: ['', Validators.required],
+      authors: ['dump', Validators.required],
       publisher: ['', Validators.required],
       remarks: [''],
       pages: ['', Validators.required],
@@ -65,7 +65,6 @@ export class EditBookComponent implements OnInit{
   ngOnInit(): void {
     this.bookService.getRecord(this.data.accession).subscribe((res: any) => {
       this.book = res;
-      console.log(this.book)
       this.editForm.patchValue({
         accession: this.book.accession,
         title: this.book.title,
@@ -125,15 +124,30 @@ export class EditBookComponent implements OnInit{
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.closepopup('Archive');
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Book has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-        });
+        this.bookService.deleteRecord(this.data.accession).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Book has been successfully archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+            this.closepopup('Archive')
+          },
+          error: (err: any) => {
+            console.log(err)
+            Swal.fire({
+              title: "Archive Error!",
+              text: "Please try again later.",
+              icon: "error",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+          }
+        })
       }
     });
   }
@@ -201,30 +215,6 @@ export class EditBookComponent implements OnInit{
   trackByIndex(index: number): number {
     return index;
   }
-  // get authors(): FormArray {
-  //   return this.editForm.get('authors') as FormArray;
-  // }
-
-  // addAuthor(): void {
-  //   if (this.authors.length < this.maxAuthors) {
-  //     this.authors.push(this.formBuilder.control('', Validators.required));
-  //   }
-  // }
-
-  // removeAuthor(index: number): void {
-  //   if (this.authors.length > 1) {
-  //     this.authors.removeAt(index);
-  //   }
-  // }
-
-  // isMaxLimitReached(): boolean {
-  //   return this.authors.length >= this.maxAuthors;
-  // }
-
-  // trackByIndex(index: number, obj: any): any {
-  //   return index;
-  // }
-
   // ----- END OF AUTHORS ----- //
 
   imageUpload(event: Event): void {
@@ -289,13 +279,11 @@ export class EditBookComponent implements OnInit{
     let isExceeded = false;
 
     for(let i = 0; i < this.values.length; i++) {
-      if(this.values.length > 50) {
-        valid = false;
-        isExceeded = true;
-      }
-    }
-      
+      if(!this.values[i]) valid = false, isNull = true;
 
+      if(this.values[i].length > 50) valid = false, isExceeded = true;
+    }
+  
     return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
   }
 
@@ -392,9 +380,9 @@ export class EditBookComponent implements OnInit{
       }
     });
 
-    if(this.validateAuthors().maxLength) {
-      maxLengthFields += 'authors, '
-    }
+    if(this.validateAuthors().null) required = true;
+
+    if(this.validateAuthors().maxLength) maxLengthFields += 'authors, ';
 
     let errorText = '';
     

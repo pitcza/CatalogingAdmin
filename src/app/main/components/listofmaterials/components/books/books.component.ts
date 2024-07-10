@@ -66,7 +66,6 @@ export class BooksComponent implements OnInit {
   protected getData() {
     this.bookService.getAll().subscribe({
       next: (res: any) =>  {
-        console.log(res)
         this.materials = res;        
         this.dataSource = new MatTableDataSource<BookElement, MatPaginator>(this.materials);
         this.dataSource.sort = this.sort;
@@ -77,50 +76,8 @@ export class BooksComponent implements OnInit {
   }
 
   // Filtering 
-  applyFilter() {
-
-    const search = (document.getElementById('search-book') as HTMLInputElement).value;
-
-      const titleFilterPredicate = (data: BookElement, search: string): boolean => {
-        return data.title.toLowerCase().includes(search.toLowerCase());
-      }
-
-      const authorFilterPredicate = (data: BookElement, search: string): boolean => {
-        if (!Array.isArray(data.authors)) {
-          return false;
-        }
-
-        return data.authors.some((x: any) => {
-          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-        });
-      }
-
-      const locationFilterPredicate = (data: BookElement, search: string): boolean => {
-        if(!data.location) {
-          return false;
-        }
-
-        return data.location.toLowerCase().includes(search.toLowerCase());
-      }
-
-      const copyrightFilterPredicate = (data: BookElement, search: string): boolean => {
-        if(!data.copyright) {
-          return false;
-        }
-        
-        return data.copyright.includes(search);
-      }
-
-      const filterPredicate = (data: BookElement): boolean => {
-        return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search) ||
-               locationFilterPredicate(data, search) ||
-               copyrightFilterPredicate(data, search)) 
-              //  (startFilterPredicate(data, search) && endFilterPredicate(data,search))
-      };
-      
-      this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = search;
+  applyFilter(event: Event) {
+      this.dataSource.filter = (event.target as HTMLInputElement).value;
   }
 
   // SWEETALERT ARCHIVE POPUP

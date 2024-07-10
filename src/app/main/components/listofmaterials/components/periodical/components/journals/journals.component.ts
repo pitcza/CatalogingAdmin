@@ -61,6 +61,11 @@ export class JournalsComponent implements OnInit {
         }
     })
   }
+  
+  // Filtering 
+  applyFilter(event: Event) {
+    this.dataSource.filter = (event.target as HTMLInputElement).value;
+  }
 
   // POP UPS
   showPopup: boolean = false;
@@ -89,7 +94,7 @@ export class JournalsComponent implements OnInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      if(result === 'Changed Data') {
+      if(result === 'Update' || result == 'Archive') {
         this.getData();
       }
     });
@@ -142,43 +147,6 @@ export class JournalsComponent implements OnInit {
       }
     });
   }
-
-
-  // FILTER DATA
-  applyFilter() {
-
-    const search = (document.getElementById('journal-search') as HTMLInputElement).value;
-    console.log(search)
-
-    const titleFilterPredicate = (data: Journal, search: string): boolean => {
-      return data.title.toLowerCase().includes(search.toLowerCase());
-    }
-
-    const authorFilterPredicate = (data: Journal, search: string): boolean => {
-      return data.authors.some((x: any) => {
-        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-      });
-    }
-
-    const publisherFilterPredicate = (data: Journal, select: string): boolean => {
-      return data.publisher.toLowerCase().includes(search.toLowerCase());
-    }
-
-    const copyrightFilterPredicate = (data: Journal, select: string): boolean => {
-      return data.copyright.includes(search);
-    }
-
-    const filterPredicate = (data: Journal): boolean => {
-      return (titleFilterPredicate(data, search) ||
-              authorFilterPredicate(data, search) ||
-              publisherFilterPredicate(data, search) || 
-              copyrightFilterPredicate(data, search))
-    };
-    
-    this.dataSource.filterPredicate = filterPredicate;
-    this.dataSource.filter = search;
-  }
-
 }
 
 export interface Journal {

@@ -464,39 +464,33 @@
 
 
         <div class="tab-content">
-            <form id="book-form" enctype="multipart/form-data" [formGroup]="bookForm" (ngSubmit)="materialSubmit('book')">
+            <form id="book-form" enctype="multipart/form-data" [formGroup]="audioForm" (ngSubmit)="materialSubmit('AV')">
                 <div class="container">
 
                     <div class="input-row">
                         <div class="entryarea">
                             <input type="text" formControlName="accession" >
-                            <span [ngClass]="{
-                                'errorField': bookForm.get('accession')?.invalid &&
-                                (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched)
-                            }"></span>
-                            <div class="labelline" [ngClass]="{
-                                'errorLabel': bookForm.get('accession')?.invalid &&
-                                (bookForm.get('accession')?.dirty || bookForm.get('accession')?.touched) ? 'red' : 'black'
-                            }"> Accession No. </div>
+                            <span [ngClass]="{'errorSpan': isInvalid('accession', 'AV')}"></span>
+                            <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('subject', 'AV') }"> Accession No. </div>
                         </div>
 
                         <div class="entryarea  ">
                             <input type="text" formControlName="title">
-                            <span></span>
+                            <span [ngClass]="{'errorSpan': isInvalid('title', 'AV')}"></span>
                             <div class="labelline"> Title</div>
                         </div>
                     </div>
 
                     <div class="input-row">
                         <div class="author-container">
-                            <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
+                            <ng-container *ngFor="let x of aVAuthors; let i = index; trackBy: trackByIndex">
                                 <div class="multiple-author">
                                     <div class="entryarea2">
-                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
+                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i, 'AV')" [value]="x">
                                         <span></span>
                                         <div class="labelline2"> Author </div>
                                     </div>
-                                    <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
+                                    <button type="button" class="removebtn" (click)="removevalue(i, 'AV')" *ngIf="aVAuthors.length > 1">
                                         <i class='bx bx-x'></i>
                                     </button>
                                 </div>
@@ -504,21 +498,21 @@
 
                         </div>
                             <div class="addbtn">
-                            <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                            <button type="button" class="add-author" (click)="addvalue('AV')" [disabled]="isMaxLimitReached('AV')">ADD</button>
                         </div> 
 
                             <!--- Display message based on the number of input fields ---->
-
-                            <p *ngIf="values.length < 5">Add more AUTHOR if necessary</p>
-                            <p *ngIf="values.length === 5">Maximum AUTHORS reached</p>
+<!--  -->
+                            <p *ngIf="aVAuthors.length < 5">Add more AUTHOR if necessary</p>
+                            <p *ngIf="aVAuthors.length === 5">Maximum AUTHORS reached</p>
 
                     </div> 
 
                     <div class="input-row1">
                         <div class="entryarea9">
                             <input type="text" formControlName="call_number">
-                            <span></span>
-                            <div class="labelline9"> Call Number </div>
+                            <span [ngClass]="{'errorSpan': isInvalid('call_number', 'AV')}"></span>
+                            <div class="labelline9" [ngClass]="{ 'errorLabel': isInvalid('call_number', 'AV') }"> Call Number </div>
                         </div>
                         <div class="entryarea8">
                             <select formControlName="copyright">

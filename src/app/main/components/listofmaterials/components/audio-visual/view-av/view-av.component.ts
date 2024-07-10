@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
+import { AVService } from '../../../../../../services/materials/AV/av.service';
 
 @Component({
   selector: 'app-view-av',
@@ -16,16 +17,25 @@ import Swal from 'sweetalert2';
     CommonModule
   ],
 })
-export class ViewAVComponent {
+export class ViewAVComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private ref: MatDialogRef<ViewAVComponent>, 
     private buildr: FormBuilder,
-    private router: Router
+    private router: Router,
+    private avService: AVService
   ) { }
 
-  closepopup() {
-    this.ref.close('Popup Closed');
+  model: any;
+
+  ngOnInit(): void {
+    this.avService.getRecord(this.data.accession).subscribe((res: any) => {
+      this.model = res;
+    })
+  }
+
+  closepopup(text: string) {
+    this.ref.close(text);
   }
 
   // ARCHIVE POPUP
@@ -48,15 +58,32 @@ export class ViewAVComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.closepopup();
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Audio-Visual has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-        });
+        this.avService.deleteRecord(this.data.accession).subscribe({
+          next: (res: any) => {
+            this.closepopup('Archive');
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Audio-Visual has been safely archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+          }, error: (err: any) => {
+            if(err.message.toLowerCase().includes('no query results for model')) var text = 'Cannot find material';
+            else var text = 'Unknown error';
+
+            Swal.fire({
+              title: "Oops! Archive Error!",
+              text: text,
+              icon: "error",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+          }
+        })
+        
       }
     });
   }

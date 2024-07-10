@@ -11,7 +11,7 @@
                 <!-- BODY - DETAILS -->
                 <div class="detailsbody">
                     <div class="details">
-                        <form id="edit-form" enctype="multipart/form-data" (ngSubmit)="updateAV()">
+                        <form id="edit-form" enctype="multipart/form-data" [formGroup]="editForm" (ngSubmit)="updateAV()">
                             <div class="input_field">
                                 <div class="input-row">
                                     <div class="txt_field_shorter">
@@ -33,8 +33,8 @@
                                         <div *ngFor="let author of values; let i = index; trackBy: trackByIndex" class="multiple-author">
                                             <div class="txt_field">
                                                 <input class="inputtxt" type="text" name="author" [value]="author" (keyup)="updateValue($event, i)">
-                                                <span></span>
-                                                <div class="labelline1"> Author </div>
+                                                <span [ngClass]="{'errorSpan': invalidAuthor(i) }"></span>
+                                                <div class="labelline1" [ngClass]="{ 'errorLabel': invalidAuthor(i), 'moved-up': isFieldFilled('author') }"> Author </div>
                                             </div>
                                             <button type="button" class="removebtn" *ngIf="values.length > 1" (click)="removeValue(i)">
                                                 <i class='bx bx-x'></i>

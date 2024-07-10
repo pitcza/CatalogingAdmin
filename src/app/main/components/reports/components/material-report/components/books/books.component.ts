@@ -18,35 +18,35 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { get } from 'http';
 import { filter } from 'rxjs';
 import { kMaxLength } from 'buffer';
+import { ReportsService } from '../../../../../../../services/materials/reports/reports.service';
+import { BookService } from '../../../../../../../services/materials/book/book.service';
 
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.scss'], 
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatSortModule, 
-    MatDatepickerModule
-  ],
+  standalone: false,
+  // imports: [
+  //   CommonModule,
+  //   MatPaginatorModule,
+  //   MatTableModule,
+  //   MatFormFieldModule,
+  //   MatCardModule,
+  //   MatSortModule, 
+  //   MatDatepickerModule
+  // ],
 })
 
 export class BooksComponent implements OnInit {
   displayedColumns: string[] = ['id', 'booktitle', 'author', 'location', 'copyright'];
   dataSource : any = null;
-  materials : any = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort !: MatSort;
-  title: any;
-  authors: any;
 
   ngOnInit(): void {
     this.getData();
+    console.log('is initialized')
   }
 
   constructor(
@@ -55,30 +55,20 @@ export class BooksComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef, 
     private dialog: MatDialog,
-    private ds: DataService
+    private ds: DataService,
+    private bookService: BookService,
+    private reportService: ReportsService
   ) {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
-  protected books: any = null;
-
   protected getData() {
-    this.ds.get('books').subscribe({
-      next: (res: any) => {
-        for(let i = 0; i < res.length; i++) {
-          for(let j = i + 1; j < res.length; j++) {
-            if(res[i].id > res[j].id) {
-              let temp = res[i];
-              res[i] = res[j];
-              res[j] = temp;
-            }
-          }
-        }
-        
-        this.materials = res;
-        this.dataSource = new MatTableDataSource<PeriodicElement, MatPaginator>(this.materials);
+    this.bookService.getAll().subscribe({
+      next: (res: any) => {       
+        this.dataSource = new MatTableDataSource<PeriodicElement, MatPaginator>(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
       }
     })
   }
@@ -89,11 +79,12 @@ export class BooksComponent implements OnInit {
     const search = (document.getElementById('search') as HTMLInputElement).value;
 
     const accessionFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-      return data.id == search;
+      return data.accession == search;
     }
 
     const locationFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-      return data.location.location.toLowerCase().includes(search.toLowerCase());
+      if(data.location) return data.location.toLowerCase().includes(search.toLowerCase());
+      else return false;
     }
 
     const copyrightFilterPredicate = (data: PeriodicElement, search: string): boolean => {
@@ -105,9 +96,11 @@ export class BooksComponent implements OnInit {
     }
 
     const authorFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-      return data.authors.some((x: any) => {
-        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-      });
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
     }
 
     // FOR DATE RANGE DATE PICKER
@@ -143,15 +136,20 @@ export class BooksComponent implements OnInit {
     };
   }
 
+  public export(): void {
+    // Get the filtered data
+    const filteredData = this.dataSource.filteredData;
+    this.reportService.exportToExcel(filteredData, 'table_export');
+  }
   
 }
 
 export interface PeriodicElement {
-  id: string;
+  accession: string;
   title: any;
   created_at: string;
   authors: any;
-  location: any;
+  location: string;
   copyright: string;
 }
 

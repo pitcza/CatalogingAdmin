@@ -9,18 +9,25 @@ import { JournalsComponent } from './components/journals/journals.component';
 import { MagazinesComponent } from './components/magazines/magazines.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { NewspapersComponent } from './components/newspapers/newspapers.component';
+import { MaterialModule } from '../../../../../modules/material/material.module';
 import { AudiovisualsComponent } from './components/audiovisuals/audiovisuals.component';
 
 
 @NgModule({
   declarations: [
-    MaterialReportComponent
+    MaterialReportComponent,
+    BooksComponent,
+    // JournalsComponent,
+    // MagazinesComponent,
+    // ArticlesComponent,
+    // NewspapersComponent, 
   ],
 
   imports: [
     CommonModule,
     MaterialReportRoutingModule, 
-    BooksComponent,
+    MaterialModule,
+    // BooksComponent,
     JournalsComponent,
     MagazinesComponent,
     ArticlesComponent,

@@ -66,6 +66,11 @@ export class JournalsComponent implements OnInit {
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
+  
+  // Filtering 
+  applyFilter(event: Event) {
+    this.dataSource.filter = (event.target as HTMLInputElement).value;
+  }
 
   // POP UPS
   showPopup: boolean = false;
@@ -93,7 +98,7 @@ export class JournalsComponent implements OnInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      if(result === 'Changed Data') {
+      if(result === 'Update' || result === 'Archive') {
         this.getData();
       }
     });
@@ -144,40 +149,6 @@ export class JournalsComponent implements OnInit {
       };
     });
   }  
-
-  // FILTER DATA
-  applyFilter(event: Event, type: string) {
-    const search = (document.getElementById('search') as HTMLInputElement).value;
-
-    const titleFilterPredicate = (data: JournalArticle, search: string): boolean => {
-      return data.title.toLowerCase().includes(search.toLowerCase());
-    }
-
-    const authorFilterPredicate = (data: JournalArticle, search: string): boolean => {
-      return data.authors.some((x: any) => {
-        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-      });
-    }
-
-    const publisherFilterPredicate = (data: JournalArticle, select: string): boolean => {
-      return data.publisher.toLowerCase().includes(search.toLowerCase());
-    }
-
-    const copyrightFilterPredicate = (data: JournalArticle, select: string): boolean => {
-      return data.copyright == search;
-    }
-
-    const filterPredicate = (data: JournalArticle): boolean => {
-      return (titleFilterPredicate(data, search) ||
-              authorFilterPredicate(data, search) ||
-              publisherFilterPredicate(data, search) || 
-              copyrightFilterPredicate(data, search))
-    };
-    
-    this.dataSource.filterPredicate = filterPredicate;
-    this.dataSource.filter = search;
-  } 
-
 }
 
 // DATA FOR TABLE

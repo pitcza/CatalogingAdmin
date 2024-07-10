@@ -267,7 +267,7 @@ export class ListofprojectsComponent implements OnInit {
     });
     _popup.afterClosed().subscribe(result => {
       this.redirectToListPage();
-      if(result === 'Changed Data') {
+      if(result === 'Update' || result === 'Archive') {
         this.getData();
       }
     });

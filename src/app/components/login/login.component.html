@@ -4,7 +4,7 @@
       <div class="forms-container">
         <div class="signin-signup">
           <!-- FORM FIELD -->
-          <form id="login-form">
+          <form id="login-form" [formGroup]="loginForm" (submit)="login()">
   
             <!-- SYSTEM AND SUBSYSTEM NAME -->
             <h2 class="title">
@@ -17,11 +17,11 @@
             <!-- INPUT FIELD -->
             <div class="input-field">
               <i class='bx bxs-user'></i> 
-              <input class="input" id="username" name="username" type="username" placeholder="Username">
+              <input class="input" id="username" formControlName="username" type="username" placeholder="Username">
             </div>
             <div class="input-field">
               <i class='bx bxs-lock-alt'></i>
-              <input class="input" id="password" name="password" type="password" placeholder="Password">
+              <input class="input" id="password" formControlName="password" type="password" placeholder="Password">
             </div>
   
             <!-- LOGIN BUTTON -->

@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 
 import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { EditAVComponent } from './edit-av/edit-av.component';
 import { ViewAVComponent } from './view-av/view-av.component';
+import { AVService } from '../../../../../services/materials/AV/av.service';
 
 @Component({
   selector: 'app-audio-visual',
@@ -36,29 +37,39 @@ export class AudioVisualComponent {
   @ViewChild(MatPaginator, {static:true}) paginator!: MatPaginator;
   @ViewChild(MatSort, {static:true}) sort!: MatSort;
 
-  dataSource: MatTableDataSource<BookElement>;
+  dataSource: any;
 
   constructor(
     private router: Router,
     private paginatorIntl: MatPaginatorIntl, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
+    private avService: AVService
   ) { 
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
 
     // Sample data, di ko kasi makita popups hehe
-    const initialData: BookElement[] = [
-      { title: 'Sample 1', authors: 'Author 1', copyright: '2020' },
-      { title: 'Sample 2', authors: 'Author 2', copyright: '2019' },
-      { title: 'Sample 3', authors: 'Author 3', copyright: '2018' },
-    ];
+    // const initialData: BookElement[] = [
+    //   { title: 'Sample 1', authors: 'Author 1', copyright: '2020' },
+    //   { title: 'Sample 2', authors: 'Author 2', copyright: '2019' },
+    //   { title: 'Sample 3', authors: 'Author 3', copyright: '2018' },
+    // ];
 
-    this.dataSource = new MatTableDataSource(initialData);
+    // this.dataSource = new MatTableDataSource(initialData);
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getData();
+  }
+
+  getData() {
+    this.avService.getAll().subscribe({
+      next: (res: any) => {
+        this.dataSource = new MatTableDataSource<AudioVisualElement, MatPaginator>(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
   }
 
   // SWEETALERT ARCHIVE POPUP
@@ -81,16 +92,35 @@ export class AudioVisualComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Audio-Visual has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false
-        });
+        this.avService.deleteRecord(accession).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Audio-Visual has been safely archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false
+            }); this.getData();
+          }, error: (err: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Audio-Visual cannot be archived at the moment.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false
+            });
+          }
+        })
+        
       };
     });
+  }
+
+  //FILTERING 
+  applyFilter(event: Event) {
+    this.dataSource.filter = (event.target as HTMLInputElement).value;
   }
 
   // POP UPS
@@ -126,13 +156,13 @@ export class AudioVisualComponent {
     _popup.afterClosed().subscribe(result => {
       this.redirectToListPage();
       if(result == 'Update' || result == 'Archive') {
-
+        this.getData();
       }
     });
   }
 }
 
-export interface BookElement {
+export interface AudioVisualElement {
   title: string;
   authors: any;
   copyright: string;

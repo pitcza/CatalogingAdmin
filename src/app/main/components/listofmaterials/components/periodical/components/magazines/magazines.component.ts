@@ -61,6 +61,11 @@ export class MagazinesComponent implements OnInit {
     })
   }
   
+  // Filtering 
+  applyFilter(event: Event) {
+    this.dataSource.filter = (event.target as HTMLInputElement).value;
+  }
+
   // POP UPS 
   showPopup: boolean = false;
 
@@ -88,7 +93,7 @@ export class MagazinesComponent implements OnInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      if(result === 'Changed Data') {
+      if(result === 'Update' || result == 'Archive') {
         this.getData();
       }
     });
@@ -141,40 +146,6 @@ export class MagazinesComponent implements OnInit {
       }
     });
   }  
-
-// FILTER DATA
-applyFilter() {
-  const search = (document.getElementById('magazine-search') as HTMLInputElement).value;
-
-  const titleFilterPredicate = (data: Magazine, search: string): boolean => {
-    return data.title.toLowerCase().includes(search.toLowerCase());
-  }
-
-  const authorFilterPredicate = (data: Magazine, search: string): boolean => {
-    return data.authors.some((x: any) => {
-      return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-    });
-  }
-
-  const publisherFilterPredicate = (data: Magazine, select: string): boolean => {
-    return data.publisher.toLowerCase().includes(search.toLowerCase());
-  }
-
-  const copyrightFilterPredicate = (data: Magazine, select: string): boolean => {
-    return data.copyright.includes(search);
-  }
-
-  const filterPredicate = (data: Magazine): boolean => {
-    return (titleFilterPredicate(data, search) ||
-            authorFilterPredicate(data, search) ||
-            publisherFilterPredicate(data, search) || 
-            copyrightFilterPredicate(data, search))
-  };
-  
-  this.dataSource.filterPredicate = filterPredicate;
-  this.dataSource.filter = search;
-}
-
 }
 
 export interface Magazine {

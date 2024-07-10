@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZoneOptions, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AVService } from '../../../../../../services/materials/AV/av.service';
 
 @Component({
   selector: 'app-edit-av',
@@ -18,33 +19,47 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule
   ],
 })
-export class EditAVComponent {
-  editForm: FormGroup;
+export class EditAVComponent implements OnInit {
   year: number[] = [];
+  values = [''];
   currentYear = new Date().getFullYear();
+  submit = false;
+  editForm: FormGroup = this.formBuilder.group({
+    accession: ['', [Validators.required, Validators.maxLength(20)]],
+    title: ['', [Validators.required, Validators.maxLength(150)]],
+    authors: ['', [Validators.required, Validators.maxLength(255)]],
+    call_number: ['', [Validators.required, Validators.maxLength(20)]],
+    copyright: [2024, Validators.required],
+  });
 
   constructor(
     private ref: MatDialogRef<EditAVComponent>, 
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private router: Router
+    private router: Router,
+    private avService: AVService
   ) { 
 
     for(let i = 1991; i <= this.currentYear; i++) {
       this.year.push(i);
     }
+  }
 
-    this.editForm = formBuilder.group({
-      accession: ['', Validators.required],
-      title: ['', [Validators.required, Validators.maxLength(255)]],
-      authors: ['', Validators.required],
-      call_number: ['', Validators.required],
-      copyright: [2024, Validators.required]
+  ngOnInit(): void {
+    this.avService.getRecord(this.data.accession).subscribe((res: any) => {
+      this.editForm.patchValue({
+        accession: res.accession,
+        title: res.title,
+        authors: res.authors,
+        call_number: res.call_number,
+        copyright: res.copyright
+      });
+
+      this.values = res.authors;
     });
   }
 
   // ----- AUTHORS ----- //
-  values = [''];
 
   removeValue(i: any) {
     this.values.splice(i, 1);
@@ -74,6 +89,33 @@ export class EditAVComponent {
   isInvalid(controlName: string): boolean {
     const control = this.editForm.get(controlName);
     return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
+
+  invalidAuthor(i: number) {
+    let authorInput = this.values[i];
+
+    return (authorInput.length < 1 || authorInput.length > 50) && this.submit;
+  }
+  
+  validateAuthors() {
+    let valid = true;
+    let isNull = false;
+    let isExceeded = false;
+
+    for(let i = 0; i < this.values.length; i++) {
+      if(!this.values[i]) valid = false, isNull = true;
+
+      if(this.values[i].length > 50) valid = false, isExceeded = true;
+    }
+  
+    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
   }
   
   // FOR LABEL PO, YUNG SA ANIMATION NA NATAAS-BABA
@@ -106,15 +148,32 @@ export class EditAVComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.closepopup('Archive');
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Audio-Visual has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-        });
+        this.avService.deleteRecord(this.data.accession).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Audio-visual has been successfully archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+            this.closepopup('Archive')
+          },
+          error: (err: any) => {
+            if(err.message.toLowerCase().includes('no query results for model')) var text = 'Cannot find material';
+            else var text = 'Uknown error';
+
+            Swal.fire({
+              title: "Oops! Archive Error!",
+              text: text,
+              icon: "error",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+          }
+        })
       }
     });
   }
@@ -179,24 +238,37 @@ export class EditAVComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.closepopup('Update');
-        Swal.fire({
-          title: "Details Updated",
-          text: "Audio-Visual has been updated successfully",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-        });
+        this.submit = true;
+        if(this.editForm.valid && this.validateAuthors().valid) {
+      
+          this.editForm.patchValue({
+            authors: JSON.stringify(this.values)
+          });
+    
+          // pass datas to formdata to allow sending of files
+          let form = new FormData();
+          
+          Object.entries(this.editForm.value).forEach(([key, value]: [string, any]) => {
+            if(value != '' && value != null)
+              form.append(key, value);
+          });
+    
+          this.avService.updateRecord(this.data.accession, form).subscribe({
+            next: (res: any) => { this.successMessage('Audio-visual'); this.closepopup('Update'); },
+            error: (err: any) => this.serverErrors()
+          });
+        } else {
+          this.markFormGroupTouched(this.editForm);
+          this.displayErrors();
+        }
       }
     });
   }
 
-  // SUCCESS AND ERROR MESSAGES
-  successMessage(title:string) {
+  successMessage(title: any) {
     Swal.fire({
       title: 'Success',
-      text: title + " has been added successfully",
+      text: title + " has been updated successfully",
       icon: 'success',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",
@@ -207,6 +279,69 @@ export class EditAVComponent {
     Swal.fire({
       title: 'Oops! Server Side Error!',
       text: 'Please try again later or contact the developers',
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+    });
+  }
+
+  displayErrors() {
+
+    let maxLengthFields = '';
+    let minIntFields = '';
+    let integerFields = '';
+    let required = false;
+
+    Object.keys(this.editForm.controls).forEach(key => {
+      const control = this.editForm.get(key);
+      if (control && control.errors) {
+        const controlErrors = control.errors;
+        Object.keys(controlErrors).forEach(errorKey => {
+          switch (errorKey) {
+            case 'required':
+              required = true;
+              break;
+
+            case 'maxlength':
+              maxLengthFields += `${key}, `;
+              break;
+
+            case 'min':
+              minIntFields += `${key}, `;
+              break;
+
+            default:
+              break;
+          }
+        });
+      }
+    });
+
+    if(this.validateAuthors().null) required = true;
+
+    if(this.validateAuthors().maxLength) maxLengthFields += 'authors, ';
+
+    let errorText = '';
+    
+    if(required) {
+      errorText += 'Please fill up required fields <br>'
+    }
+    
+    if(maxLengthFields.length > 0) {
+      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
+    }
+
+    if(minIntFields.length > 0) {
+      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
+    }
+
+    if(integerFields.length > 0) {
+      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
+    }
+
+    Swal.fire({
+      title: 'Oops! Invalid Form!',
+      html: `<div style="font-weight: 500;">${errorText}</div>`,
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",

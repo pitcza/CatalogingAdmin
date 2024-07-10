@@ -28,7 +28,7 @@ export class EditArticleComponent implements OnInit{
     this.editForm = formBuilder.group({
       accession: ['', [Validators.required, Validators.maxLength(20)]],
       title: ['', [Validators.required, Validators.maxLength(255)]],
-      authors: ['', [Validators.required, Validators.maxLength(255)]],
+      authors: ['dump', [Validators.required, Validators.maxLength(255)]],
       publisher: ['', [Validators.required, Validators.maxLength(100)]],
       remarks: ['', Validators.maxLength(255)],
       pages: ['', [Validators.required, Validators.maxLength(20)]],
@@ -45,6 +45,7 @@ export class EditArticleComponent implements OnInit{
   article: any;
   image: any;
   editForm: FormGroup;
+  submit = false;
 
   ngOnInit(): void {
     this.articleService.getRecord(this.data.details).subscribe((res: any) => {
@@ -68,15 +69,20 @@ export class EditArticleComponent implements OnInit{
     })
   }
 
-  closepopup() {
-    this.ref.close('Closed using function');
+  closepopup(text: string) {
+    this.ref.close(text);
   }
 
+  isFieldFilled(fieldName: string): boolean {
+    const control = this.editForm.get(fieldName);
+    return !!control && control.value !== null && control.value !== '';
+  }
+  
   // ARCHIVE POPUP
   archiveBox(){
     Swal.fire({
       title: "Archive Article",
-      text: "Are you sure want to archive this article?",
+      text: "Are you sure want to archive this periodical?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -92,16 +98,30 @@ export class EditArticleComponent implements OnInit{
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('Closed using function');
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Article has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          timer: 5000,
-        });
+        this.articleService.deleteRecord(this.data.details).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Article has been successfully archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+            this.closepopup('Archive')
+          },
+          error: (err: any) => {
+            console.log(err)
+            Swal.fire({
+              title: "Archive Error!",
+              text: "Please try again later.",
+              icon: "error",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+          }
+        })
       }
     });
   }
@@ -126,7 +146,7 @@ export class EditArticleComponent implements OnInit{
       },
     }).then((result) => {
       if (result.isConfirmed) {
-          this.ref.close('Closed using function');
+          this.ref.close('');
           const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -170,12 +190,10 @@ export class EditArticleComponent implements OnInit{
     if (this.values.length < 5) {
       this.values.push('');
     }
-    console.log(this.values)
   }
 
   updateValue($event: Event, index: number) {
-    // this.values[index] = $event.target.value;
-    console.log($event)
+    this.values[index] = ($event.target as HTMLInputElement).value;
   }
 
   isMaxLimitReached(): boolean {
@@ -183,13 +201,46 @@ export class EditArticleComponent implements OnInit{
   }
   // ----- END OF AUTHORS ----- //
   
-  protected updateBox() {
-    this.editForm.patchValue({
-      authors: JSON.stringify(this.values)
-    });
+  isInvalid(controlName: string): boolean {
+    const control = this.editForm.get(controlName);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
 
-    if(this.editForm.valid) {
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
+
+  invalidAuthor(i: number) {
+    let authorInput = this.values[i];
+
+    return (authorInput.length < 1 || authorInput.length > 50) && this.submit;
+  }
+  
+  validateAuthors() {
+    let valid = true;
+    let isNull = false;
+    let isExceeded = false;
+
+    for(let i = 0; i < this.values.length; i++) {
+      if(!this.values[i]) valid = false, isNull = true;
+
+      if(this.values[i].length > 50) valid = false, isExceeded = true;
+    }
+  
+    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
+  }
+
+  protected updateBox() {
+
+    if(this.editForm.valid && this.validateAuthors().valid) {
       
+      this.editForm.patchValue({
+        authors: JSON.stringify(this.values)
+      });
+
       // pass datas to formdata to allow sending of files
       let form = new FormData();
       
@@ -199,60 +250,95 @@ export class EditArticleComponent implements OnInit{
       });
 
       this.articleService.updateRecord(this.data.details, form).subscribe({
-        next: (res: any) => {
-          Swal.fire({
-            title: 'Success',
-            text: "Article of accession " + form.get('accession') + " has been successfully updated!",
-            icon: 'success',
-            confirmButtonText: 'Close',
-            confirmButtonColor: "#4F6F52",
-            scrollbarPadding: false,
-            willOpen: () => {
-              document.body.style.overflowY = 'scroll';
-            },
-            willClose: () => {
-              document.body.style.overflowY = 'scroll';
-            }
-          });
-          this.ref.close('Changed Data');
-        },
-        error: (err: any) => {
-          Swal.fire({
-            title: 'Oops! Server Side Error!',
-            text: 'Please try again later or contact the developers',
-            icon: 'error',
-            confirmButtonText: 'Close',
-            confirmButtonColor: "#777777",
-            scrollbarPadding: false,
-          });
-        }
+        next: (res: any) => { this.successMessage('Article'); this.closepopup('Update'); },
+        error: (err: any) => this.serverErrors()
       });
     } else {
-      Swal.fire({
-        title: 'Oops! Form Submission Error!',
-        text: 'Please kindly check the form.',
-        icon: 'error',
-        confirmButtonText: 'Close',
-        confirmButtonColor: "#777777",
-        scrollbarPadding: false,
-        willOpen: () => {
-          document.body.style.overflowY = 'scroll';
-        },
-        willClose: () => {
-          document.body.style.overflowY = 'scroll';
-        }
-      });
+      this.markFormGroupTouched(this.editForm);
+      this.displayErrors();
     }
   }
 
-  isInvalid(controlName: string): boolean {
-    const control = this.editForm.get(controlName);
-    return control ? control.invalid && (control.dirty || control.touched) : false;
+  successMessage(title: any) {
+    Swal.fire({
+      title: 'Success',
+      text: title + " has been updated successfully",
+      icon: 'success',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+    });
   }
-  
-  // FOR LABEL PO, YUNG SA ANIMATION NA NATAAS-BABA
-  isFieldFilled(fieldName: string): boolean {
-    const control = this.editForm.get(fieldName);
-    return !!control && control.value !== null && control.value !== '';
+
+  serverErrors() {
+    Swal.fire({
+      title: 'Oops! Server Side Error!',
+      text: 'Please try again later or contact the developers',
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+    });
+  }
+
+  displayErrors() {
+
+    let maxLengthFields = '';
+    let minIntFields = '';
+    let integerFields = '';
+    let required = false;
+
+    Object.keys(this.editForm.controls).forEach(key => {
+      const control = this.editForm.get(key);
+      if (control && control.errors) {
+        const controlErrors = control.errors;
+        Object.keys(controlErrors).forEach(errorKey => {
+          switch (errorKey) {
+            case 'required':
+              required = true;
+              break;
+
+            case 'maxlength':
+              maxLengthFields += `${key}, `;
+              break;
+
+            case 'min':
+              minIntFields += `${key}, `;
+              break;
+
+            default:
+              break;
+          }
+        });
+      }
+    });
+
+    if(this.validateAuthors().null) required = true;
+
+    if(this.validateAuthors().maxLength) maxLengthFields += 'authors, ';
+
+    let errorText = '';
+    
+    if(required) {
+      errorText += 'Please fill up required fields <br>'
+    }
+    
+    if(maxLengthFields.length > 0) {
+      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
+    }
+
+    if(minIntFields.length > 0) {
+      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
+    }
+
+    if(integerFields.length > 0) {
+      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
+    }
+
+    Swal.fire({
+      title: 'Oops! Invalid Form!',
+      html: `<div style="font-weight: 500;">${errorText}</div>`,
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+    });
   }
 }

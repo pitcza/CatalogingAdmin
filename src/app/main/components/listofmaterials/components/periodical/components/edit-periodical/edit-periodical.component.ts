@@ -23,6 +23,7 @@ export class EditPeriodicalComponent implements OnInit{
   editForm: FormGroup;
   image: any;
   imageUrl: any;
+  submit = false;
 
   constructor(private ref: MatDialogRef<EditPeriodicalComponent>, 
     private formBuilder: FormBuilder,
@@ -61,6 +62,7 @@ export class EditPeriodicalComponent implements OnInit{
         accession: this.periodical.accession,
         title: this.periodical.title,
         publisher: this.periodical.publisher,
+        authors: this.periodical.authors,
         remarks: this.periodical.remarks,
         pages: this.periodical.pages,
         periodical_type: this.periodical.periodical_type,
@@ -98,16 +100,30 @@ export class EditPeriodicalComponent implements OnInit{
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.closepopup('Archive');
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Periodical has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          timer: 5000,
-        });
+        this.periodicalService.deleteRecord(this.data.accession).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Journal has been successfully archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+            this.closepopup('Archive')
+          },
+          error: (err: any) => {
+            console.log(err)
+            Swal.fire({
+              title: "Archive Error!",
+              text: "Please try again later.",
+              icon: "error",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+          }
+        })
       }
     });
   }
@@ -168,7 +184,6 @@ export class EditPeriodicalComponent implements OnInit{
     if (this.values.length < 5) {
       this.values.push('');
     }
-    console.log(this.values)
   }
 
   updateValue($event: Event, index: number) {
@@ -218,20 +233,46 @@ export class EditPeriodicalComponent implements OnInit{
     } 
   }
 
+  isInvalid(controlName: string): boolean {
+    const control = this.editForm.get(controlName);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
+
+  invalidAuthor(i: number) {
+    let authorInput = this.values[i];
+
+    return (authorInput.length < 1 || authorInput.length > 50) && this.submit;
+  }
+  
   validateAuthors() {
     let valid = true;
     let isNull = false;
     let isExceeded = false;
 
-      if(this.values.length > 50) {
-        valid = false;
-        isExceeded = true;
-      }
+    for(let i = 0; i < this.values.length; i++) {
+      if(!this.values[i]) valid = false, isNull = true;
 
+      if(this.values[i].length > 50) valid = false, isExceeded = true;
+    }
+  
     return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
   }
 
+  isFieldFilled(fieldName: string): boolean {
+    const control = this.editForm.get(fieldName);
+    return !!control && control.value !== null && control.value !== '';
+  }
+  
   protected updateBox() {
+
+    this.submit = true;
 
     if(this.editForm.valid && this.validateAuthors().valid) {
 
@@ -253,43 +294,104 @@ export class EditPeriodicalComponent implements OnInit{
 
       this.periodicalService.updateRecord(this.data.details, form).subscribe({
         next: (res: any) => {
-          Swal.fire({
-            title: 'Success',
-            text: "Periodical of accession " + form.get('accession') + " has been successfully updated!",
-            icon: 'success',
-            confirmButtonText: 'Close',
-            confirmButtonColor: "#777777",
-          });
+          this.successMessage(form.get('title'));
+          this.closepopup('Update');
         },
-        error: (err: any) => {
-          Swal.fire({
-            title: 'Oops! Server Side Error!',
-            text: 'Please try again later or contact the developers',
-            icon: 'error',
-            confirmButtonText: 'Close',
-            confirmButtonColor: "#777777",
-          });
-        }
+        error: (err: any) => this.serverErrors()
       });
     } else {
-      Swal.fire({
-        title: 'Oops! Form Submission Error!',
-        text: 'Please kindly check the form.',
-        icon: 'error',
-        confirmButtonText: 'Close',
-        confirmButtonColor: "#777777",
-      });
+      this.markFormGroupTouched(this.editForm);
+      this.displayErrors();
     }
   }
 
-  isInvalid(controlName: string): boolean {
-    const control = this.editForm.get(controlName);
-    return control ? control.invalid && (control.dirty || control.touched) : false;
+  successMessage(title: any) {
+    Swal.fire({
+      title: 'Success',
+      text: title + " has been added successfully",
+      icon: 'success',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+    });
   }
-  
-  // FOR LABEL PO, YUNG SA ANIMATION NA NATAAS-BABA
-  isFieldFilled(fieldName: string): boolean {
-    const control = this.editForm.get(fieldName);
-    return !!control && control.value !== null && control.value !== '';
+
+  serverErrors() {
+    Swal.fire({
+      title: 'Oops! Server Side Error!',
+      text: 'Please try again later or contact the developers',
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+    });
+  }
+
+  displayErrors() {
+
+    let maxLengthFields = '';
+    let minIntFields = '';
+    let integerFields = '';
+    let required = false;
+
+    Object.keys(this.editForm.controls).forEach(key => {
+      const control = this.editForm.get(key);
+      if (control && control.errors) {
+        const controlErrors = control.errors;
+        Object.keys(controlErrors).forEach(errorKey => {
+          console.log(key)
+          switch (errorKey) {
+            case 'required':
+              required = true;
+              break;
+
+            case 'maxlength':
+              maxLengthFields += `${key}, `;
+              break;
+
+            case 'min':
+              minIntFields += `${key}, `;
+              break;
+
+            case 'pattern':
+              if(controlErrors['pattern']['requiredPattern'] == '^[0-9]+$') {
+                integerFields += `${key}, `;
+              }
+              break;
+
+            default:
+              break;
+          }
+        });
+      }
+    });
+
+    if(this.validateAuthors().null) required = true;
+
+    if(this.validateAuthors().maxLength) maxLengthFields += 'authors, ';
+
+    let errorText = '';
+    
+    if(required) {
+      errorText += 'Please fill up required fields <br>'
+    } 
+    
+    if(maxLengthFields.length > 0) {
+      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
+    }
+
+    if(minIntFields.length > 0) {
+      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
+    }
+
+    if(integerFields.length > 0) {
+      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
+    }
+
+    Swal.fire({
+      title: 'Oops! Invalid Form!',
+      html: `<div style="font-weight: 500;">${errorText}</div>`,
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+    });
   }
 }

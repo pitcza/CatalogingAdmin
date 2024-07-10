@@ -16,8 +16,8 @@
                                 <div class="input-row">
                                     <div class="txt_field_short">
                                         <input class="inputtxt" type="text" formControlName="accession" formControlName="accession">
-                                        <span></span>
-                                        <div class="labelline"> Accession No. </div>
+                                        <span [ngClass]="{'errorSpan': isInvalid('accession') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('accession') }"> Accession No. </div>
                                     </div>
                                     <div class="txt_field_short">
                                         <select class="inputtxt" id="filter-dept" (change)="changedDepartment($event)"> 
@@ -31,16 +31,15 @@
                                     <div class="txt_field_short">
                                         <select class="inputtxt" id="filter-pro" (change)="changedProgram($event)" formControlName="program">        
                                             <ng-container *ngFor="let x of programs">
-                                                <option *ngIf="x.department_short == departmentFilter" [selected]="project.program == x.department_short">
-                                                    {{ x.program_short }}
-                                                </option>
+                                                <option *ngIf="x.department_short == departmentFilter" [selected]="project.program == x.department_short" 
+                                                [value]="x.program_short"> {{ x.program_short }} </option>
                                             </ng-container>
                                         </select>
                                         <span></span>
                                         <label class="labelline" for="program"> Program </label>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="category">
+                                        <input class="inputtxt" type="text" formControlName="category" [disabled]="true">
                                         <span></span>
                                         <label class="labelline1" for="college"> Category </label>
                                     </div>
@@ -49,8 +48,8 @@
                                 <div class="input-row">
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" formControlName="title" [placeholder]="project.title">
-                                        <span></span>
-                                        <div class="labelline"> Title </div>
+                                        <span [ngClass]="{'errorSpan': isInvalid('title') }"></span>
+                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('title') }"> Title </div>
                                     </div>
                                 </div>
             
@@ -60,7 +59,7 @@
                                     <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
                                         <div class="multiple-author">
                                             <div class="txt_field">
-                                                <input class="inputtxt" type="text" name="author" [value]="x">
+                                                <input class="inputtxt" type="text" name="author" [value]="x" (keyup)="updateValue($event, i)">
                                                 <span></span>
                                                 <div class="labelline"> Author </div>
                                             </div>
@@ -89,8 +88,8 @@
                                     </div>
                                     <div class="txt_field">
                                         <input class="inputtxt" type="date" id="datepub" formControlName="date_published" >
-                                        <span></span>
-                                        <div class="datelabel"> Date Published </div>
+                                        <span [ngClass]="{'errorSpan': isInvalid('date_published') }"></span>
+                                        <div class="datelabel" [ngClass]="{ 'errorLabel': isInvalid('date_published') }"> Date Published </div>
                                     </div> 
                                     <div class="txt_field"> 
                                         <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" name="image_url" style="padding-left: 110px;" (change)="addImage($event)"> 
@@ -119,7 +118,7 @@
                                         <li class="input-field">
                                             <input #inputField type="text" class="input"
                                             autocomplete="off" [placeholder]="placeholder" (keydown)="onKeyDown($event, inputField.value)"
-                                            [disabled]="isMaxTagsReached()">
+                                            *ngIf="!isMaxTagsReached()">
                                         </li>
                                     </ul>
                                     <div class="action-btn">

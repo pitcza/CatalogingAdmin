@@ -11,6 +11,8 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data.service';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
+import { ReportsService } from '../../../../../../../services/materials/reports/reports.service';
+import { PeriodicalService } from '../../../../../../../services/materials/periodical/periodical.service';
 
 @Component({
   selector: 'app-journals',
@@ -49,23 +51,25 @@ export class JournalsComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef, 
     private dialog: MatDialog,
-    private ds: DataService
+    private ds: DataService,
+    private reportService: ReportsService,
+    private periodicalService: PeriodicalService
   ) {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   protected getData() {
-    this.ds.get('periodicals/type/journal').subscribe({
+    this.periodicalService.getJournals().subscribe({
       next: (res: any) => {
-        for(let i = 0; i < res.length; i++) {
-          for(let j = i + 1; j < res.length; j++) {
-            if(res[i].id > res[j].id) {
-              let temp = res[i];
-              res[i] = res[j];
-              res[j] = temp;
-            }
-          }
-        }
+        // for(let i = 0; i < res.length; i++) {
+        //   for(let j = i + 1; j < res.length; j++) {
+        //     if(res[i].a > res[j].id) {
+        //       let temp = res[i];
+        //       res[i] = res[j];
+        //       res[j] = temp;
+        //     }
+        //   }
+        // }
         
         this.dataSource = new MatTableDataSource<PeriodicElement>(res);
         this.dataSource.paginator = this.paginator;
@@ -131,6 +135,12 @@ export class JournalsComponent implements OnInit {
       start, 
       end
     };
+  }
+
+  export(): void {
+    // Get the filtered data
+    const filteredData = this.dataSource.filteredData;
+    this.reportService.exportToExcel(filteredData, 'table_export');
   }
 
 }

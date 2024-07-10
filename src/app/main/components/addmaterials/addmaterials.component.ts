@@ -11,6 +11,7 @@ import { kMaxLength } from 'buffer';
 import { ImportComponent } from './import/import.component';
 
 import { MatDialog } from '@angular/material/dialog';
+import { AVService } from '../../../services/materials/AV/av.service';
 
 @Component({
   selector: 'app-addmaterials',
@@ -19,22 +20,30 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AddmaterialsComponent implements OnInit {
 
-  bookSubmit = false; periodicalSubmit = false; articleSubmit = false;
+  bookSubmit = false; periodicalSubmit = false; articleSubmit = false; aVSubmit = false;
   bookForm: FormGroup;
-  periodicalForm: FormGroup;
-  articleForm: FormGroup;
+  periodicalForm: FormGroup; articleForm: FormGroup;
+
   bookImage: any = null;
   periodicalImage: any = null;
   bookImageUrl: string | ArrayBuffer | null = null;  // Add this line
   periodicalImageUrl: string | ArrayBuffer | null = null;  // Add this line
   isModalOpen: boolean = false;
   dialogRef: MatDialog;
+  audioForm: FormGroup = this.formBuilder.group({
+    accession: ['', [Validators.required, Validators.maxLength(20)]],
+    title: ['', [Validators.required, Validators.maxLength(150)]],
+    authors: ['', [Validators.required, Validators.maxLength(255)]],
+    call_number: ['', [Validators.required, Validators.maxLength(20)]],
+    copyright: [2024, Validators.required],
+  });
 
   constructor(
     private formBuilder: FormBuilder,
     private bookService: BookService,
     private periodicalService: PeriodicalService,
     private articleService: ArticleService, 
+    private aVService: AVService,
     private dialog: MatDialog
   ) {
     this.dialogRef = dialog;
@@ -93,6 +102,7 @@ export class AddmaterialsComponent implements OnInit {
   bookAuthors = [''];
   periodicalAuthors = [''];
   articleAuthors = [''];
+  aVAuthors = [''];
 
 
   ngOnInit(): void {
@@ -146,6 +156,9 @@ export class AddmaterialsComponent implements OnInit {
 
       case 'article':
         return this.articleAuthors;
+
+      case 'AV':
+        return this.aVAuthors;
 
       default:
         return [];
@@ -229,6 +242,9 @@ export class AddmaterialsComponent implements OnInit {
 
       case 'article':
         return this.articleForm;
+      
+      case 'AV':
+        return this.audioForm;
 
       default:
         return dummyForm;
@@ -261,6 +277,10 @@ export class AddmaterialsComponent implements OnInit {
 
       case 'article':
         submit = this.articleSubmit;
+        break;
+
+      case 'AV':
+        submit = this.aVSubmit;
         break;
     }
 
@@ -302,6 +322,10 @@ export class AddmaterialsComponent implements OnInit {
 
       case 'article':
         this.articleSubmit = true;
+        break;
+
+      case 'AV':
+        this.aVSubmit = true;
         break;
     }
 
@@ -358,7 +382,7 @@ export class AddmaterialsComponent implements OnInit {
               this.successMessage(formTitle)
               },
             error: (err: any) => {
-              this.serverErrors();
+              this.serverErrors(err.message);
             }
           });
         } else if(type == 'periodical') {
@@ -367,7 +391,7 @@ export class AddmaterialsComponent implements OnInit {
               this.successMessage(formTitle)
               },
             error: (err: any) => {
-              this.serverErrors();
+              this.serverErrors(err.message);
             }
           });
         } else if(type == 'article') {
@@ -376,10 +400,19 @@ export class AddmaterialsComponent implements OnInit {
               this.successMessage(formTitle)
               },
             error: (err: any) => {
-              this.serverErrors();
-            }
+              this.serverErrors(err.message);
+            } 
           });
-        }
+        } else if(type == 'AV') {
+          this.aVService.addRecord(form).subscribe({
+            next: (res: any) => {
+              this.successMessage(formTitle)
+              },
+            error: (err: any) => {
+              this.serverErrors(err.message);
+            } 
+          });
+        } 
       }
     });
     } else {
@@ -405,10 +438,12 @@ export class AddmaterialsComponent implements OnInit {
     });
   }
 
-  serverErrors() {
+  serverErrors(err: string) {
+    if(err.toLowerCase().includes('sqlstate[23000]')) var text = 'Duplicate accession number.'
+    else var text = 'Unknown error.'
     Swal.fire({
-      title: 'Oops! Server Side Error!',
-      text: 'Please try again later or contact the developers',
+      title: 'Oops! Error adding material!',
+      text: text,
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",

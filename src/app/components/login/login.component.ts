@@ -3,18 +3,24 @@ import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements AfterViewInit {
+export class LoginComponent {
   backgroundImageUrl = 'path/to/image.jpg'; // Add the background image URL here
+  loginForm: FormGroup = this.fb.group({
+    username: ['', [Validators.required, Validators.maxLength(30)]],
+    password: ['', [Validators.required, Validators.maxLength(30)]]
+  })
   
   constructor(
     private as: AuthService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) { }
 
   showpassword = false;
@@ -23,30 +29,9 @@ export class LoginComponent implements AfterViewInit {
     this.showpassword = !this.showpassword
   }
 
-  
-  ngAfterViewInit(): void {
-    var form = document.getElementById('login-form') as HTMLFormElement;
-
-    form.addEventListener('submit', (event) => {
-      // Prevent the default form submission behavior
-      event.preventDefault();
-  
-      // Get the form elements
-      var elements = form.elements;
-
-      let formData = new FormData();
-  
-      // Loop through each form element
-      for (let i = 0; i < elements.length; i++) {
-          var element = elements[i] as HTMLInputElement;
-  
-          // Check if the element is an input field
-          if (element.tagName === 'INPUT' && element.id != 'login-button') {
-            formData.append(element.name, element.value);
-          }
-      }
-
-      this.as.login(formData).subscribe({
+  login() {
+    if(this.loginForm.valid) {
+      this.as.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           this.router.navigate(['main']);
           const Toast = Swal.mixin({
@@ -66,6 +51,15 @@ export class LoginComponent implements AfterViewInit {
         });
         }
       }) 
-    }); 
+    } else {
+      Swal.fire({
+        title: "Login Error!",
+        text: "Please check input fields.",
+        icon: "error",
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+        scrollbarPadding: false,
+      });
+    }
   }
 }

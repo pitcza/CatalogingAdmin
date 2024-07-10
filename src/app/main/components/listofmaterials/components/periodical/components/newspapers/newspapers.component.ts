@@ -61,6 +61,11 @@ export class NewspapersComponent implements OnInit {
     })
   }
 
+  // Filtering 
+  applyFilter(event: Event) {
+    this.dataSource.filter = (event.target as HTMLInputElement).value;
+  }
+  
   // POP UPS
   showPopup: boolean = false;
 
@@ -87,7 +92,7 @@ export class NewspapersComponent implements OnInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      if(result === 'Changed Data') {
+      if(result === 'Update' || result == 'Archive') {
         this.getData();
       }
     });
@@ -140,40 +145,6 @@ export class NewspapersComponent implements OnInit {
       }
     });
   }  
-
-  // FILTER DATA
-  applyFilter(event: Event, type: string) {
-    const search = (document.getElementById('search') as HTMLInputElement).value;
-
-    const titleFilterPredicate = (data: Newspaper, search: string): boolean => {
-      return data.title.toLowerCase().includes(search.toLowerCase());
-    }
-
-    const authorFilterPredicate = (data: Newspaper, search: string): boolean => {
-      return data.authors.some((x: any) => {
-        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-      });
-    }
-
-    const publisherFilterPredicate = (data: Newspaper, select: string): boolean => {
-      return data.publisher.toLowerCase().includes(search.toLowerCase());
-    }
-
-    const copyrightFilterPredicate = (data: Newspaper, select: string): boolean => {
-      return data.copyright.includes(search);
-    }
-
-    const filterPredicate = (data: Newspaper): boolean => {
-      return (titleFilterPredicate(data, search) ||
-              authorFilterPredicate(data, search) ||
-              publisherFilterPredicate(data, search) || 
-              copyrightFilterPredicate(data, search))
-    };
-    
-    this.dataSource.filterPredicate = filterPredicate;
-    this.dataSource.filter = search;
-  }  
-
 }
 
 export interface Newspaper {

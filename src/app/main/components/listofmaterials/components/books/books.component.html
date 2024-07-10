@@ -22,7 +22,7 @@
                 <!-- SEARCH BAR -->
                 <div class="search-container">
                     <form>
-                    <input id="search-book" type="text" placeholder="Search..." name="search-book" (keyup)="applyFilter()">
+                    <input id="search-book" type="text" placeholder="Search..." name="search-book" (keyup)="applyFilter($event)">
                     <button disabled><i class="fa fa-search"></i></button>
                     </form>
                 </div>

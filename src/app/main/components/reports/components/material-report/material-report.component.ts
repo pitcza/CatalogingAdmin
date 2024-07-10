@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, effect, OnInit, signal } from '@angular/core';
 import { DataService } from '../../../../../services/data.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
+import { ReportsService } from '../../../../../services/materials/reports/reports.service';
+import { BooksComponent } from './components/books/books.component';
+import { JournalsComponent } from './components/journals/journals.component';
+import { MagazinesComponent } from './components/magazines/magazines.component';
+import { NewspapersComponent } from './components/newspapers/newspapers.component';
 
 @Component({
   selector: 'app-material-report',
@@ -12,8 +18,39 @@ export class MaterialReportComponent implements OnInit {
   
   constructor (
     private ds: DataService,
-    private router: Router
-  ) { console.log(router.url)}
+    private router: Router,
+    private reportService: ReportsService){ }
+
+  @ViewChild(BooksComponent) BooksComponent!: BooksComponent;
+  @ViewChild(JournalsComponent) JournalsComponent!: JournalsComponent;
+  @ViewChild(MagazinesComponent) MagazinesComponent!: MagazinesComponent;
+  @ViewChild(NewspapersComponent) NewspapersComponent!: NewspapersComponent;
+
+  callExport() {
+    let route = this.router.url;
+    let type = '';
+
+    switch(route) {
+      case '/main/reports/material-report/books':
+        this.BooksComponent.export();
+        break;
+
+      case '/main/reports/material-report/journals':
+        this.JournalsComponent.export();
+        break;
+    }
+
+    switch(type) {
+      case 'books':
+        this.BooksComponent.export();
+        break;
+
+      // case 'journals':
+      //   this.JournalsComponent.export();
+      //   break;
+    }
+    
+  }
 
   materialCounts = {
     titles: 0,
@@ -25,11 +62,11 @@ export class MaterialReportComponent implements OnInit {
   }
 
   ngOnInit(): void {  
-      this.counts();
+    this.counts();
   }
 
   protected counts() {
-    this.ds.get('cataloging/reports/material-counts').subscribe({
+    this.reportService.getMaterialCounts().subscribe({
       next: (res: any) => this.materialCounts = res
     });
   }
