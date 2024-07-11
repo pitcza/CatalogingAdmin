@@ -190,16 +190,6 @@ export class AddmaterialsComponent implements OnInit {
       // Check if the selected file is an image
       if (file.type.startsWith('image/')) {
         const reader = new FileReader();  // Create a new FileReader instance
-
-        // Define the onload callback for the FileReader
-        reader.onload = () => {
-          if (type == 'book') {
-            this.bookImageUrl = reader.result;  // Add this line
-          } else if (type == 'periodical') {
-            this.periodicalImageUrl = reader.result;
-          }
-        };
-
         reader.readAsDataURL(file);  // Read the file as a data URL
 
         if(type == 'book') {
@@ -207,7 +197,6 @@ export class AddmaterialsComponent implements OnInit {
         } else if (type == 'periodical') {
           this.periodicalImage = file;
         }
-
       } else {
         input.value = ''; // removes the file
         Swal.fire({

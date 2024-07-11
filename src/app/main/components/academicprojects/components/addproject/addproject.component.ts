@@ -28,8 +28,6 @@ export class AddprojectComponent implements OnInit {
   departmentFilter = '';
   programFilter: any;
   programCategory: any;
-  image: any;
-  projectImage: any;
   form: FormGroup = this.formBuilder.group({
     accession: ['', Validators.required],
     category: [{value: '', disabled: true}, Validators.required],
@@ -67,20 +65,73 @@ export class AddprojectComponent implements OnInit {
   ) { }
 
   // ----- PREVIEW AND CROP IMAGE ----- //
+  validFile = false;
   imgChangeEvt: any = null;
   cropImagePreview: SafeUrl | undefined;
+  image: any;
 
   onFileChange(event: any) {
-    this.imgChangeEvt = event;
-    // Reset cropImagePreview when a new file is selected
-    this.cropImagePreview = undefined;
-    this.cd.detectChanges();
+    const input = event.target as HTMLInputElement;
+
+    // Check if there are files selected
+    if (input.files && input.files.length) {
+      const file = input.files[0];  // Get the first selected file
+
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        this.validFile = true;
+        this.imgChangeEvt = event;
+        this.image = file;  // Optionally store the file object itself
+
+        // Reset cropImagePreview when a new file is selected
+        this.cropImagePreview = undefined;
+        this.cd.detectChanges();
+      } else {
+        input.value = ''; // removes the file
+        Swal.fire({
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
+        });
+      }
+    } 
   }
 
   cropImg(event: ImageCroppedEvent) {
     if (event?.objectUrl) {
       this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
       this.cd.detectChanges();
+      
+      this.getBlobFromObjectUrl(event.objectUrl).then((blob: Blob) => {
+        if (blob) {
+          this.image = blob;
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  }
+
+  async getBlobFromObjectUrl(objectUrl: string): Promise<Blob> {
+    try {
+      const response = await fetch(objectUrl);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const blob = await response.blob();
+      return blob;
+    } catch (error) {
+      console.error('Error fetching or converting to Blob:', error);
+      throw error;
     }
   }
 
@@ -121,6 +172,11 @@ export class AddprojectComponent implements OnInit {
         this.departmentFilter = this.programs[0].department_short;
         this.programFilter = this.programs[0].program_short;
         this.programCategory = this.programs[0].category;
+
+        this.form.patchValue({
+          program: this.programFilter,
+          category: this.programCategory
+        })
 
         // Extract unique department names from programs
         const uniqueDepartments = new Set<string>();
@@ -268,27 +324,27 @@ export class AddprojectComponent implements OnInit {
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {
-    const selectDepartment = (document.getElementById('filter-department') as HTMLSelectElement).value;
-    this.departmentFilter = selectDepartment; 
-    
+    this.departmentFilter = (event.target as HTMLSelectElement).value;
+
     this.programs.some((x: any) => {
       if(x.department_short == this.departmentFilter) {
         this.programCategory = x.category;
         this.programFilter = x.program_short;
+        this.form.patchValue({
+          program: this.programFilter,
+          category: this.programCategory
+        });
         return true; 
       }
       return false; 
     });
-    
-    this.changeCategory();
   }
 
   changedProgram(event: Event) {
-    const selectProgram = (document.getElementById('filter-program') as HTMLSelectElement).value;
-    this.programFilter = selectProgram;
+    this.programFilter = (event.target as HTMLSelectElement).value;
 
     this.programs.some((x: any) => {
-      if(x.department_short == this.departmentFilter) {
+      if(x.program_short == this.programFilter) {
         this.programCategory = x.category;
         this.form.patchValue({
           category: this.programCategory
@@ -297,8 +353,6 @@ export class AddprojectComponent implements OnInit {
       }
       return false; 
     });
-
-    this.changeCategory();
   }
 
   changeCategory(){
@@ -310,46 +364,6 @@ export class AddprojectComponent implements OnInit {
       }
       return false; 
     });
-  }
-
-  addImage(event: Event) {
-    const input = event.target as HTMLInputElement;
-
-    // Check if there are files selected
-    if (input.files && input.files.length) {
-      const file = input.files[0];  // Get the first selected file
-
-      // Check if the selected file is an image
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();  // Create a new FileReader instance
-
-        // Define the onload callback for the FileReader
-        reader.onload = () => {
-          this.projectImage = reader.result;  // Set the image property to the result
-        };
-
-        reader.readAsDataURL(file);  // Read the file as a data URL
-
-        this.image = file;  // Optionally store the file object itself
-
-      } else {
-        input.value = ''; // removes the file
-        Swal.fire({
-          title: 'File Error',
-          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
-        });
-      }
-    } 
   }
 
   isInvalid(controlName: string): boolean {
@@ -380,8 +394,8 @@ export class AddprojectComponent implements OnInit {
       this.projectService.addRecord(form).subscribe({
         next: (res: any) => {
           Swal.fire({
-            title: "Update successful!",
-            text: "The changes have been saved.",
+            title: "Success",
+            text: "Project has been added successfully",
             icon: "success",
             confirmButtonColor: "#4F6F52",
             scrollbarPadding: false,

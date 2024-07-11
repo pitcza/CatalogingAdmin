@@ -76,7 +76,7 @@ export class EditdetailsComponent implements OnInit{
   ngOnInit() {
     this.projectService.getRecord(this.data.details).subscribe((res: any) => {
       this.project = res;
-
+      console.log(this.project)
       if(this.project.authors != null) {
         this.values.splice(0, 1);
         this.project.authors.forEach((author: any) => {
@@ -101,14 +101,15 @@ export class EditdetailsComponent implements OnInit{
         abstract: this.project.abstract,
         keywords: this.project.keywords
       });
+
+      this.programFilter = this.project.program;
+      this.programCategory = this.project.category;
+      this.departmentFilter = this.project.project_program.department_short;
     });
 
     this.projectService.getPrograms().subscribe({
       next: (res: any) => {
         this.programs = res;
-        this.departmentFilter = this.project.project_program.department_short;
-        this.programFilter = this.project.program_short;
-        this.programCategory = this.project.category;
 
         // Extract unique department names from programs
         const uniqueDepartments = new Set<string>();
@@ -127,34 +128,42 @@ export class EditdetailsComponent implements OnInit{
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {
-    const selectDepartment = (document.getElementById("filter-dept") as HTMLSelectElement).value;
-    this.departmentFilter = selectDepartment;
+    this.departmentFilter = (event.target as HTMLSelectElement).value;
 
     this.programs.some((x: any) => {
       if(x.department_short == this.departmentFilter) {
         this.programCategory = x.category;
         this.programFilter = x.program_short;
+        this.editForm.patchValue({
+          program: this.programFilter,
+          category: this.programCategory
+        });
         return true; 
       }
       return false; 
     });
-
-    this.changeCategory();
   }
 
   changedProgram(event: Event) {
-    const selectProgram = (document.getElementById('filter-pro') as HTMLSelectElement).value;
-    this.programFilter = selectProgram;
-    console.log(selectProgram)
+    this.programFilter = (event.target as HTMLSelectElement).value;
 
-    this.changeCategory();
+    this.programs.some((x: any) => {
+      if(x.program_short == this.programFilter) {
+        this.programCategory = x.category;
+        this.editForm.patchValue({
+          category: this.programCategory
+        });
+        return true; 
+      }
+      return false; 
+    });
   }
 
   changeCategory(){
+
     this.programs.some((x: any) => {
       if(x.id == this.programFilter) {
         this.programCategory = x.category;
-        console.log(x.program, this.programCategory)
         return true; 
       }
       return false; 

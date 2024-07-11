@@ -135,9 +135,8 @@
                                     <span></span>
                                     <div class="uploadlabel"> Project Cover </div>
                                 </div>
-                                <div class="img-crop" #cropper *ngIf="imgChangeEvt">
-                                    <!-- <p> Crop Image </p> -->
-                                    <ng-container *ngIf="imgChangeEvt">
+                                <div class="img-crop">
+                                    <ng-container *ngIf="validFile">
                                         <image-cropper
                                           [imageChangedEvent]="imgChangeEvt"
                                           [aspectRatio]="3/4"

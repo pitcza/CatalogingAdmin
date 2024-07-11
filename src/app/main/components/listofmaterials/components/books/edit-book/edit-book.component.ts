@@ -82,7 +82,8 @@ export class EditBookComponent implements OnInit{
         price: this.book.price,
       });
 
-      this.values = this.book.authors;
+      if(this.book.authors) this.values = this.book.authors;
+      else this.values = [''];
     })
 
     this.bookService.getLocations().subscribe((res: any) => {
