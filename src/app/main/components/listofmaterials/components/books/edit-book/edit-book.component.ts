@@ -1,29 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { BookService } from '../../../../../../services/materials/book/book.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-book',
   templateUrl: './edit-book.component.html',
   styleUrl: './edit-book.component.scss',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ],
 })
 export class EditBookComponent implements OnInit{
 
   protected locations: any;
   book: any;
-  image: any;
   imageUrl: any;
   year: number[] = [];
   currentYear = new Date().getFullYear();
@@ -37,6 +32,8 @@ export class EditBookComponent implements OnInit{
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private bookService: BookService,
+    private cd: ChangeDetectorRef,
+    private sanitizer: DomSanitizer,
     private router: Router
   ) { 
     for(let i = 1901; i <= this.currentYear; i++) {
@@ -104,6 +101,104 @@ export class EditBookComponent implements OnInit{
       this.editForm.get('price')?.disable();
     }
   }
+
+  // ----- PREVIEW AND CROP IMAGE ----- //
+  validFile = false;
+  imgChangeEvt: any = null;
+  cropImagePreview: SafeUrl | undefined;
+  image: any;
+
+  onFileChange(event: any) {
+    const input = event.target as HTMLInputElement;
+
+    // Check if there are files selected
+    if (input.files && input.files.length) {
+      const file = input.files[0];  // Get the first selected file
+
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        this.validFile = true;
+        this.imgChangeEvt = event;
+        this.image = file;  // Optionally store the file object itself
+
+        // Reset cropImagePreview when a new file is selected
+        this.cropImagePreview = undefined;
+        this.cd.detectChanges();
+      } else {
+        input.value = ''; // removes the file
+        Swal.fire({
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
+        });
+      }
+    } 
+  }
+
+  cropImg(event: ImageCroppedEvent) {
+    if (event?.objectUrl) {
+      this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      this.cd.detectChanges();
+      
+      this.getBlobFromObjectUrl(event.objectUrl).then((blob: Blob) => {
+        if (blob) {
+          this.image = blob;
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  }
+
+  async getBlobFromObjectUrl(objectUrl: string): Promise<Blob> {
+    try {
+      const response = await fetch(objectUrl);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const blob = await response.blob();
+      return blob;
+    } catch (error) {
+      console.error('Error fetching or converting to Blob:', error);
+      throw error;
+    }
+  }
+
+  imgLoad() {
+    this.cd.detectChanges();
+  }
+
+  initCropper() {
+    this.cd.detectChanges();
+  }
+
+  imgFailed() {
+    Swal.fire({
+      title: 'Error',
+      text: "Image failed to show. Please try again.",
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+      timer: 2500,
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
+    });
+  }
+  // END OF PREVIEW AND CROP IMAGE //
 
   // SWEETALERT ARCHIVE POPUP
   archiveBox(){
@@ -218,44 +313,6 @@ export class EditBookComponent implements OnInit{
   }
   // ----- END OF AUTHORS ----- //
 
-  imageUpload(event: Event): void {
-    const input = event.target as HTMLInputElement;
-
-    // Check if there are files selected
-    if (input.files && input.files.length) {
-      const file = input.files[0];  // Get the first selected file
-
-      // Check if the selected file is an image
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();  // Create a new FileReader instance
-
-        // Define the onload callback for the FileReader
-        reader.onload = () => this.imageUrl = reader.result; 
-
-        reader.readAsDataURL(file);  // Read the file as a data URL
-
-        this.image = file;
-
-      } else {
-        input.value = ''; // removes the file
-        Swal.fire({
-          title: 'File Error',
-          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
-        });
-      }
-    } 
-  }
-
   isInvalid(controlName: string): boolean {
     const control = this.editForm.get(controlName);
     return control ? control.invalid && (control.dirty || control.touched) : false;
@@ -310,20 +367,40 @@ export class EditBookComponent implements OnInit{
         form.append('image_url', this.image);
       }
 
-      this.bookService.updateRecord(this.data.accession, form).subscribe({
-        next: (res: any) => {
-          this.successMessage('Book');
-          this.closepopup('Update');
+      Swal.fire({
+        title: "Update Book",
+        text: "Are you sure you want to update the book details?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        confirmButtonColor: "#4F6F52",
+        cancelButtonColor: "#777777",
+        scrollbarPadding: false,
+        willOpen: () => {
+          document.body.style.overflowY = 'scroll';
         },
-        error: (err: any) => this.serverErrors()
-      });
+        willClose: () => {
+          document.body.style.overflowY = 'scroll';
+        }
+      }).then((result) => {
+        if(result.isConfirmed) {
+          this.bookService.updateRecord(this.data.accession, form).subscribe({
+            next: (res: any) => {
+              this.successMessage(form.get('title'));
+              this.closepopup('Update');
+            },
+            error: (err: any) => this.serverErrors()
+          });
+        }
+      })
     } else {
       this.markFormGroupTouched(this.editForm);
       this.displayErrors();
     }
   }
 
-  successMessage(title:string) {
+  successMessage(title: any) {
     Swal.fire({
       title: 'Success',
       text: title + " has been updated successfully",

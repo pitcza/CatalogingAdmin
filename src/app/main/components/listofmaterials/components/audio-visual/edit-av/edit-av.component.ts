@@ -222,11 +222,11 @@ export class EditAVComponent implements OnInit {
   protected updateAV() {
     Swal.fire({
       title: "Update Audio-Visual",
-      text: "Would you like to save these changes?",
-      icon: "warning",
+      text: "Are you sure you want to update the audio-visual details?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonText: 'Confirm', // confirm or yes or update or ewan na?
-      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
       confirmButtonColor: "#4F6F52",
       cancelButtonColor: "#777777",
       scrollbarPadding: false,

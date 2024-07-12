@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, NG_VALUE_ACCESSOR } from '@angular/
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Inject } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
@@ -22,7 +24,6 @@ import { ProjectService } from '../../../../../services/materials/project/projec
 })
 
 export class EditdetailsComponent implements OnInit{
-  
   programs: any;
   departments: any;
   departmentFilter = '';
@@ -31,7 +32,6 @@ export class EditdetailsComponent implements OnInit{
   project: any;
   values = [''];
   tags = [''];
-  image: any;
   projectImage: any;
   submit = false;
   editForm: FormGroup = this.formBuilder.group({
@@ -42,7 +42,7 @@ export class EditdetailsComponent implements OnInit{
     program: ['', Validators.required],
     image_url: [''],
     date_published: ['', Validators.required],
-    language: [2024, Validators.required],
+    language: ['English', Validators.required],
     abstract: [''],
     keywords: ['']
   });
@@ -55,9 +55,14 @@ export class EditdetailsComponent implements OnInit{
     }
   }
 
-  isFieldFilled(fieldName: string): boolean {
-    const control = this.editForm.get(fieldName);
-    return !!control && control.value !== null && control.value !== '';
+  // check if the field is filled (to move up label)
+  isFieldFilled(fieldName: string, index?: number): boolean {
+    if (fieldName === 'author' && index !== undefined) {
+      return this.values[index] !== null && this.values[index] !== '';
+    } else {
+      const control = this.editForm.get(fieldName);
+      return !!control && control.value !== null && control.value !== '';
+    }
   }
 
   constructor(
@@ -66,7 +71,8 @@ export class EditdetailsComponent implements OnInit{
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private projectService: ProjectService,
-    private cd: ChangeDetectorRef, // for keywords
+    private cd: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngAfterViewInit(): void {
@@ -125,6 +131,104 @@ export class EditdetailsComponent implements OnInit{
       }
     });
   }
+
+  // ----- PREVIEW AND CROP IMAGE ----- //
+  validFile = false;
+  imgChangeEvt: any = null;
+  cropImagePreview: SafeUrl | undefined;
+  image: any;
+
+  onFileChange(event: any) {
+    const input = event.target as HTMLInputElement;
+
+    // Check if there are files selected
+    if (input.files && input.files.length) {
+      const file = input.files[0];  // Get the first selected file
+
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        this.validFile = true;
+        this.imgChangeEvt = event;
+        this.image = file;  // Optionally store the file object itself
+
+        // Reset cropImagePreview when a new file is selected
+        this.cropImagePreview = undefined;
+        this.cd.detectChanges();
+      } else {
+        input.value = ''; // removes the file
+        Swal.fire({
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
+        });
+      }
+    } 
+  }
+
+  cropImg(event: ImageCroppedEvent) {
+    if (event?.objectUrl) {
+      this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      this.cd.detectChanges();
+      
+      this.getBlobFromObjectUrl(event.objectUrl).then((blob: Blob) => {
+        if (blob) {
+          this.image = blob;
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  }
+
+  async getBlobFromObjectUrl(objectUrl: string): Promise<Blob> {
+    try {
+      const response = await fetch(objectUrl);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const blob = await response.blob();
+      return blob;
+    } catch (error) {
+      console.error('Error fetching or converting to Blob:', error);
+      throw error;
+    }
+  }
+
+  imgLoad() {
+    this.cd.detectChanges();
+  }
+
+  initCropper() {
+    this.cd.detectChanges();
+  }
+
+  imgFailed() {
+    Swal.fire({
+      title: 'Error',
+      text: "Image failed to show. Please try again.",
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+      timer: 2500,
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
+    });
+  }
+  // END OF PREVIEW AND CROP IMAGE //
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {
@@ -288,45 +392,45 @@ export class EditdetailsComponent implements OnInit{
     this.ref.close(text);
   }
 
-  addImage(event: Event) {
-    const input = event.target as HTMLInputElement;
+  // addImage(event: Event) {
+  //   const input = event.target as HTMLInputElement;
 
-    // Check if there are files selected
-    if (input.files && input.files.length) {
-      const file = input.files[0];  // Get the first selected file
+  //   // Check if there are files selected
+  //   if (input.files && input.files.length) {
+  //     const file = input.files[0];  // Get the first selected file
 
-      // Check if the selected file is an image
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();  // Create a new FileReader instance
+  //     // Check if the selected file is an image
+  //     if (file.type.startsWith('image/')) {
+  //       const reader = new FileReader();  // Create a new FileReader instance
 
-        // Define the onload callback for the FileReader
-        reader.onload = () => {
-          this.projectImage = reader.result;  // Set the image property to the result
-        };
+  //       // Define the onload callback for the FileReader
+  //       reader.onload = () => {
+  //         this.projectImage = reader.result;  // Set the image property to the result
+  //       };
 
-        reader.readAsDataURL(file);  // Read the file as a data URL
+  //       reader.readAsDataURL(file);  // Read the file as a data URL
 
-        this.image = file;  // Optionally store the file object itself
+  //       this.image = file;  // Optionally store the file object itself
 
-      } else {
-        input.value = ''; // removes the file
-        Swal.fire({
-          title: 'File Error',
-          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
-        });
-      }
-    } 
-  }
+  //     } else {
+  //       input.value = ''; // removes the file
+  //       Swal.fire({
+  //         title: 'File Error',
+  //         text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+  //         icon: 'error',
+  //         confirmButtonText: 'Close',
+  //         confirmButtonColor: "#777777",
+  //         scrollbarPadding: false,
+  //         willOpen: () => {
+  //           document.body.style.overflowY = 'scroll';
+  //         },
+  //         willClose: () => {
+  //           document.body.style.overflowY = 'scroll';
+  //         }
+  //       });
+  //     }
+  //   } 
+  // }
 
   isInvalid(controlName: string): boolean {
     const control = this.editForm.get(controlName);
@@ -473,10 +577,30 @@ export class EditdetailsComponent implements OnInit{
       if(this.image)
         form.append('image_url', this.image);
 
-      this.projectService.updateRecord(this.data.details, form).subscribe({
-        next: (res: any) => { this.successMessage('Project'); this.closepopup('Update') },
-        error:(err: any) => this.serverErrors()
-      });
+      Swal.fire({
+        title: "Update Project",
+        text: "Are you sure you want to update the project details?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        confirmButtonColor: "#4F6F52",
+        cancelButtonColor: "#777777",
+        scrollbarPadding: false,
+        willOpen: () => {
+          document.body.style.overflowY = 'scroll';
+        },
+        willClose: () => {
+          document.body.style.overflowY = 'scroll';
+        }
+      }).then((result) => {
+        if(result.isConfirmed) {
+          this.projectService.updateRecord(this.data.details, form).subscribe({
+            next: (res: any) => { this.successMessage('Project'); this.closepopup('Update') },
+            error:(err: any) => this.serverErrors()
+          });
+        }
+      })
     } else {
       this.editForm.get('category')?.disable();
       this.markFormGroupTouched(this.editForm);
@@ -490,14 +614,15 @@ export class EditdetailsComponent implements OnInit{
       text: title + " has been updated successfully",
       icon: 'success',
       confirmButtonText: 'Close',
-      confirmButtonColor: "#777777",
+      confirmButtonColor: "#4F6F52",
       scrollbarPadding: false,
       willOpen: () => {
         document.body.style.overflowY = 'scroll';
       },
       willClose: () => {
         document.body.style.overflowY = 'scroll';
-      }
+      },
+      timer: 5000
     });
   }
 

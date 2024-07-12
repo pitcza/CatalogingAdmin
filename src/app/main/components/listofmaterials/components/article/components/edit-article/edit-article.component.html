@@ -64,8 +64,8 @@
                                     </div>
                                     
                                     <!-- Display message based on the number of input fields -->
-                                    <p *ngIf="!isMaxLimitReached()">Add more AUTHOR if necessary</p>
-                                    <p *ngIf="isMaxLimitReached()">Maximum AUTHORS reached</p>
+                                    <p class="message" *ngIf="!isMaxLimitReached()">Add more AUTHOR if necessary</p>
+                                    <p class="message" *ngIf="isMaxLimitReached()">Maximum AUTHORS reached</p>
                                 </div>
 
                                 <div class="input-row">

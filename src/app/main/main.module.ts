@@ -17,10 +17,8 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { ReportsModule } from './components/reports/reports.module';
 import { MaterialModule } from '../modules/material/material.module';
 
-
 import { LoadingComponent } from './components/loading/loading.component';
-
-import { ImportComponent } from './components/addmaterials/import/import.component';
+import { ImageCropperComponent } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -29,7 +27,6 @@ import { ImportComponent } from './components/addmaterials/import/import.compone
     ListofmaterialsComponent,
     ReportsComponent,
     LoadingComponent,
-    ImportComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +36,8 @@ import { ImportComponent } from './components/addmaterials/import/import.compone
     ReportsModule,
     FormsModule,
     RouterModule,
-    MaterialModule
+    MaterialModule,
+    ImageCropperComponent
   ],
   exports: [
     LoadingComponent

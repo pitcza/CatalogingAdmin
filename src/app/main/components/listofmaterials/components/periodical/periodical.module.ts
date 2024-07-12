@@ -13,6 +13,7 @@ import { PerioDetailsComponent } from './components/perio-details/perio-details.
 import { EditPeriodicalComponent } from './components/edit-periodical/edit-periodical.component';
 
 import { MaterialModule } from '../../../../../modules/material/material.module';
+import { ImageCropperComponent } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MaterialModule } from '../../../../../modules/material/material.module'
   ],
   imports: [
     PeriodicalRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ImageCropperComponent
   ]
 })
 

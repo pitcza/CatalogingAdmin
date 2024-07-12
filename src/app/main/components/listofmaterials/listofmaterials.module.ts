@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListofmaterialsRoutingModule } from './listofmaterials-routing.module';
 
 import { BooksComponent } from './components/books/books.component';
+import { AudioVisualComponent } from './components/audio-visual/audio-visual.component';
 
 // PERIODICALS TAB COMPONENTS AND MODULE
 import { PeriodicalComponent } from './components/periodical/periodical.component';
@@ -14,12 +15,14 @@ import { PeriodicalModule } from './components/periodical/periodical.module';
 import { ArticleComponent } from './components/article/article.component';
 import { ArticleModule } from './components/article/article.module';
 
-import { AudioVisualComponent } from './components/audio-visual/audio-visual.component';
+import { ImageCropperComponent } from 'ngx-image-cropper';
+import { EditBookComponent } from './components/books/edit-book/edit-book.component';
 
 @NgModule({
   declarations: [
     PeriodicalComponent,
     ArticleComponent,
+    EditBookComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +30,8 @@ import { AudioVisualComponent } from './components/audio-visual/audio-visual.com
     FormsModule,
     ReactiveFormsModule,
     PeriodicalModule,
-    ArticleModule
+    ArticleModule,
+    ImageCropperComponent,
   ]
 })
 export class ListofmaterialsModule { }

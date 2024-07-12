@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../../../services/data.service';
 import Swal from 'sweetalert2';
@@ -12,6 +12,8 @@ import { ImportComponent } from './import/import.component';
 
 import { MatDialog } from '@angular/material/dialog';
 import { AVService } from '../../../services/materials/AV/av.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-addmaterials',
@@ -44,7 +46,9 @@ export class AddmaterialsComponent implements OnInit {
     private periodicalService: PeriodicalService,
     private articleService: ArticleService, 
     private aVService: AVService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
   ) {
     this.dialogRef = dialog;
 
@@ -119,6 +123,109 @@ export class AddmaterialsComponent implements OnInit {
     });
   }
 
+  // ----- PREVIEW AND CROP IMAGE ----- //
+  validFile = false;
+  imgChangeEvt: any = null;
+  cropImagePreview: SafeUrl | undefined;
+  image: any;
+
+  onFileChange(event: any, type: string) {
+    const input = event.target as HTMLInputElement;
+
+    // Check if there are files selected
+    if (input.files && input.files.length) {
+      const file = input.files[0];  // Get the first selected file
+
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        this.validFile = true;
+        this.imgChangeEvt = event;
+
+        if(type == 'book') {
+          this.bookImage = file;
+        } else if (type == 'periodical') {
+          this.periodicalImage = file;
+        }
+
+        // Reset cropImagePreview when a new file is selected
+        this.cropImagePreview = undefined;
+        this.cd.detectChanges();
+      } else {
+        input.value = ''; // removes the file
+        Swal.fire({
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
+        });
+      }
+    } 
+  }
+
+  cropImg(event: ImageCroppedEvent) {
+    if (event?.objectUrl) {
+      this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      this.cd.detectChanges();
+      
+      this.getBlobFromObjectUrl(event.objectUrl).then((blob: Blob) => {
+        if (blob) {
+          this.image = blob;
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  }
+
+  async getBlobFromObjectUrl(objectUrl: string): Promise<Blob> {
+    try {
+      const response = await fetch(objectUrl);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const blob = await response.blob();
+      return blob;
+    } catch (error) {
+      console.error('Error fetching or converting to Blob:', error);
+      throw error;
+    }
+  }
+
+  imgLoad() {
+    this.cd.detectChanges();
+  }
+
+  initCropper() {
+    this.cd.detectChanges();
+  }
+
+  imgFailed() {
+    Swal.fire({
+      title: 'Error',
+      text: "Image failed to show. Please try again.",
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+      timer: 2500,
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
+    });
+  }
+  // END OF PREVIEW AND CROP IMAGE //
+
   // MULTIPLE AUTHORS FUNCTION     
 
   removevalue(i: any, type: string) {
@@ -180,42 +287,42 @@ export class AddmaterialsComponent implements OnInit {
     priceControl?.updateValueAndValidity();
   }
 
-  imageUpload(event: Event, type: string): void {
-    const input = event.target as HTMLInputElement;
+  // imageUpload(event: Event, type: string): void {
+  //   const input = event.target as HTMLInputElement;
 
-    // Check if there are files selected
-    if (input.files && input.files.length) {
-      const file = input.files[0];  // Get the first selected file
+  //   // Check if there are files selected
+  //   if (input.files && input.files.length) {
+  //     const file = input.files[0];  // Get the first selected file
 
-      // Check if the selected file is an image
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();  // Create a new FileReader instance
-        reader.readAsDataURL(file);  // Read the file as a data URL
+  //     // Check if the selected file is an image
+  //     if (file.type.startsWith('image/')) {
+  //       const reader = new FileReader();  // Create a new FileReader instance
+  //       reader.readAsDataURL(file);  // Read the file as a data URL
 
-        if(type == 'book') {
-          this.bookImage = file;
-        } else if (type == 'periodical') {
-          this.periodicalImage = file;
-        }
-      } else {
-        input.value = ''; // removes the file
-        Swal.fire({
-          title: 'File Error',
-          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
-        });
-      }
-    } 
-  }
+  //       if(type == 'book') {
+  //         this.bookImage = file;
+  //       } else if (type == 'periodical') {
+  //         this.periodicalImage = file;
+  //       }
+  //     } else {
+  //       input.value = ''; // removes the file
+  //       Swal.fire({
+  //         title: 'File Error',
+  //         text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+  //         icon: 'error',
+  //         confirmButtonText: 'Close',
+  //         confirmButtonColor: "#777777",
+  //         scrollbarPadding: false,
+  //         willOpen: () => {
+  //           document.body.style.overflowY = 'scroll';
+  //         },
+  //         willClose: () => {
+  //           document.body.style.overflowY = 'scroll';
+  //         }
+  //       });
+  //     }
+  //   } 
+  // }
 
   getFormSet(type: string) {
     let dummyForm: FormGroup = this.formBuilder.group({

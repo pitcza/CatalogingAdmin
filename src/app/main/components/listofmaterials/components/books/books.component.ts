@@ -1,17 +1,16 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
 
 import Swal from 'sweetalert2';
 
-import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ChangeDetectorRef } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { BookDetailsPopupComponent } from './book-details-popup/book-details-popup.component';
@@ -20,6 +19,7 @@ import { DataService } from '../../../../../services/data.service';
 import { get } from 'http';
 import { filter } from 'rxjs';
 import { BookService } from '../../../../../services/materials/book/book.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-books',
@@ -27,12 +27,10 @@ import { BookService } from '../../../../../services/materials/book/book.service
   styleUrl: './books.component.scss',
   standalone: true,
   imports: [
-    MatCardModule,
-    MatTableModule, 
-    MatPaginatorModule, 
-    MatFormFieldModule, 
     MatSortModule,
-    DatePipe,
+    MatTableModule,
+    MatPaginatorModule, 
+    MatFormFieldModule,
     CommonModule
   ],
 })
@@ -41,6 +39,7 @@ export class BooksComponent implements OnInit {
   displayedColumns: string[] = ['title', 'author', 'location', 'copyright', 'action'];
   dataSource:any = null;
   materials: any = null;
+  isLoading = true;
 
   @ViewChild(MatPaginator, {static:true}) paginator!: MatPaginator;
   @ViewChild(MatSort, {static:true}) sort!: MatSort;

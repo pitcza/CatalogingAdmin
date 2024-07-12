@@ -240,13 +240,13 @@ h1 {
     z-index: 1;
 }
 
-.input-row p { // YUNG MESSAGE
+.input-row .message { // YUNG MESSAGE
     position: absolute;
     padding-top: 3px;
     font-size: 12px;
     font-weight: 500;
     margin-bottom: -18px;
-    padding-left: 10px;
+    padding-left: 5px;
     opacity: 70%;
 }
 
@@ -308,7 +308,7 @@ select {
 }
 
 option {
-    background-color: var(--white);
+    background-color: var(--input);
 }
 
 // ----- INPUT FIELD WITH PESO SIGN

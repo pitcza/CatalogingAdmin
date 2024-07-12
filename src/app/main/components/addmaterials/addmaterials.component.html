@@ -39,6 +39,7 @@
                             <span [ngClass]="{'errorSpan': isInvalid('accession', 'book') }"></span>
                             <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('accession', 'book') }"> Accession No. </div>
                         </div>
+                        <p *ngIf="isInvalid('accession', 'book')" class="warningMessage">This field is required</p>
 
                         <div class="entryarea  ">
                             <input type="text" formControlName="title">
@@ -156,27 +157,68 @@
                             <span class="source"></span>
                             <div class="labelline3"> Source of Fund  </div>
                         </div>
-
-                        <div class="entryarea11">
-                          <input type="file" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'book')">
-                          <div class="labelline11"> Upload Image</div>
-                          <img *ngIf="bookImageUrl" [src]="bookImageUrl" alt="Image Preview" class="image-preview">
-                        </div>
-                    </div>
-
-
-                    <div class="input-row1">
                         <div class="entryarea5">
                             <span class="peso-sign">₱</span>
                             <input type="number" formControlName="price">
                             <span [ngClass]="{'errorSpan': isInvalid('price', 'book') }"></span>
                             <div class="labelline5" [ngClass]="{ 'errorLabel': isInvalid('price', 'book') }"> Price </div>
                         </div>
+                    </div>
+
+
+                    <div class="input-row1">
+                        <!-- image input field -->
+                        <div class="entryarea11">
+                            <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" (change)="onFileChange($event, 'book')">
+                            <span></span>
+                            <div class="labelline11"> Upload Image </div>
+                        </div>
 
                         <div class="entryarea10">
                             <input type="number" formControlName="copies" >
                             <span [ngClass]="{'errorSpan': isInvalid('copies', 'book') }"></span>
                             <div class="labelline10" [ngClass]="{ 'errorLabel': isInvalid('copies', 'book') }"> Copies </div>
+                        </div>
+                    </div>
+
+                    <!-- IMAGE CROP AND PREVIEW -->
+                    <div class="img-row" id="no-add-function">
+                        <div class="img-content">
+                            <div class="left">
+                                <!-- preview and crop original image size -->
+                                <ng-container *ngIf="imgChangeEvt">
+                                <div class="preview">
+                                    <h2> Crop Original Image </h2>
+                                </div>
+                                <div class="img-crop">
+                                    <ng-container *ngIf="validFile">
+                                        <image-cropper
+                                          [imageChangedEvent]="imgChangeEvt"
+                                          [aspectRatio]="3/4"
+                                          [resizeToWidth]="500"
+                                          [maintainAspectRatio]="true"
+                                          (imageCropped)="cropImg($event)"
+                                          (imageLoaded)="imgLoad()"
+                                          (cropperReady)="initCropper()"
+                                          (loadImageFailed)="imgFailed()"
+                                        >
+                                        </image-cropper>
+                                      </ng-container>
+                                </div>
+                                </ng-container>
+                            </div>
+                            <!-- cropped image preview -->
+                            <div class="right">
+                            <ng-container *ngIf="cropImagePreview">
+                                <div class="preview">
+                                    <h2> Cropped Image Preview </h2>
+                                </div>
+                                <div class="cropped-image-preview">
+                                    <img [src]="cropImagePreview" alt="Cropped Image Preview">
+                                    <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event, 'book')" hidden>
+                                </div>
+                            </ng-container>
+                            </div>
                         </div>
                     </div>
 
@@ -312,11 +354,53 @@
                             <div class="labelline7" [ngClass]="{ 'errorLabel': isInvalid('date_published', 'periodical') }"> Publication Date </div>
                         </div>
 
+                        <!-- image input field -->
                         <div class="entryarea11">
-                            <input type="file" accept=".png, .jpeg, .jpg" (change)="imageUpload($event, 'periodical')">
-                            <div class="labelline11"> Upload Image</div>
-                            <img *ngIf="periodicalImageUrl" [src]="periodicalImageUrl" alt="Image Preview" class="image-preview">
-                          </div>
+                            <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" (change)="onFileChange($event, 'periodical')">
+                            <span></span>
+                            <div class="labelline11"> Upload Image </div>
+                        </div>
+                    </div>
+
+                    <!-- IMAGE CROP AND PREVIEW -->
+                    <div class="img-row" id="no-add-function">
+                        <div class="img-content">
+                            <div class="left">
+                                <!-- preview and crop original image size -->
+                                <ng-container *ngIf="imgChangeEvt">
+                                <div class="preview">
+                                    <h2> Crop Original Image </h2>
+                                </div>
+                                <div class="img-crop">
+                                    <ng-container *ngIf="validFile">
+                                        <image-cropper
+                                          [imageChangedEvent]="imgChangeEvt"
+                                          [aspectRatio]="3/4"
+                                          [resizeToWidth]="500"
+                                          [maintainAspectRatio]="true"
+                                          (imageCropped)="cropImg($event)"
+                                          (imageLoaded)="imgLoad()"
+                                          (cropperReady)="initCropper()"
+                                          (loadImageFailed)="imgFailed()"
+                                        >
+                                        </image-cropper>
+                                      </ng-container>
+                                </div>
+                                </ng-container>
+                            </div>
+                            <!-- cropped image preview -->
+                            <div class="right">
+                            <ng-container *ngIf="cropImagePreview">
+                                <div class="preview">
+                                    <h2> Cropped Image Preview </h2>
+                                </div>
+                                <div class="cropped-image-preview">
+                                    <img [src]="cropImagePreview" alt="Cropped Image Preview">
+                                    <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event, 'periodical')" hidden>
+                                </div>
+                            </ng-container>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="perio-btn">

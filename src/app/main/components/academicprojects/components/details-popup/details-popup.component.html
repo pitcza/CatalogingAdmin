@@ -27,6 +27,7 @@
                                 <span class="mat-authors">
                                     <h2> Author/s: </h2> 
                                     <p>
+                                        <ng-container *ngIf="!project.authors"> N/A </ng-container>
                                         <ng-container *ngFor="let x of project.authors; let last = last;">
                                         {{ x     }}{{ !last ? ',' : '' }} <br>
                                         </ng-container>

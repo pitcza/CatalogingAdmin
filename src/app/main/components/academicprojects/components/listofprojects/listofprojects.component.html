@@ -6,7 +6,6 @@
             <h1> Academic Projects </h1>
             <div class="add-btns">
                 <a (click)="redirectToProjectForm()" class="add-project"> 
-                    <!-- <span> <i class='bx bx-plus-circle'></i> </span> -->
                     <span> Add Project </span>
                 </a>
             </div>
@@ -30,11 +29,6 @@
                             <option *ngIf="x.department_short == departmentFilter" [value] = "x.program_short">{{ x.program_short }}</option>
                         </ng-container>
                     </select>
-
-                    <!-- <select id="filter-category" (change)="applyFilter($event, 'category')">
-                        <option selected value=""> All Projects </option>
-                        <option *ngFor="let x of categories" [value]="x"> {{ x }} </option>
-                    </select> -->
                 </div>
 
                 <div class="search-container">
@@ -88,8 +82,18 @@
                 <ng-container matColumnDef="author">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header="" class="tbl-header2"> Author/s </th>
                     <td mat-cell *matCellDef="let project" class="left-align"> 
-                        <ng-container *ngFor="let x of project.authors; let last = last">
-                            {{ x }}{{ !last ? ', ' : '' }}<br>
+                        <ng-container *ngIf="!project.authors"> N/A </ng-container>
+                        <ng-container *ngIf="project.authors">
+                            <ng-container *ngIf="project.authors.length > 3">
+                                <ng-container *ngFor="let x of project.authors.slice(0, 3); let last = last">
+                                    {{ x }}{{ ', ' }} <br>
+                                </ng-container> [et al.]
+                            </ng-container>
+                            <ng-container *ngIf="project.authors.length <= 3">
+                                <ng-container *ngFor="let x of project.authors; let last = last">
+                                    {{ x }}{{ !last ? ', ' : '' }} <br>
+                                </ng-container>
+                            </ng-container>
                         </ng-container>
                     </td>
                 </ng-container>

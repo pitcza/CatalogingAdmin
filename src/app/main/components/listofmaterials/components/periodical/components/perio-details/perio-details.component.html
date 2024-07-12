@@ -33,15 +33,9 @@
                                 <span class="mat-authors">
                                     <h2> Author/s: </h2> 
                                     <p>
-                                        <ng-container *ngIf="periodical.authors.length > 3">
-                                            <ng-container *ngFor="let author of periodical.authors.slice(0, 3); let last = last">
-                                                {{ author }}<span>, </span> <br>
-                                            </ng-container> [et al.]
-                                        </ng-container>
-                                        <ng-container *ngIf="periodical.authors.length <= 3">
-                                            <ng-container *ngFor="let author of periodical.authors; let last = last">
-                                                {{ author }}<span *ngIf="!last">, </span> <br>
-                                            </ng-container>
+                                        <ng-container *ngIf="!periodical.authors"> N/A </ng-container>
+                                        <ng-container *ngFor="let x of periodical.authors; let last = last;">
+                                            {{ x     }}{{ !last ? ',' : '' }} <br>
                                         </ng-container>
                                     </p>
                                 </span>

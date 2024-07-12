@@ -2,9 +2,9 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewCh
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 
 import Swal from 'sweetalert2';
 
@@ -12,7 +12,6 @@ import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.comp
 import { PerioDetailsComponent } from '../perio-details/perio-details.component';
 import { DataService } from '../../../../../../../services/data.service';
 import { PeriodicalService } from '../../../../../../../services/materials/periodical/periodical.service';
-import { PeriodicalComponent } from '../../periodical.component';
 
 @Component({
   selector: 'app-newspapers',

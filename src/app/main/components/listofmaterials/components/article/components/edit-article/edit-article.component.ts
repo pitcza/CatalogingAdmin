@@ -249,10 +249,33 @@ export class EditArticleComponent implements OnInit{
           form.append(key, value);
       });
 
-      this.articleService.updateRecord(this.data.details, form).subscribe({
-        next: (res: any) => { this.successMessage('Article'); this.closepopup('Update'); },
-        error: (err: any) => this.serverErrors()
-      });
+      Swal.fire({
+        title: "Update Article",
+        text: "Are you sure you want to update the article details?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        confirmButtonColor: "#4F6F52",
+        cancelButtonColor: "#777777",
+        scrollbarPadding: false,
+        willOpen: () => {
+          document.body.style.overflowY = 'scroll';
+        },
+        willClose: () => {
+          document.body.style.overflowY = 'scroll';
+        }
+      }).then((result) => {
+        if(result.isConfirmed) {
+          this.articleService.updateRecord(this.data.details, form).subscribe({
+            next: (res: any) => {
+              this.successMessage(form.get('title'));
+              this.closepopup('Update');
+            },
+            error: (err: any) => this.serverErrors()
+          });
+        }
+      })
     } else {
       this.markFormGroupTouched(this.editForm);
       this.displayErrors();

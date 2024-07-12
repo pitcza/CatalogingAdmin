@@ -10,11 +10,12 @@
         </div>
 
         <div class="addproject">
-
+            <!-- PROJECT FORM -->
             <form id="project-form" [formGroup]="form" (submit)="submit()">
                 <div class="input_field">
                     <div class="input-row" id="no-add-function">
                         <div class="txt_field_short">
+                            <p class="warningMessage" *ngIf="isInvalid('accession')">This field is required</p>
                             <input class="inputtxt" type="text" formControlName="accession">
                             <span [ngClass]="{'errorSpan': isInvalid('accession') }"></span>
                             <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('accession'), 'moved-up': isFieldFilled('accession') }"> Accession No. </div>
@@ -44,22 +45,23 @@
 
                     <div class="input-row">
                         <div class="txt_field">
+                            <p class="warningMessage" *ngIf="isInvalid('title')">This field is required</p>
+                            <p class="warningMessage" *ngIf="titleTooLong">Title must be 255 characters or less</p>
                             <input class="inputtxt" type="text" formControlName="title" (input)="checkTitleLength()">
                             <span [ngClass]="{'errorSpan': isInvalid('title') }"></span>
                             <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('title'), 'moved-up': isFieldFilled('title') }"> Title </div>
                         </div>
-                        <p *ngIf="titleTooLong" class="warningMessage">Title must be 255 characters or less.</p>
                     </div>
 
-                    <!-- CAN ADD MULTIPLE AUTHORS -->
+                    <!-- ADD MULTIPLE AUTHORS -->
                     <div class="input-row">
                         <div class="author-container">
                         <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
                             <div class="multiple-author">
                                 <div class="txt_field">
                                     <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
-                                    <span></span>
-                                    <div class="labelline"> Author </div>
+                                    <span [ngClass]="{'errorSpan': isInvalid('authors') }"></span>
+                                    <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('authors'), 'moved-up': isFieldFilled('author', i) }"> Author </div>
                                 </div>
                                 <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
                                     <i class='bx bx-x'></i>
@@ -70,10 +72,9 @@
                         <div class="addbtn">
                             <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
                         </div>
-
                         <!-- Display message based on the number of input fields -->
-                        <p *ngIf="!isMaxLimitReached()">Add more AUTHOR if necessary</p>
-                        <p *ngIf="isMaxLimitReached()">Maximum AUTHORS reached</p>
+                        <p class="message" *ngIf="!isMaxLimitReached()">Add more AUTHOR if necessary</p>
+                        <p class="message" *ngIf="isMaxLimitReached()">Maximum AUTHORS reached</p>
 
                     </div>
 
@@ -87,6 +88,7 @@
                             <label class="labelline" for="language" [ngClass]="{ 'moved-up': isFieldFilled('language') }"> Language </label>
                         </div>
                         <div class="txt_field">
+                            <p class="warningMessage" *ngIf="isInvalid('date_published')">This field is required</p>
                             <input class="inputtxt" type="date" id="datepub" formControlName="date_published" >
                             <span [ngClass]="{'errorSpan': isInvalid('date_published') }"></span>
                             <div class="datelabel" [ngClass]="{ 'errorLabel': isInvalid('date_published') }"> Date Published </div>
@@ -105,11 +107,13 @@
                     <div class="input-container">
                         <label for="chip" class="keywords-label"> Keywords </label>
                         <ul class="chip-bar" (click)="onChipBarClick()">
+                            <!-- TAGS DISPLAY -->
                             <li class="chip" *ngFor="let x of tags; let j = index">
                                 <span class="chip-label">{{x}}</span>
                                 <input type="hidden" [value]="x" formControlName="keywords">
                                 <span class="remove ripple1" *ngIf="removable" (click)="removeItem(j)"><i class='bx bx-x'></i></span>
                             </li>
+                            <!-- INPUT KEYWORDS -->
                             <li class="input-field">
                                 <input #inputField type="text" class="input"
                                 autocomplete="off" [placeholder]="placeholder" (keydown)="onKeyDown($event, inputField.value)"
@@ -117,6 +121,7 @@
                             </li>
                         </ul>
                         <span></span>
+                        <!-- remove all tags -->
                         <div class="action-btn">
                             <span class="clear ripple2" (click)="removeAll()"> <i class='bx bx-x'></i> </span>
                         </div>
@@ -130,11 +135,14 @@
                     <div class="img-row" id="no-add-function">
                         <div class="img-content">
                             <div class="left">
+                                <!-- image input field -->
                                 <div class="txt_field">
                                     <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" (change)="onFileChange($event)" style="padding-left: 110px;">
                                     <span></span>
                                     <div class="uploadlabel"> Project Cover </div>
                                 </div>
+                                <!-- preview and crop original image size -->
+                                <ng-container *ngIf="imgChangeEvt">
                                 <div class="img-crop">
                                     <ng-container *ngIf="validFile">
                                         <image-cropper
@@ -150,15 +158,24 @@
                                         </image-cropper>
                                       </ng-container>
                                 </div>
+                                </ng-container>
                             </div>
+                            <!-- cropped image preview -->
                             <div class="right">
-                                <div class="preview" *ngIf="cropImagePreview">
+                            <ng-container *ngIf="cropImagePreview">
+                                <div class="preview">
                                     <h2> Cropped Image Preview </h2>
                                 </div>
-                                <div class="cropped-image-preview" *ngIf="cropImagePreview">
+                                <div class="cropped-image-preview">
                                     <img [src]="cropImagePreview" alt="Cropped Image Preview">
                                     <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event)" hidden>
                                 </div>
+                            </ng-container>
+                            <ng-container *ngIf="!cropImagePreview">
+                                <div class="display">
+                                    <h2> Choose an Image File to View </h2>
+                                </div>
+                            </ng-container>
                             </div>
                         </div>
                     </div>
@@ -177,6 +194,5 @@
                 </div>
             </form>
         </div>
-
     </div>
 </main>

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DataService } from '../../../../../../../services/data.service';
 import { Inject } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
@@ -21,7 +23,6 @@ export class EditPeriodicalComponent implements OnInit{
   currentYear = new Date().getFullYear();
   periodical: any;
   editForm: FormGroup;
-  image: any;
   imageUrl: any;
   submit = false;
 
@@ -29,6 +30,8 @@ export class EditPeriodicalComponent implements OnInit{
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
+    private cd: ChangeDetectorRef,
+    private sanitizer: DomSanitizer,
     private periodicalService: PeriodicalService
   ) {
 
@@ -168,6 +171,104 @@ export class EditPeriodicalComponent implements OnInit{
     });
   }
 
+  // ----- PREVIEW AND CROP IMAGE ----- //
+  validFile = false;
+  imgChangeEvt: any = null;
+  cropImagePreview: SafeUrl | undefined;
+  image: any;
+
+  onFileChange(event: any) {
+    const input = event.target as HTMLInputElement;
+
+    // Check if there are files selected
+    if (input.files && input.files.length) {
+      const file = input.files[0];  // Get the first selected file
+
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        this.validFile = true;
+        this.imgChangeEvt = event;
+        this.image = file;  // Optionally store the file object itself
+
+        // Reset cropImagePreview when a new file is selected
+        this.cropImagePreview = undefined;
+        this.cd.detectChanges();
+      } else {
+        input.value = ''; // removes the file
+        Swal.fire({
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
+        });
+      }
+    } 
+  }
+
+  cropImg(event: ImageCroppedEvent) {
+    if (event?.objectUrl) {
+      this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      this.cd.detectChanges();
+      
+      this.getBlobFromObjectUrl(event.objectUrl).then((blob: Blob) => {
+        if (blob) {
+          this.image = blob;
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  }
+
+  async getBlobFromObjectUrl(objectUrl: string): Promise<Blob> {
+    try {
+      const response = await fetch(objectUrl);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const blob = await response.blob();
+      return blob;
+    } catch (error) {
+      console.error('Error fetching or converting to Blob:', error);
+      throw error;
+    }
+  }
+
+  imgLoad() {
+    this.cd.detectChanges();
+  }
+
+  initCropper() {
+    this.cd.detectChanges();
+  }
+
+  imgFailed() {
+    Swal.fire({
+      title: 'Error',
+      text: "Image failed to show. Please try again.",
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+      timer: 2500,
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
+    });
+  }
+  // END OF PREVIEW AND CROP IMAGE //
+
   // ----- AUTHORS ----- //
   values = [''];
 
@@ -194,44 +295,6 @@ export class EditPeriodicalComponent implements OnInit{
     return this.values.length >= 5;
   }
   // ----- END OF AUTHORS ----- //
-  
-  imageUpload(event: Event): void {
-    const input = event.target as HTMLInputElement;
-
-    // Check if there are files selected
-    if (input.files && input.files.length) {
-      const file = input.files[0];  // Get the first selected file
-
-      // Check if the selected file is an image
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();  // Create a new FileReader instance
-
-        // Define the onload callback for the FileReader
-        reader.onload = () => this.imageUrl = reader.result; 
-
-        reader.readAsDataURL(file);  // Read the file as a data URL
-
-        this.image = file;
-
-      } else {
-        input.value = ''; // removes the file
-        Swal.fire({
-          title: 'File Error',
-          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
-          icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
-        });
-      }
-    } 
-  }
 
   isInvalid(controlName: string): boolean {
     const control = this.editForm.get(controlName);
@@ -292,13 +355,33 @@ export class EditPeriodicalComponent implements OnInit{
         form.append('image_url', this.image);
       }
 
-      this.periodicalService.updateRecord(this.data.details, form).subscribe({
-        next: (res: any) => {
-          this.successMessage(form.get('title'));
-          this.closepopup('Update');
+      Swal.fire({
+        title: "Update Periodical",
+        text: "Are you sure you want to update the periodical details?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        confirmButtonColor: "#4F6F52",
+        cancelButtonColor: "#777777",
+        scrollbarPadding: false,
+        willOpen: () => {
+          document.body.style.overflowY = 'scroll';
         },
-        error: (err: any) => this.serverErrors()
-      });
+        willClose: () => {
+          document.body.style.overflowY = 'scroll';
+        }
+      }).then((result) => {
+        if(result.isConfirmed) {
+          this.periodicalService.updateRecord(this.data.details, form).subscribe({
+            next: (res: any) => {
+              this.successMessage(form.get('title'));
+              this.closepopup('Update');
+            },
+            error: (err: any) => this.serverErrors()
+          });
+        }
+      })
     } else {
       this.markFormGroupTouched(this.editForm);
       this.displayErrors();
@@ -308,7 +391,7 @@ export class EditPeriodicalComponent implements OnInit{
   successMessage(title: any) {
     Swal.fire({
       title: 'Success',
-      text: title + " has been added successfully",
+      text: title + " has been updated successfully",
       icon: 'success',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",

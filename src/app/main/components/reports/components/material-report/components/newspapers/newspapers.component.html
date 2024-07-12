@@ -47,8 +47,18 @@
                 <ng-container matColumnDef="author">
                     <th mat-header-cell *matHeaderCellDef> Author/s </th>
                     <td mat-cell *matCellDef="let element"> 
-                        <ng-container *ngFor="let x of element.authors; let last = last">
-                            {{ x }}{{ x != last ? ', ' : '' }}<br>
+                        <ng-container *ngIf="!element.authors"> N/A </ng-container>
+                        <ng-container *ngIf="element.authors">
+                            <ng-container *ngIf="element.authors.length > 3">
+                                <ng-container *ngFor="let x of element.authors.slice(0, 3); let last = last">
+                                    {{ x }}{{ ', ' }} <br>
+                                </ng-container> [et al.]
+                            </ng-container>
+                            <ng-container *ngIf="element.authors.length <= 3">
+                                <ng-container *ngFor="let x of element.authors; let last = last">
+                                    {{ x }}{{ !last ? ', ' : '' }} <br>
+                                </ng-container>
+                            </ng-container>
                         </ng-container>
                     </td>
                 </ng-container>
