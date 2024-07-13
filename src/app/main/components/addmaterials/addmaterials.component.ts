@@ -125,12 +125,12 @@ export class AddmaterialsComponent implements OnInit {
 
   // ----- PREVIEW AND CROP IMAGE ----- //
   validFile = false;
-  imgChangeEvt: any = null;
+  imgChangeEvt: any = '';
   cropImagePreview: SafeUrl | undefined;
   image: any;
 
   onFileChange(event: any, type: string) {
-    const input = event.target as HTMLInputElement;
+    const input = event.target;
 
     // Check if there are files selected
     if (input.files && input.files.length) {
@@ -148,7 +148,7 @@ export class AddmaterialsComponent implements OnInit {
         }
 
         // Reset cropImagePreview when a new file is selected
-        this.cropImagePreview = undefined;
+        this.cropImagePreview = '';
         this.cd.detectChanges();
       } else {
         input.value = ''; // removes the file
@@ -171,6 +171,7 @@ export class AddmaterialsComponent implements OnInit {
   }
 
   cropImg(event: ImageCroppedEvent) {
+    console.log(event)
     if (event?.objectUrl) {
       this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
       this.cd.detectChanges();
@@ -404,6 +405,7 @@ export class AddmaterialsComponent implements OnInit {
   }
 
   protected materialSubmit(type: string) {
+    console.log('submitted')
 
     let addForm = this.getFormSet(type);
 
@@ -432,8 +434,9 @@ export class AddmaterialsComponent implements OnInit {
     }
 
     if(addForm.valid) {
+      console.log('valid')
       Swal.fire({
-        title: "Are you sure you want to add a new maretial?",
+        title: "Are you sure you want to add a new material?",
         text: "This action will create a new " + type + ".",
         icon: "question",
         showCancelButton: true,
@@ -560,6 +563,8 @@ export class AddmaterialsComponent implements OnInit {
       var form = this.periodicalForm;
     } else if(type == 'article') {
       var form = this.articleForm;
+    } else if(type == 'AV') {
+      var form = this.audioForm;
     } else {
       return;
     }

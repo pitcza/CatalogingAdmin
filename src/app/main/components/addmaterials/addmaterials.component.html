@@ -570,9 +570,9 @@
                             <ng-container *ngFor="let x of aVAuthors; let i = index; trackBy: trackByIndex">
                                 <div class="multiple-author">
                                     <div class="entryarea2">
-                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i, 'article')" [value]="x">
-                                        <span [ngClass]="{ 'errorSpan': invalidAuthor(i, 'article')}"></span>
-                                        <div class="labelline2" [ngClass]="{ 'errorLabel': invalidAuthor(i, 'article')}"> Author </div>
+                                        <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i, 'AV')" [value]="x">
+                                        <span [ngClass]="{ 'errorSpan': invalidAuthor(i, 'AV')}"></span>
+                                        <div class="labelline2" [ngClass]="{ 'errorLabel': invalidAuthor(i, 'AV')}"> Author </div>
                                     </div>
                                     <button type="button" class="removebtn" (click)="removevalue(i, 'AV')" *ngIf="aVAuthors.length > 1">
                                         <i class='bx bx-x'></i>

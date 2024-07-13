@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HeaderService } from '../../header.service';
 import { apiUrl } from '../../../../config/url';
-import { Workbook, CellRichTextValue, Font, RichText } from 'exceljs';
-
+import { Workbook } from 'exceljs';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -26,64 +26,31 @@ export class ReportsService {
     this.data = data;
   }
 
-  // public async exportToExcel(data: any[], fileName: string){
-  //   const workbook = new Workbook();
-  //   const worksheet = workbook.addWorksheet('Sheet1');
-
-  //   // Process the data to format authors as a comma-separated string
-  //   data.forEach((x: any) => {
-  //     let authors = '';
-  //     if (x.authors) {
-  //       x.authors.forEach((author: any) => {
-  //         authors += author + ', ';
-  //       });
-  //     }
-
-  //     if(authors.length > 0) x.authors = authors.substring(0, authors.length - 2);
-  //     else x.authors = authors;
-  //   });
-
-  //   // Add the JSON data to the worksheet
-  //   worksheet.columns = Object.keys(data[0]).map(key => ({ header: key, key: key }));
-
-  //   data.forEach(item => {
-  //     worksheet.addRow(item);
-  //   });
-
-  //   // Define cell styles
-  //   const cellStyle: Partial<Alignment> = {
-  //     vertical: 'middle',
-  //     horizontal: 'center',
-  //   };
-
-  //   const borderStyle: Partial<Borders> = {
-  //     top: { style: 'thin' },
-  //     bottom: { style: 'thin' },
-  //     left: { style: 'thin' },
-  //     right: { style: 'thin' },
-  //   };
-
-  //   // Apply styles to each cell in the worksheet
-  //   worksheet.eachRow((row, rowNumber) => {
-  //     row.eachCell((cell, colNumber) => {
-  //       cell.alignment = cellStyle;
-  //       cell.border = borderStyle;
-  //     });
-  //   });
-
-  //   // Write the workbook to a file
-  //   await workbook.xlsx.writeFile(`${fileName}.xlsx`);
-  // }
-
   async exportToExcel(data: any[], fileName: string) {
     // Create a workbook and add a worksheet
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet('Report Sheet');
 
-    this.setupPage(worksheet, 'A1');
-
     // Add headers
     const headers = Object.keys(data[0]);
+
+    if (!this.setupPage(workbook, worksheet, headers)) {
+      Swal.fire({
+        title: 'Error',
+        text: "Error processing request, kindly contact the developers",
+        icon: 'error',
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+        scrollbarPadding: false,
+        willOpen: () => {
+          document.body.style.overflowY = 'scroll';
+        },
+        willClose: () => {
+          document.body.style.overflowY = 'scroll';
+        }
+      });
+      return
+    };
 
     let formattedHeaders = [];
     for (let i = 0; i < headers.length; i++) {
@@ -200,12 +167,68 @@ export class ReportsService {
     };
   }
 
-  private setupPage(worksheet: any, cell: any) {
+  private setupPage(workbook: any, worksheet: any, headers: any) {
     worksheet.pageSetup.paperSize = 9; // A4 paper size
     worksheet.pageSetup.orientation = 'landscape'; // Landscape orientation
     worksheet.pageSetup.horizontalCentered = true; // Center horizontally
     worksheet.pageSetup.verticalCentered = true; // Center vertically
 
+    const num = headers.length;
+    if (num < 1 || num > 26) {
+        return false;
+    }
+
+    const letter = String.fromCharCode(64 + num);
+    const cellMerge = 'A1:' + letter + '1';
+    worksheet.mergeCells(cellMerge);
+    const cell = worksheet.getCell('A1');
+    cell.value = {
+        richText: [
+            { text: 'Republic of the Philippines', font: { size: 12 } },
+            { text: '\nCity of Olongapo', font: { size: 12 } },
+            { text: '\nGORDON COLLEGE', font: { bold: true, size: 12 } },
+            { text: '\nOlongapo City Sports Complex, Donor St., East Tapinac, Olongapo City', font: { size: 10 } },
+            { text: '\nTel. No.: (047) 224-2089 loc. 401', font: { size: 10 } },
+            { text: '\n\nLIBRARY AND INSTRUCTIONAL MEDIA CENTER', font: { bold: true, size: 12 } },
+        ]
+    };
+
+    cell.alignment = {
+        vertical: 'middle',
+        horizontal: 'center',
+        wrapText: true
+    };
+
+    worksheet.getRow(1).height = 150;
+
+    this.fetchImageAsBlob('GC-LIBRARY.png').subscribe((blob) => {
+        // Convert the blob to a base64 string
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = async () => {
+            const base64data = reader.result as string;
+
+            console.log(base64data)
+            // Add the image to the workbook
+            const imageId = workbook.addImage({
+                base64: base64data.split(',')[1], // Remove the data URL prefix
+                extension: 'png', // Ensure the correct extension
+            });
+
+            // Add the image to the worksheet
+            worksheet.addImage(imageId, {
+                tl: { col: 6, row: 1 },
+                ext: { width: 500, height: 200 }
+            });
+        };
+    });
+
+    return true;
+}
+
+
+  fetchImageAsBlob(imagePath: string) {
+    return this.http.get(`assets/images/${imagePath}`, { responseType: 'blob' });
   }
 
   private saveExcel(buffer: any, fileName: string) {
@@ -219,35 +242,3 @@ export class ReportsService {
     a.remove();
   }
 }
-
-    // const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
-    //  // Define cell styles
-    //  const cellStyle = {
-    //   alignment: { vertical: 'center', horizontal: 'center' },
-    //   border: {
-    //     top: { style: 'thin' },
-    //     bottom: { style: 'thin' },
-    //     left: { style: 'thin' },
-    //     right: { style: 'thin' }
-    //   }
-    // };
-
-    // // Apply styles to each cell in the worksheet
-    // if (ws['!ref']) {
-    //   const range = XLSX.utils.decode_range(ws['!ref']);
-    //   // Apply styles to each cell in the worksheet
-    //   for (let R = range.s.r; R <= range.e.r; ++R) {
-    //     for (let C = range.s.c; C <= range.e.c; ++C) {
-    //       const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
-    //       if (!ws[cellAddress]) ws[cellAddress] = { t: 's', v: '' }; // Create cell if it doesn't exist
-    //       ws[cellAddress].s = cellStyle; // Assign style to cell
-    //     }
-    //   }
-    // }
-
-    // const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    // XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    // XLSX.writeFile(wb, `${fileName}.xlsx`);
-//   }
-// }
