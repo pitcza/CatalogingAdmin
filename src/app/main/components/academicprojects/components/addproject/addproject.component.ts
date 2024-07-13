@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, forwardRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, forwardRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Validators, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-
 import Swal from 'sweetalert2';
-import { text } from 'stream/consumers';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { DataService } from '../../../../../services/data.service';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { text } from 'stream/consumers';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ProjectService } from '../../../../../services/materials/project/project.service';
 
 @Component({
@@ -35,7 +36,7 @@ export class AddprojectComponent implements OnInit {
     program: ['', Validators.required],
     image_url: [''],
     date_published: ['', Validators.required],
-    language: ['English', Validators.required],
+    language: [2024, Validators.required],
     abstract: [''],
     keywords: ['']
   });
@@ -48,14 +49,24 @@ export class AddprojectComponent implements OnInit {
     }
   }
 
+  // check if the field is filled (to move up label)
+  isFieldFilled(fieldName: string, index?: number): boolean {
+    if (fieldName === 'author' && index !== undefined) {
+      return this.values[index] !== null && this.values[index] !== '';
+    } else {
+      const control = this.form.get(fieldName);
+      return !!control && control.value !== null && control.value !== '';
+    }
+  }
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private ds: DataService,
     private projectService: ProjectService,
     private elementRef: ElementRef,
-    private cd: ChangeDetectorRef,
-    private sanitizer: DomSanitizer
+    private cd: ChangeDetectorRef, // for keywords
+    private sanitizer: DomSanitizer // for img preview
   ) { }
 
   // ----- PREVIEW AND CROP IMAGE ----- //
@@ -154,7 +165,6 @@ export class AddprojectComponent implements OnInit {
       }
     });
   }
-  // END OF PREVIEW AND CROP IMAGE //
 
   ngAfterViewInit(): void {
     this.cd.detectChanges();
@@ -227,9 +237,8 @@ export class AddprojectComponent implements OnInit {
   trackByIndex(index: number, item: any): number {
     return index;
   }
-  // END OF MULTIPLE AUTHORS //
 
-  // ----- TAGS KEYWORDS ----- //
+  // TAGS KEYWORDS
   tags: string[] = [];
   @Input() placeholder = 'Enter a keyword...';
   @Input() removable = true;
@@ -316,7 +325,7 @@ export class AddprojectComponent implements OnInit {
   getRemainingTags(): number {
     return this.maxTags - this.tags.length;
   }
-  // END OF KEYWORDS //
+  // END OF KEYWORDS  
 
   // PROGRAM FILTERING
   changedDepartment(event: Event) {
@@ -362,22 +371,12 @@ export class AddprojectComponent implements OnInit {
     });
   }
 
-  // check if the field is filled (to move up label)
-  isFieldFilled(fieldName: string, index?: number): boolean {
-    if (fieldName === 'author' && index !== undefined) {
-      return this.values[index] !== null && this.values[index] !== '';
-    } else {
-      const control = this.form.get(fieldName);
-      return !!control && control.value !== null && control.value !== '';
-    }
-  }
-
   isInvalid(controlName: string): boolean {
     const control = this.form.get(controlName);
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
-  // SUBMIT PROCESS
+  // SUBMIT POPUP
   protected submit() {
 
     this.form.get('category')?.enable();
@@ -397,63 +396,41 @@ export class AddprojectComponent implements OnInit {
       if(this.image)
         form.append('image_url', this.image);
 
-      // add confirmation
-      Swal.fire({
-        title: "Are you sure you want to add a new project?",
-        text: "This action will create a new project.",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
-        confirmButtonColor: "#4F6F52",
-        cancelButtonColor: "#777777",
-        scrollbarPadding: false,
-        willOpen: () => {
-          document.body.style.overflowY = 'scroll';
-        },
-        willClose: () => {
-          document.body.style.overflowY = 'scroll';
-        }
-      }).then((result) => {
-        if(result.isConfirmed) {
-          this.projectService.addRecord(form).subscribe({
-            next: (res: any) => {
-              this.router.navigate(['main/academicprojects/listofprojects']); // redirect to list project
-              Swal.fire({
-                title: "Success",
-                text: "Project has been added successfully",
-                icon: "success",
-                confirmButtonColor: "#4F6F52",
-                scrollbarPadding: false,
-                willOpen: () => {
-                  document.body.style.overflowY = 'scroll';
-                },
-                willClose: () => {
-                  document.body.style.overflowY = 'scroll';
-                },
-                timer: 5000
-              });
+      this.projectService.addRecord(form).subscribe({
+        next: (res: any) => {
+          Swal.fire({
+            title: "Success",
+            text: "Project has been added successfully",
+            icon: "success",
+            confirmButtonColor: "#4F6F52",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
             },
-            error:(err: any) => {
-              console.log(err);
-              Swal.fire({
-                title: 'Error',
-                text: "Oops a server error occured",
-                icon: 'error',
-                confirmButtonText: 'Close',
-                confirmButtonColor: "#777777",
-                scrollbarPadding: false,
-                willOpen: () => {
-                  document.body.style.overflowY = 'scroll';
-                },
-                willClose: () => {
-                  document.body.style.overflowY = 'scroll';
-                }
-              });
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            timer: 5000
+          });
+        },
+        error:(err: any) => {
+          console.log(err);
+          Swal.fire({
+            title: 'Error',
+            text: "Oops a server error occured",
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
             }
           });
         }
-      })
+      });
     } else {
       Swal.fire({
         title: 'Error',
@@ -498,22 +475,22 @@ export class AddprojectComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['main/academicprojects/listofprojects']); 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2500,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          }
-        });
-        Toast.fire({
-          icon: "error",
-          title: "Project not saved."
-        });
+          this.router.navigate(['main/academicprojects/listofprojects']); 
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "error",
+            title: "Project not saved."
+          });
       }
     });
   }

@@ -39,7 +39,6 @@
                             <span [ngClass]="{'errorSpan': isInvalid('accession', 'book') }"></span>
                             <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('accession', 'book') }"> Accession No. </div>
                         </div>
-                        <p *ngIf="isInvalid('accession', 'book')" class="warningMessage">This field is required</p>
 
                         <div class="entryarea  ">
                             <input type="text" formControlName="title">
@@ -185,11 +184,6 @@
                     <div class="img-row" id="no-add-function">
                         <div class="img-content">
                             <div class="left">
-                                <!-- preview and crop original image size -->
-                                <ng-container *ngIf="imgChangeEvt">
-                                <div class="preview">
-                                    <h2> Crop Original Image </h2>
-                                </div>
                                 <div class="img-crop">
                                     <ng-container *ngIf="validFile">
                                         <image-cropper
@@ -205,19 +199,15 @@
                                         </image-cropper>
                                       </ng-container>
                                 </div>
-                                </ng-container>
                             </div>
-                            <!-- cropped image preview -->
                             <div class="right">
-                            <ng-container *ngIf="cropImagePreview">
-                                <div class="preview">
+                                <div class="preview" *ngIf="cropImagePreview">
                                     <h2> Cropped Image Preview </h2>
                                 </div>
-                                <div class="cropped-image-preview">
+                                <div class="cropped-image-preview" *ngIf="cropImagePreview">
                                     <img [src]="cropImagePreview" alt="Cropped Image Preview">
                                     <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event, 'book')" hidden>
                                 </div>
-                            </ng-container>
                             </div>
                         </div>
                     </div>
@@ -366,11 +356,6 @@
                     <div class="img-row" id="no-add-function">
                         <div class="img-content">
                             <div class="left">
-                                <!-- preview and crop original image size -->
-                                <ng-container *ngIf="imgChangeEvt">
-                                <div class="preview">
-                                    <h2> Crop Original Image </h2>
-                                </div>
                                 <div class="img-crop">
                                     <ng-container *ngIf="validFile">
                                         <image-cropper
@@ -386,19 +371,15 @@
                                         </image-cropper>
                                       </ng-container>
                                 </div>
-                                </ng-container>
                             </div>
-                            <!-- cropped image preview -->
                             <div class="right">
-                            <ng-container *ngIf="cropImagePreview">
-                                <div class="preview">
+                                <div class="preview" *ngIf="cropImagePreview">
                                     <h2> Cropped Image Preview </h2>
                                 </div>
-                                <div class="cropped-image-preview">
+                                <div class="cropped-image-preview" *ngIf="cropImagePreview">
                                     <img [src]="cropImagePreview" alt="Cropped Image Preview">
                                     <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event, 'periodical')" hidden>
                                 </div>
-                            </ng-container>
                             </div>
                         </div>
                     </div>
