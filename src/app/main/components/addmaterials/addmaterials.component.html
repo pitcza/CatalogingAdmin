@@ -185,13 +185,13 @@
                         <div class="img-content">
                             <div class="left">
                                 <div class="img-crop">
-                                    <ng-container *ngIf="validFile">
+                                    <ng-container *ngIf="validBookImage">
                                         <image-cropper
-                                          [imageChangedEvent]="imgChangeEvt"
+                                          [imageChangedEvent]="bookImgChangeEvt"
                                           [aspectRatio]="3/4"
                                           [resizeToWidth]="500"
                                           [maintainAspectRatio]="true"
-                                          (imageCropped)="cropImg($event)"
+                                          (imageCropped)="cropImg($event, 'book')"
                                           (imageLoaded)="imgLoad()"
                                           (cropperReady)="initCropper()"
                                           (loadImageFailed)="imgFailed()"
@@ -201,12 +201,12 @@
                                 </div>
                             </div>
                             <div class="right">
-                                <div class="preview" *ngIf="cropImagePreview">
+                                <div class="preview" *ngIf="bookCropImagePreview">
                                     <h2> Cropped Image Preview </h2>
                                 </div>
-                                <div class="cropped-image-preview" *ngIf="cropImagePreview">
-                                    <img [src]="cropImagePreview" alt="Cropped Image Preview">
-                                    <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event, 'book')" hidden>
+                                <div class="cropped-image-preview" *ngIf="bookCropImagePreview">
+                                    <img [src]="bookCropImagePreview" alt="Cropped Image Preview">
+                                    <!-- <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event, 'book')" hidden> -->
                                 </div>
                             </div>
                         </div>
@@ -357,13 +357,13 @@
                         <div class="img-content">
                             <div class="left">
                                 <div class="img-crop">
-                                    <ng-container *ngIf="validFile">
+                                    <ng-container *ngIf="validPeriodicalImage">
                                         <image-cropper
-                                          [imageChangedEvent]="imgChangeEvt"
+                                          [imageChangedEvent]="periodicalImgChangeEvt"
                                           [aspectRatio]="3/4"
                                           [resizeToWidth]="500"
                                           [maintainAspectRatio]="true"
-                                          (imageCropped)="cropImg($event)"
+                                          (imageCropped)="cropImg($event, 'periodical')"
                                           (imageLoaded)="imgLoad()"
                                           (cropperReady)="initCropper()"
                                           (loadImageFailed)="imgFailed()"
@@ -373,12 +373,12 @@
                                 </div>
                             </div>
                             <div class="right">
-                                <div class="preview" *ngIf="cropImagePreview">
+                                <div class="preview" *ngIf="periodicalCropImagePreview">
                                     <h2> Cropped Image Preview </h2>
                                 </div>
-                                <div class="cropped-image-preview" *ngIf="cropImagePreview">
-                                    <img [src]="cropImagePreview" alt="Cropped Image Preview">
-                                    <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event, 'periodical')" hidden>
+                                <div class="cropped-image-preview" *ngIf="periodicalCropImagePreview">
+                                    <img [src]="periodicalCropImagePreview" alt="Cropped Image Preview">
+                                    <!-- <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event, 'periodical')" hidden> -->
                                 </div>
                             </div>
                         </div>

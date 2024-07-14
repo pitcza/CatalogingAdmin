@@ -37,6 +37,6 @@ export class ProjectService {
   }
 
   public deleteRecord(accession: string) {
-    return this.http.delete(apiUrl + 'project/archive/' + accession, { headers: this.headers.get() });
+    return this.http.delete(apiUrl + 'projects/archive/' + accession, { headers: this.headers.get() });
   }
 }

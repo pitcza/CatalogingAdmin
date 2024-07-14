@@ -124,10 +124,9 @@ export class AddmaterialsComponent implements OnInit {
   }
 
   // ----- PREVIEW AND CROP IMAGE ----- //
-  validFile = false;
-  imgChangeEvt: any = '';
-  cropImagePreview: SafeUrl | undefined;
-  image: any;
+  validBookImage = false; validPeriodicalImage = false;
+  bookImgChangeEvt: any = ''; periodicalImgChangeEvt: any = '';
+  bookCropImagePreview: SafeUrl | undefined; periodicalCropImagePreview: SafeUrl | undefined;
 
   onFileChange(event: any, type: string) {
     const input = event.target;
@@ -138,17 +137,9 @@ export class AddmaterialsComponent implements OnInit {
 
       // Check if the selected file is an image
       if (file.type.startsWith('image/')) {
-        this.validFile = true;
-        this.imgChangeEvt = event;
+        if(type == 'book') { this.validBookImage = true; this.bookImgChangeEvt = event; this.bookCropImagePreview = ''; }
+        else if(type == 'periodical') { this.validPeriodicalImage = true; this.periodicalImgChangeEvt = event; this.periodicalCropImagePreview = ''; }
 
-        if(type == 'book') {
-          this.bookImage = file;
-        } else if (type == 'periodical') {
-          this.periodicalImage = file;
-        }
-
-        // Reset cropImagePreview when a new file is selected
-        this.cropImagePreview = '';
         this.cd.detectChanges();
       } else {
         input.value = ''; // removes the file
@@ -170,15 +161,21 @@ export class AddmaterialsComponent implements OnInit {
     } 
   }
 
-  cropImg(event: ImageCroppedEvent) {
-    console.log(event)
+  cropImg(event: ImageCroppedEvent, type: string) {
     if (event?.objectUrl) {
-      this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      if (type == 'book') { this.bookCropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl); }
+      else if (type == 'periodical') { this.periodicalCropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl); }
+      
       this.cd.detectChanges();
       
       this.getBlobFromObjectUrl(event.objectUrl).then((blob: Blob) => {
         if (blob) {
-          this.image = blob;
+
+          if(type == 'book') {
+            this.bookImage = blob;
+          } else if (type == 'periodical') {
+            this.periodicalImage = blob;
+          }
         }
       }).catch(error => {
         console.error('Error:', error);
@@ -255,6 +252,7 @@ export class AddmaterialsComponent implements OnInit {
   emptyValues() {}
 
   getAuthorSet(type: string) {
+
     switch(type){
       case 'book':
         return this.bookAuthors;
@@ -287,43 +285,6 @@ export class AddmaterialsComponent implements OnInit {
     }
     priceControl?.updateValueAndValidity();
   }
-
-  // imageUpload(event: Event, type: string): void {
-  //   const input = event.target as HTMLInputElement;
-
-  //   // Check if there are files selected
-  //   if (input.files && input.files.length) {
-  //     const file = input.files[0];  // Get the first selected file
-
-  //     // Check if the selected file is an image
-  //     if (file.type.startsWith('image/')) {
-  //       const reader = new FileReader();  // Create a new FileReader instance
-  //       reader.readAsDataURL(file);  // Read the file as a data URL
-
-  //       if(type == 'book') {
-  //         this.bookImage = file;
-  //       } else if (type == 'periodical') {
-  //         this.periodicalImage = file;
-  //       }
-  //     } else {
-  //       input.value = ''; // removes the file
-  //       Swal.fire({
-  //         title: 'File Error',
-  //         text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
-  //         icon: 'error',
-  //         confirmButtonText: 'Close',
-  //         confirmButtonColor: "#777777",
-  //         scrollbarPadding: false,
-  //         willOpen: () => {
-  //           document.body.style.overflowY = 'scroll';
-  //         },
-  //         willClose: () => {
-  //           document.body.style.overflowY = 'scroll';
-  //         }
-  //       });
-  //     }
-  //   } 
-  // }
 
   getFormSet(type: string) {
     let dummyForm: FormGroup = this.formBuilder.group({
@@ -405,7 +366,6 @@ export class AddmaterialsComponent implements OnInit {
   }
 
   protected materialSubmit(type: string) {
-    console.log('submitted')
 
     let addForm = this.getFormSet(type);
 
@@ -434,7 +394,6 @@ export class AddmaterialsComponent implements OnInit {
     }
 
     if(addForm.valid) {
-      console.log('valid')
       Swal.fire({
         title: "Are you sure you want to add a new material?",
         text: "This action will create a new " + type + ".",

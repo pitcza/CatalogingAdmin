@@ -33,6 +33,6 @@ export class AVService {
   }
 
   public deleteRecord(accession: string) {
-    return this.http.delete(apiUrl + 'material/archive/' + accession, { headers: this.headers.get() });
+    return this.http.delete(apiUrl + 'materials/archive/' + accession, { headers: this.headers.get() });
   }
 }
