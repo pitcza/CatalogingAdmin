@@ -17,6 +17,36 @@
           </form>
       </div>
 
+      <div class="dropdown">
+        <button class="dropbtn">
+            <span class="materials-icon"> <i class='bx bx-list-ul'></i> </span>
+            <span class="materials"> Materials </span>
+            <span class="drop-arrow"> <i id="left" class='bx bxs-left-arrow' ></i> <i id="down" class='bx bxs-down-arrow'></i> </span>
+        </button>
+        <div class="dropdown-content">
+            <a class="books" routerLink="books" routerLinkActive="active-link" >
+                <span class="material-icon"> <i class='bx bx-book-alt' ></i> </span>
+                <span class="material"> Books </span>
+            </a>
+            <a class="periodicals" routerLink="periodical" routerLinkActive="active-link" >
+                <span class="material-icon"> <i class='bx bxs-news' ></i> </span>
+                <span class="material"> Periodicals </span>
+            </a>
+            <a class="articles" routerLink="article" routerLinkActive="active-link">
+                <span class="material-icon"> <i class='bx bx-news' ></i> </span>
+                <span class="material"> Articles </span>
+            </a>
+            <a class="audio-visuals" routerLink="audio-visuals" routerLinkActive="active-link" >
+                <span class="material-icon"> <i class='bx bx-news' ></i> </span>
+                <span class="material"> Audio-Visuals </span>
+            </a>
+            <a class="audio-visuals" routerLink="audio-visuals" routerLinkActive="active-link" >
+              <span class="material-icon"> <i class='bx bx-book-alt'></i> </span>
+              <span class="material"> Academic Projects </span>
+          </a>
+        </div>
+    </div>
+
       <div class="table-content">
           <div class="mat-elevation-z8">
               <table mat-table [dataSource]="dataSource">
