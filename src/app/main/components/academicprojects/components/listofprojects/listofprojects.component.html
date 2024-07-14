@@ -109,15 +109,15 @@
                     <th mat-header-cell *matHeaderCellDef> Actions </th>
                     <td mat-cell class="actions" *matCellDef="let project">
             
-                        <button class="editbtn" (click)="editProject(project.accession)"  mat-raised-button color="primary">
+                        <button class="editbtn" (click)="editProject(project.accession)">
                             <i class='bx bx-edit' ></i>
                             <span class="tooltiptext"> Edit </span>
                         </button>
-                        <button class="deletebtn" (click)="archiveBox(project.accession)" (closedPopup)="closePopup()" mat-raised-button color="warn">
+                        <button class="deletebtn" (click)="archiveBox(project.accession)" (closedPopup)="closePopup()">
                             <i class='bx bx-archive-in'></i>
                             <span class="tooltiptext"> Archive </span>
                         </button>
-                        <button class="detailsbtn" (click)="detailsProject(project.accession)" (closedPopup)="closePopup()" mat-raised-button color="primary">
+                        <button class="detailsbtn" (click)="detailsProject(project.accession)" (closedPopup)="closePopup()">
                             <i class='bx bx-detail' ></i>
                             <span class="tooltiptext"> View </span>
                         </button>

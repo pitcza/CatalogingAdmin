@@ -19,6 +19,8 @@ import { MaterialModule } from '../modules/material/material.module';
 
 import { LoadingComponent } from './components/loading/loading.component';
 import { ImageCropperComponent } from 'ngx-image-cropper';
+import { ArchiveComponent } from './components/archive/archive.component';
+import { ArchiveModule } from './components/archive/archive.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
     AcademicprojectsComponent,
     ListofmaterialsComponent,
     ReportsComponent,
+    ArchiveComponent,
     LoadingComponent,
   ],
   imports: [
@@ -34,12 +37,14 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
     AcademicprojectsModule,
     ListofmaterialsModule,
     ReportsModule,
+    ArchiveModule,
     FormsModule,
     RouterModule,
     MaterialModule,
     ImageCropperComponent
   ],
   exports: [
+    MaterialModule,
     LoadingComponent
   ]
 })

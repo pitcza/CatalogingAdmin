@@ -2,9 +2,7 @@
 main {
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
-  margin-left: 50px;
-  margin-right: 50px;
+  padding: 20px 50px;
 }
 /* END OF MAIN PADDING */
 
@@ -12,176 +10,59 @@ main {
 .head {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 10px;
+  margin-top: 3px;
+  margin-bottom: 25px;
+  // content title
+  h1 {
+      font-weight: 700;
+      font-size: 24px;
+      margin-top: 8px;
+  }
 }
 
-.head h1 {
-  margin-top: 10px;
-  font-weight: 700;
-  font-size: 25px;
-}
-
-// DATE FILTER
-.input-row {
-  display: flex;
-  justify-content: center;
-  column-gap: 1rem;
-  margin-top: 5px;
-}
-
-.input-row .txt_field {
-  flex-basis: 100%;
-}
-
-.input-row .txt_field {
-  position: relative;
-  margin: 0.1rem 0;
-}
-
-.txt_field {
-font-size: 0.75rem;
-font-weight: 400;
-display: block;
-margin-bottom: 0.2rem;
-  height: 2.5rem;
-color: black;
-border: 1px solid var(--table-border);
-  background-color: var(--white);
-padding: 0.5rem 0.75rem;
-border-radius: 5px;
-  display: flex;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-}
-
-label {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  font-family: 'Montserrat';
-  color: var(--white);
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-left: -0px;
-  width: 80px;
-  height: 2.4rem;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  cursor: default;
-  background-color: var(--main-green);
-  border: none;
-  transition: background-color 200ms;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-input {
-  font-family: 'Montserrat';
-  border: none;
-  border-radius: 0.25rem;
-  border: 1px solid transparent;
-  line-height: 1.5rem;
-  padding-left: 75px;
-  font-size: 1rem;
-  background-color: var(--white);
-  color: black;
-  width: 100%;
-}
-
-input:focus {
-  outline: none;
-}
-
-/*
-.table-content {
-  border-radius: 5px;
-  padding: 20px;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  margin-top: 25px;
-  background: var(--white);
-  width: 100%;
-  height: auto;
-  margin-bottom: 30px;
-  box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.322);
-  border: 0.5px solid var(--table-border);
-}
-*/
-
-.table-content {
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-
-// TABLE STYLE CONTENT //
-table {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border: 0.5px solid var(--table-border);
-  background-color: var(--container-color);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-}
-
-table,
-th,
-td {
-  font-family: 'Montserrat';
-  font-size: 14px;
-  padding: 15px;
+// BUTTONS 
+.btns {
   margin-bottom: 10px;
-  text-align: center;
-  border-bottom: 1.5px solid var(--table-border);
+  display: flex;
+  gap: 1rem;
+  a {
+      text-align: center;
+      justify-content: center;
+      font-weight: 600;
+  }
+  a.active-link {
+    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
+    background: var(--main-green);
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .btn {
+      align-items: center;
+      background: var(--white);
+      border: 2px solid var(--main-green);
+      color: var(--main-green);
+      border-radius: 3px;
+      width: 140px;
+      height: 40px;
+      box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2);
+      transition: .3s;
+      transform: translate(0px, 0px);
+      display: flex;
+      span {
+          font-size: 15px;
+      }
+  }
+  .btn:hover {
+      box-shadow: 0px 8px 15px -10px rgb(125, 125, 125);
+      transform: translate(0px, -2px);
+      background: var(--green-hover);
+      color: var(--white);
+      cursor: pointer;
+  }
+
 }
 
-th {
-  background-color: var(--main-green) !important;
-  color: white;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-}
-
-table tr {
-  transition: all 0.3s ease;
-}
-
-table tr:hover {
-  background-color: var(--table-hover);
-}
-
-table td:nth-child(1) {
-  width: 150px;
-  max-width: 200px;
-}
-
-table td:nth-child(2) {
-  width: 100px;
-  max-width: 150px;
-}
-
-table td:nth-child(3) {
-  min-width: 200px;
-  max-width: 300px;
-}
-
-table td:nth-child(4) {
-  text-align: left;
-  min-width: 300px;
-}
-
-table td:nth-child(5) {
-  min-width: 150px;
-}
-
-mat-paginator {
-  background-color: var(--container-color);
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  font-size: 16px;
-  border: 0.5px solid var(--table-border);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-}
-// END OF TABLE STYLE CONTENT //
 
 .dropbtn {
   background-color: transparent;

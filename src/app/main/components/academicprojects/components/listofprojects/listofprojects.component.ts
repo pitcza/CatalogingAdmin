@@ -1,14 +1,11 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
-import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 
 // POP UPS
 import { EditdetailsComponent } from '../editdetails/editdetails.component';
@@ -24,15 +21,7 @@ import { ProjectService } from '../../../../../services/materials/project/projec
   templateUrl: './listofprojects.component.html',
   styleUrl: './listofprojects.component.scss',
   standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatCardModule,
-    MatTableModule, 
-    MatFormFieldModule, 
-    MatCardModule,
-    MatSortModule,
-    MatPaginatorModule, 
-    CommonModule,
+  imports: [ 
     MainModule,
   ],
 })

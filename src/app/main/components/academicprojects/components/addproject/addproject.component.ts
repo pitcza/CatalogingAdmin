@@ -36,7 +36,7 @@ export class AddprojectComponent implements OnInit {
     program: ['', Validators.required],
     image_url: [''],
     date_published: ['', Validators.required],
-    language: [2024, Validators.required],
+    language: ['English', Validators.required],
     abstract: [''],
     keywords: ['']
   });
