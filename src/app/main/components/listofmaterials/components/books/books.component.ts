@@ -58,7 +58,7 @@ export class BooksComponent implements OnInit {
   protected books: any = null;
 
   protected getData() {
-    this.ds.request('GET', 'books', null).subscribe({
+    this.ds.request('GET', 'materials/books', null).subscribe({
       next: (res: any) =>  {
         this.materials = res;        
         this.dataSource = new MatTableDataSource<BookElement, MatPaginator>(this.materials);
@@ -71,7 +71,44 @@ export class BooksComponent implements OnInit {
 
   // Filtering 
   applyFilter(event: Event) {
-      this.dataSource.filter = (event.target as HTMLInputElement).value;
+
+    const search = (event.target as HTMLInputElement).value;
+
+    const accessionFilterPredicate = (data: BookElement, search: string): boolean => {
+      return data.accession == search;
+    }
+
+    const locationFilterPredicate = (data: BookElement, search: string): boolean => {
+      if(data.location) return data.location.toLowerCase().includes(search.toLowerCase());
+      else return false;
+    }
+
+    const copyrightFilterPredicate = (data: BookElement, search: string): boolean => {
+      return data.copyright == search;
+    }
+
+    const titleFilterPredicate = (data: BookElement, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: BookElement, search: string): boolean => {
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
+    }
+
+    const filterPredicate = (data: BookElement): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search) ||
+              locationFilterPredicate(data, search) ||
+              copyrightFilterPredicate(data, search))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = search;
   }
 
   // SWEETALERT ARCHIVE POPUP
@@ -161,6 +198,7 @@ export class BooksComponent implements OnInit {
 }
 
 export interface BookElement {
+  accession: string;
   title: string;
   authors: any;
   location: string;

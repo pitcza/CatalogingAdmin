@@ -68,7 +68,43 @@ export class JournalsComponent implements OnInit {
   
   // Filtering 
   applyFilter(event: Event) {
-    this.dataSource.filter = (event.target as HTMLInputElement).value;
+
+    const search = (event.target as HTMLInputElement).value;
+
+    const accessionFilterPredicate = (data: JournalArticle, search: string): boolean => {
+      return data.accession == search;
+    }
+
+    const copyrightFilterPredicate = (data: JournalArticle, search: string): boolean => {
+      return data.date_published.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const titleFilterPredicate = (data: JournalArticle, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: JournalArticle, search: string): boolean => {
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
+    }
+
+    const publisherFilterPredicate = (data: JournalArticle, search: string): boolean => {
+      return data.publisher.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const filterPredicate = (data: JournalArticle): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search) ||
+              publisherFilterPredicate(data, search) ||
+              copyrightFilterPredicate(data, search))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = search;
   }
 
   // POP UPS
@@ -152,7 +188,7 @@ export class JournalsComponent implements OnInit {
 
 // DATA FOR TABLE
 export interface JournalArticle {
-  created_at: string;
+  accession: string;
   title: string;
   authors: any;
   copyright: string;

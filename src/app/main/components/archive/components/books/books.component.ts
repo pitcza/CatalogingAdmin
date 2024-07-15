@@ -40,7 +40,7 @@ export class BooksComponent implements OnInit {
   }
 
   protected getData(): void {
-    this.ds.request('GET', 'books', null).subscribe((res:any) => {
+    this.ds.request('GET', 'archives/materials/books', null).subscribe((res:any) => {
       this.dataSource = new MatTableDataSource<PeriodicElement>(res);
       this.dataSource.paginator = this.paginator;
       console.log(res)

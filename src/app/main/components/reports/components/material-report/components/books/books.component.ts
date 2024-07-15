@@ -61,7 +61,7 @@ export class BooksComponent implements OnInit {
   }
 
   protected getData() {
-    this.ds.request('GET', 'books', null).subscribe({
+    this.ds.request('GET', 'materials/books', null).subscribe({
       next: (res: any) => {       
         this.dataSource = new MatTableDataSource<PeriodicElement, MatPaginator>(res);
         this.dataSource.paginator = this.paginator;
@@ -72,7 +72,7 @@ export class BooksComponent implements OnInit {
   }
 
   // Filtering 
-  applyFilter(event: Event, type: string) {
+  applyFilter(event: Event) {
 
     const search = (document.getElementById('search') as HTMLInputElement).value;
 

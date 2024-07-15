@@ -12,6 +12,7 @@ import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsComponent } from '../article-details/article-details.component';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../../../../../../services/data/data.service';
+import { Newspaper } from '../../../periodical/components/newspapers/newspapers.component';
 
 @Component({
   selector: 'app-newspapers',
@@ -68,7 +69,43 @@ export class NewspapersComponent implements OnInit {
   
   // Filtering 
   applyFilter(event: Event) {
-    this.dataSource.filter = (event.target as HTMLInputElement).value;
+
+    const search = (event.target as HTMLInputElement).value;
+
+    const accessionFilterPredicate = (data: NewspaperArticle, search: string): boolean => {
+      return data.accession == search;
+    }
+
+    const copyrightFilterPredicate = (data: NewspaperArticle, search: string): boolean => {
+      return data.date_published.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const titleFilterPredicate = (data: NewspaperArticle, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: NewspaperArticle, search: string): boolean => {
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
+    }
+
+    const publisherFilterPredicate = (data: NewspaperArticle, search: string): boolean => {
+      return data.publisher.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const filterPredicate = (data: NewspaperArticle): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search) ||
+              publisherFilterPredicate(data, search) ||
+              copyrightFilterPredicate(data, search))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = search;
   }
 
   // POP UPS
@@ -152,7 +189,7 @@ export class NewspapersComponent implements OnInit {
 
 // DATA FOR TABLE
 export interface NewspaperArticle {
-  created_at: string;
+  accession: string;
   title: string;
   authors: any;
   publisher: string;

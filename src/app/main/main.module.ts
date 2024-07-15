@@ -27,7 +27,7 @@ import { ReportsComponent } from './components/reports/reports.component';
     AddmaterialsComponent,
     AcademicprojectsComponent,
     ListofmaterialsComponent,
-    // ReportsComponent,
+    ReportsComponent,
     ArchiveComponent,
     LoadingComponent,
   ],

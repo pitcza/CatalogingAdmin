@@ -58,27 +58,18 @@ export class JournalsComponent implements OnInit {
 
   protected getData() {
     this.ds.request('GET', 'materials/periodicals/type/0', null).subscribe({
-      next: (res: any) => {
-        // for(let i = 0; i < res.length; i++) {
-        //   for(let j = i + 1; j < res.length; j++) {
-        //     if(res[i].a > res[j].id) {
-        //       let temp = res[i];
-        //       res[i] = res[j];
-        //       res[j] = temp;
-        //     }
-        //   }
-        // }
-        
+      next: (res: any) => {        
         this.dataSource = new MatTableDataSource<PeriodicElement>(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
     })
   }
+  
   // FILTER DATA
   applyFilter(event: Event, type: string) {
 
-    const search = (document.getElementById('search-journals') as HTMLInputElement).value;
+    const search = (document.getElementById('search-magazine') as HTMLInputElement).value;
 
     const accessionFilterPredicate = (data: PeriodicElement, search: string): boolean => {
       return data.accession == search;
@@ -99,12 +90,12 @@ export class JournalsComponent implements OnInit {
     }
 
     const receive_dateFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-      return data.receive_date.toLowerCase().includes(search.toLowerCase());
+      return data.acquired_date.toLowerCase().includes(search.toLowerCase());
     }
 
     // FOR DATE RANGE DATE PICKER
-    const start = (document.getElementById('datepicker-start-journals') as HTMLInputElement).value;
-    const end = (document.getElementById('datepicker-end-journals') as HTMLInputElement).value;
+    const start = (document.getElementById('datepicker-start-magazine') as HTMLInputElement).value;
+    const end = (document.getElementById('datepicker-end-magazine') as HTMLInputElement).value;
 
       const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
         if(start == '')
@@ -138,7 +129,7 @@ export class JournalsComponent implements OnInit {
   export(): void {
     // Get the filtered data
     const filteredData = this.dataSource.filteredData;
-    this.reportService.exportToExcel(filteredData, 'table_export');
+    this.reportService.exportToExcel(filteredData, 'periodical_journals_export');
   }
 
 }
@@ -148,6 +139,6 @@ export interface PeriodicElement {
   title: string;
   authors: any;
   copyright: string;
-  receive_date: string;
+  acquired_date: string;
   created_at: string;
 }

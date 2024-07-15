@@ -43,10 +43,10 @@ export class JournalsComponent implements OnInit {
   }
 
   getData() {
-    this.ds.request('GET', 'materials/journals/type/0', null).subscribe({
+    this.ds.request('GET', 'materials/periodicals/type/0', null).subscribe({
       next: (res: any) => {
         console.log(res)
-        this.dataSource = new MatTableDataSource<Journal>(res)
+        this.dataSource = new MatTableDataSource<PeriodicalElement>(res)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 
@@ -63,7 +63,43 @@ export class JournalsComponent implements OnInit {
   
   // Filtering 
   applyFilter(event: Event) {
-    this.dataSource.filter = (event.target as HTMLInputElement).value;
+
+    const search = (event.target as HTMLInputElement).value;
+
+    const accessionFilterPredicate = (data: PeriodicalElement, search: string): boolean => {
+      return data.accession == search;
+    }
+
+    const copyrightFilterPredicate = (data: PeriodicalElement, search: string): boolean => {
+      return data.copyright == search;
+    }
+
+    const titleFilterPredicate = (data: PeriodicalElement, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: PeriodicalElement, search: string): boolean => {
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
+    }
+
+    const publisherFilterPredicate = (data: PeriodicalElement, search: string): boolean => {
+      return data.publisher.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const filterPredicate = (data: PeriodicalElement): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search) ||
+              publisherFilterPredicate(data, search) ||
+              copyrightFilterPredicate(data, search))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = search;
   }
 
   // POP UPS
@@ -102,8 +138,8 @@ export class JournalsComponent implements OnInit {
   // SWEETALERT ARCHIVE POP UP
   archiveBox(id: string){
     Swal.fire({
-      title: "Archive Journal",
-      text: "Are you sure want to archive this journal?",
+      title: "Archive periodical",
+      text: "Are you sure want to archive this periodical?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -123,7 +159,7 @@ export class JournalsComponent implements OnInit {
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
-              text: "Journal has been successfully archived.",
+              text: "periodical has been successfully archived.",
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
@@ -148,7 +184,7 @@ export class JournalsComponent implements OnInit {
   }
 }
 
-export interface Journal {
+export interface PeriodicalElement {
   created_at: string;
   accession: string;
   title: string;

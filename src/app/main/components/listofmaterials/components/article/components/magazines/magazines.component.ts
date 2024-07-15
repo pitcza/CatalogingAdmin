@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsComponent } from '../article-details/article-details.component';
 import { DataService } from '../../../../../../../services/data/data.service';
+import { Magazine } from '../../../periodical/components/magazines/magazines.component';
 
 @Component({
   selector: 'app-magazines',
@@ -67,7 +68,43 @@ export class MagazinesComponent implements OnInit {
 
   // Filtering 
   applyFilter(event: Event) {
-    this.dataSource.filter = (event.target as HTMLInputElement).value;
+
+    const search = (event.target as HTMLInputElement).value;
+
+    const accessionFilterPredicate = (data: MagazineArticle, search: string): boolean => {
+      return data.accession == search;
+    }
+
+    const copyrightFilterPredicate = (data: MagazineArticle, search: string): boolean => {
+      return data.date_published.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const titleFilterPredicate = (data: MagazineArticle, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: MagazineArticle, search: string): boolean => {
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
+    }
+
+    const publisherFilterPredicate = (data: MagazineArticle, search: string): boolean => {
+      return data.publisher.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const filterPredicate = (data: MagazineArticle): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search) ||
+              publisherFilterPredicate(data, search) ||
+              copyrightFilterPredicate(data, search))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = search;
   }
   
   // POP UPS
@@ -151,7 +188,7 @@ export class MagazinesComponent implements OnInit {
 
 // DATA FOR TABLE
 export interface MagazineArticle {
-  created_at: string;
+  accession: string;
   title: string;
   copyright: string;
   authors: any;
