@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { DataService } from '../../../../../../../services/data.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 import { MaterialModule } from '../../../../../../../modules/material/material.module';
 
 @Component({
@@ -40,7 +40,7 @@ export class JournalsComponent implements OnInit {
   }
 
   protected getData(): void {
-    this.ds.get('cataloging/logs').subscribe((res:any) => {
+    this.ds.request('GET', 'archives/materials/periodicals/type/0' , null).subscribe((res:any) => {
       this.dataSource = new MatTableDataSource<PeriodicElement>(res);
       this.dataSource.paginator = this.paginator;
       console.log(res)
