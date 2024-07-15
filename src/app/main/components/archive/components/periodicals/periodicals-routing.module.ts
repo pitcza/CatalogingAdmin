@@ -5,7 +5,6 @@ import { MagazinesComponent } from './components/magazines/magazines.component';
 import { NewspapersComponent } from './components/newspapers/newspapers.component';
 
 const routes: Routes = [
-
   { path: '', redirectTo: 'journals', pathMatch: 'full' },
   { path: 'journals', component: JournalsComponent},
   { path: 'magazines', component: MagazinesComponent},

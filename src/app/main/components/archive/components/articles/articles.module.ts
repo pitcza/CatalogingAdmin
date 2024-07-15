@@ -7,10 +7,17 @@ import { ArticlesRoutingModule } from './articles-routing.module';
 import { MaterialModule } from '../../../../../modules/material/material.module';
 import { ImageCropperComponent } from 'ngx-image-cropper';
 import { RouterModule } from '@angular/router';
+import { JournalsComponent } from './components/journals/journals.component';
+import { MagazinesComponent } from './components/magazines/magazines.component';
+import { NewspapersComponent } from './components/newspapers/newspapers.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    JournalsComponent,
+    MagazinesComponent,
+    NewspapersComponent
+  ],
   imports: [
     CommonModule,
     ArticlesRoutingModule,

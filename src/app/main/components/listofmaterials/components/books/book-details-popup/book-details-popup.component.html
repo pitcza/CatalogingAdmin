@@ -40,7 +40,10 @@
 
                                 <!-- VOLUME, EDITION, AND PAGES -->
                                 <span class="bottom-details">
-                                    <span> <h2>Volume {{ book.volume != null ? book.volume : 'N/A' }}   |   Edition {{ book.edition != null ? book.edition : 'N/A' }}</h2> </span>
+                                    <span> 
+                                        <h2>Volume {{ book.volume != null ? book.volume : 'N/A' }}</h2>
+                                        <h2>{{ book.edition != null ? book.edition : 'N/A' }} Edition</h2> 
+                                    </span>
                                     <span> <h2>{{ book.pages }} Pages</h2> </span>
                                 </span>
                             </div>

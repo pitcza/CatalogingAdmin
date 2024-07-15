@@ -4,17 +4,17 @@ import { Router } from '@angular/router';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { DataService } from '../../../../../services/data/data.service';
-import { MaterialModule } from '../../../../../modules/material/material.module';
+import { DataService } from '../../../../../../../services/data/data.service';
+import { MaterialModule } from '../../../../../../../modules/material/material.module';
 
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-audio-visuals',
-  templateUrl: './audio-visuals.component.html',
-  styleUrl: './audio-visuals.component.scss',
+  selector: 'app-newspapers',
+  templateUrl: './newspapers.component.html',
+  styleUrl: './newspapers.component.scss'
 })
-export class AudioVisualsComponent implements OnInit {
+export class NewspapersComponent {
   displayedColumns: string[] = ['archived_at', 'accession', 'title', 'authors', 'actions'];
   protected dataSource!: any;
 
@@ -47,7 +47,7 @@ export class AudioVisualsComponent implements OnInit {
   }
 
   protected getData(): void {
-    this.ds.request('GET', 'archives/materials/audio-visuals', null).subscribe((res:any) => {
+    this.ds.request('GET', 'archives/materials/articles/type/2' , null).subscribe((res:any) => {
       this.dataSource = new MatTableDataSource<PeriodicElement>(res);
       this.dataSource.paginator = this.paginator;
       console.log(res)
@@ -84,8 +84,8 @@ export class AudioVisualsComponent implements OnInit {
   // RESTORE PROCESS/POPUP
   restoreBox(accession: any){
     Swal.fire({
-      title: 'Restore Audio-Visual',
-      text: 'Are you sure you want to restore this audio-visual?',
+      title: 'Restore Newspaper',
+      text: 'Are you sure you want to restore this newspaper?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -103,7 +103,7 @@ export class AudioVisualsComponent implements OnInit {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Restoring Complete!",
-          text: "Audio-Visual has been restored successfully.",
+          text: "Newspaper has been restored.",
           icon: "success",
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
@@ -124,7 +124,7 @@ export class AudioVisualsComponent implements OnInit {
   deleteBox(accession: any){
     Swal.fire({
       title: 'Permanent Deletion',
-      text: 'Are you sure you want to permanently delete this audio-visual? This action cannot be undone.',
+      text: 'Are you sure you want to permanently delete this newspaper? This action cannot be undone.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -142,7 +142,7 @@ export class AudioVisualsComponent implements OnInit {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Permanently Deleted!",
-          text: "Audio-Visual (or title ba) has been permanently deleted and cannot be recovered.",
+          text: "Newspaper (or title ba) has been permanently deleted and cannot be recovered.",
           icon: "success",
           confirmButtonText: 'Close',
           confirmButtonColor: "#777777",
