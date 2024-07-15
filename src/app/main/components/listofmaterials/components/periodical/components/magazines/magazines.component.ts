@@ -62,7 +62,43 @@ export class MagazinesComponent implements OnInit {
   
   // Filtering 
   applyFilter(event: Event) {
-    this.dataSource.filter = (event.target as HTMLInputElement).value;
+
+    const search = (event.target as HTMLInputElement).value;
+
+    const accessionFilterPredicate = (data: Magazine, search: string): boolean => {
+      return data.accession == search;
+    }
+
+    const copyrightFilterPredicate = (data: Magazine, search: string): boolean => {
+      return data.copyright == search;
+    }
+
+    const titleFilterPredicate = (data: Magazine, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: Magazine, search: string): boolean => {
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
+    }
+
+    const publisherFilterPredicate = (data: Magazine, search: string): boolean => {
+      return data.publisher.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const filterPredicate = (data: Magazine): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search) ||
+              publisherFilterPredicate(data, search) ||
+              copyrightFilterPredicate(data, search))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = search;
   }
 
   // POP UPS 
@@ -148,7 +184,7 @@ export class MagazinesComponent implements OnInit {
 }
 
 export interface Magazine {
-  created_at: string;
+  accession: string;
   authors: any;
   type: string;
   title: string;

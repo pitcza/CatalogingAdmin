@@ -120,10 +120,6 @@ export class ListofprojectsComponent implements OnInit {
       return data.program === selectProgram || selectProgram === '';
     }
 
-    // const categoryFilterPredicate = (data: Project, selectCategory: string): boolean => {
-    //   return data.category === selectCategory || selectCategory === '';
-    // }
-
     const filterPredicate = (data: Project): boolean => {
       return (titleFilterPredicate(data, search) || authorFilterPredicate(data, search)) &&
               departmentFilterPredicate(data, selectDepartment) &&

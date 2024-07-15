@@ -17,7 +17,7 @@ import { MaterialModule } from '../../../../../modules/material/material.module'
   ],
 })
 export class BooksComponent implements OnInit {
-  displayedColumns: string[] = ['create_date', 'name', 'title', 'location'];
+  displayedColumns: string[] = ['archived_at', 'name', 'title', 'location'];
   protected dataSource!: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -40,7 +40,7 @@ export class BooksComponent implements OnInit {
   }
 
   protected getData(): void {
-    this.ds.request('GET', 'books', null).subscribe((res:any) => {
+    this.ds.request('GET', 'archives/materials/books', null).subscribe((res:any) => {
       this.dataSource = new MatTableDataSource<PeriodicElement>(res);
       this.dataSource.paginator = this.paginator;
       console.log(res)

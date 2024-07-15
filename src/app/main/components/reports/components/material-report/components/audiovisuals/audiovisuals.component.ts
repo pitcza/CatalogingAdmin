@@ -11,6 +11,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data/data.service';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
+import { ReportsService } from '../../../../../../../services/reports/reports.service';
 
 
 @Component({
@@ -50,7 +51,8 @@ export class AudiovisualsComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef, 
     private dialog: MatDialog,
-    private ds: DataService
+    private ds: DataService,
+    private reportService: ReportsService
   ) {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
@@ -65,47 +67,76 @@ export class AudiovisualsComponent implements OnInit {
     })
   }
 
-  // FILTER DATA
-  applyFilter(event: Event, type: string) {
+  // Filtering 
+  applyFilter(event: Event) {
 
-    const select = (document.getElementById('filter') as HTMLSelectElement).value;
     const search = (document.getElementById('search') as HTMLInputElement).value;
 
-    console.log(select, search)
-      const titleFilterPredicate = (data: AudiovisualsComponent, search: string): boolean => {
-        return data.title.toLowerCase().includes(search.toLowerCase());
-      }
+    const accessionFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.accession == search;
+    }
 
-      const authorFilterPredicate = (data: AudiovisualsComponent, search: string): boolean => {
+    const copyrightFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.copyright == search;
+    }
+
+    const titleFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      if(data.authors) {
         return data.authors.some((x: any) => {
           return x.toLowerCase().trim().includes(search.toLowerCase().trim());
         });
+      } else return false;      
+    }
+
+    // FOR DATE RANGE DATE PICKER
+    const start = (document.getElementById('datepicker-start-av') as HTMLInputElement).value;
+    const end = (document.getElementById('datepicker-end-av') as HTMLInputElement).value;
+
+    console.log(start, end)
+      const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
+        if(start == '')
+            return true;
+        return Date.parse(data.created_at) >= Date.parse(start + ' 00:00:00');
       }
 
-      const copyrightFilterPredicate = (data: AudiovisualsComponent, select: string): boolean => {
-        return data.copyright === select || select === '';
+      const endFilterPredicate = (data: PeriodicElement, end: string): boolean => {
+        if(end == '')
+            return true;
+        return Date.parse(data.created_at) <= Date.parse(end + ' 23:59:59');
       }
 
-
-      const filterPredicate = (data: AudiovisualsComponent): boolean => {
-        return (titleFilterPredicate(data, search) ||
-               authorFilterPredicate(data, search)) &&
-               copyrightFilterPredicate(data, select);
-      };
-      
-      this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = {
-        search, 
-        select
-      };    
+    const filterPredicate = (data: PeriodicElement): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search) ||
+              copyrightFilterPredicate(data, search)) &&
+              (startFilterPredicate(data, start) && endFilterPredicate(data, end))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = {
+      search,
+      start, 
+      end
+    };
   }
 
+  public export(): void {
+    // Get the filtered data
+    const filteredData = this.dataSource.filteredData;
+    this.reportService.exportToExcel(filteredData, 'audio-visuals_export');
+  }
 }
 
 export interface PeriodicElement {
-  id: number;
+  accession: string;
   title: string;
-  authors: string;
+  authors: any;
   copyright: string;
+  created_at: string;
 }
 

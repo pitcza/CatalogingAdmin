@@ -9,18 +9,18 @@
                 <div class="input-row">
                     <div class="txt_field">
                         <label for="datepicker"> From: </label>
-                            <input type="date" id="datepicker" autocomplete="off">
+                            <input type="date" id="datepicker-start-av" autocomplete="off" (keyup)="applyFilter($event)">
                     </div>
                     <div class="txt_field">
                         <label for="datepicker"> To: </label>
-                            <input type="date" id="datepicker" autocomplete="off">
+                            <input type="date" id="datepicker-end-av" autocomplete="off" (keyup)="applyFilter($event)">
                     </div>
                 </div>
                 
                 <!-- SEARCH BAR -->
                 <div class="search-container">
                     <form>
-                    <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
+                    <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event)">
                     <button ><i class="fa fa-search"></i></button>
                     </form>
                 </div>
@@ -34,7 +34,7 @@
                 <!-- Accession Column -->
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef> Audio Visual Accession </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.accession}} </td>
                 </ng-container>
 
                 <!-- Title Column -->

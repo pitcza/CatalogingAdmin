@@ -11,6 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { DataService } from '../../../../../../../services/data/data.service';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
+import { ReportsService } from '../../../../../../../services/reports/reports.service';
 
 
 @Component({
@@ -44,32 +45,24 @@ export class ArticlesComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef, 
     private dialog: MatDialog,
-    private ds: DataService
+    private ds: DataService,
+    private reportService: ReportsService
   ) {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   protected getData() {
     this.ds.request('GET', 'materials/articles', null).subscribe({
-      next: (res: any) => {
-        for(let i = 0; i < res.length; i++) {
-          for(let j = i + 1; j < res.length; j++) {
-            if(res[i].id > res[j].id) {
-              let temp = res[i];
-              res[i] = res[j];
-              res[j] = temp;
-            }
-          }
-        }
-        
+      next: (res: any) => {        
         this.dataSource = new MatTableDataSource<ArticlesComponent>(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
     })
   }
+
   // Filtering 
-  applyFilter(event: Event, type: string) {
+  applyFilter(event: Event) {
 
     const search = (document.getElementById('search-article') as HTMLInputElement).value;
 
@@ -118,6 +111,12 @@ export class ArticlesComponent implements OnInit {
       start,
       end
     };   
+  }
+
+  public export(): void {
+    // Get the filtered data
+    const filteredData = this.dataSource.filteredData;
+    this.reportService.exportToExcel(filteredData, 'articles_export');
   }
 }
 
