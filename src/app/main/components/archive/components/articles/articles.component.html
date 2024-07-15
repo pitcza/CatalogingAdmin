@@ -1,1 +1,20 @@
 <p>articles works!</p>
+<main>
+  <div class="page-content">
+      <div class="tabbed">
+          <div class="tabs">
+          <a class="tab" routerLink="journals" routerLinkActive="active-link" > <span>Journals</span> </a>
+          <a class="tab" routerLink="magazines" routerLinkActive="active-link" > <span>Magazines</span> </a>
+          <a class="tab" routerLink="newspapers" routerLinkActive="active-link" > <span>Newspapers</span> </a>
+          </div>
+
+          <!-- PERIODICAL MATERIAL CONTENT -->
+          <div class="tab-content">
+              <div class="table-content">
+                  <router-outlet></router-outlet>
+              </div>
+          </div>
+
+      </div>
+  </div>
+  </main>

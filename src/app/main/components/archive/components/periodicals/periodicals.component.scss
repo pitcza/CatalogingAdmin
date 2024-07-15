@@ -1,0 +1,83 @@
+// PERIODICAL TABS BUTTON //
+.tabbed {
+	padding-bottom: 10px;
+}
+
+.tabs {
+    padding-left: 5px;
+    margin-top: 30px;
+    margin-bottom: 12px;
+	display: block;
+	align-items: stretch;
+	list-style: none;
+}
+
+.tabs:hover {
+	display: block;
+	align-items: stretch;
+	list-style: none;
+}
+
+.tab {
+    color: var(--black);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 10px;
+    width: 100px;
+    padding: 10px 10px;
+    text-align: center;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.3s ease;
+    border-bottom: 3px solid var(--black);
+}
+
+.tab:hover {
+	color: var(--main-green);
+    background-color: #e6dfd5;
+    border-bottom: 3px solid var(--main-green);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.tabs a.active-link {
+    color: var(--main-green);
+    border-bottom: 3px solid var(--main-green);
+}
+// END OF TABS BUTTON //
+
+// TABLE ROUTER OUTLET STYLE //
+.table-content {
+    border-radius: 5px;
+    padding: 20px;
+    padding-top: 30px;
+    padding-bottom: 25px;
+    background: var(--container-color);
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    border: 0.5px solid var(--table-border);
+    overflow-x: auto;
+}
+
+// SCROLLBAR //
+.table-content::-webkit-scrollbar {
+    height: 5px;
+}
+
+.table-content::-webkit-scrollbar-thumb {
+    background-color: var(--table-border);
+    border-radius: 5px;
+}
+
+.table-content::-webkit-scrollbar-track {
+    background-color: var(--white);
+    margin-top: 90px;
+    margin-bottom: 10px;
+}
+
+.table-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--table-darkhover);
+}
+// END OF SCROLLBAR //
