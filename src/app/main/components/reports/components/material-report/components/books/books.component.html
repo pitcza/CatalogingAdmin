@@ -5,7 +5,8 @@
 
             <div class="table-head">
                 
-                <!----DATE PICKER ---->
+                <!----------- DATE PICKER ----------->
+               
                 <div class="input-row">
                     <div class="txt_field">
                         <label for="datepicker"> From: </label>
@@ -15,22 +16,24 @@
                         <label for="datepicker"> To: </label>
                             <input type="date" id="datepicker-end-book" autocomplete="off" (change)="applyFilter($event, '')">
                     </div>
-                    
+
+                    <!----------- EXPORT ----------------> 
+
                     <div class="txt_field">
-                        <button (click)="export()">Export me pls</button></div>
-                    
+                        <div class="export_field">
+                            <button class="export" (click)="export()">Export</button>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- <div class="input-row"> -->
-                <!-- </div> -->
-
+              
                 <!-- SEARCH BAR -->
-                <div class="search-container">
-                    <form>
-                    <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
-                    <button ><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
+
+                    <div class="search-container">
+                        <form>
+                            <input id="search-journals" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
+                            <button><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
 
             </div>
               
