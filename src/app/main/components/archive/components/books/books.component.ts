@@ -17,7 +17,7 @@ import { MaterialModule } from '../../../../../modules/material/material.module'
   ],
 })
 export class BooksComponent implements OnInit {
-  displayedColumns: string[] = ['create_date', 'name', 'title', 'location'];
+  displayedColumns: string[] = ['archived_at', 'name', 'title', 'location'];
   protected dataSource!: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
