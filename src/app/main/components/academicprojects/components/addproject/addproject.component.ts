@@ -1,14 +1,13 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, forwardRef } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { DataService } from '../../../../../services/data.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { text } from 'stream/consumers';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { ProjectService } from '../../../../../services/materials/project/project.service';
+import { DataService } from '../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-addproject',
@@ -63,7 +62,6 @@ export class AddprojectComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private ds: DataService,
-    private projectService: ProjectService,
     private elementRef: ElementRef,
     private cd: ChangeDetectorRef, // for keywords
     private sanitizer: DomSanitizer // for img preview
@@ -171,7 +169,7 @@ export class AddprojectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectService.getPrograms().subscribe({
+    this.ds.request('GET', 'programs', null).subscribe({
       next: (res: any) => {
         this.programs = res;
         this.departmentFilter = this.programs[0].department_short;
@@ -396,7 +394,7 @@ export class AddprojectComponent implements OnInit {
       if(this.image)
         form.append('image_url', this.image);
 
-      this.projectService.addRecord(form).subscribe({
+      this.ds.request('POST', 'projects/process', form).subscribe({
         next: (res: any) => {
           Swal.fire({
             title: "Success",

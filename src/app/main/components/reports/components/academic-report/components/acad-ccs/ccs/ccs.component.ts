@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
-import { DataService } from '../../../..../../../../../../../services/data.service';
+import { DataService } from '../../../../../../../../services/data/data.service';
 import { filter } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
@@ -54,7 +54,7 @@ throw new Error('Method not implemented.');
   }
 
   protected getData() {
-    this.ds.get('projects/department/CCS').subscribe({
+    this.ds.request('GET', 'projects/department/CCS', null).subscribe({
       next: (res: any) => {    
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;

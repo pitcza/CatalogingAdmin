@@ -2,10 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DataService } from '../../../../../services/data.service';
 
 import Swal from 'sweetalert2';
-import { ProjectService } from '../../../../../services/materials/project/project.service';
+import { DataService } from '../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-details-popup',
@@ -21,18 +20,18 @@ export class DetailsPopupComponent implements OnInit{
     private ref: MatDialogRef<DetailsPopupComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
-    private projectService: ProjectService
+    private ds: DataService
   ) { }
 
   ngOnInit(): void {
-    this.projectService.getRecord(this.data.details).subscribe((res:any) => {
+    this.ds.request('GET', 'project/id/' + this.data.details, null).subscribe((res:any) => {
       this.project = res;
       console.log(this.project)
     })
   }
 
-  closepopup() {
-    this.ref.close('Closed using function');
+  closepopup(text: string) {
+    this.ref.close(text);
   }
 
   archiveBox(){
@@ -54,16 +53,29 @@ export class DetailsPopupComponent implements OnInit{
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('Closed using function');
-        Swal.fire({
-          title: "Archiving complete!",
-          text: "Project has been safely archived.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          timer: 5000,
-        });
+        this.ds.request('DELETE', 'projects/archive/' + this.data.details, null).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Archiving complete!",
+              text: "Project has been successfully archived.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+            this.closepopup('Archive')
+          },
+          error: (err: any) => {
+            Swal.fire({
+              title: "Archive Error!",
+              text: "Please try again later.",
+              icon: "error",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+            });
+          }
+        })
       }
     });
   }

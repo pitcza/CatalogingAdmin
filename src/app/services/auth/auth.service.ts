@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HeaderService } from './header.service';
 import { HttpClient } from '@angular/common/http';
-import { response } from 'express';
+import { HeaderService } from '../header/header.service';
 import { tap } from 'rxjs';
 
 @Injectable({
@@ -14,15 +13,16 @@ export class AuthService {
     private headers: HeaderService
   ) { }
 
-  apiUrl = 'http://127.0.0.1:8000/api/';
+  url = 'http://127.0.0.1:8000/api/';
   public login(formData: FormData) {
-    return this.http.post(this.apiUrl+'login/cataloging', formData).pipe(
+    return this.http.post(this.url + 'login/cataloging', formData).pipe(
       tap((res: any) => {
         if(res.token) {
           sessionStorage.setItem('auth-token', res.token);
           sessionStorage.setItem('name', res.displayName);
           sessionStorage.setItem('role', res.role);
 
+          // token refresh if has token refresh
           let time = new Date();
           time.setMinutes(time.getMinutes() + 55);
           sessionStorage.setItem('request-token', time.toISOString());
@@ -31,15 +31,7 @@ export class AuthService {
     );
   }
 
-  public user() {
-    return this.http.get(this.apiUrl + 'user', { headers: this.headers.get() });
-  }
-
-  public refresh() {
-    return this.http.post(this.apiUrl + 'refresh', {}, { headers: this.headers.get() })
-  }
-
   public logout() {
-    return this.http.post(this.apiUrl + 'logout', {}, { headers: this.headers.get() })
+    return this.http.post(this.url + 'login/cataloging' + 'logout', {}, { headers: this.headers.get() })
   }
 }

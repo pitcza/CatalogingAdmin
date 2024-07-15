@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
-import { AVService } from '../../../../../../services/materials/AV/av.service';
+import { DataService } from '../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-view-av',
@@ -23,13 +23,13 @@ export class ViewAVComponent implements OnInit {
     private ref: MatDialogRef<ViewAVComponent>, 
     private buildr: FormBuilder,
     private router: Router,
-    private avService: AVService
+    private ds: DataService
   ) { }
 
   model: any;
 
   ngOnInit(): void {
-    this.avService.getRecord(this.data.accession).subscribe((res: any) => {
+    this.ds.request('GET', 'material/id/' + this.data.accession, null).subscribe((res: any) => {
       this.model = res;
     })
   }
@@ -58,7 +58,7 @@ export class ViewAVComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.avService.deleteRecord(this.data.accession).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + this.data.accession, null).subscribe({
           next: (res: any) => {
             this.closepopup('Archive');
             Swal.fire({

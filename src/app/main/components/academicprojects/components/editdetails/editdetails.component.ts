@@ -8,8 +8,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
-import { DataService } from '../../../../../services/data.service';
-import { ProjectService } from '../../../../../services/materials/project/project.service';
+import { DataService } from '../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-editdetails',
@@ -70,7 +69,7 @@ export class EditdetailsComponent implements OnInit{
     private ref: MatDialogRef<EditdetailsComponent>, 
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private projectService: ProjectService,
+    private ds: DataService,
     private cd: ChangeDetectorRef,
     private sanitizer: DomSanitizer
   ) { }
@@ -80,7 +79,7 @@ export class EditdetailsComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.projectService.getRecord(this.data.details).subscribe((res: any) => {
+    this.ds.request('GET', 'projects/id/' + this.data.details, null).subscribe((res: any) => {
       this.project = res;
       console.log(this.project)
       if(this.project.authors != null) {
@@ -113,7 +112,7 @@ export class EditdetailsComponent implements OnInit{
       this.departmentFilter = this.project.project_program.department_short;
     });
 
-    this.projectService.getPrograms().subscribe({
+    this.ds.request('GET', 'programs', null).subscribe({
       next: (res: any) => {
         this.programs = res;
 
@@ -488,7 +487,7 @@ export class EditdetailsComponent implements OnInit{
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.projectService.deleteRecord(this.data.details).subscribe({
+        this.ds.request('DELETE', 'projects/archive/' + this.data.details, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
@@ -595,7 +594,7 @@ export class EditdetailsComponent implements OnInit{
         }
       }).then((result) => {
         if(result.isConfirmed) {
-          this.projectService.updateRecord(this.data.details, form).subscribe({
+          this.ds.request('PUT', this.data.details, form).subscribe({
             next: (res: any) => { this.successMessage('Project'); this.closepopup('Update') },
             error:(err: any) => this.serverErrors()
           });

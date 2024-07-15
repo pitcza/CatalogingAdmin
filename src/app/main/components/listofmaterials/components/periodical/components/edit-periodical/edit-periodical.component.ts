@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { DataService } from '../../../../../../../services/data.service';
 import { Inject } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
@@ -9,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { PeriodicalService } from '../../../../../../../services/materials/periodical/periodical.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-edit-periodical',
@@ -32,7 +31,7 @@ export class EditPeriodicalComponent implements OnInit{
     private router: Router,
     private cd: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
-    private periodicalService: PeriodicalService
+    private ds: DataService
   ) {
 
     for(let i = 1991; i <= this.currentYear; i++) {
@@ -57,7 +56,8 @@ export class EditPeriodicalComponent implements OnInit{
    }
 
   ngOnInit(): void {
-    this.periodicalService.getRecord(this.data.details).subscribe((res: any) => {
+    console.log(this.data.details)
+    this.ds.request('GET', 'material/id/' + this.data.details, null).subscribe((res: any) => {
       this.periodical = res;
       this.values = this.periodical.authors;
 
@@ -103,7 +103,7 @@ export class EditPeriodicalComponent implements OnInit{
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.periodicalService.deleteRecord(this.data.accession).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + this.periodical.accession, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
@@ -373,7 +373,7 @@ export class EditPeriodicalComponent implements OnInit{
         }
       }).then((result) => {
         if(result.isConfirmed) {
-          this.periodicalService.updateRecord(this.data.details, form).subscribe({
+          this.ds.request('PUT', 'materials/process/' + this.data.details, form).subscribe({
             next: (res: any) => {
               this.successMessage(form.get('title'));
               this.closepopup('Update');

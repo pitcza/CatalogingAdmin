@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
-import { ArticleService } from '../../../../../../../services/materials/article/article.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-article-details',
@@ -17,15 +17,15 @@ export class ArticleDetailsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
     private dialog: MatDialog,
-    private articleService: ArticleService
+    private ds: DataService
   ) { }
 
   article: any;
 
   ngOnInit(): void {
-      this.articleService.getRecord(this.data.details).subscribe((res:any) => {
-        this.article = res;
-      })
+    this.ds.request('GET', 'material/id/' + this.data.details, null).subscribe((res: any) => {
+      this.article = res;
+    });
   }
 
   closepopup() {
@@ -52,7 +52,7 @@ export class ArticleDetailsComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.articleService.deleteRecord(this.article.accession).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + this.article.accession, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

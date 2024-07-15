@@ -8,7 +8,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { DataService } from '../../../../../../../services/data.service';
 import { CommonModule } from '@angular/common';
 
 import {provideNativeDateAdapter} from '@angular/material/core';
@@ -18,8 +17,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { get } from 'http';
 import { filter } from 'rxjs';
 import { kMaxLength } from 'buffer';
-import { ReportsService } from '../../../../../../../services/materials/reports/reports.service';
-import { BookService } from '../../../../../../../services/materials/book/book.service';
+import { ReportsService } from '../../../../../../../services/reports/reports.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-books',
@@ -56,14 +55,13 @@ export class BooksComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef, 
     private dialog: MatDialog,
     private ds: DataService,
-    private bookService: BookService,
     private reportService: ReportsService
   ) {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   protected getData() {
-    this.bookService.getAll().subscribe({
+    this.ds.request('GET', 'books', null).subscribe({
       next: (res: any) => {       
         this.dataSource = new MatTableDataSource<PeriodicElement, MatPaginator>(res);
         this.dataSource.paginator = this.paginator;

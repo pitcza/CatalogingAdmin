@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AVService } from '../../../../../../services/materials/AV/av.service';
+import { DataService } from '../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-edit-av',
@@ -37,7 +37,7 @@ export class EditAVComponent implements OnInit {
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private router: Router,
-    private avService: AVService
+    private ds: DataService
   ) { 
 
     for(let i = 1991; i <= this.currentYear; i++) {
@@ -46,7 +46,7 @@ export class EditAVComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.avService.getRecord(this.data.accession).subscribe((res: any) => {
+    this.ds.request('GET', 'material/id/' + this.data.accession, null).subscribe((res: any) => {
       this.editForm.patchValue({
         accession: res.accession,
         title: res.title,
@@ -148,7 +148,7 @@ export class EditAVComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.avService.deleteRecord(this.data.accession).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + this.data.accession, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
@@ -253,7 +253,7 @@ export class EditAVComponent implements OnInit {
               form.append(key, value);
           });
     
-          this.avService.updateRecord(this.data.accession, form).subscribe({
+          this.ds.request('PUT', 'materials/audio-visuals/process/' + this.data.accession, form).subscribe({
             next: (res: any) => { this.successMessage('Audio-visual'); this.closepopup('Update'); },
             error: (err: any) => this.serverErrors()
           });

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HeaderService } from '../../header.service';
-import { apiUrl } from '../../../../config/url';
+import { HeaderService } from '../header/header.service';
+import { apiUrl } from '../../../config/url';
 import { Workbook } from 'exceljs';
 import Swal from 'sweetalert2';
 

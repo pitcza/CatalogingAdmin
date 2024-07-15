@@ -8,11 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { DataService } from '../../../../../../../services/data.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
-import { ReportsService } from '../../../../../../../services/materials/reports/reports.service';
-import { PeriodicalService } from '../../../../../../../services/materials/periodical/periodical.service';
+import { ReportsService } from '../../../../../../../services/reports/reports.service';
 
 @Component({
   selector: 'app-journals',
@@ -52,14 +51,13 @@ export class JournalsComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef, 
     private dialog: MatDialog,
     private ds: DataService,
-    private reportService: ReportsService,
-    private periodicalService: PeriodicalService
+    private reportService: ReportsService
   ) {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   protected getData() {
-    this.periodicalService.getJournals().subscribe({
+    this.ds.request('GET', 'materials/periodicals/type/0', null).subscribe({
       next: (res: any) => {
         // for(let i = 0; i < res.length; i++) {
         //   for(let j = i + 1; j < res.length; j++) {

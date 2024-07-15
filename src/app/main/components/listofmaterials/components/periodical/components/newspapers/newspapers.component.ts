@@ -10,8 +10,7 @@ import Swal from 'sweetalert2';
 
 import { EditPeriodicalComponent } from '../edit-periodical/edit-periodical.component';
 import { PerioDetailsComponent } from '../perio-details/perio-details.component';
-import { DataService } from '../../../../../../../services/data.service';
-import { PeriodicalService } from '../../../../../../../services/materials/periodical/periodical.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-newspapers',
@@ -38,13 +37,13 @@ export class NewspapersComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
-    private periodicalService: PeriodicalService
+    private ds: DataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
   getData() {
-    this.periodicalService.getNewspapers().subscribe({
+    this.ds.request('GET', 'materials/periodicals/type/2', null).subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<Newspaper>(res)
         this.dataSource.paginator = this.paginator;
@@ -117,7 +116,7 @@ export class NewspapersComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.periodicalService.deleteRecord(id).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + id, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

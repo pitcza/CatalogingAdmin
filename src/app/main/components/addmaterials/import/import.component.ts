@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { BookService } from '../../../../services/materials/book/book.service';
+import { DataService } from '../../../../services/data/data.service';
 
 @Component({
   selector: 'app-import',
@@ -13,7 +13,7 @@ export class ImportComponent {
   constructor (
     private router: Router,
     private ref: MatDialogRef<ImportComponent>,
-    private bookService: BookService
+    private ds: DataService
   ) { }
 
   form = new FormData();
@@ -35,7 +35,7 @@ export class ImportComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         if(this.form.get('excel_file')) {
-          this.bookService.importBooks(this.form).subscribe({
+          this.ds.request('POST', 'materials/books/import', this.form).subscribe({
             next: (res: any) => {
               console.log(res);
               this.closepopup()

@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 
 import { Router } from '@angular/router';
-import { BookService } from '../../../../../../services/materials/book/book.service';
+import { DataService } from '../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-book-details-popup',
@@ -23,7 +23,7 @@ export class BookDetailsPopupComponent {
     private ref: MatDialogRef<BookDetailsPopupComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
-    private bookService: BookService,
+    private ds: DataService,
     private router: Router
   ) { }
 
@@ -31,7 +31,7 @@ export class BookDetailsPopupComponent {
   book: any;
 
   ngOnInit(): void {
-    this.bookService.getRecord(this.data.accession).subscribe({
+    this.ds.request('GET', 'material/id/' + this.data.accession, null).subscribe({
       next: (res: any) =>  {
         this.book = res
         console.log(this.book)
@@ -40,8 +40,8 @@ export class BookDetailsPopupComponent {
     })
   }
 
-  closepopup() {
-    this.ref.close('Closed using function');
+  closepopup(text: string) {
+    this.ref.close(text);
   }
 
   // SWEETALERT ARCHIVE POP UP
@@ -64,7 +64,7 @@ export class BookDetailsPopupComponent {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.bookService.deleteRecord(this.book.accession).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + this.book.accession, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
@@ -75,7 +75,7 @@ export class BookDetailsPopupComponent {
               scrollbarPadding: false,
               timer: 5000
             });
-            this.ref.close('Changed Data');
+            this.closepopup('Archive');
           },
           error: (err: any) => {
             Swal.fire({

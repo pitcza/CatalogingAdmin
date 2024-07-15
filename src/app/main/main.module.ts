@@ -13,7 +13,6 @@ import { AcademicprojectsModule } from './components/academicprojects/academicpr
 import { ListofmaterialsComponent } from './components/listofmaterials/listofmaterials.component';
 import { ListofmaterialsModule } from './components/listofmaterials/listofmaterials.module';
 
-import { ReportsComponent } from './components/reports/reports.component';
 import { ReportsModule } from './components/reports/reports.module';
 import { MaterialModule } from '../modules/material/material.module';
 
@@ -21,13 +20,14 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { ImageCropperComponent } from 'ngx-image-cropper';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { ArchiveModule } from './components/archive/archive.module';
+import { ReportsComponent } from './components/reports/reports.component';
 
 @NgModule({
   declarations: [
     AddmaterialsComponent,
     AcademicprojectsComponent,
     ListofmaterialsComponent,
-    ReportsComponent,
+    // ReportsComponent,
     ArchiveComponent,
     LoadingComponent,
   ],

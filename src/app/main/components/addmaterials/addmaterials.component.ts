@@ -1,19 +1,12 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { DataService } from '../../../services/data.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
-import { BookService } from '../../../services/materials/book/book.service';
-import { share } from 'rxjs';
-import { PeriodicalService } from '../../../services/materials/periodical/periodical.service';
-import { ArticleService } from '../../../services/materials/article/article.service';
-import { kMaxLength } from 'buffer';
 import { ImportComponent } from './import/import.component';
 
 import { MatDialog } from '@angular/material/dialog';
-import { AVService } from '../../../services/materials/AV/av.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { DataService } from '../../../services/data/data.service';
 
 @Component({
   selector: 'app-addmaterials',
@@ -42,10 +35,7 @@ export class AddmaterialsComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private bookService: BookService,
-    private periodicalService: PeriodicalService,
-    private articleService: ArticleService, 
-    private aVService: AVService,
+    private ds: DataService,
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
     private sanitizer: DomSanitizer
@@ -118,7 +108,7 @@ export class AddmaterialsComponent implements OnInit {
   }
 
   protected getLocations() {
-    this.bookService.getLocations().subscribe((res: any) => {
+    this.ds.request('GET', 'books/locations', null).subscribe((res: any) => {
       this.locations = res;
     });
   }
@@ -435,7 +425,7 @@ export class AddmaterialsComponent implements OnInit {
         formTitle += form.get('title');
 
         if(type == 'book') {
-          this.bookService.addRecord(form).subscribe({
+          this.ds.request('POST', 'materials/books/process', form).subscribe({
             next: (res: any) => {
               this.successMessage(formTitle)
               },
@@ -444,7 +434,7 @@ export class AddmaterialsComponent implements OnInit {
             }
           });
         } else if(type == 'periodical') {
-          this.periodicalService.addRecord(form).subscribe({
+          this.ds.request('POST', 'materials/periodicals/process', form).subscribe({
             next: (res: any) => {
               this.successMessage(formTitle)
               },
@@ -453,7 +443,7 @@ export class AddmaterialsComponent implements OnInit {
             }
           });
         } else if(type == 'article') {
-          this.articleService.addRecord(form).subscribe({
+          this.ds.request('POST', 'materials/articles/process', form).subscribe({
             next: (res: any) => {
               this.successMessage(formTitle)
               },
@@ -462,7 +452,7 @@ export class AddmaterialsComponent implements OnInit {
             } 
           });
         } else if(type == 'AV') {
-          this.aVService.addRecord(form).subscribe({
+          this.ds.request('POST', 'materials/audio-visuals/process', form).subscribe({
             next: (res: any) => {
               this.successMessage(formTitle)
               },

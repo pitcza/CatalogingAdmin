@@ -11,8 +11,7 @@ import Swal from 'sweetalert2';
 import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsComponent } from '../article-details/article-details.component';
 import { CommonModule } from '@angular/common';
-import { DataService } from '../../../../../../../services/data.service';
-import { ArticleService } from '../../../../../../../services/materials/article/article.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-newspapers',
@@ -40,7 +39,7 @@ export class NewspapersComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
-    private articleService: ArticleService
+    private ds: DataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
@@ -50,7 +49,7 @@ export class NewspapersComponent implements OnInit {
   }
   
   getData() {
-    this.articleService.getNewspapers().subscribe({
+    this.ds.request('GET', 'materials/articles/type/2', null).subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<NewspaperArticle>(res);
         this.dataSource.paginator = this.paginator;
@@ -124,7 +123,7 @@ export class NewspapersComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.articleService.deleteRecord(id).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + id, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

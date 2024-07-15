@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 
 import { LoadingComponent } from '../../../loading/loading.component';
 import { MainModule } from '../../../../main.module';
-import { ProjectService } from '../../../../../services/materials/project/project.service';
+import { DataService } from '../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-listofprojects',
@@ -40,7 +40,7 @@ export class ListofprojectsComponent implements OnInit {
     private paginatorIntl: MatPaginatorIntl,
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
-    private projectService: ProjectService
+    private ds: DataService
   ) {
   }
 
@@ -58,7 +58,7 @@ export class ListofprojectsComponent implements OnInit {
 
   getData() {
     this.isLoading = true;
-    this.projectService.getProjects().subscribe((res: any) => {
+    this.ds.request('GET', 'projects', null).subscribe((res: any) => {
       this.projects = res;
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
@@ -66,7 +66,7 @@ export class ListofprojectsComponent implements OnInit {
       this.isLoading = false;
     });
 
-    this.projectService.getPrograms().subscribe((res: any) => {
+    this.ds.request('GET', 'programs', null).subscribe((res: any) => {
       this.programs = res;
 
       // Extract unique department names from programs
@@ -204,7 +204,7 @@ export class ListofprojectsComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.projectService.deleteRecord(id).subscribe({
+        this.ds.request('DELETE', 'projects/archive/' + id, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

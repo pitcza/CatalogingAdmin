@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataService } from '../../../../../../../../services/data.service';
+import { DataService } from '../../../../../../../../services/data/data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -28,7 +28,7 @@ export class CcsDashboardComponent {
   }
 
   protected counts() {
-    this.ds.get('projects').subscribe({
+    this.ds.request('GET', 'projects', null).subscribe({
       next: (res: any) => {
         console.log(res)
         res.forEach((x: any) => {
@@ -68,19 +68,5 @@ export class CcsDashboardComponent {
       endDate: (document.getElementById(endid) as HTMLInputElement).value,
       // copyright: "2024"
     }
-    
-    this.ds.reports('cataloging/reports/excel/' + type, payload).subscribe({
-      next: (res: any) => {
-        const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = 'Cataloging Reports.xlsx';
-        link.click();
-        console.log(res)
-      }, error: (err: any) => {
-        console.log(err)
-      }
-    })
-    
   }
 }

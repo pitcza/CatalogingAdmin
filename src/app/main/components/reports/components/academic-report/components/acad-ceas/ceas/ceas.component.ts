@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
-import { DataService } from '../../../..../../../../../../../services/data.service';
+import { DataService } from '../../../../../../../../services/data/data.service';
 import { filter } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
@@ -53,7 +53,7 @@ export class CeasComponent implements OnInit {
     }
   
     protected getData() {
-      this.ds.get('projects/department/CEAS').subscribe({
+      this.ds.request('GET', 'projects/department/CEAS', null).subscribe({
         next: (res: any) => {    
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.sort = this.sort;

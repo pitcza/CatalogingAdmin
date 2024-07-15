@@ -4,8 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
-import { DataService } from '../../../../../../../services/data.service';
-import { PeriodicalService } from '../../../../../../../services/materials/periodical/periodical.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-perio-details',
@@ -19,16 +18,14 @@ export class PerioDetailsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private buildr: FormBuilder,
     private dialog: MatDialog,
-    private ds: DataService,
-    private periodicalService: PeriodicalService
+    private ds: DataService
   ) { }
 
   periodical: any;
   errorImage = '../../../../../../assets/images/NoImage.png';
 
   ngOnInit(): void {
-    console.log(this.data)
-     this.periodicalService.getRecord(this.data.details).subscribe((res: any) => {
+     this.ds.request('GET', 'material/id/' + this.data.details, null).subscribe((res: any) => {
         this.periodical = res;
         console.log(this.periodical)
      })
@@ -58,7 +55,7 @@ export class PerioDetailsComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.periodicalService.deleteRecord(this.periodical.accession).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + this.periodical.accession, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

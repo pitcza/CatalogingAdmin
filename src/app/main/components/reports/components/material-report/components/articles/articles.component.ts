@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
-import { DataService } from '../../../../../../../services/data.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
 
@@ -50,7 +50,7 @@ export class ArticlesComponent implements OnInit {
   }
 
   protected getData() {
-    this.ds.get('articles').subscribe({
+    this.ds.request('GET', 'materials/articles', null).subscribe({
       next: (res: any) => {
         for(let i = 0; i < res.length; i++) {
           for(let j = i + 1; j < res.length; j++) {

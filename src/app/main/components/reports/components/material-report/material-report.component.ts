@@ -1,12 +1,11 @@
 import { Component, ViewChild, effect, OnInit, signal } from '@angular/core';
-import { DataService } from '../../../../../services/data.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
-import { ReportsService } from '../../../../../services/materials/reports/reports.service';
 import { BooksComponent } from './components/books/books.component';
 import { JournalsComponent } from './components/journals/journals.component';
 import { MagazinesComponent } from './components/magazines/magazines.component';
 import { NewspapersComponent } from './components/newspapers/newspapers.component';
+import { DataService } from '../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-material-report',
@@ -16,10 +15,7 @@ import { NewspapersComponent } from './components/newspapers/newspapers.componen
 
 export class MaterialReportComponent implements OnInit {
   
-  constructor (
-    private ds: DataService,
-    private router: Router,
-    private reportService: ReportsService){ }
+  constructor (private router: Router, private ds: DataService){ }
 
   @ViewChild(BooksComponent) BooksComponent!: BooksComponent;
   @ViewChild(JournalsComponent) JournalsComponent!: JournalsComponent;
@@ -66,7 +62,7 @@ export class MaterialReportComponent implements OnInit {
   }
 
   protected counts() {
-    this.reportService.getMaterialCounts().subscribe({
+    this.ds.request('GET', 'reports/material-counts', null).subscribe({
       next: (res: any) => this.materialCounts = res
     });
   }
@@ -108,18 +104,18 @@ export class MaterialReportComponent implements OnInit {
       }
     }
     
-    this.ds.reports('cataloging/reports/excel/' + type, payload).subscribe({
-      next: (res: any) => {
-        const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = 'Cataloging Reports.xlsx';
-        link.click();
-        console.log(res)
-      }, error: (err: any) => {
-        console.log(err)
-      }
-    })
+    // this.ds.reports('cataloging/reports/excel/' + type, payload).subscribe({
+    //   next: (res: any) => {
+    //     const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    //     const link = document.createElement('a');
+    //     link.href = window.URL.createObjectURL(blob);
+    //     link.download = 'Cataloging Reports.xlsx';
+    //     link.click();
+    //     console.log(res)
+    //   }, error: (err: any) => {
+    //     console.log(err)
+    //   }
+    // })
     
   }
 }

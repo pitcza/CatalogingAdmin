@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { DataService } from '../../../../../../../services/data.service';
 import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
-import { ArticleService } from '../../../../../../../services/materials/article/article.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 
 interface MyOption {
   value: string;
@@ -23,7 +22,7 @@ export class EditArticleComponent implements OnInit{
   constructor(private ref: MatDialogRef<EditArticleComponent>, 
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private articleService: ArticleService
+    private ds: DataService
   ) { 
     this.editForm = formBuilder.group({
       accession: ['', [Validators.required, Validators.maxLength(20)]],
@@ -48,7 +47,7 @@ export class EditArticleComponent implements OnInit{
   submit = false;
 
   ngOnInit(): void {
-    this.articleService.getRecord(this.data.details).subscribe((res: any) => {
+    this.ds.request('GET', 'material/id/' + this.data.details, null).subscribe((res: any) => {
       this.article = res;
       this.values = this.article.authors;
 
@@ -98,7 +97,7 @@ export class EditArticleComponent implements OnInit{
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.articleService.deleteRecord(this.data.details).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + this.article.accession, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
@@ -267,7 +266,7 @@ export class EditArticleComponent implements OnInit{
         }
       }).then((result) => {
         if(result.isConfirmed) {
-          this.articleService.updateRecord(this.data.details, form).subscribe({
+          this.ds.request('PUT', 'materials/articles/process/' + this.data.details, form).subscribe({
             next: (res: any) => {
               this.successMessage(form.get('title'));
               this.closepopup('Update');

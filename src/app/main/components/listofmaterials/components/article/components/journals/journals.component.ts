@@ -11,8 +11,7 @@ import Swal from 'sweetalert2';
 
 import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsComponent } from '../article-details/article-details.component';
-import { DataService } from '../../../../../../../services/data.service';
-import { ArticleService } from '../../../../../../../services/materials/article/article.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-journals',
@@ -39,7 +38,7 @@ export class JournalsComponent implements OnInit {
   }
 
   getData(){
-    this.articleService.getJournals().subscribe({
+    this.ds.request('GET', 'materials/articles/type/0', null).subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<JournalArticle>(res);
         this.dataSource.paginator = this.paginator;
@@ -62,7 +61,7 @@ export class JournalsComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
-    private articleService: ArticleService
+    private ds: DataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
@@ -124,7 +123,7 @@ export class JournalsComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.articleService.deleteRecord(id).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + id, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

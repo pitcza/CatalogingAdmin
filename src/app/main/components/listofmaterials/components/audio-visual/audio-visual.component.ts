@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { EditAVComponent } from './edit-av/edit-av.component';
 import { ViewAVComponent } from './view-av/view-av.component';
-import { AVService } from '../../../../../services/materials/AV/av.service';
+import { DataService } from '../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-audio-visual',
@@ -44,18 +44,9 @@ export class AudioVisualComponent {
     private paginatorIntl: MatPaginatorIntl, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
-    private avService: AVService
+    private ds: DataService
   ) { 
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
-
-    // Sample data, di ko kasi makita popups hehe
-    // const initialData: BookElement[] = [
-    //   { title: 'Sample 1', authors: 'Author 1', copyright: '2020' },
-    //   { title: 'Sample 2', authors: 'Author 2', copyright: '2019' },
-    //   { title: 'Sample 3', authors: 'Author 3', copyright: '2018' },
-    // ];
-
-    // this.dataSource = new MatTableDataSource(initialData);
   }
 
   ngOnInit() {
@@ -63,7 +54,7 @@ export class AudioVisualComponent {
   }
 
   getData() {
-    this.avService.getAll().subscribe({
+    this.ds.request('GET', 'materials/audio-visuals', null).subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<AudioVisualElement, MatPaginator>(res);
         this.dataSource.paginator = this.paginator;
@@ -92,7 +83,7 @@ export class AudioVisualComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.avService.deleteRecord(accession).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + accession, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

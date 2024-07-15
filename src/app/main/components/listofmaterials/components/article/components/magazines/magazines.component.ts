@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -10,9 +11,7 @@ import Swal from 'sweetalert2';
 
 import { EditArticleComponent } from '../edit-article/edit-article.component';
 import { ArticleDetailsComponent } from '../article-details/article-details.component';
-import { DataService } from '../../../../../../../services/data.service';
-import { CommonModule } from '@angular/common';
-import { ArticleService } from '../../../../../../../services/materials/article/article.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-magazines',
@@ -39,7 +38,7 @@ export class MagazinesComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
-    private articleService: ArticleService
+    private ds: DataService
   ) {
   this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
@@ -49,7 +48,7 @@ export class MagazinesComponent implements OnInit {
   }
 
   getData() {
-    this.articleService.getMagazines().subscribe({
+    this.ds.request('GET', 'materials/articles/type/1', null).subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<MagazineArticle>(res)
         this.dataSource.paginator = this.paginator;
@@ -123,7 +122,7 @@ export class MagazinesComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.articleService.deleteRecord(id).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + id, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",

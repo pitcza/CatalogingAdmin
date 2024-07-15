@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
@@ -14,12 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { BookDetailsPopupComponent } from './book-details-popup/book-details-popup.component';
-
-import { DataService } from '../../../../../services/data.service';
-import { get } from 'http';
-import { filter } from 'rxjs';
-import { BookService } from '../../../../../services/materials/book/book.service';
-import { CommonModule } from '@angular/common';
+import { DataService } from '../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-books',
@@ -54,7 +50,6 @@ export class BooksComponent implements OnInit {
     private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog,
-    private bookService: BookService,
     private ds: DataService
   ) { 
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
@@ -63,7 +58,7 @@ export class BooksComponent implements OnInit {
   protected books: any = null;
 
   protected getData() {
-    this.bookService.getAll().subscribe({
+    this.ds.request('GET', 'books', null).subscribe({
       next: (res: any) =>  {
         this.materials = res;        
         this.dataSource = new MatTableDataSource<BookElement, MatPaginator>(this.materials);
@@ -99,7 +94,7 @@ export class BooksComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.bookService.deleteRecord(accession).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + accession, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
@@ -156,6 +151,7 @@ export class BooksComponent implements OnInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
+      console.log(result)
       this.redirectToListPage();
       if(result == 'Update' || result == 'Archive') {
         this.getData()

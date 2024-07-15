@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { BookService } from '../../../../../../services/materials/book/book.service';
+import { DataService } from '../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-edit-book',
@@ -31,7 +31,7 @@ export class EditBookComponent implements OnInit{
     private ref: MatDialogRef<EditBookComponent>, 
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private bookService: BookService,
+    private ds: DataService,
     private cd: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     private router: Router
@@ -60,7 +60,7 @@ export class EditBookComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.bookService.getRecord(this.data.accession).subscribe((res: any) => {
+    this.ds.request('GET', 'material/id/' + this.data.accession, null).subscribe((res: any) => {
       this.book = res;
       this.editForm.patchValue({
         accession: this.book.accession,
@@ -83,7 +83,7 @@ export class EditBookComponent implements OnInit{
       else this.values = [''];
     })
 
-    this.bookService.getLocations().subscribe((res: any) => {
+    this.ds.request('GET', 'books/locations', null).subscribe((res: any) => {
       this.locations = res;
     })
   }
@@ -220,7 +220,7 @@ export class EditBookComponent implements OnInit{
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.bookService.deleteRecord(this.data.accession).subscribe({
+        this.ds.request('DELETE', 'materials/archive/' + this.data.accession, null).subscribe({
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
@@ -385,7 +385,7 @@ export class EditBookComponent implements OnInit{
         }
       }).then((result) => {
         if(result.isConfirmed) {
-          this.bookService.updateRecord(this.data.accession, form).subscribe({
+          this.ds.request('PUT', 'materials/books/process/' + this.data.accession, form).subscribe({
             next: (res: any) => {
               this.successMessage(form.get('title'));
               this.closepopup('Update');

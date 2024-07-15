@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddmaterialsComponent } from './components/addmaterials/addmaterials.component';
 import { AcademicprojectsComponent } from './components/academicprojects/academicprojects.component';
 import { ListofmaterialsComponent } from './components/listofmaterials/listofmaterials.component';
-import { ActivitylogComponent } from './components/activitylog/activitylog.component';
+// import { ActivitylogComponent } from './components/activitylog/activitylog.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -28,7 +28,7 @@ const routes: Routes = [
       loadChildren: ()=>import('./components/listofmaterials/listofmaterials.module').then((m)=>m.ListofmaterialsModule)
     }]
   },
-  { path: 'activitylog', component: ActivitylogComponent},
+  // { path: 'activitylog', component: ActivitylogComponent},
   {
     path: 'reports',
     component: ReportsComponent,

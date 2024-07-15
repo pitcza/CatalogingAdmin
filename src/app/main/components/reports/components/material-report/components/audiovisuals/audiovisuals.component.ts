@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { DataService } from '../../../../../../../services/data.service';
+import { DataService } from '../../../../../../../services/data/data.service';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
 
@@ -56,7 +56,7 @@ export class AudiovisualsComponent implements OnInit {
   }
 
   protected getData() {
-    this.ds.get('periodicals/type/newspaper').subscribe({
+    this.ds.request('GET', 'materials/audio-visuals', null).subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource<PeriodicElement>(res);
         this.dataSource.paginator = this.paginator;
