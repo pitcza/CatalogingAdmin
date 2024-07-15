@@ -4,15 +4,19 @@ import { Router } from '@angular/router';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { DataService } from '../../../../../services/data.service';
-import { MaterialModule } from '../../../../../modules/material/material.module';
+import { DataService } from '../../../../../../../services/data.service';
+import { MaterialModule } from '../../../../../../../modules/material/material.module';
 
 @Component({
-  selector: 'app-academicprojects',
-  templateUrl: './academicprojects.component.html',
-  styleUrl: './academicprojects.component.scss'
+  selector: 'app-journals',
+  templateUrl: './journals.component.html',
+  styleUrl: './journals.component.scss',
+  standalone: true,
+  imports: [
+    MaterialModule
+  ],
 })
-export class AcademicprojectsComponent implements OnInit {
+export class JournalsComponent implements OnInit {
   displayedColumns: string[] = ['create_date', 'name', 'title', 'location'];
   protected dataSource!: any;
 
