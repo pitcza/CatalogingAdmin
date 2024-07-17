@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 export class NewspapersComponent {
   displayedColumns: string[] = ['archived_at', 'accession', 'title', 'authors', 'actions'];
   protected dataSource!: any;
+  datepickerStart = ''; datepickerEnd = ''; searchInput = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
@@ -27,18 +28,7 @@ export class NewspapersComponent {
     private paginatorIntl: MatPaginatorIntl,
     private changeDetectorRef: ChangeDetectorRef,
     private ds: DataService
-  ) {
-  this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
-
-  // sample data para makita buttons at poppup hehe
-  const mockData: PeriodicElement[] = [
-    { create_date: '2024-07-01', accession: '101', title: 'Sample Title 1', authors: 'Sample 1' },
-    { create_date: '2024-07-02', accession: '102', title: 'Sample Title 2', authors: 'Sample 2' },
-    { create_date: '2024-07-03', accession: '103', title: 'Sample Title 3', authors: 'Sample 3' }
-  ];
-
-  this.dataSource = new MatTableDataSource<PeriodicElement>(mockData);
-  }
+  ) { this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef); }
 
   protected activities: any;
 
@@ -54,31 +44,55 @@ export class NewspapersComponent {
     })
   }
 
-  filterPredicates() {
-    const start = (document.getElementById('datepicker-start') as HTMLInputElement).value;
-    const end = (document.getElementById('datepicker-end') as HTMLInputElement).value;
+  applyFilter(event: Event, type: string) {
+    if(type == 'start') this.datepickerStart = (event.target as HTMLInputElement).value;
+    else if(type == 'end') this.datepickerEnd = (event.target as HTMLInputElement).value;
+    else if(type == 'search') this.searchInput = (event.target as HTMLInputElement).value;
 
-      const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
-        if(start == '')
-            return true;
-        return Date.parse(data.create_date) >= Date.parse(start);
-      }
+    const search = this.searchInput; const start = this.datepickerStart; const end = this.datepickerEnd; 
 
-      const endFilterPredicate = (data: PeriodicElement, end: string): boolean => {
-        if(end == '')
-            return true;
-        return Date.parse(data.create_date) <= Date.parse(end);
-      }
+    const accessionFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.accession.includes(search);
+    }
 
-      const filterPredicate = (data: PeriodicElement): boolean => {
-        return startFilterPredicate(data, start) && endFilterPredicate(data, end)
-      };
+    const titleFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
 
-      this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter ={
-        start,
+    const authorFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
+    }
+  
+    // FOR DATE RANGE DATE PICKER
+    const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
+      if(start == '')
+          return true;
+      return Date.parse(data.archived_at) >= Date.parse(start + ' 00:00:00');
+    }
+
+    const endFilterPredicate = (data: PeriodicElement, end: string): boolean => {
+      if(end == '')
+          return true;
+      return Date.parse(data.archived_at) <= Date.parse(end + ' 23:59:59');
+    }
+
+    const filterPredicate = (data: PeriodicElement): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search)) &&
+              (startFilterPredicate(data, start) && endFilterPredicate(data, end))
+    };
+      
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = {
+        search,
+        start, 
         end
-      };
+    };
   }
 
   // RESTORE PROCESS/POPUP
@@ -101,21 +115,43 @@ export class NewspapersComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Restoring Complete!",
-          text: "Newspaper has been restored.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
+        this.ds.request('POST', 'materials/restore/' + accession, null).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Restoring Complete!",
+              text: "Newspaper article has been restored.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+            this.getData();
           },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          timer: 5000
-        });
+          error: (err: any) => {
+            Swal.fire({
+              title: "Error!",
+              text: err.message,
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+          }          
+        })
       }
     });
   }
@@ -140,19 +176,40 @@ export class NewspapersComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Permanently Deleted!",
-          text: "Newspaper (or title ba) has been permanently deleted and cannot be recovered.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          },
+        this.ds.request('DELETE', 'permanently-delete/materials/' + accession, null).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Newspaper article Permanently Deleted",
+              text: "Newspaper article has been permanently deleted and cannot be recovered.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+            });
+            this.getData();
+          }, error: (err: any) => {
+            Swal.fire({
+              title: "Error!",
+              text: err.message,
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+          }
         });
       }
     });
@@ -161,8 +218,8 @@ export class NewspapersComponent {
 
 // DATA FOR TABLE
 export interface PeriodicElement {
-  create_date: any;
-  accession: any;
+  archived_at: string;
+  accession: string;
   title: string;
-  authors: string;
+  authors: any;
 }

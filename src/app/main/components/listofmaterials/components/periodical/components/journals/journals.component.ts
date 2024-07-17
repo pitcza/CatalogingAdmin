@@ -159,7 +159,7 @@ export class JournalsComponent implements OnInit {
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
-              text: "periodical has been successfully archived.",
+              text: "Periodical has been successfully archived.",
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
