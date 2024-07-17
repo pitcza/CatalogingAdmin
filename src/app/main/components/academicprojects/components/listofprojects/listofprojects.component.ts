@@ -183,7 +183,7 @@ export class ListofprojectsComponent implements OnInit {
   archiveBox(id: string){
     Swal.fire({
       title: "Archive Academic Project",
-      text: "Are you sure want to archive this academic project?",
+      text: "Are you sure you want to archive this academic project?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',

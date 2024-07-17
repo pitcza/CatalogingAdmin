@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../../../../../services/data/data.service';
-import { MaterialModule } from '../../../../../modules/material/material.module';
 
 import Swal from 'sweetalert2';
+import { DetailsComponent } from './details/details.component';
 
 @Component({
   selector: 'app-audio-visuals',
@@ -27,8 +28,11 @@ export class AudioVisualsComponent implements OnInit {
     private router: Router,
     private paginatorIntl: MatPaginatorIntl,
     private changeDetectorRef: ChangeDetectorRef,
+    private dialog: MatDialog,
     private ds: DataService
-  ) { this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef); }
+  ) { 
+    this.dialogRef = dialog;
+    this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef); }
 
   protected activities: any;
 
@@ -118,7 +122,7 @@ export class AudioVisualsComponent implements OnInit {
           next: (res: any) => {
             Swal.fire({
               title: "Restoring Complete!",
-              text: "Audio-visual has been restored.",
+              text: "Audio-visual has been restored successfully.",
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
@@ -212,6 +216,25 @@ export class AudioVisualsComponent implements OnInit {
         });
       }
     });
+  }
+
+  // VIEW DETAILS POPUP
+  isModalOpen: boolean = false;
+  dialogRef: MatDialog;
+  
+  detailsBox(accession:any) {
+    if(this.isModalOpen) {
+      return
+    }
+    this.isModalOpen = true
+    
+    let modal = this.dialogRef.open(DetailsComponent, {});
+    modal.afterClosed().subscribe(
+      ( result: { success: any; }) => {
+        this.isModalOpen = false
+
+      }
+    )
   }
 }
 

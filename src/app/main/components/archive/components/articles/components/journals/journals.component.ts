@@ -4,10 +4,12 @@ import { Router } from '@angular/router';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+
 import { DataService } from '../../../../../../../services/data/data.service';
-import { MaterialModule } from '../../../../../../../modules/material/material.module';
 
 import Swal from 'sweetalert2';
+import { DetailsComponent } from '../details/details.component';
 
 @Component({
   selector: 'app-journals',
@@ -27,8 +29,11 @@ export class JournalsComponent {
     private router: Router,
     private paginatorIntl: MatPaginatorIntl,
     private changeDetectorRef: ChangeDetectorRef,
+    private dialog: MatDialog,
     private ds: DataService
-  ) { this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef); }
+  ) { 
+    this.dialogRef = dialog;
+    this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef); }
 
   protected activities: any;
 
@@ -98,8 +103,8 @@ export class JournalsComponent {
   // RESTORE PROCESS/POPUP
   restoreBox(accession: any){
     Swal.fire({
-      title: 'Restore Journal',
-      text: 'Are you sure you want to restore this journal?',
+      title: 'Restore Journal Article',
+      text: 'Are you sure you want to restore this journal article?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -119,7 +124,7 @@ export class JournalsComponent {
           next: (res: any) => {
             Swal.fire({
               title: "Restoring Complete!",
-              text: "Journal article has been restored.",
+              text: "The journal article has been restored successfully.",
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
@@ -160,7 +165,7 @@ export class JournalsComponent {
   deleteBox(accession: any){
     Swal.fire({
       title: 'Permanent Deletion',
-      text: 'Are you sure you want to permanently delete this journal? This action cannot be undone.',
+      text: 'Are you sure you want to permanently delete this journal article? This action cannot be undone.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -179,8 +184,8 @@ export class JournalsComponent {
         this.ds.request('DELETE', 'permanently-delete/materials/' + accession, null).subscribe({
           next: (res: any) => {
             Swal.fire({
-              title: "Journal article  Permanently Deleted",
-              text: "Journal article has been permanently deleted and cannot be recovered.",
+              title: "Journal Article Permanently Deleted",
+              text: "The journal article has been permanently deleted and cannot be recovered.",
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
@@ -213,6 +218,25 @@ export class JournalsComponent {
         });
       }
     });
+  }
+
+  // VIEW DETAILS POPUP
+  isModalOpen: boolean = false;
+  dialogRef: MatDialog;
+  
+  detailsBox(accession:any) {
+    if(this.isModalOpen) {
+      return
+    }
+    this.isModalOpen = true
+    
+    let modal = this.dialogRef.open(DetailsComponent, {});
+    modal.afterClosed().subscribe(
+      ( result: { success: any; }) => {
+        this.isModalOpen = false
+
+      }
+    )
   }
 }
 

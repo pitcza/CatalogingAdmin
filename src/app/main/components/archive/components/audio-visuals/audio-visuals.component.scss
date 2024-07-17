@@ -211,12 +211,13 @@ table {
     max-width: 350px;
   }
   td:nth-child(4) {
+    text-align: left;
     min-width: 170px;
     max-width: 170px;
   }
   td:nth-child(5) {
-    max-width: 100px;
-    min-width: 100px;
+    max-width: 150px;
+    min-width: 150px;
   }
 }
 
@@ -236,20 +237,26 @@ table {
 }
 
 .actions {
-  // edit button
   .restore-btn {
-      background-color: var(--main-green);
-      margin-right: 5px;
+    background-color: var(--main-green);
+    margin-right: 5px;
   }
   .restore-btn:hover {
-      background-color: var(--green-hover);
+    background-color: var(--green-hover);
   }
-  // delete button
   .delete-btn {
-      background-color: var(--red);
+    background-color: var(--red);
   }
   .delete-btn:hover {
-      background-color:var(--red-hover);
+    background-color:var(--red-hover);
+  }
+  // view button
+  .details-btn {
+    background-color: var(--cancel-btn);
+    margin-left: 5px;
+  }
+  .details-btn:hover {
+    background-color: var(--cancel-hover);
   }
 }
 
@@ -269,13 +276,14 @@ tr {
   border-radius: 6px;
   /* Position the tooltip text */
   position: absolute;
-  width: 90px;
+  width: 120px;
   top: 100%;
-  right: 1%;
+  right: 2%;
   z-index: 1;
 }
 
 .restore-btn:hover .tooltiptext,
-.delete-btn:hover .tooltiptext {
+.delete-btn:hover .tooltiptext,
+.details-btn:hover .tooltiptext {
   visibility: visible;
 }

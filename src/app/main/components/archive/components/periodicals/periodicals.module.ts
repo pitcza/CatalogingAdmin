@@ -9,12 +9,14 @@ import { NewspapersComponent } from './components/newspapers/newspapers.componen
 import { MaterialModule } from '../../../../../modules/material/material.module';
 import { ImageCropperComponent } from 'ngx-image-cropper';
 import { RouterModule } from '@angular/router';
+import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
   declarations: [
 
     MagazinesComponent,
-    NewspapersComponent
+    NewspapersComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,

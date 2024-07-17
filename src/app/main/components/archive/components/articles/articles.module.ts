@@ -10,13 +10,15 @@ import { RouterModule } from '@angular/router';
 import { JournalsComponent } from './components/journals/journals.component';
 import { MagazinesComponent } from './components/magazines/magazines.component';
 import { NewspapersComponent } from './components/newspapers/newspapers.component';
+import { DetailsComponent } from './components/details/details.component';
 
 
 @NgModule({
   declarations: [
     JournalsComponent,
     MagazinesComponent,
-    NewspapersComponent
+    NewspapersComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,

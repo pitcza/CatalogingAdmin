@@ -39,7 +39,7 @@ export class PerioDetailsComponent implements OnInit {
   archiveBox(){
     Swal.fire({
       title: "Archive Periodical",
-      text: "Are you sure want to archive this periodical?",
+      text: "Are you sure you want to archive this periodical?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
