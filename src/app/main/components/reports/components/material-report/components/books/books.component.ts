@@ -137,7 +137,7 @@ export class BooksComponent implements OnInit {
   public export(): void {
     // Get the filtered data
     const filteredData = this.dataSource.filteredData;
-    this.reportService.exportToExcel(filteredData, 'table_export');
+    this.reportService.exportToExcel(filteredData, 'books_export');
   }
   
 }

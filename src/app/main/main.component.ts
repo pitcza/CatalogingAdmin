@@ -24,7 +24,7 @@ export class MainComponent implements OnInit, OnDestroy {
   role = sessionStorage.getItem('role');
 
   ngOnInit(): void {
-    
+    console.log(this.as.isLoggedIn())
   }
 
     // Refresh user token every 55 minutes (under construction)

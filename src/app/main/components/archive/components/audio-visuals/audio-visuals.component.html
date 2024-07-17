@@ -8,11 +8,11 @@
                 <div class="input-row">
                     <div class="txt_field">
                         <label for="datepicker"> From: </label>
-                        <input type="date" id="datepicker-start" autocomplete="off" (change)="filterPredicates()">
+                        <input type="date" id="datepicker-start" autocomplete="off" (change)="applyFilter($event, 'start')">
                     </div>
                     <div class="txt_field">
                         <label for="datepicker"> To: </label>
-                        <input type="date" id="datepicker-end" autocomplete="off" (change)="filterPredicates()">
+                        <input type="date" id="datepicker-end" autocomplete="off" (change)="applyFilter($event, 'end')">
                     </div>
                 </div>
                 </form>
@@ -20,7 +20,7 @@
                 <!-- SEARCH BAR -->
                 <div class="search-container">
                     <form>
-                    <input id="search-book" type="text" placeholder="Search..." name="search-book">
+                    <input id="search-book" type="text" placeholder="Search..." name="search-book" (keyup)="applyFilter($event, 'search')">
                     <button disabled><i class="fa fa-search"></i></button>
                     </form>
                 </div>
@@ -35,7 +35,7 @@
               <!-- Date Column -->
               <ng-container matColumnDef="archived_at">
                 <th mat-header-cell *matHeaderCellDef> Date & Time </th>
-                <td mat-cell *matCellDef="let element"> {{ element.create_date | date: 'mediumDate' }} <br> {{element.create_date | date: 'shortTime'}} </td>
+                <td mat-cell *matCellDef="let element"> {{ element.archived_at | date: 'mediumDate' }} <br> {{element.archived_at | date: 'shortTime'}} </td>
               </ng-container>
   
               <!-- Accession Number Column -->

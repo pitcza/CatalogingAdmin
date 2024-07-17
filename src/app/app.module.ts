@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { provideHttpClient } from '@angular/common/http';
 import { withFetch } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,8 +40,7 @@ import { RouterModule } from '@angular/router';
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch()),
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
