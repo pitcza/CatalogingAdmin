@@ -138,7 +138,7 @@ export class MagazinesComponent implements OnInit {
   archiveBox(id: string){
     Swal.fire({
       title: "Archive Magazine",
-      text: "Are you sure want to archive this magazine?",
+      text: "Are you sure you want to archive this magazine?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',

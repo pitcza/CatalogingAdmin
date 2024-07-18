@@ -14,6 +14,12 @@ export class AuthService {
   ) { }
 
   url = 'http://127.0.0.1:8000/api/';
+  private loggedIn = false;
+
+  isLoggedIn(): boolean {
+    return !!sessionStorage.getItem('auth-token');
+  }
+  
   public login(formData: FormData) {
     return this.http.post(this.url + 'login/cataloging', formData).pipe(
       tap((res: any) => {
@@ -32,6 +38,10 @@ export class AuthService {
   }
 
   public logout() {
-    return this.http.post(this.url + 'login/cataloging' + 'logout', {}, { headers: this.headers.get() })
+    return this.http.post(this.url + 'logout', {}, { headers: this.headers.get() }).pipe(
+      tap((res: any) => {
+        this.loggedIn = false;
+      })
+    );
   }
 }

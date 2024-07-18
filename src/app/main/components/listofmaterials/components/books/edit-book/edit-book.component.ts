@@ -204,7 +204,7 @@ export class EditBookComponent implements OnInit{
   archiveBox(){
     Swal.fire({
       title: "Archive Book",
-      text: "Are you sure want to archive this book?",
+      text: "Are you sure you want to archive this book?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',

@@ -139,7 +139,7 @@ export class JournalsComponent implements OnInit {
   archiveBox(id: string){
     Swal.fire({
       title: "Archive periodical",
-      text: "Are you sure want to archive this periodical?",
+      text: "Are you sure you want to archive this periodical?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -159,7 +159,7 @@ export class JournalsComponent implements OnInit {
           next: (res: any) => {
             Swal.fire({
               title: "Archiving complete!",
-              text: "periodical has been successfully archived.",
+              text: "Periodical has been successfully archived.",
               icon: "success",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",

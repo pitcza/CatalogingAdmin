@@ -10,8 +10,20 @@ import { AcademicprojectsComponent } from './components/academicprojects/academi
 const routes: Routes = [
   { path: '', redirectTo: 'books', pathMatch: 'full' },
   { path: 'books', component: BooksComponent},
-  { path: 'periodicals', component: PeriodicalsComponent},
-  { path: 'articles', component: ArticlesComponent},
+  { path: 'periodicals', 
+    component: PeriodicalsComponent,
+    children: [{
+      path: '',
+      loadChildren: ()=>import('../archive/components/periodicals/periodicals.module').then((m)=>m.PeriodicalsModule)
+    }]
+  },
+  { path: 'articles', 
+    component: ArticlesComponent,
+    children: [{
+      path: '',
+      loadChildren: ()=>import('../archive/components/articles/articles.module').then((m)=>m.ArticlesModule)
+    }]
+  },
   { path: 'audio-visuals', component: AudioVisualsComponent},
   { path: 'academicprojects', component: AcademicprojectsComponent},
 ];

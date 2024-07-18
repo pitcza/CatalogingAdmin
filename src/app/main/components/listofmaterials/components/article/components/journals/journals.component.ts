@@ -143,7 +143,7 @@ export class JournalsComponent implements OnInit {
   archiveBox(id: string){
     Swal.fire({
       title: "Archive Journal",
-      text: "Are you sure want to archive this journal?",
+      text: "Are you sure you want to archive this journal?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',

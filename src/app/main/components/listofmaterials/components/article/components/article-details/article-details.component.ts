@@ -36,7 +36,7 @@ export class ArticleDetailsComponent implements OnInit {
   archiveBox(){
     Swal.fire({
       title: "Archive Article",
-      text: "Are you sure want to archive this article?",
+      text: "Are you sure you want to archive this article?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',

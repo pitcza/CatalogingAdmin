@@ -42,7 +42,7 @@ export class ViewAVComponent implements OnInit {
   archiveBox(){
     Swal.fire({
       title: "Archive Audio-Visual",
-      text: "Are you sure want to archive this audio-visual?",
+      text: "Are you sure you want to archive this audio-visual?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',

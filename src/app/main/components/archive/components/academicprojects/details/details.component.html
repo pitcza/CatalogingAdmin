@@ -1,0 +1,90 @@
+<main>
+    <div class="container">
+        <div class="content">
+            <div class="project-details">
+                <!-- PROJECT HEADER -->
+                <div class="detailsheader">
+                    <h1> Capstone Project </h1>
+                    <button class="exit-button" (click)="closepopup()"> &times; </button>
+                </div>
+                
+                <div class="detailsbody">
+                    <div class="body">
+                        <div class="details">
+                            <!-- PROJECT IMAGE -->
+                            <div class="mat-image">
+                                <img class="cover" alt="project image" >
+                            </div>
+
+                            <div class="mat-details">
+                                <!-- TITLE, COLLEGE, PROGRAM, AND CATEGORY -->
+                                <span class="top-details">
+                                    <!-- <h2 class="title">{{ project.title }}</h2>
+                                    <h2 class="category">{{ project.project_program.department_short }} • {{ project.program }} • {{ project.category | titlecase }}</h2> -->
+                                    <h2 class="title"> Sample Title: Ipatanggal ang SIA and Capstone </h2>
+                                    <h2 class="category"> CSS • BSIT • Capstone </h2>
+                                </span>
+
+                                <!-- AUTHOR/S -->
+                                <span class="mat-authors">
+                                    <h2> Author/s: </h2> 
+                                    <p>
+                                        <!-- <ng-container *ngIf="!project.authors"> N/A </ng-container>
+                                        <ng-container *ngFor="let x of project.authors; let last = last;">
+                                        {{ x     }}{{ !last ? ',' : '' }} <br>
+                                        </ng-container> -->
+                                        Sample Title
+                                    </p>
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="details">
+                            <div class="mat-content">
+                                <div class="mat-abstract">
+                                    <span>
+                                        <h2> Abstract </h2>
+                                        <!-- <p> {{ project.abstract != null ? project.abstract : 'N/A' }} </p> -->
+                                         <p> abstract </p>
+                                    </span>
+                                </div>
+                                <div class="mat-keywords">
+                                    <span>
+                                        <h2> Keywords </h2> 
+                                        <p> 
+                                            <!-- <ng-container *ngFor="let x of project.keywords; let last = last;">
+                                                {{ x }}{{ !last ? ', ' : '' }}
+                                            </ng-container> -->
+                                            One, Two, Three
+                                        </p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="mat-info">
+                                <span class="info">
+                                    <h2> Accession No. </h2> 
+                                    <p> 123 </p>
+                                </span>
+                                <span class="info">
+                                    <h2> Language </h2> 
+                                    <p> English </p>
+                                </span>
+                                <span class="info">
+                                    <h2> Date Published </h2> 
+                                    <p> July 01, 2024 </p>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-container">
+                        <button class="restore-btn" (click)="restoreBox()"> Restore </button>
+                        <button class="delete-btn" (click)="deleteBox()"> Delete </button>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</main>

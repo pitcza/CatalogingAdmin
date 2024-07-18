@@ -4,8 +4,8 @@
             <div class="details-content">
                 <!-- HEADER -->
                 <div class="detailsheader">
-                    <h1> Article: {{ article.periodical_type == 0 ? 'Journal' : 
-                        article.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} 
+                    <h1> {{ article.periodical_type == 0 ? 'Journal' : 
+                        article.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} Article
                     </h1>
                     <button class="exit-button" (click)="closepopup()"> &times; </button>
                 </div>
@@ -18,7 +18,7 @@
 
                                 <!-- ACCESSION NO. AND LANGUAGE -->
                                 <span class="mid-details">
-                                    <span> <h2> Accession Number: <p> {{ article.accession }} </p> </h2> </span>
+                                    <span> <h2> Accession No. <p> {{ article.accession }} </p> </h2> </span>
                                     <span> <h2>{{ article.language }} {{ article.periodical_type == 0 ? 'Journal' : article.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} </h2> </span>
                                 </span>
                                 
@@ -58,7 +58,7 @@
 
                                 <!-- VOLUME, ISSUE, AND PAGE -->
                                 <span class="mid-details">
-                                    <span> <h2>Volume {{ article.volume != null ? article.volume : 'N/A' }}   |   Issue {{ article.issue != null ? article.issue : 'N/A' }}</h2> </span>
+                                    <span> <h2>Volume {{ article.volume != null ? article.volume : 'N/A' }}, Issue {{ article.issue != null ? article.issue : 'N/A' }}</h2> </span>
                                     <span> <h2> Page {{ article.pages }}</h2> </span>
                                 </span>
 

@@ -4,6 +4,7 @@ import { HeaderService } from '../header/header.service';
 import { apiUrl } from '../../../config/url';
 import { Workbook } from 'exceljs';
 import Swal from 'sweetalert2';
+import * as fs from 'fs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,10 +32,14 @@ export class ReportsService {
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet('Report Sheet');
 
-    // Add headers
-    const headers = Object.keys(data[0]);
+    let removeHeaders: any = [];
+    if(fileName == 'books_export') removeHeaders = ['created_at'];
+    else if(fileName == 'periodical_journals_export') removeHeaders = ['created_at'];
 
-    if (!this.setupPage(workbook, worksheet, headers)) {
+    // Add headers
+    const headers = Object.keys(data[0]).filter(key => !removeHeaders.includes(key));
+
+    if (!await this.setupPage(workbook, worksheet, headers, removeHeaders)) {
       Swal.fire({
         title: 'Error',
         text: "Error processing request, kindly contact the developers",
@@ -49,7 +54,7 @@ export class ReportsService {
           document.body.style.overflowY = 'scroll';
         }
       });
-      return
+      return;
     };
 
     let formattedHeaders = [];
@@ -79,23 +84,23 @@ export class ReportsService {
       const column = worksheet.getColumn(colNumber);
       switch(header) {
         case 'ACCESSION':
-          column.width = 15;
+          column.width = 20;
           break;
 
         case 'TITLE':
-          column.width = 30;
+          column.width = 40;
           break;
 
         case 'AUTHOR/S':
-          column.width = 25;
+          column.width = 40;
           break;
 
         case 'COPYRIGHT':
-          column.width = 15;
+          column.width = 20;
           break;
 
         case 'LOCATION':
-          column.width = 15;
+          column.width = 20;
           break;
       }
     });
@@ -167,7 +172,7 @@ export class ReportsService {
     };
   }
 
-  private setupPage(workbook: any, worksheet: any, headers: any) {
+  private async setupPage(workbook: any, worksheet: any, headers: any, removeHeaders: any) {
     worksheet.pageSetup.paperSize = 9; // A4 paper size
     worksheet.pageSetup.orientation = 'landscape'; // Landscape orientation
     worksheet.pageSetup.horizontalCentered = true; // Center horizontally
@@ -201,34 +206,62 @@ export class ReportsService {
 
     worksheet.getRow(1).height = 150;
 
-    this.fetchImageAsBlob('GC-LIBRARY.png').subscribe((blob) => {
-        // Convert the blob to a base64 string
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = async () => {
-            const base64data = reader.result as string;
+    try {
+      // Load image as base64-encoded string
+      const GCLibraryImage = await this.loadBase64Image('assets/images/GC-LIBRARY.png');
+      const GCImage = await this.loadBase64Image('assets/images/GC.png');
 
-            console.log(base64data)
-            // Add the image to the workbook
-            const imageId = workbook.addImage({
-                base64: base64data.split(',')[1], // Remove the data URL prefix
-                extension: 'png', // Ensure the correct extension
-            });
+      // Add image to workbook
+      const addLogo1 = await workbook.addImage({
+          base64: GCLibraryImage,
+          extension: 'png',
+      });
 
-            // Add the image to the worksheet
-            worksheet.addImage(imageId, {
-                tl: { col: 6, row: 1 },
-                ext: { width: 500, height: 200 }
-            });
-        };
-    });
+      // Add the image to the worksheet
+      worksheet.addImage(addLogo1, {
+          tl: { col: 0.2, row: 0.2 },
+          ext: { width: 120, height: 120 }
+      });
 
-    return true;
+      // Add image to workbook
+      const addLogo2 = await workbook.addImage({
+        base64: GCImage,
+        extension: 'png',
+      });
+
+      // Add the image to the worksheet
+      worksheet.addImage(addLogo2, {
+          tl: { col: headers.length - removeHeaders.length + 0.2, row: 0.2 }, // Adjust col and row according to your requirement
+          ext: { width: 120, height: 120 }
+      });
+
+      return true; // Indicate success
+    } catch (error) {
+      console.error('Error adding image:', error);
+      return false; // Indicate failure
+    }
 }
 
 
   fetchImageAsBlob(imagePath: string) {
     return this.http.get(`assets/images/${imagePath}`, { responseType: 'blob' });
+  }
+
+  private async loadBase64Image(imagePath: string): Promise<string> {
+    try {
+      const imageBlob = await this.http.get(imagePath, { responseType: 'blob' }).toPromise();
+      const reader = new FileReader();
+      return new Promise<string>((resolve, reject) => {
+        reader.onloadend = () => {
+          resolve(reader.result as string);
+        };
+        reader.onerror = reject;
+        if(imageBlob)reader.readAsDataURL(imageBlob);
+      });
+    } catch (error) {
+      console.error('Error loading image:', error);
+      throw error;
+    }
   }
 
   private saveExcel(buffer: any, fileName: string) {

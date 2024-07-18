@@ -9,6 +9,9 @@ import { MaterialModule } from '../../../modules/material/material.module';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { AudioVisualsComponent } from './components/audio-visuals/audio-visuals.component';
 import { AcademicprojectsComponent } from './components/academicprojects/academicprojects.component';
+import { PeriodicalsModule } from './components/periodicals/periodicals.module';
+import { ArticlesModule } from './components/articles/articles.module';
+import { DetailsComponent } from './components/academicprojects/details/details.component';
 
 @NgModule({
   declarations: [
@@ -16,10 +19,13 @@ import { AcademicprojectsComponent } from './components/academicprojects/academi
     ArticlesComponent,
     AudioVisualsComponent,
     AcademicprojectsComponent,
+    DetailsComponent,
   ],
   imports: [
     CommonModule,
     ArchiveRoutingModule,
+    PeriodicalsModule,
+    ArticlesModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule

@@ -471,7 +471,7 @@ export class EditdetailsComponent implements OnInit{
   archiveBox(){
     Swal.fire({
       title: "Archive Project",
-      text: "Are you sure want to archive this project?",
+      text: "Are you sure you want to archive this project?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',

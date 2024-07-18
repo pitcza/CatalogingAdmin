@@ -1,0 +1,57 @@
+<main>
+    <div class="container">
+        <div class="content">
+            <div class="details-content">
+                <!-- HEADER - TITLE -->
+                <div class="detailsheader">
+                    <h1> Audio-Visual </h1>
+                    <button class="exit-button" (click)="closepopup()"> &times; </button>
+                </div>
+
+                <div class="detailsbody">
+                    <div class="body">
+                        <div class="details">
+                            <div class="mat-details">
+
+                                <!-- ACCESSION NO. AND COPYRIGHT -->
+                                <span class="mid-details">
+                                    <span> <h2> Accession No. <p> 123 </p> </h2> </span>
+                                    <span> <h2> Copyright 2024 </h2> </span>
+                                </span>
+                                
+                                <!-- MATERIAL AUTHOR -->
+                                <span class="top-details">
+                                    <h2 class="title"> tigil na natin ito </h2>
+                                    <!-- AUTHORS -->
+                                    <span class="mat-authors">
+                                        <h2> Author/s: </h2> 
+                                        <p>
+                                            <!-- <ng-container *ngIf="!model.authors"> N/A </ng-container>
+                                            <ng-container *ngFor="let x of model.authors; let last = last;">
+                                                {{ x     }}{{ !last ? ',' : '' }} <br>
+                                            </ng-container> -->
+                                            Sample
+                                        </p>
+                                    </span>
+                                </span>
+
+                                <!-- CALL NUMBER -->
+                                <span class="mat-callnum">
+                                    <h2> Call Number: <p> 123.45 </p> </h2>
+                                </span>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-container">
+                        <button class="restore-btn" (click)="restoreBox()"> Restore </button>
+                        <button class="delete-btn" (click)="deleteBox()"> Delete </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

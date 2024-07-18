@@ -115,7 +115,7 @@ export class BooksComponent implements OnInit {
   archiveBox(accession: any){
     Swal.fire({
       title: "Archive Book",
-      text: "Are you sure want to archive this book?",
+      text: "Are you sure you want to archive this book?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: 'Yes',
