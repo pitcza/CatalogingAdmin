@@ -234,11 +234,11 @@ export class JournalsComponent implements OnInit {
     }
     this.isModalOpen = true
     
-    let modal = this.dialogRef.open(DetailsComponent, {});
+    let modal = this.dialogRef.open(DetailsComponent, {data: accession});
     modal.afterClosed().subscribe(
       ( result: { success: any; }) => {
         this.isModalOpen = false
-
+        if(result) this.getData();
       }
     )
   }

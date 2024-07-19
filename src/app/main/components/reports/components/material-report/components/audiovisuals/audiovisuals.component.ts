@@ -31,6 +31,7 @@ import { ReportsService } from '../../../../../../../services/reports/reports.se
 export class AudiovisualsComponent implements OnInit {
   displayedColumns: string[] = ['id','title', 'authors', 'copyright'];
   dataSource : any;
+  searchInput: string = ''; datepickerStart: string = ''; datepickerEnd: string = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
@@ -68,20 +69,23 @@ export class AudiovisualsComponent implements OnInit {
   }
 
   // Filtering 
-  applyFilter(event: Event) {
+  applyFilter(event: Event, type: string) {
+    if(type == 'start') this.datepickerStart = (event.target as HTMLInputElement).value;
+    else if(type == 'end') this.datepickerEnd = (event.target as HTMLInputElement).value;
+    else if(type == 'search') this.searchInput = (event.target as HTMLInputElement).value;
 
-    const search = (document.getElementById('search') as HTMLInputElement).value;
+    const search = this.searchInput; const start = this.datepickerStart; const end = this.datepickerEnd; 
 
     const accessionFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-      return data.accession == search;
+      return data.accession.toLowerCase().includes(search.toLowerCase());
+    }
+    
+    const titleFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
     }
 
     const copyrightFilterPredicate = (data: PeriodicElement, search: string): boolean => {
       return data.copyright == search;
-    }
-
-    const titleFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-      return data.title.toLowerCase().includes(search.toLowerCase());
     }
 
     const authorFilterPredicate = (data: PeriodicElement, search: string): boolean => {
@@ -93,10 +97,7 @@ export class AudiovisualsComponent implements OnInit {
     }
 
     // FOR DATE RANGE DATE PICKER
-    const start = (document.getElementById('datepicker-start-av') as HTMLInputElement).value;
-    const end = (document.getElementById('datepicker-end-av') as HTMLInputElement).value;
 
-    console.log(start, end)
       const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
         if(start == '')
             return true;
@@ -128,7 +129,7 @@ export class AudiovisualsComponent implements OnInit {
   public export(): void {
     // Get the filtered data
     const filteredData = this.dataSource.filteredData;
-    this.reportService.exportToExcel(filteredData, 'audio-visuals_export');
+    this.reportService.exportToExcel(filteredData, 'Cataloging Audio-Visuals Report');
   }
 }
 

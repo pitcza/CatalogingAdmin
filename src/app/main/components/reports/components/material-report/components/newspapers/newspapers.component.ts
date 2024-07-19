@@ -31,6 +31,7 @@ import { ReportsService } from '../../../../../../../services/reports/reports.se
 export class NewspapersComponent implements OnInit {
   displayedColumns: string[] = ['accession','title', 'author', 'copyright', 'received'];
   dataSource : any;
+  searchInput: string = ''; datepickerStart: string = ''; datepickerEnd: string = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
@@ -73,36 +74,35 @@ export class NewspapersComponent implements OnInit {
     })
   }
 
-  // FILTER DATA
+  // Filtering 
   applyFilter(event: Event, type: string) {
+    if(type == 'start') this.datepickerStart = (event.target as HTMLInputElement).value;
+    else if(type == 'end') this.datepickerEnd = (event.target as HTMLInputElement).value;
+    else if(type == 'search') this.searchInput = (event.target as HTMLInputElement).value;
 
-    const search = (document.getElementById('search-magazine') as HTMLInputElement).value;
+    const search = this.searchInput; const start = this.datepickerStart; const end = this.datepickerEnd; 
 
     const accessionFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
-      return data.accession == search;
+      return data.accession.toLowerCase().includes(search.toLowerCase());
     }
-
+    
     const titleFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
       return data.title.toLowerCase().includes(search.toLowerCase());
     }
 
+    const publishedFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
     const authorFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
-      return data.authors.some((x: any) => {
-        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-      });
-    }
-
-    const copyrightFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
-      return data.copyright == search;
-    }
-
-    const receive_dateFilterPredicate = (data: NewspapersComponent, search: string): boolean => {
-      return data.acquired_date.toLowerCase().includes(search.toLowerCase());
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
     }
 
     // FOR DATE RANGE DATE PICKER
-    const start = (document.getElementById('datepicker-start-magazine') as HTMLInputElement).value;
-    const end = (document.getElementById('datepicker-end-magazine') as HTMLInputElement).value;
 
       const startFilterPredicate = (data: NewspapersComponent, start: string): boolean => {
         if(start == '')
@@ -120,8 +120,7 @@ export class NewspapersComponent implements OnInit {
       return (titleFilterPredicate(data, search) ||
               authorFilterPredicate(data, search) ||
               accessionFilterPredicate(data, search) ||
-              receive_dateFilterPredicate(data, search) ||
-              copyrightFilterPredicate(data, search)) &&
+              publishedFilterPredicate(data, search)) &&
               (startFilterPredicate(data, start) && endFilterPredicate(data, end))
     };
     
@@ -136,7 +135,7 @@ export class NewspapersComponent implements OnInit {
   public export(): void {
     // Get the filtered data
     const filteredData = this.dataSource.filteredData;
-    this.reportService.exportToExcel(filteredData, 'periodical_newspapers_export');
+    this.reportService.exportToExcel(filteredData, 'Cataloging Newspapers Report');
   }
 }
 

@@ -7,9 +7,9 @@
                     <!-- <h1> Periodical: {{ periodical.periodical_type == 0 ? 'Journal' : 
                                         periodical.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} 
                     </h1> -->
-                    <h1> Periodical (type)
+                    <h1> Periodical {{ type }}
                     </h1>
-                    <button class="exit-button" (click)="closepopup()"> &times; </button>
+                    <button class="exit-button" (click)="closepopup('')"> &times; </button>
                 </div>
 
                 <!-- BODY -->
@@ -18,16 +18,16 @@
                         <div class="details">
                             <!-- MATERIAL IMAGE -->
                             <div class="mat-image">
-                                <img class="cover" alt="periodical image" >
+                                <img class="cover" alt="periodical image" [src]="element.image_url || errorImage">
                             </div>
 
                             <div class="mat-details">
                                 <!-- TITLE AND PUBLISHER -->
                                 <span class="top-details">
-                                    <h2 class="title">title na pagod ulit</h2>
+                                    <h2 class="title"> {{ element.title }} </h2>
                                     <span class="mat-publisher">
                                         <h2> Published by </h2> 
-                                        <p> sample </p>
+                                        <p> {{ element.publisher }} </p>
                                     </span>
                                 </span>
 
@@ -35,11 +35,10 @@
                                 <span class="mat-authors">
                                     <h2> Author/s: </h2> 
                                     <p>
-                                        <!-- <ng-container *ngIf="!periodical.authors"> N/A </ng-container>
-                                        <ng-container *ngFor="let x of periodical.authors; let last = last;">
+                                        <ng-container *ngIf="!element.authors"> N/A </ng-container>
+                                        <ng-container *ngFor="let x of element.authors; let last = last;">
                                             {{ x     }}{{ !last ? ',' : '' }} <br>
-                                        </ng-container> -->
-                                        sample
+                                        </ng-container>
                                     </p>
                                 </span>
 
@@ -48,7 +47,7 @@
                                     <!-- <span> <h2>Volume {{ periodical.volume != null ? periodical.volume : 'N/A' }}, Issue {{ periodical.issue != null ? periodical.issue : 'N/A' }}</h2> </span>
                                     <span> <h2>{{ periodical.pages }} Pages</h2> </span> -->
                                     <span> <h2>Volume 1, Issue ewan</h2> </span>
-                                    <span> <h2>123 Pages</h2> </span>
+                                    <span> <h2>{{ element.pages }} Pages</h2> </span>
                                 </span>
 
                             </div>
@@ -65,10 +64,10 @@
                                         <h2> Date Received: <p> {{ periodical.acquired_date | date: 'mediumDate' }} </p> </h2>
                                     </span> -->
                                     <span>
-                                        <h2> Publication Date: <p> sample </p> </h2>
-                                        <h2> Copyright: <p> sample </p> </h2>
-                                        <h2> Remark: <p> sample </p> </h2>
-                                        <h2> Date Received: <p> sample </p> </h2>
+                                        <h2> Publication Date: <p> {{ element.date_published | date: 'mediumDate' }} </p> </h2>
+                                        <h2> Copyright: <p> {{ element.copyright }} </p> </h2>
+                                        <h2> Remark: <p> {{ element.remarks }} </p> </h2>
+                                        <h2> Date Received: <p> {{ element.acquired_date | date: 'mediumDate' }} </p> </h2>
                                     </span>
                                 </div>
                             </div>
@@ -77,19 +76,19 @@
                             <div class="mat-info">
                                 <span class="info">
                                     <h2> Accession No. </h2> 
-                                    <p>123</p>
+                                    <p>{{ element.accession }} </p>
                                 </span>
                                 <span class="info">
                                     <h2> Language </h2> 
-                                    <p>secret</p>
+                                    <p>{{ element.language }}</p>
                                 </span>
                             </div>
                         </div>
                     </div>
 
                     <div class="button-container">
-                        <button class="restore-btn" (click)="restoreBox()"> Restore </button>
-                        <button class="delete-btn" (click)="deleteBox()"> Delete </button>
+                        <button class="restore-btn" (click)="restoreBox(data)"> Restore </button>
+                        <button class="delete-btn" (click)="deleteBox(data)"> Delete </button>
                     </div>
                 
                 </div>

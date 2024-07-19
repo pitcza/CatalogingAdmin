@@ -39,13 +39,13 @@ import { DataService } from '../../../../../../../services/data/data.service';
 export class BooksComponent implements OnInit {
   displayedColumns: string[] = ['id', 'booktitle', 'author', 'location', 'copyright'];
   dataSource : any = null;
+  searchInput: string = ''; datepickerStart: string = ''; datepickerEnd: string = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort !: MatSort;
 
   ngOnInit(): void {
     this.getData();
-    console.log('is initialized')
   }
 
   constructor(
@@ -72,9 +72,12 @@ export class BooksComponent implements OnInit {
   }
 
   // Filtering 
-  applyFilter(event: Event) {
+  applyFilter(event: Event, type: string) {
+    if(type == 'start') this.datepickerStart = (event.target as HTMLInputElement).value;
+    else if(type == 'end') this.datepickerEnd = (event.target as HTMLInputElement).value;
+    else if(type == 'search') this.searchInput = (event.target as HTMLInputElement).value;
 
-    const search = (document.getElementById('search') as HTMLInputElement).value;
+    const search = this.searchInput; const start = this.datepickerStart; const end = this.datepickerEnd; 
 
     const accessionFilterPredicate = (data: PeriodicElement, search: string): boolean => {
       return data.accession == search;
@@ -102,8 +105,6 @@ export class BooksComponent implements OnInit {
     }
 
     // FOR DATE RANGE DATE PICKER
-    const start = (document.getElementById('datepicker-start-book') as HTMLInputElement).value;
-    const end = (document.getElementById('datepicker-end-book') as HTMLInputElement).value;
 
       const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
         if(start == '')
@@ -137,7 +138,7 @@ export class BooksComponent implements OnInit {
   public export(): void {
     // Get the filtered data
     const filteredData = this.dataSource.filteredData;
-    this.reportService.exportToExcel(filteredData, 'books_export');
+    this.reportService.exportToExcel(filteredData, 'Cataloging Books Report');
   }
   
 }

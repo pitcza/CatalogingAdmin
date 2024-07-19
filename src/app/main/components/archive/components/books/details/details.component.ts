@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DataService } from '../../../../../../services/data/data.service';
 
 import Swal from 'sweetalert2';
 
@@ -9,18 +12,32 @@ import Swal from 'sweetalert2';
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnInit {
   constructor (
     private router: Router,
     private ref: MatDialogRef<DetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ds: DataService
   ) { }
 
-  closepopup() {
-    this.ref.close('closed using function');
+  element: any;
+  errorImage = '../../../../../../assets/images/NoImage.png';
+  
+  ngOnInit(): void {
+    this.ds.request('GET', 'archives/material/id/' + this.data, null).subscribe({
+      next: (res: any) => {
+        this.element = res;
+        console.log(res)
+      }
+    })
+  }
+  
+  closepopup(text: string) {
+    this.ref.close(text);
   }
 
   // RESTORE PROCESS/POPUP
-  restoreBox(){
+  restoreBox(accession: any){
     Swal.fire({
       title: 'Restore Book',
       text: 'Are you sure you want to restore this book?',
@@ -39,28 +56,49 @@ export class DetailsComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('closed using function');
-        Swal.fire({
-          title: "Restoring Complete!",
-          text: "Book has been restored successfully.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
+        this.ds.request('POST', 'materials/restore/' + accession, null).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Restoring Complete!",
+              text: "Book has been restored successfully.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+            this.ref.close('close');
           },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          timer: 5000
-        });
+          error: (err: any) => {
+            Swal.fire({
+              title: "Error!",
+              text: err.message,
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+          }          
+        })
       }
     });
   }
 
   // PERMANENTLY DELETE
-  deleteBox(){
+  deleteBox(accession: any){
     Swal.fire({
       title: 'Permanent Deletion',
       text: 'Are you sure you want to permanently delete this book? This action cannot be undone.',
@@ -79,20 +117,40 @@ export class DetailsComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('closed using function');
-        Swal.fire({
-          title: "Book Permanently Deleted!",
-          text: "Book has been permanently deleted and cannot be recovered.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          },
+        this.ds.request('DELETE', 'permanently-delete/materials/' + accession, null).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Book Permanently Deleted",
+              text: "Book has been permanently deleted and cannot be recovered.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+            });
+            this.ref.close('close');
+          }, error: (err: any) => {
+            Swal.fire({
+              title: "Error!",
+              text: err.message,
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+          }
         });
       }
     });

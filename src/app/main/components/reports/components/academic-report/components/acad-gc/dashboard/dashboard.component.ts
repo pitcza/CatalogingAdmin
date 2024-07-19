@@ -15,58 +15,18 @@ export class DashboardComponent {
   ) { console.log(router.url)}
 
   materialCounts = {
-    gc: 0,
-    ccs: 0,
-    ceas: 0,
-    chtm: 0,
-    cba: 0,
-    cahs: 0,
+    GC: 0,
+    CCS: 0,
+    CEAS: 0,
+    CHTM: 0,
+    CBA: 0,
+    CAHS: 0,
   }
 
   ngOnInit(): void {
-      this.counts();
-  }
-
-  protected counts() {
-    this.ds.request('GET', 'projects', null).subscribe({
-      next: (res: any) => {
-        console.log(res)
-        res.forEach((x: any) => {
-          this.materialCounts.gc++;
-
-          if(x.program.department.department == 'CCS')
-            this.materialCounts.ccs++;
-          else if(x.program.department.department == 'CEAS')
-            this.materialCounts.ceas++;
-          else if(x.program.department.department == 'CHTM')
-            this.materialCounts.chtm++;
-          else if(x.program.department.department == 'CBA')
-            this.materialCounts.cba++;
-          else if(x.program.department.department == 'CAHS')
-            this.materialCounts.cahs++;
-
-          console.log(this.materialCounts)
-        });
-      }
+    this.ds.request('GET', 'reports/project-counts', null).subscribe((res: any) => {
+      this.materialCounts = res;
+      this.materialCounts.GC = this.materialCounts.CCS + this.materialCounts.CEAS + this.materialCounts.CHTM + this.materialCounts.CBA + this.materialCounts.CAHS
     });
-  }
-
-  printMaterials() {
-
-    let payload = {
-      startDate: '',
-      endDate: ''
-    }
-
-    let type = 'projects.all';
-
-    let startid = 'datepicker-start-gc';
-    let endid = 'datepicker-end-gc';
-
-      payload = {
-      startDate: (document.getElementById(startid) as HTMLInputElement).value,
-      endDate: (document.getElementById(endid) as HTMLInputElement).value,
-      // copyright: "2024"
-    }    
   }
 }

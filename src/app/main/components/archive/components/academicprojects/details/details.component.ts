@@ -1,26 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
+import { DataService } from '../../../../../../services/data/data.service';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnInit {
   constructor (
     private router: Router,
     private ref: MatDialogRef<DetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ds: DataService
   ) { }
+  
+  errorImage = '../../../../../../assets/images/NoImage.png';
+  element = {
+    abstract: '',
+    accession: '',
+    archived_at: '',
+    authors: [],
+    category: '',
+    created_at: '',
+    date_published: '',
+    image_url: '',
+    keywords: [],
+    language: '',
+    program: '',
+    title: ''
+  };
 
-  closepopup() {
-    this.ref.close('closed using function');
+  closepopup(text: string) {
+    this.ref.close(text);
+  }
+
+  ngOnInit(): void {
+    this.ds.request('GET', 'archives/project/id/' + this.data, null).subscribe({
+      next: (res: any) => {
+        this.element = res;
+        console.log(res)
+      }
+    })
   }
 
   // RESTORE PROCESS/POPUP
-  restoreBox(){
+  restoreBox(accession: any){
     Swal.fire({
       title: 'Restore Academic Project',
       text: 'Are you sure you want to restore this academic project?',
@@ -39,28 +69,49 @@ export class DetailsComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('closed using function');
-        Swal.fire({
-          title: "Restoring Complete!",
-          text: "Academic Project has been restored successfully.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
+        this.ds.request('POST', 'projects/restore/' + accession, null).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Restoring Complete!",
+              text: "Academic project has been restored successfully.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+            this.closepopup('Restore');
           },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          timer: 5000
-        });
+          error: (err: any) => {
+            Swal.fire({
+              title: "Error!",
+              text: err.message,
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+          }          
+        })
       }
     });
   }
 
   // PERMANENTLY DELETE
-  deleteBox(){
+  deleteBox(accession: any){
     Swal.fire({
       title: 'Permanent Deletion',
       text: 'Are you sure you want to permanently delete this academic project? This action cannot be undone.',
@@ -79,20 +130,40 @@ export class DetailsComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('closed using function');
-        Swal.fire({
-          title: "Academic Project Permanently Deleted!",
-          text: "Academic Project has been permanently deleted and cannot be recovered.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          },
+        this.ds.request('DELETE', 'permanently-delete/projects/' + accession, null).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Academic Project Permanently Deleted",
+              text: "Academic project has been permanently deleted and cannot be recovered.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+            });
+            this.closepopup('Delete')
+          }, error: (err: any) => {
+            Swal.fire({
+              title: "Error!",
+              text: err.message,
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+          }
         });
       }
     });

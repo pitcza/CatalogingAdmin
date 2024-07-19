@@ -31,6 +31,7 @@ import { ReportsService } from '../../../../../../../services/reports/reports.se
 export class ArticlesComponent implements OnInit {
   displayedColumns: string[] = ['accession', 'title', 'authors', 'publication'];
   dataSource : any;
+  searchInput: string = ''; datepickerStart: string = ''; datepickerEnd: string = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -62,30 +63,35 @@ export class ArticlesComponent implements OnInit {
   }
 
   // Filtering 
-  applyFilter(event: Event) {
+  applyFilter(event: Event, type: string) {
+    if(type == 'start') this.datepickerStart = (event.target as HTMLInputElement).value;
+    else if(type == 'end') this.datepickerEnd = (event.target as HTMLInputElement).value;
+    else if(type == 'search') this.searchInput = (event.target as HTMLInputElement).value;
 
-    const search = (document.getElementById('search-article') as HTMLInputElement).value;
+    const search = this.searchInput; const start = this.datepickerStart; const end = this.datepickerEnd; 
 
-    
     const accessionFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
-      return data.accession === '' || '' === search;
+      return data.accession.toLowerCase().includes(search.toLowerCase());
     }
-
+    
     const titleFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
       return data.title.toLowerCase().includes(search.toLowerCase());
     }
 
+    const publishedFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
     const authorFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
-      return data.authors.some((x: any) => {
-        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-      });
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
     }
 
     // FOR DATE RANGE DATE PICKER
-    const start = (document.getElementById('datepicker-start-article') as HTMLInputElement).value;
-    const end = (document.getElementById('datepicker-end-article') as HTMLInputElement).value;
 
-    console.log(start, end)
       const startFilterPredicate = (data: ArticlesComponent, start: string): boolean => {
         if(start == '')
             return true;
@@ -100,23 +106,24 @@ export class ArticlesComponent implements OnInit {
 
     const filterPredicate = (data: ArticlesComponent): boolean => {
       return (titleFilterPredicate(data, search) ||
-             authorFilterPredicate(data, search) ||
-             accessionFilterPredicate(data, search)) &&
-             (startFilterPredicate(data, start) && endFilterPredicate(data, end))
+              authorFilterPredicate(data, search) ||
+              accessionFilterPredicate(data, search) ||
+              publishedFilterPredicate(data, search)) &&
+              (startFilterPredicate(data, start) && endFilterPredicate(data, end))
     };
     
     this.dataSource.filterPredicate = filterPredicate;
     this.dataSource.filter = {
       search,
-      start,
+      start, 
       end
-    };   
+    };
   }
 
   public export(): void {
     // Get the filtered data
     const filteredData = this.dataSource.filteredData;
-    this.reportService.exportToExcel(filteredData, 'articles_export');
+    this.reportService.exportToExcel(filteredData, 'Cataloging Articles Report');
   }
 }
 
@@ -124,8 +131,7 @@ export interface ArticlesComponent {
   accession: string;
   title: string;
   authors: any;
-  publisher: string;
   created_at: string;
-  publication: string;
+  acquired_date: string;
 }
 

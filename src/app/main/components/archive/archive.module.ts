@@ -11,7 +11,9 @@ import { AudioVisualsComponent } from './components/audio-visuals/audio-visuals.
 import { AcademicprojectsComponent } from './components/academicprojects/academicprojects.component';
 import { PeriodicalsModule } from './components/periodicals/periodicals.module';
 import { ArticlesModule } from './components/articles/articles.module';
-import { DetailsComponent } from './components/academicprojects/details/details.component';
+import { DetailsComponent as ProjectDetailsComponent} from './components/academicprojects/details/details.component';
+import { DetailsComponent as BookDetailsComponent } from './components/books/details/details.component';
+import { DetailsComponent as AudioVisualDetailsComponent } from './components/audio-visuals/details/details.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { DetailsComponent } from './components/academicprojects/details/details.
     ArticlesComponent,
     AudioVisualsComponent,
     AcademicprojectsComponent,
-    DetailsComponent,
+    ProjectDetailsComponent,
+    BookDetailsComponent,
+    AudioVisualDetailsComponent
   ],
   imports: [
     CommonModule,

@@ -4,17 +4,17 @@
         <div class="table-content">
 
             <div class="table-head">
-
+                
                 <!----------- DATE PICKER ----------->
-
+               
                 <div class="input-row">
                     <div class="txt_field">
                         <label for="datepicker"> From: </label>
-                            <input type="date" id="datepicker-start-journal" autocomplete="off" (change)="applyFilter($event, '')">
+                            <input type="date" autocomplete="off" (change)="applyFilter($event, 'start')">
                     </div>
                     <div class="txt_field">
                         <label for="datepicker"> To: </label>
-                            <input type="date" id="datepicker-end-journals" autocomplete="off" (change)="applyFilter($event, '')">
+                            <input type="date" autocomplete="off" (change)="applyFilter($event, 'end')">
                     </div>
 
                 <!----------- EXPORT ----------------> 
@@ -25,12 +25,12 @@
                         </div>
                     </div>
                 </div>
-
+              
                 <!----------- SEARCH BAR ----------->
-
+                
                 <div class="search-container">
                     <form>
-                    <input id="search-journals" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
+                    <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
                     <button ><i class="fa fa-search"></i></button>
                     </form>
                 </div>

@@ -4,11 +4,8 @@
             <div class="details-content">
                 <!-- HEADER -->
                 <div class="detailsheader">
-                    <!-- <h1> {{ article.periodical_type == 0 ? 'Journal' : 
-                        article.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} Article
-                    </h1> -->
-                    <h1> (Type) Article </h1>
-                    <button class="exit-button" (click)="closepopup()"> &times; </button>
+                    <h1> {{ type }} Article </h1>
+                    <button class="exit-button" (click)="closepopup('')"> &times; </button>
                 </div>
 
                 <!-- BODY -->
@@ -21,8 +18,8 @@
                                 <span class="mid-details">
                                     <!-- <span> <h2> Accession No. <p> {{ article.accession }} </p> </h2> </span>
                                     <span> <h2>{{ article.language }} {{ article.periodical_type == 0 ? 'Journal' : article.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} </h2> </span> -->
-                                    <span> <h2> Accession No. <p> 101 </p> </h2> </span>
-                                    <span> <h2> English Jouornal </h2> </span>
+                                    <span> <h2> Accession No. <p> {{ element.accession }} </p> </h2> </span>
+                                    <span> <h2> {{ element.language }} {{ type }} </h2> </span>
                                 </span>
                                 
                                 <!-- MATERIAL AUTHOR -->
@@ -32,25 +29,24 @@
                                     <span class="mat-authors">
                                         <h2> Author/s: </h2> 
                                         <p>
-                                            <!-- <ng-container *ngIf="!article.authors"> N/A </ng-container>
-                                            <ng-container *ngFor="let x of article.authors; let last = last;">
+                                            <ng-container *ngIf="!element.authors"> N/A </ng-container>
+                                            <ng-container *ngFor="let x of element.authors; let last = last;">
                                                 {{ x     }}{{ !last ? ',' : '' }} <br>
-                                            </ng-container> -->
-                                            Sample Author
+                                            </ng-container>
                                         </p>
                                     </span>
                                 </span>
 
                                 <!-- SUBJECT -->
                                 <span class="mat-subject">
-                                    <h2> Subject: <p> Sample </p> </h2>
+                                    <h2> Subject: <p> {{ element.subject }} </p> </h2>
                                 </span>
 
                                 <!-- ABSTRACT -->
                                 <span class="mat-abstract">
                                     <h2> Abstract </h2>
-                                    <!-- <p> {{ article.abstract != null ? article.abstract : 'N/A' }} </p> -->
-                                    <p> abstract </p>
+                                    <p> {{ element.abstract != null ? element.abstract : 'N/A' }} </p>
+                                    <!-- <p> abstract </p> -->
                                 </span>
 
                                 <!-- PUBLISHER -->
@@ -59,9 +55,9 @@
                                     <span>
                                         <h2> Publication Date: </h2> <p> {{ article.date_published | date: 'mediumDate' }} </p>
                                     </span> -->
-                                    <h2> Published by <p> Sample </p> </h2>
+                                    <h2> Published by <p> {{ element.publisher }} </p> </h2>
                                     <span>
-                                        <h2> Publication Date: </h2> <p> Sample </p>
+                                        <h2> Publication Date: </h2> <p> {{ element.date_published | date: 'mediumDate' }} </p>
                                     </span>
                                 </span>
 
@@ -73,7 +69,7 @@
 
                                 <!-- REMARK -->
                                 <span class="mat-remark">
-                                    <h2> Remark: <p> Sample </p> </h2>
+                                    <h2> Remark: <p> {{ element.remarks || 'N/A' }} </p> </h2>
                                 </span>
 
                             </div>
@@ -81,8 +77,8 @@
                     </div>
 
                     <div class="button-container">
-                        <button class="restore-btn" (click)="restoreBox()"> Restore </button>
-                        <button class="delete-btn" (click)="deleteBox()"> Delete </button>
+                        <button class="restore-btn" (click)="restoreBox(data)"> Restore </button>
+                        <button class="delete-btn" (click)="deleteBox(data)"> Delete </button>
                     </div>
                 </div>
             </div>

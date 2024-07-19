@@ -33,8 +33,7 @@ export class ReportsService {
     const worksheet = workbook.addWorksheet('Report Sheet');
 
     let removeHeaders: any = [];
-    if(fileName == 'books_export') removeHeaders = ['created_at'];
-    else if(fileName == 'periodical_journals_export') removeHeaders = ['created_at'];
+    if(fileName != 'projects_export') removeHeaders = ['created_at'];
 
     // Add headers
     const headers = Object.keys(data[0]).filter(key => !removeHeaders.includes(key));
@@ -65,6 +64,10 @@ export class ReportsService {
           formattedHeaders[i] = 'DATE RECEIVED';
           break;
 
+        case 'date_published':
+          formattedHeaders[i] = 'DATE PUBLISHED';
+          break;
+
         case 'authors':
           formattedHeaders[i] = 'AUTHOR/S';
           break;
@@ -76,6 +79,7 @@ export class ReportsService {
     }
 
     const headerRow = worksheet.addRow(formattedHeaders);
+    var leftCells: any = [];
     headerRow.height = 40;
     headerRow.eachCell((cell, colNumber) => {
       this.addHeaderStyle(cell);
@@ -89,10 +93,12 @@ export class ReportsService {
 
         case 'TITLE':
           column.width = 40;
+          leftCells.push(colNumber);
           break;
 
         case 'AUTHOR/S':
           column.width = 40;
+          leftCells.push(colNumber);
           break;
 
         case 'COPYRIGHT':
@@ -100,6 +106,18 @@ export class ReportsService {
           break;
 
         case 'LOCATION':
+          column.width = 20;
+          break;
+
+        case 'PUBLISHER':
+          column.width = 30;
+          break;
+
+        case 'DATE RECEIVED':
+          column.width = 20;
+          break;
+
+        case 'DATE PUBLISHED':
           column.width = 20;
           break;
       }
@@ -114,16 +132,25 @@ export class ReportsService {
           if(item[header]) {
             item[header].forEach((x: any, index: number) => {
               authors += x;
-              if (index < item[header].length - 1) authors += ', ';
+              if (index < item[header].length - 1) authors += ', \n';
               else authors += '';
             });
           }
           row.push(authors.substring(0, authors.length - 2));
+        } else if(header == 'acquired_date' || header == 'date_published') {
+          const date = new Date(item[header]);
+
+          // Custom formatting: "Jan 20, 2024"
+          const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+          const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+
+          row.push(formattedDate)
         } else row.push(item[header]);
       });
       let addedRow = worksheet.addRow(row);
-      addedRow.eachCell((cell) => {
-        this.addCellStyle(cell);
+      addedRow.eachCell((cell, colNumber) => {
+        if(leftCells.includes(colNumber)) this.addCellStyle(cell, 'left');
+        else this.addCellStyle(cell, 'center');
       });
     });
 
@@ -155,7 +182,7 @@ export class ReportsService {
     };
   }
 
-  private addCellStyle(cell: any) {
+  private addCellStyle(cell: any, type: string) {
     cell.border = {
       top: { style: 'thin' },
       left: { style: 'thin' },
@@ -165,11 +192,20 @@ export class ReportsService {
     cell.font = {
       size: 11
     };
-    cell.alignment = {
-      vertical: 'middle',
-      horizontal: 'left',
-      wrapText: true
-    };
+
+    if(type != 'left') {
+      cell.alignment = {
+        vertical: 'middle',
+        horizontal: 'center',
+        wrapText: true
+      };
+    } else {
+      cell.alignment = {
+        vertical: 'middle',
+        horizontal: 'left',
+        wrapText: true
+      };
+    }
   }
 
   private async setupPage(workbook: any, worksheet: any, headers: any, removeHeaders: any) {

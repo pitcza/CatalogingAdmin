@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DataService } from '../../../../../../../services/data/data.service';
 
 import { MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
@@ -9,21 +12,49 @@ import Swal from 'sweetalert2';
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnInit {
+  
   constructor (
     private router: Router,
     private ref: MatDialogRef<DetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ds: DataService
   ) { }
 
-  closepopup() {
-    this.ref.close('closed using function');
+  element: any;
+  errorImage = '../../../../../../assets/images/NoImage.png';
+  type: string = '';
+  
+  ngOnInit(): void {
+    this.ds.request('GET', 'archives/material/id/' + this.data, null).subscribe({
+      next: (res: any) => {
+        this.element = res;
+        switch(this.element.periodical_type) {
+          case 0: 
+            this.type = 'Journal';
+            break;
+
+          case 1:
+            this.type = 'Magazine';
+            break;
+
+          case 2:
+            this.type = 'Newspaper';
+            break;
+        }
+      }
+    })
+  }
+  
+  closepopup(text: string) {
+    this.ref.close(text);
   }
 
   // RESTORE PROCESS/POPUP
-  restoreBox(){
+  restoreBox(accession: any){
     Swal.fire({
-      title: 'Restore Periodical',
-      text: 'Are you sure you want to restore this periodical?',
+      title: 'Restore ' + this.type + '',
+      text: 'Are you sure you want to restore this ' + this.type.toLowerCase() + '?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -39,31 +70,52 @@ export class DetailsComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('closed using function');
-        Swal.fire({
-          title: "Restoring Complete!",
-          text: "Periodical has been restored successfully.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
+        this.ds.request('POST', 'materials/restore/' + accession, null).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: "Restoring Complete!",
+              text: "The " + this.type.toLowerCase() + " has been restored successfully.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+            this.closepopup('close');
           },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          timer: 5000
-        });
+          error: (err: any) => {
+            Swal.fire({
+              title: "Error!",
+              text: err.message,
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+          }          
+        })
       }
     });
   }
 
   // PERMANENTLY DELETE
-  deleteBox(){
+  deleteBox(accession: any){
     Swal.fire({
       title: 'Permanent Deletion',
-      text: 'Are you sure you want to permanently delete this periodical? This action cannot be undone.',
+      text: 'Are you sure you want to permanently delete this ' + this.type.toLowerCase() + '? This action cannot be undone.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -79,20 +131,40 @@ export class DetailsComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ref.close('closed using function');
-        Swal.fire({
-          title: "Periodical Permanently Deleted!",
-          text: "The periodical has been permanently deleted and cannot be recovered.",
-          icon: "success",
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          },
+        this.ds.request('DELETE', 'permanently-delete/materials/' + accession, null).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              title: this.type + " Permanently Deleted",
+              text: "The " + this.type.toLowerCase() + " has been permanently deleted and cannot be recovered.",
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+            });
+            this.closepopup('close');
+          }, error: (err: any) => {
+            Swal.fire({
+              title: "Error!",
+              text: err.message,
+              icon: "success",
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false,
+              willOpen: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              willClose: () => {
+                document.body.style.overflowY = 'scroll';
+              },
+              timer: 5000
+            });
+          }
         });
       }
     });

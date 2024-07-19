@@ -12,6 +12,7 @@ import { DataService } from '../../../../../../../services/data/data.service';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
 import { ReportsService } from '../../../../../../../services/reports/reports.service';
+import { PeriodicalComponent } from '../../../../../listofmaterials/components/periodical/periodical.component';
 
 @Component({
   selector: 'app-journals',
@@ -31,14 +32,10 @@ import { ReportsService } from '../../../../../../../services/reports/reports.se
 export class JournalsComponent implements OnInit {
   displayedColumns: string[] = ['accession', 'title', 'authors', 'copyright', 'received' ];
   dataSource : any;
+  searchInput: string = ''; datepickerStart: string = ''; datepickerEnd: string = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
-  accession: any;
-  title: any;
-  authors: any;
-  copyright: string | undefined;
-  received: string | undefined;
 
   ngOnInit(): void {
     this.getData();
@@ -66,36 +63,35 @@ export class JournalsComponent implements OnInit {
     })
   }
   
-  // FILTER DATA
+  // Filtering 
   applyFilter(event: Event, type: string) {
+    if(type == 'start') this.datepickerStart = (event.target as HTMLInputElement).value;
+    else if(type == 'end') this.datepickerEnd = (event.target as HTMLInputElement).value;
+    else if(type == 'search') this.searchInput = (event.target as HTMLInputElement).value;
 
-    const search = (document.getElementById('search-magazine') as HTMLInputElement).value;
+    const search = this.searchInput; const start = this.datepickerStart; const end = this.datepickerEnd;
 
     const accessionFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-      return data.accession == search;
+      return data.accession.toLowerCase().includes(search.toLowerCase());
     }
-
+    
     const titleFilterPredicate = (data: PeriodicElement, search: string): boolean => {
       return data.title.toLowerCase().includes(search.toLowerCase());
     }
 
+    const publishedFilterPredicate = (data: PeriodicElement, search: string): boolean => {
+      return data.title.toLowerCase().includes(search.toLowerCase());
+    }
+
     const authorFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-      return data.authors.some((x: any) => {
-        return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-      });
-    }
-
-    const copyrightFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-      return data.copyright == search;
-    }
-
-    const receive_dateFilterPredicate = (data: PeriodicElement, search: string): boolean => {
-      return data.acquired_date.toLowerCase().includes(search.toLowerCase());
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
     }
 
     // FOR DATE RANGE DATE PICKER
-    const start = (document.getElementById('datepicker-start-magazine') as HTMLInputElement).value;
-    const end = (document.getElementById('datepicker-end-magazine') as HTMLInputElement).value;
 
       const startFilterPredicate = (data: PeriodicElement, start: string): boolean => {
         if(start == '')
@@ -113,8 +109,7 @@ export class JournalsComponent implements OnInit {
       return (titleFilterPredicate(data, search) ||
               authorFilterPredicate(data, search) ||
               accessionFilterPredicate(data, search) ||
-              receive_dateFilterPredicate(data, search) ||
-              copyrightFilterPredicate(data, search)) &&
+              publishedFilterPredicate(data, search)) &&
               (startFilterPredicate(data, start) && endFilterPredicate(data, end))
     };
     
@@ -129,7 +124,7 @@ export class JournalsComponent implements OnInit {
   export(): void {
     // Get the filtered data
     const filteredData = this.dataSource.filteredData;
-    this.reportService.exportToExcel(filteredData, 'periodical_journals_export');
+    this.reportService.exportToExcel(filteredData, 'Cataloging Journals Report');
   }
 
 }
