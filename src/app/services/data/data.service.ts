@@ -13,6 +13,8 @@ export class DataService {
     private headers: HeaderService
   ) { }
 
+  projects: any;
+
   public request(method: string, url: string, form: any) {
     switch(method) {
       case 'GET':
@@ -31,6 +33,14 @@ export class DataService {
         default:
           throw new Error(`Unsupported request method: ${method}`);
     }
+  }
+  
+  public setProjects(data: any) {
+    this.projects = data;
+  }
+
+  public getProjects() {
+    return this.projects;
   }
 }
 

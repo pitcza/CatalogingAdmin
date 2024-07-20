@@ -26,6 +26,7 @@ export class EditBookComponent implements OnInit{
   editForm: FormGroup;
   values = [''];
   submit = false;
+  errorImage = '../../../../../../assets/images/NoImage.png';
 
   constructor(
     private ref: MatDialogRef<EditBookComponent>, 
@@ -81,7 +82,10 @@ export class EditBookComponent implements OnInit{
 
       if(this.book.authors) this.values = this.book.authors;
       else this.values = [''];
-    })
+
+      // console.log(URL.createObjectURL(this.book.image_url))
+      this.cropImagePreview = this.book.image_url;
+    });
 
     this.ds.request('GET', 'books/locations', null).subscribe((res: any) => {
       this.locations = res;
@@ -233,14 +237,13 @@ export class EditBookComponent implements OnInit{
             this.closepopup('Archive')
           },
           error: (err: any) => {
-            console.log(err)
             Swal.fire({
-              title: "Archive Error!",
-              text: "Please try again later.",
+              title: "Error",
+              text: err.error.message,
               icon: "error",
               confirmButtonText: 'Close',
               confirmButtonColor: "#777777",
-              scrollbarPadding: false,
+              scrollbarPadding: false
             });
           }
         })

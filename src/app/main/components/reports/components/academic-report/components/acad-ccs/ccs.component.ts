@@ -1,36 +1,23 @@
-import { AfterViewInit, Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { Component, ViewChild } from '@angular/core';
+import { DataService } from '../../../../../../../services/data/data.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { ChangeDetectorRef } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
-import { DataService } from '../../../../../../../../services/data/data.service';
-import { filter } from 'rxjs';
-import { CommonModule } from '@angular/common';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { TableModule } from '../../../../../../../modules/table.module';
 
 @Component({
   selector: 'app-ccs',
   templateUrl: './ccs.component.html',
-  styleUrls: ['./ccs.component.scss'],
-  standalone: true,
+  styleUrl: './ccs.component.scss',
+  standalone: true, 
   imports: [
-    CommonModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatCardModule
-
-  ],
+    TableModule
+  ], 
 })
-export class CcsComponent implements OnInit {
-navigateToAbout() {
-throw new Error('Method not implemented.');
-}
+export class CcsComponent {
+
   displayedColumns: string[] = ['category', 'title', 'date_published', 'created_at'];
   dataSource : any;
 
@@ -38,19 +25,23 @@ throw new Error('Method not implemented.');
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  ngOnInit(): void {
-    this.getData();
-  }
-
   constructor(
-    private router: Router,
     private paginatorIntl: MatPaginatorIntl,
-    private elementRef: ElementRef, 
     private changeDetectorRef: ChangeDetectorRef, 
-    private dialog: MatDialog,
     private ds: DataService
   ) {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
+  }
+
+  materialCounts = {
+    total: 0,
+    research: 0,
+    capstone: 0,
+    thesis: 0
+  }
+
+  ngOnInit(): void {
+      this.getData();
   }
 
   protected getData() {
@@ -60,26 +51,16 @@ throw new Error('Method not implemented.');
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
 
-        let ccstotal = 0;
-        let ccsresearch = 0;
-        let ccscapstone = 0;
-        let ccsthesis = 0;
-
-          for(let project of res) {
-            ccstotal++;
-            if(project.category == 'Research') {
-              ccsresearch++;
-            } else if(project.category == 'Capstone') {
-              ccscapstone++;
-            } else if(project.category == 'Thesis') {
-              ccsthesis++;
-            }
+        for(let project of res) {
+          this.materialCounts.total++;
+          if(project.category == 'Research') {
+            this.materialCounts.research++;
+          } else if(project.category == 'Capstone') {
+            this.materialCounts.capstone++;
+          } else if(project.category == 'Thesis') {
+            this.materialCounts.thesis++;
           }
-
-          (document.getElementById('ccs-total') as HTMLHeadingElement).textContent = '' + ccstotal;
-          (document.getElementById('ccs-research') as HTMLHeadingElement).textContent = '' + ccsresearch;
-          (document.getElementById('ccs-capstone') as HTMLHeadingElement).textContent = '' + ccscapstone;
-          (document.getElementById('ccs-thesis') as HTMLHeadingElement).textContent = '' + ccsthesis;
+        }
       }
     })
   }

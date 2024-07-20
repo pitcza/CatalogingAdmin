@@ -23,11 +23,10 @@ import { CommonModule } from '@angular/common';
     MatTableModule,
     MatFormFieldModule,
     MatCardModule
-
   ], 
 })
 export class GcComponent implements OnInit {
-  displayedColumns: string[] = ['department', 'category', 'title', 'date_published', 'created_at'];
+  displayedColumns: string[] = [ 'department', 'category', 'title', 'date_published', 'created_at'];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -35,10 +34,10 @@ export class GcComponent implements OnInit {
   @ViewChild(MatSort) sort !: MatSort;
 
   ngOnInit(): void {
-    this.getData();
-    // this.dataSource = new MatTableDataSource<PeriodicElement>(this.getData());
-    // this.dataSource.paginator = this.paginator;
+    // this.dataSource = new MatTableDataSource<GcComponent>(this.ds.getProjects());
     // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    this.getData()
   }
 
   constructor(
@@ -55,12 +54,14 @@ export class GcComponent implements OnInit {
   protected getData() {
     this.ds.request('GET', 'projects', null).subscribe({
       next: (res: any) => {    
+    
         this.dataSource = new MatTableDataSource<GcComponent>(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
     })
   }
+
   // Filtering 
   applyFilter(event: Event, type: string) {
 

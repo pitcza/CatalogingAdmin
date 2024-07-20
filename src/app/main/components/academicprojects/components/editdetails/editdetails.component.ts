@@ -23,6 +23,8 @@ import { DataService } from '../../../../../services/data/data.service';
 })
 
 export class EditdetailsComponent implements OnInit{
+
+  errorImage = '../../../../../../assets/images/NoImage.png';
   programs: any;
   departments: any;
   departmentFilter = '';
@@ -79,7 +81,7 @@ export class EditdetailsComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.ds.request('GET', 'projects/id/' + this.data.details, null).subscribe((res: any) => {
+    this.ds.request('GET', 'project/id/' + this.data.details, null).subscribe((res: any) => {
       this.project = res;
       console.log(this.project)
       if(this.project.authors != null) {
@@ -110,6 +112,8 @@ export class EditdetailsComponent implements OnInit{
       this.programFilter = this.project.program;
       this.programCategory = this.project.category;
       this.departmentFilter = this.project.project_program.department_short;
+
+      this.cropImagePreview = this.project.image_url;
     });
 
     this.ds.request('GET', 'programs', null).subscribe({
@@ -594,7 +598,7 @@ export class EditdetailsComponent implements OnInit{
         }
       }).then((result) => {
         if(result.isConfirmed) {
-          this.ds.request('PUT', this.data.details, form).subscribe({
+          this.ds.request('PUT', 'projects/process/' + this.data.details, form).subscribe({
             next: (res: any) => { this.successMessage('Project'); this.closepopup('Update') },
             error:(err: any) => this.serverErrors()
           });

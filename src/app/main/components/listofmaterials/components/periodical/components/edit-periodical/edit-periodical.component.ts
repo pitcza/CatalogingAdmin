@@ -24,6 +24,7 @@ export class EditPeriodicalComponent implements OnInit{
   editForm: FormGroup;
   imageUrl: any;
   submit = false;
+  errorImage = '../../../../../../assets/images/NoImage.png';
 
   constructor(private ref: MatDialogRef<EditPeriodicalComponent>, 
     private formBuilder: FormBuilder,
@@ -56,7 +57,6 @@ export class EditPeriodicalComponent implements OnInit{
    }
 
   ngOnInit(): void {
-    console.log(this.data.details)
     this.ds.request('GET', 'material/id/' + this.data.details, null).subscribe((res: any) => {
       this.periodical = res;
       this.values = this.periodical.authors;
@@ -76,6 +76,8 @@ export class EditPeriodicalComponent implements OnInit{
         date_published: this.periodical.date_published,
         copyright: this.periodical.copyright
       });
+
+      this.cropImagePreview = this.periodical.image_url;
     })
   }
    
@@ -373,7 +375,7 @@ export class EditPeriodicalComponent implements OnInit{
         }
       }).then((result) => {
         if(result.isConfirmed) {
-          this.ds.request('PUT', 'materials/process/' + this.data.details, form).subscribe({
+          this.ds.request('PUT', 'materials/periodicals/process/' + this.data.details, form).subscribe({
             next: (res: any) => {
               this.successMessage(form.get('title'));
               this.closepopup('Update');

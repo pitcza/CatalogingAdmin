@@ -1,10 +1,12 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <main>
     <div class="content"> 
         <div class="header"> 
-            <h1> CBA Academic </h1>
+            <h1> CCS Academic </h1>
             <a routerLink="../../academic-report" class="academic-report">
                 <h2> Back </h2>
             </a>
@@ -14,35 +16,46 @@
             <div class="input-row">
                 <div class="card">
                     <div class="icon-case1">
-                        <img src="assets/images/CBA.png">
+                        <img src="assets/images/CCS.png">
                     </div>
                     <div class="box1">
-                        <h1 id="cba-total"></h1>
-                        <h3>Total No. CBA projects</h3>
+                        <h1 id="ccs-total"> {{ materialCounts.total }} </h1>
+                        <h3>Total No. CCS projects</h3>
                     </div>
                 </div>
         
                 <div class="card">
                     <div class="icon-case2">
-                        <img src="assets/icons/total_titles.png">
+                        <img src="assets/icons/total_volumes.png">
                     </div>
                     <div class="box">
-                        <h1 id="cba-feasibility"></h1>
-                        <h3>Total No. of Feasibility</h3>
+                        <h1 id="ccs-research"> {{ materialCounts.research }} </h1>
+                        <h3>Total No. of Research</h3>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="icon-case3">
+                        <img src="assets/icons/CCS-Capstone.png">
+                    </div>
+                    <div class="box">
+                        <h1 id="ccs-capstone"> {{ materialCounts.capstone }} </h1>
+                        <h3>Total No. of Capstone</h3>
                     </div>
                 </div>
                 
                 <div class="card">
-                    <div class="icon-case3">
-                        <img src="assets/icons/total_volumes.png" alt="">
+                    <div class="icon-case4">
+                        <img src="assets/icons/CCS-Thesis.png" alt="">
                     </div>
                     <div class="box">
-                        <h1 id="cba-research"></h1>
-                        <h3>Total No. of Research</h3>
+                        <h1 id="ccs-thesis"> {{ materialCounts.thesis }} </h1>
+                        <h3>Total No. of Thesis</h3>
                     </div>
                 </div>
+                
             </div>
-        </div> 
+        </div>  
 
         <div class="buttons"> 
             <div class="dropdown1"> 
@@ -71,6 +84,8 @@
 <!---------------------------------------- TABLE ---------------------------------------------->
 
     <div class="table">
+        <!-- <router-outlet></router-outlet> -->
+
         <div class="content">
             <div class="table">
                 <div class="table-content">
@@ -81,18 +96,18 @@
                     <div class="input-row">
                         <div class="txt_field">
                             <label for="datepicker"> From: </label>
-                                <input type="date" id="datepicker-start-cba" autocomplete="off" (change)="applyFilter($event, 'search')">
+                                <input type="date" id="datepicker-start-ccs" autocomplete="off" (change)="applyFilter($event, 'search')">
                         </div>
                         <div class="txt_field">
                             <label for="datepicker"> To: </label>
-                                <input type="date" id="datepicker-end-cba" autocomplete="off" (change)="applyFilter($event, 'search')">
+                                <input type="date" id="datepicker-end-ccs" autocomplete="off" (change)="applyFilter($event, 'search')">
                         </div>
                     </div>
         
                     <!-- SEARCH BAR -->
                     <div class="search-container">
                         <form>
-                        <input id="search-cba" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
+                        <input id="search-ccs" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
                         <button ><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -103,11 +118,11 @@
                     <table mat-table [dataSource]="dataSource">
                                 
                                 
-                      <!-- Category Type Column -->
-                      <ng-container matColumnDef="category">
-                            <th mat-header-cell *matHeaderCellDef> Category </th>
-                            <td mat-cell *matCellDef="let element"> {{element.category}} </td>
-                        </ng-container>
+                   <!-- Category Column -->
+                   <ng-container matColumnDef="category">
+                        <th mat-header-cell *matHeaderCellDef> Category </th>
+                        <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                    </ng-container>
         
                      <!-- Project Title Column -->
                         <ng-container matColumnDef="title">
@@ -130,6 +145,10 @@
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
+        
+                    <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons
+                                    aria-label="Select page of periodic elements">
+                        </mat-paginator>
                     </div>   
                 </div>
             </div>

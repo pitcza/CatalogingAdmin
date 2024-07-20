@@ -80,17 +80,12 @@ export class BookDetailsPopupComponent {
           error: (err: any) => {
             Swal.fire({
               title: "Error",
-              text: "Oops an error occured.",
+              text: err.error.message,
               icon: "error",
-              scrollbarPadding: false,
-              willOpen: () => {
-                document.body.style.overflowY = 'scroll';
-              },
-              willClose: () => {
-                document.body.style.overflowY = 'scroll';
-              },
+              confirmButtonText: 'Close',
+              confirmButtonColor: "#777777",
+              scrollbarPadding: false
             });
-            console.log(err);
           }
         });
       };

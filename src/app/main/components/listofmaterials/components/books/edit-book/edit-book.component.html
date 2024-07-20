@@ -143,7 +143,7 @@
                                     <div class="img-content">
                                         <div class="left">
                                             <div class="txt_field">
-                                                <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" (change)="onFileChange($event)" style="padding-left: 110px;">
+                                                <input class="inputtxt" id="fileInput" type="file" accept=".jpeg, .png, .jpg" (change)="onFileChange($event)" style="padding-left: 110px;">
                                                 <span></span>
                                                 <div class="uploadlabel"> Upload Image </div>
                                             </div>
@@ -164,12 +164,17 @@
                                             </div>
                                         </div>
                                         <div class="right">
-                                            <div class="preview" *ngIf="cropImagePreview">
+                                            <div class="preview" *ngIf="image">
                                                 <h2> Cropped Image Preview </h2>
                                             </div>
+                                            <div class="preview" *ngIf="!image">
+                                                <h2> Current Saved Image Preview </h2>
+                                            </div>
                                             <div class="cropped-image-preview" *ngIf="cropImagePreview">
-                                                <img [src]="cropImagePreview" alt="Cropped Image Preview">
-                                                <!-- <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event)" hidden> -->
+                                                <img [src]="cropImagePreview || book.image_url" alt="Cropped Image Preview">
+                                            </div>
+                                            <div class="cropped-image-preview" *ngIf="!cropImagePreview">
+                                                <img [src]="errorImage" alt="Cropped Image Preview">
                                             </div>
                                         </div>
                                     </div>
