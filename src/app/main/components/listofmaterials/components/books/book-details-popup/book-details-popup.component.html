@@ -17,87 +17,77 @@
                                 <img class="cover" alt="book image" [src]="book.image_url || errorImage">
                             </div>
 
-                            <div class="mat-details">
-                                <!-- TITLE AND PUBLISHER -->
-                                <span class="top-details">
-                                    <h2 class="title">{{ book.title }}</h2>
-                                    <h2 class="mat-publisher"> 
-                                        <h2> Published by </h2> 
-                                        <p> {{ book.publisher }} </p>
-                                    </h2>
-                                </span>
-
-                                <!-- AUTHORS -->
-                                <span class="mat-authors">
-                                    <h2> Author/s: </h2> 
-                                    <p>
-                                        <ng-container *ngIf="!book.authors"> N/A </ng-container>
+                            <table class="details-table">
+                                <tr>
+                                    <td class="data"><strong>Accession No.</strong></td>
+                                    <td>{{book.accession}}</td>
+                                  </tr>
+                                <tr>
+                                  <td class="data"><strong>Title</strong></td>
+                                  <td>{{book.title}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Publisher</strong></td>
+                                    <td>{{book.publisher}}</td>
+                                </tr>
+                                <tr>
+                                  <td class="data"><strong>Author(s)</strong></td>
+                                  <td>
+                                    <ng-container *ngIf="!book.authors"> N/A </ng-container>
                                         <ng-container *ngFor="let x of book.authors; let last = last;">
-                                            {{ x     }}{{ !last ? ',' : '' }} <br>
-                                        </ng-container>
-                                    </p>
-                                </span>
-
-                                <!-- VOLUME, EDITION, AND PAGES -->
-                                <span class="bottom-details">
-                                    <span> 
-                                        <h2>Volume {{ book.volume != null ? book.volume : 'N/A' }}</h2>
-                                        <h2>{{ book.edition != null ? book.edition : 'N/A' }} Edition</h2> 
-                                    </span>
-                                    <span> <h2>{{ book.pages }} Pages</h2> </span>
-                                </span>
-                            </div>
+                                        {{ x     }}{{ !last ? ',' : '' }} <br>
+                                    </ng-container>
+                                  </td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Volume</strong></td>
+                                    <td>{{ book.volume != null ? book.volume : 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Edition</strong></td>
+                                    <td>{{ book.edition != null ? book.edition : 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Copyright</strong></td>
+                                    <td>{{ book.copyright }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Call Number</strong></td>
+                                    <td>{{ book.call_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Author Number</strong></td>
+                                    <td>{{ book.author_number }}</td>
+                                </tr>
+                            </table>
                         </div>
 
+                        <p class="message"> Additional Info </p>
                         <div class="details">
-                            <!-- LEFT PART - REMARK, SOURCE, DATE RECEIVED, AND PRICE -->
-                            <div class="mat-content">
-                                <div class="mat-remark">
-                                    <span>
-                                        <h2> Remark </h2>
-                                        <p> {{ book.remarks != null ? book.remarks : 'N/A' }} </p>
-                                    </span>
-                                </div>
-                                <div class="mat-source">
-                                    <span>
-                                        <h2> Source of Fund: <p> {{ book.source_of_fund || 'N/A' }} </p> </h2>
-                                        <h2> Date {{ book.source === 'Purchased' ? 'Purchased' : (book.source === 'Donated') ? 'Donated' : 'Acquired' }}: 
-                                            <p> 
-                                                <ng-container *ngIf="book.acquired_date != null"> {{ book.acquired_date | date: 'mediumDate' }} </ng-container>
-                                                <ng-container *ngIf="book.acquired_date === null"> N/A </ng-container>
-                                            </p>
-                                        </h2>
-                                        <h2> Price: <p> {{ book.price ? '₱ ' + book.price : 'N/A' }} </p> </h2>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- MIDDLE PART - COPYRIGHT, CALL NUMBER, AND AUTHOR NUMBER -->
-                            <div class="mat-info">
-                                <span class="info">
-                                    <h2> Copyright </h2> 
-                                    <p>{{ book.copyright }}</p>
-                                </span>
-                                <span class="info">
-                                    <h2> Call Number </h2> 
-                                    <p>{{ book.call_number }}</p>
-                                </span>
-                                <span class="info">
-                                    <h2> Author Number </h2> 
-                                    <p>{{ book.author_number }}</p>
-                                </span>
-                            </div>
-
-                            <!-- RIGHT PART - ACCESSION NO. AND LOCATION -->
-                            <div class="mat-info">
-                                <span class="info">
-                                    <h2> Accession No. </h2> 
-                                    <p>{{ book.accession }}</p>
-                                </span>
-                                <span class="info">
-                                    <h2> Location </h2> 
-                                    <p>{{ book.location }}</p>
-                                </span>
+                            <div class="additional-info">
+                                <table class="details-table">
+                                    <tr>
+                                        <td class="data"><strong>Source of Fund</strong></td>
+                                        <td class="data2">{{ book.source_of_fund || 'N/A' }}</td>
+                                        <td class="data"><strong>Location</strong></td>
+                                        <td class="data2">{{book.location}}</td>
+                                      </tr>
+                                    <tr>
+                                      <td class="data"><strong>Date {{ book.source === 'Purchased' ? 'Purchased' : (book.source === 'Donated') ? 'Donated' : 'Acquired' }}</strong></td>
+                                      <td class="data2">
+                                        <ng-container *ngIf="book.acquired_date != null"> {{ book.acquired_date | date: 'mediumDate' }} </ng-container>
+                                        <ng-container *ngIf="book.acquired_date === null"> N/A </ng-container>
+                                      </td>
+                                      <td class="data"><strong>Pages</strong></td>
+                                      <td class="data2">{{ book.pages || 'N/A' }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="data"><strong>Price</strong></td>
+                                      <td class="data2">{{ book.price ? '₱ ' + book.price : 'N/A' }}</td>
+                                      <td class="data"><strong>Remark</strong></td>
+                                      <td class="data2">{{ book.remarks != null ? book.remarks : 'N/A' }}</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
 

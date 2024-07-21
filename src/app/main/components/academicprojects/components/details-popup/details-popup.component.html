@@ -16,24 +16,45 @@
                                 <img class="cover" alt="project image" [src]="project.image_url || errorImage">
                             </div>
 
-                            <div class="mat-details">
-                                <!-- TITLE, COLLEGE, PROGRAM, AND CATEGORY -->
-                                <span class="top-details">
-                                    <h2 class="title">{{ project.title }}</h2>
-                                    <h2 class="category">{{ project.project_program.department_short }} • {{ project.program }} • {{ project.category | titlecase }}</h2>
-                                </span>
-
-                                <!-- AUTHOR/S -->
-                                <span class="mat-authors">
-                                    <h2> Author/s: </h2> 
-                                    <p>
-                                        <ng-container *ngIf="!project.authors"> N/A </ng-container>
+                            <table class="details-table">
+                                <tr>
+                                    <td class="data"><strong>Accession No.</strong></td>
+                                    <td>{{project.accession}}</td>
+                                  </tr>
+                                <tr>
+                                  <td class="data"><strong>Title</strong></td>
+                                  <td>{{project.title}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>College</strong></td>
+                                    <td>{{project.project_program.department_short}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Program</strong></td>
+                                    <td>{{project.program}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Category</strong></td>
+                                    <td>{{project.category}}</td>
+                                </tr>
+                                <tr>
+                                  <td class="data"><strong>Author(s)</strong></td>
+                                  <td>
+                                    <ng-container *ngIf="!project.authors"> N/A </ng-container>
                                         <ng-container *ngFor="let x of project.authors; let last = last;">
                                         {{ x     }}{{ !last ? ',' : '' }} <br>
-                                        </ng-container>
-                                    </p>
-                                </span>
-                            </div>
+                                    </ng-container>
+                                  </td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Date Published</strong></td>
+                                    <td>{{ project.date_published | date:'longDate' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Language</strong></td>
+                                    <td>{{project.language}}</td>
+                                </tr>
+                            </table>
 
                         </div>
 
@@ -42,7 +63,7 @@
                                 <div class="mat-abstract">
                                     <span>
                                         <h2> Abstract </h2>
-                                        <p> {{ project.abstract != null ? project.abstract : 'N/A' }} </p>
+                                        <p [innerHTML]="formatAbstract(project.abstract)"></p>
                                     </span>
                                 </div>
                                 <div class="mat-keywords">
@@ -55,21 +76,6 @@
                                         </p>
                                     </span>
                                 </div>
-                            </div>
-
-                            <div class="mat-info">
-                                <span class="info">
-                                    <h2> Accession No. </h2> 
-                                    <p>{{ project.accession }}</p>
-                                </span>
-                                <span class="info">
-                                    <h2> Language </h2> 
-                                    <p>{{ project.language }}</p>
-                                </span>
-                                <span class="info">
-                                    <h2> Date Published </h2> 
-                                    <p>{{ project.date_published | date:'longDate' }}</p>
-                                </span>
                             </div>
                         </div>
                     </div>

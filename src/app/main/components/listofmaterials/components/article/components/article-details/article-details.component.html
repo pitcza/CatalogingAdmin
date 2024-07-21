@@ -4,8 +4,8 @@
             <div class="details-content">
                 <!-- HEADER -->
                 <div class="detailsheader">
-                    <h1> {{ article.periodical_type == 0 ? 'Journal' : 
-                        article.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} Article
+                    <h1> {{ article.article_type == 0 ? 'Journal' : 
+                        article.article_type == 1 ? 'Magazine' : 'Newspaper' }} Article
                     </h1>
                     <button class="exit-button" (click)="closepopup()"> &times; </button>
                 </div>
@@ -14,60 +14,74 @@
                 <div class="detailsbody">
                     <div class="body">
                         <div class="details">
-                            <div class="mat-details">
+                            <table class="details-table">
+                                <tr>
+                                    <td class="data"><strong>Accession No.</strong></td>
+                                    <td class="data2">{{article.accession}}</td>
+                                </tr>
+                                <tr>
+                                  <td class="data"><strong>Title</strong></td>
+                                  <td class="data2">{{article.title}}</td>
+                                </tr>
+                                <tr>
+                                  <td class="data"><strong>Author(s)</strong></td>
+                                  <td class="data2">
+                                    <ng-container *ngIf="!article.authors"> N/A </ng-container>
+                                        <ng-container *ngFor="let x of article.authors; let last = last;">
+                                        {{ x     }}{{ !last ? ',' : '' }} <br>
+                                    </ng-container>
+                                  </td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Publisher</strong></td>
+                                    <td class="data2">{{article.publisher}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Publication Date</strong></td>
+                                    <td class="data2">{{ article.date_published | date: 'longDate' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Subject</strong></td>
+                                    <td class="data2">{{article.subject}}</td>
+                                </tr>
+                            </table>
+                        </div>
 
-                                <!-- ACCESSION NO. AND LANGUAGE -->
-                                <span class="mid-details">
-                                    <span> <h2> Accession No. <p> {{ article.accession }} </p> </h2> </span>
-                                    <span> <h2>{{ article.language }} {{ article.periodical_type == 0 ? 'Journal' : article.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} </h2> </span>
-                                </span>
-                                
-                                <!-- MATERIAL AUTHOR -->
-                                <span class="top-details">
-                                    <h2 class="title">{{ article.title }}</h2>
-                                    <!-- AUTHORS -->
-                                    <span class="mat-authors">
-                                        <h2> Author/s: </h2> 
-                                        <p>
-                                            <ng-container *ngIf="!article.authors"> N/A </ng-container>
-                                            <ng-container *ngFor="let x of article.authors; let last = last;">
-                                                {{ x     }}{{ !last ? ',' : '' }} <br>
-                                            </ng-container>
-                                        </p>
-                                    </span>
-                                </span>
-
-                                <!-- SUBJECT -->
-                                <span class="mat-subject">
-                                    <h2> Subject: <p> {{ article.subject }} </p> </h2>
-                                </span>
-
-                                <!-- ABSTRACT -->
-                                <span class="mat-abstract">
-                                    <h2> Abstract </h2>
-                                    <p> {{ article.abstract != null ? article.abstract : 'N/A' }} </p>
-                                </span>
-
-                                <!-- PUBLISHER -->
-                                <span class="mat-publisher">
-                                    <h2> Published by <p> {{ article.publisher }} </p> </h2>
+                        <div class="details">
+                            <div class="mat-content">
+                                <div class="mat-abstract">
                                     <span>
-                                        <h2> Publication Date: </h2> <p> {{ article.date_published | date: 'mediumDate' }} </p>
+                                        <h2> Abstract </h2>
+                                        <p [innerHTML]="formatAbstract(article.abstract)"></p>
                                     </span>
-                                </span>
-
-                                <!-- VOLUME, ISSUE, AND PAGE -->
-                                <span class="mid-details">
-                                    <span> <h2>Volume {{ article.volume != null ? article.volume : 'N/A' }}, Issue {{ article.issue != null ? article.issue : 'N/A' }}</h2> </span>
-                                    <span> <h2> Page {{ article.pages }}</h2> </span>
-                                </span>
-
-                                <!-- REMARK -->
-                                <span class="mat-remark">
-                                    <h2> Remark: <p> {{ article.remarks }} </p> </h2>
-                                </span>
-
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="details">
+                            <table class="details-table">
+                                <tr>
+                                    <td class="data"><strong>Volume</strong></td>
+                                    <td class="data2">{{ article.volume != null ? article.volume : 'N/A' }}</td>
+                                    <td class="data"><strong>Article Type</strong></td>
+                                    <td class="data2">
+                                        {{ article.article_type == 0 ? 'Journal' : article.article_type == 1 ? 'Magazine' : 'Newspaper' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Issue</strong></td>
+                                    <td class="data2">{{ article.issue != null ? article.issue : 'N/A' }}</td>
+                                    <td class="data"><strong>Language</strong></td>
+                                    <td class="data2"> {{ article.language }} </td>
+                                </tr>
+                                <tr>
+                                <tr>
+                                    <td class="data"><strong>Pages</strong></td>
+                                    <td class="data2">{{article.pages}}</td>
+                                    <td class="data"><strong>Remark</strong></td>
+                                    <td class="data2">{{ article.remarks != null ? article.remarks : 'N/A' }}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
 
