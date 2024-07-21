@@ -24,7 +24,7 @@
                         <img src="assets/icons/total_volumes.png">
                     </div>
                     <div class="box">
-                        <h1 id="cahs-research"> {{ materialCounts.total }} </h1>
+                        <h1 id="cahs-research"> {{ materialCounts.research }} </h1>
                         <h3>Total No. of Research</h3>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <span class="export"> Export </span>
                 </button>
 
-                <div class="dropdown-content1">
+                <div class="dropdown-content1" (click)="export()">
                     <a class="pdf">
                         <span class="material-icon"> <img src="assets/icons/excel.png"></span>
                         <h1 class="material"> Excel </h1>

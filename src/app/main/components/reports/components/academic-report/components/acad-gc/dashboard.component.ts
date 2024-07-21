@@ -11,6 +11,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableModule } from '../../../../../../../modules/table.module';
+import { ReportsService } from '../../../../../../../services/reports/reports.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +26,7 @@ export class DashboardComponent {
 
   displayedColumns: string[] = [ 'department', 'category', 'author', 'title', 'date_published'];
   dataSource : any;
+  datepickerStart = ''; datepickerEnd = ''; searchInput = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -33,6 +35,7 @@ export class DashboardComponent {
     private ds: DataService,
     private paginatorIntl: MatPaginatorIntl,
     private changeDetectorRef: ChangeDetectorRef, 
+    private reportService: ReportsService
   ) { 
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
@@ -68,36 +71,37 @@ export class DashboardComponent {
 
   // Filtering 
   applyFilter(event: Event, type: string) {
+    if(type == 'start') this.datepickerStart = (event.target as HTMLInputElement).value;
+    else if(type == 'end') this.datepickerEnd = (event.target as HTMLInputElement).value;
+    else if(type == 'search') this.searchInput = (event.target as HTMLInputElement).value;
 
-    const search = (document.getElementById('search-gc') as HTMLInputElement).value;
+    const search = this.searchInput; const start = this.datepickerStart; const end = this.datepickerEnd;
+    
+    const departmentFilterPredicate = (data: GcComponent, search: string): boolean => {
+      return data.project_program.department_short.toLowerCase() == search.toLowerCase();
+    }
+
+    const categoryFilterPredicate = (data: GcComponent, search: string): boolean => {
+      return data.category.toLowerCase().includes(search.toLowerCase());
+    }
+
+    const authorFilterPredicate = (data: GcComponent, search: string): boolean => {
+      if(data.authors) {
+        return data.authors.some((x: any) => {
+          return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+        });
+      } else return false;      
+    }
 
     const titleFilterPredicate = (data: GcComponent, search: string): boolean => {
       return data.title.toLowerCase().includes(search.toLowerCase());
     }
 
-      const departmentFilterPredicate = (data: GcComponent, search: string): boolean => {
-        return data.program.department.department.toLowerCase().includes(search.toLowerCase());
-      }
+    const publishedFilterPredicate = (data: GcComponent, search: string): boolean => {
+      return data.date_published.toLowerCase().includes(search.toLowerCase());
+    }
 
-      const categoryFilterPredicate = (data: GcComponent, search: string): boolean => {
-        return data.category.toLowerCase().trim().toLowerCase().includes(search.toLowerCase());
-      }
-
-      const authorFilterPredicate = (data: GcComponent, search: string): boolean => {
-        if(data.authors) {
-          return data.authors.some((x: any) => {
-            return x.toLowerCase().trim().includes(search.toLowerCase().trim());
-          });
-        } else return false;      
-      }
-
-      const publishedFilterPredicate = (data: GcComponent, search: string): boolean => {
-        return data.date_published.toLowerCase().includes(search.toLowerCase());
-      }
-
-      // FOR DATE RANGE DATE PICKER
-    const start = (document.getElementById('datepicker-start-gc') as HTMLInputElement).value;
-    const end = (document.getElementById('datepicker-end-gc') as HTMLInputElement).value;
+    // FOR DATE RANGE DATE PICKER
 
       const startFilterPredicate = (data: GcComponent, start: string): boolean => {
         if(start == '')
@@ -111,27 +115,33 @@ export class DashboardComponent {
         return Date.parse(data.created_at) <= Date.parse(end + ' 23:59:59');
       }
 
-      const filterPredicate = (data: GcComponent): boolean => {
-        return ((departmentFilterPredicate(data, search) ||
-               categoryFilterPredicate(data, search)) ||
-               authorFilterPredicate(data, search) ||
-               titleFilterPredicate(data, search) ||
-               publishedFilterPredicate(data, search)) ||
-               (startFilterPredicate(data, start) && endFilterPredicate(data, end))
+    const filterPredicate = (data: GcComponent): boolean => {
+      return (titleFilterPredicate(data, search) ||
+              authorFilterPredicate(data, search) ||
+              departmentFilterPredicate(data, search) ||
+              categoryFilterPredicate(data, search) ||
+              publishedFilterPredicate(data, search)) &&
+              (startFilterPredicate(data, start) && endFilterPredicate(data, end))
+    };
+    
+    this.dataSource.filterPredicate = filterPredicate;
+    this.dataSource.filter = {
+      search,
+      start, 
+      end
+    };
+  }
 
-      };
-      
-      this.dataSource.filterPredicate = filterPredicate;
-      this.dataSource.filter = {
-        search,
-        start,
-        end
-      };  
+  public export(): void {
+    // Get the filtered data
+    const filteredData = this.dataSource.filteredData;
+    this.reportService.exportToExcel(filteredData, 'Cataloging Academic Projects Report');
   }
 }
 
 export interface GcComponent {
-  program: any;
+  program: string;
+  project_program: any;
   category: string;
   authors: any;
   title: string;
