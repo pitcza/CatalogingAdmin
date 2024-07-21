@@ -330,10 +330,7 @@ export class EditPeriodicalComponent implements OnInit{
     return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
   }
 
-  isFieldFilled(fieldName: string): boolean {
-    const control = this.editForm.get(fieldName);
-    return !!control && control.value !== null && control.value !== '';
-  }
+
   
   protected updateBox() {
 

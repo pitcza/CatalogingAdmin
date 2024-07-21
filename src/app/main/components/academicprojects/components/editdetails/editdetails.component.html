@@ -15,10 +15,9 @@
                             <div class="input_field">                    
                                 <div class="input-row">
                                     <div class="txt_field_short">
-                                        <p class="warningMessage" *ngIf="isInvalid('accession')">This field is required</p>
                                         <input class="inputtxt" type="text" formControlName="accession">
                                         <span [ngClass]="{'errorSpan': isInvalid('accession') }"></span>
-                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('accession'), 'moved-up': isFieldFilled('accession') }"> Accession No. </div>
+                                        <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('accession') }"> Accession No. </div>
                                     </div>
                                     <div class="txt_field_short">
                                         <select class="inputtxt" id="filter-dept" (change)="changedDepartment($event)"> 
@@ -48,11 +47,10 @@
             
                                 <div class="input-row">
                                     <div class="txt_field">
-                                        <p class="warningMessage" *ngIf="isInvalid('title')">This field is required</p>
                                         <p class="warningMessage" *ngIf="titleTooLong">Title must be 255 characters or less</p>
                                         <input class="inputtxt" type="text" formControlName="title" (input)="checkTitleLength()">
                                         <span [ngClass]="{'errorSpan': isInvalid('title') }"></span>
-                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('title'), 'moved-up': isFieldFilled('title') }"> Title </div>
+                                        <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('title') }"> Title </div>
                                     </div>
                                 </div>
             
@@ -64,7 +62,7 @@
                                             <div class="txt_field">
                                                 <input class="inputtxt" type="text" name="author" [value]="x" (keyup)="updateValue($event, i)">
                                                 <span></span>
-                                                <div class="labelline" [ngClass]="{ 'moved-up': isFieldFilled('author', i) }"> Author </div>
+                                                <div class="labelline1"> Author </div>
                                             </div>
                                             <button type="button" class="removebtn" *ngIf="values.length > 1" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
                                         </div>
@@ -85,10 +83,9 @@
                                             <option value="Tagalog" [selected]="data.details.language === 'Tagalog'"> Tagalog </option>
                                         </select>
                                         <span></span>
-                                        <label class="labelline" for="language" [ngClass]="{ 'moved-up': isFieldFilled('language') }"> Language </label>
+                                        <label class="labelline1" for="language"> Language </label>
                                     </div>
                                     <div class="txt_field">
-                                        <p class="warningMessage" *ngIf="isInvalid('date_published')">This field is required</p>
                                         <input class="inputtxt" type="date" id="datepub" formControlName="date_published">
                                         <span [ngClass]="{'errorSpan': isInvalid('date_published') }"></span>
                                         <div class="datelabel" [ngClass]="{ 'errorLabel': isInvalid('date_published') }"> Date Published </div>

@@ -32,12 +32,15 @@ export class ReportsService {
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet('Report Sheet');
 
-    let removeHeaders: any = [];
-    if(fileName != 'projects_export') removeHeaders = ['created_at'];
+    // Headers to be removed
+    let removeHeaders: any = ['created_at'];
 
-    // Add headers
-    const headers = Object.keys(data[0]).filter(key => !removeHeaders.includes(key));
+    if(fileName == 'Cataloging Academic Projects Report') var headers = ['project_program', 'category', 'authors', 'title', 'date_published'];
+    else if(fileName.toLowerCase().includes('project')) var headers = ['category', 'authors', 'title', 'date_published'];
+    else var headers = Object.keys(data[0]).filter(key => !removeHeaders.includes(key));
+    
 
+    // Setup header and page
     if (!await this.setupPage(workbook, worksheet, headers, removeHeaders)) {
       Swal.fire({
         title: 'Error',
@@ -56,6 +59,7 @@ export class ReportsService {
       return;
     };
 
+    // Fix header format
     let formattedHeaders = [];
     for (let i = 0; i < headers.length; i++) {
       formattedHeaders[i] = '';
@@ -72,12 +76,17 @@ export class ReportsService {
           formattedHeaders[i] = 'AUTHOR/S';
           break;
 
+        case 'project_program':
+          formattedHeaders[i] = 'DEPARTMENT';
+          break;
+
         default:
           formattedHeaders[i] = headers[i].toUpperCase();
           break;
       }
     }
 
+    // Fix cell sizing
     const headerRow = worksheet.addRow(formattedHeaders);
     var leftCells: any = [];
     headerRow.height = 40;
@@ -87,10 +96,6 @@ export class ReportsService {
       let header = cell.value;
       const column = worksheet.getColumn(colNumber);
       switch(header) {
-        case 'ACCESSION':
-          column.width = 20;
-          break;
-
         case 'TITLE':
           column.width = 40;
           leftCells.push(colNumber);
@@ -101,23 +106,11 @@ export class ReportsService {
           leftCells.push(colNumber);
           break;
 
-        case 'COPYRIGHT':
-          column.width = 20;
-          break;
-
-        case 'LOCATION':
-          column.width = 20;
-          break;
-
         case 'PUBLISHER':
           column.width = 30;
           break;
 
-        case 'DATE RECEIVED':
-          column.width = 20;
-          break;
-
-        case 'DATE PUBLISHED':
+        default:
           column.width = 20;
           break;
       }
@@ -145,6 +138,9 @@ export class ReportsService {
           const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
 
           row.push(formattedDate)
+        } else if(header == 'project_program') {
+          // let project_program = JSON.parse(item[header]);
+          row.push(item[header].department_short);
         } else row.push(item[header]);
       });
       let addedRow = worksheet.addRow(row);
@@ -266,11 +262,18 @@ export class ReportsService {
       });
 
       // Add the image to the worksheet
-      worksheet.addImage(addLogo2, {
+      if(headers.includes('department')) {
+        worksheet.addImage(addLogo2, {
+          tl: { col: headers.length + 0.2, row: 0.2 }, // Adjust col and row according to your requirement
+          ext: { width: 120, height: 120 }
+        });
+      } else {
+        worksheet.addImage(addLogo2, {
           tl: { col: headers.length - removeHeaders.length + 0.2, row: 0.2 }, // Adjust col and row according to your requirement
           ext: { width: 120, height: 120 }
-      });
-
+        });
+      }
+      
       return true; // Indicate success
     } catch (error) {
       console.error('Error adding image:', error);

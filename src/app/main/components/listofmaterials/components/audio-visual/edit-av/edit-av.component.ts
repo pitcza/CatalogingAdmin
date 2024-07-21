@@ -117,12 +117,6 @@ export class EditAVComponent implements OnInit {
   
     return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
   }
-  
-  // FOR LABEL PO, YUNG SA ANIMATION NA NATAAS-BABA
-  isFieldFilled(fieldName: string): boolean {
-    const control = this.editForm.get(fieldName);
-    return !!control && control.value !== null && control.value !== '';
-  }
 
   closepopup(text: string) {
     this.ref.close(text);

@@ -48,15 +48,15 @@ export class AddprojectComponent implements OnInit {
     }
   }
 
-  // check if the field is filled (to move up label)
-  isFieldFilled(fieldName: string, index?: number): boolean {
-    if (fieldName === 'author' && index !== undefined) {
-      return this.values[index] !== null && this.values[index] !== '';
-    } else {
-      const control = this.form.get(fieldName);
-      return !!control && control.value !== null && control.value !== '';
-    }
-  }
+  // // check if the field is filled (to move up label)
+  // isFieldFilled(fieldName: string, index?: number): boolean {
+  //   if (fieldName === 'author' && index !== undefined) {
+  //     return this.values[index] !== null && this.values[index] !== '';
+  //   } else {
+  //     const control = this.form.get(fieldName);
+  //     return !!control && control.value !== null && control.value !== '';
+  //   }
+  // }
 
   constructor(
     private router: Router,

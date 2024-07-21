@@ -56,16 +56,6 @@ export class EditdetailsComponent implements OnInit{
     }
   }
 
-  // check if the field is filled (to move up label)
-  isFieldFilled(fieldName: string, index?: number): boolean {
-    if (fieldName === 'author' && index !== undefined) {
-      return this.values[index] !== null && this.values[index] !== '';
-    } else {
-      const control = this.editForm.get(fieldName);
-      return !!control && control.value !== null && control.value !== '';
-    }
-  }
-
   constructor(
     private router: Router, 
     private ref: MatDialogRef<EditdetailsComponent>, 

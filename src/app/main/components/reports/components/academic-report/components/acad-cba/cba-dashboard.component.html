@@ -27,7 +27,7 @@
                         <img src="assets/icons/total_titles.png">
                     </div>
                     <div class="box">
-                        <h1 id="cba-feasibility"> {{ materialCounts.total }} </h1>
+                        <h1 id="cba-feasibility"> {{ materialCounts.feasibility }} </h1>
                         <h3>Total No. of Feasibility</h3>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                         <img src="assets/icons/total_volumes.png" alt="">
                     </div>
                     <div class="box">
-                        <h1 id="cba-research"> {{ materialCounts.total }}</h1>
+                        <h1 id="cba-research"> {{ materialCounts.research }}</h1>
                         <h3>Total No. of Research</h3>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     <span class="export"> Export </span>
                 </button>
 
-                <div class="dropdown-content1">
+                <div class="dropdown-content1" (click)="export()">
                     <a class="pdf">
                         <span class="material-icon"> <img src="assets/icons/excel.png"></span>
                         <h1 class="material"> Excel </h1>
@@ -81,11 +81,11 @@
                 <div class="input-row">
                     <div class="txt_field">
                         <label for="datepicker"> From: </label>
-                            <input type="date" id="datepicker-start-ccs" autocomplete="off" (change)="applyFilter($event, 'search')">
+                            <input type="date" id="datepicker-start-ccs" autocomplete="off" (change)="applyFilter($event, 'start')">
                     </div>
                     <div class="txt_field">
                         <label for="datepicker"> To: </label>
-                            <input type="date" id="datepicker-end-ccs" autocomplete="off" (change)="applyFilter($event, 'search')">
+                            <input type="date" id="datepicker-end-ccs" autocomplete="off" (change)="applyFilter($event, 'end')">
                     </div>
                 </div>
 

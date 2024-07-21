@@ -79,7 +79,7 @@ export class ArticlesComponent implements OnInit {
     }
 
     const publishedFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
-      return data.title.toLowerCase().includes(search.toLowerCase());
+      return data.date_published.toLowerCase().includes(search.toLowerCase());
     }
 
     const authorFilterPredicate = (data: ArticlesComponent, search: string): boolean => {
@@ -129,6 +129,7 @@ export class ArticlesComponent implements OnInit {
 
 export interface ArticlesComponent {
   accession: string;
+  date_published: string;
   title: string;
   authors: any;
   created_at: string;

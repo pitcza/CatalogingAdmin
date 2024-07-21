@@ -15,10 +15,9 @@
                 <div class="input_field">
                     <div class="input-row" id="no-add-function">
                         <div class="txt_field_short">
-                            <p class="warningMessage" *ngIf="isInvalid('accession')">This field is required</p>
                             <input class="inputtxt" type="text" formControlName="accession">
                             <span [ngClass]="{'errorSpan': isInvalid('accession') }"></span>
-                            <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('accession'), 'moved-up': isFieldFilled('accession') }"> Accession No. </div>
+                            <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('accession') }"> Accession No. </div>
                         </div>
                         <div class="txt_field_short">
                             <select class="inputtxt" id="filter-department" (change)="changedDepartment($event)">
@@ -34,22 +33,21 @@
                                 </ng-container>
                             </select>
                             <span [ngClass]="{'errorSpan': isInvalid('program') }"></span>
-                            <label class="labelline" for="program" [ngClass]="{ 'errorLabel': isInvalid('program'), 'moved-up': isFieldFilled('program') }"> Program </label>
+                            <label class="labelline1" for="program" [ngClass]="{ 'errorLabel': isInvalid('program')  }"> Program </label>
                         </div>
                         <div class="txt_field">
                             <input class="inputtxt" type="text" formControlName="category">
                             <span [ngClass]="{'errorSpan': isInvalid('program') }"></span>
-                            <label class="labelline" for="college" [ngClass]="{ 'errorLabel': isInvalid('program'), 'moved-up': isFieldFilled('program') }"> Category </label>
+                            <label class="labelline1" for="college" [ngClass]="{ 'errorLabel': isInvalid('program') }"> Category </label>
                         </div>
                     </div>
 
                     <div class="input-row">
                         <div class="txt_field">
-                            <p class="warningMessage" *ngIf="isInvalid('title')">This field is required</p>
                             <p class="warningMessage" *ngIf="titleTooLong">Title must be 255 characters or less</p>
                             <input class="inputtxt" type="text" formControlName="title" (input)="checkTitleLength()">
                             <span [ngClass]="{'errorSpan': isInvalid('title') }"></span>
-                            <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('title'), 'moved-up': isFieldFilled('title') }"> Title </div>
+                            <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('title') }"> Title </div>
                         </div>
                     </div>
 
@@ -61,7 +59,7 @@
                                 <div class="txt_field">
                                     <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
                                     <span [ngClass]="{'errorSpan': isInvalid('authors') }"></span>
-                                    <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('authors'), 'moved-up': isFieldFilled('author', i) }"> Author </div>
+                                    <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('authors') }"> Author </div>
                                 </div>
                                 <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
                                     <i class='bx bx-x'></i>
@@ -85,10 +83,9 @@
                                 <option value="Tagalog"> Tagalog </option>
                             </select>
                             <span></span>
-                            <label class="labelline" for="language" [ngClass]="{ 'moved-up': isFieldFilled('language') }"> Language </label>
+                            <label class="labelline1" for="language"> Language </label>
                         </div>
                         <div class="txt_field">
-                            <p class="warningMessage" *ngIf="isInvalid('date_published')">This field is required</p>
                             <input class="inputtxt" type="date" id="datepub" formControlName="date_published" >
                             <span [ngClass]="{'errorSpan': isInvalid('date_published') }"></span>
                             <div class="datelabel" [ngClass]="{ 'errorLabel': isInvalid('date_published') }"> Date Published </div>

@@ -64,7 +64,7 @@
                     <span class="export"> Export </span>
                 </button>
 
-                <div class="dropdown-content1">
+                <div class="dropdown-content1" (click)="export()">
                     <a class="pdf">
                         <span class="material-icon"> <img src="assets/icons/excel.png"></span>
                         <h1 class="material"> Excel </h1>
@@ -94,11 +94,11 @@
                 <div class="input-row">
                     <div class="txt_field">
                         <label for="datepicker"> From: </label>
-                            <input type="date" id="datepicker-start-ccs" autocomplete="off" (change)="applyFilter($event, 'search')">
+                            <input type="date" id="datepicker-start-ccs" autocomplete="off" (change)="applyFilter($event, 'start')">
                     </div>
                     <div class="txt_field">
                         <label for="datepicker"> To: </label>
-                            <input type="date" id="datepicker-end-ccs" autocomplete="off" (change)="applyFilter($event, 'search')">
+                            <input type="date" id="datepicker-end-ccs" autocomplete="off" (change)="applyFilter($event, 'end')">
                     </div>
                 </div>
     

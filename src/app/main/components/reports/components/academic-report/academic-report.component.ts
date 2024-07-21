@@ -8,13 +8,4 @@ import { ViewChild } from '@angular/core';
   templateUrl: './academic-report.component.html',
   styleUrl: './academic-report.component.scss'
 })
-export class AcademicReportComponent implements OnInit {
-
-  constructor(private ds: DataService) { }
-
-  ngOnInit(): void {
-    this.ds.request('GET', 'projects', null).subscribe((res: any) => {
-      this.ds.setProjects(res)
-    })
-  }
-}
+export class AcademicReportComponent { }

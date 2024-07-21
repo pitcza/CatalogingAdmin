@@ -72,10 +72,7 @@ export class EditArticleComponent implements OnInit{
     this.ref.close(text);
   }
 
-  isFieldFilled(fieldName: string): boolean {
-    const control = this.editForm.get(fieldName);
-    return !!control && control.value !== null && control.value !== '';
-  }
+
   
   // ARCHIVE POPUP
   archiveBox(){
