@@ -14,7 +14,7 @@ import { NewspapersComponent } from './components/material-report/components/new
 import { AcademicReportComponent } from './components/academic-report/academic-report.component';
 import { MaterialReportComponent } from './components/material-report/material-report.component';
 import { AcademicReportModule } from './components/academic-report/academic-report.module';
-import { DashboardComponent } from './components/academic-report/components/acad-gc/dashboard/dashboard.component'
+import { DashboardComponent } from './components/academic-report/components/acad-gc/dashboard.component';
 // import { BooksComponent } from '../listofmaterials/components/books/books.component';
 
 @NgModule({

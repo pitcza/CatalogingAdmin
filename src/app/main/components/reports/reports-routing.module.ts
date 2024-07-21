@@ -8,7 +8,7 @@ import { JournalsComponent } from './components/material-report/components/journ
 import { MagazinesComponent } from './components/material-report/components/magazines/magazines.component';
 import { NewspapersComponent } from './components/material-report/components/newspapers/newspapers.component';
 import { AudiovisualsComponent } from './components/material-report/components/audiovisuals/audiovisuals.component';
-import { DashboardComponent } from './components/academic-report/components/acad-gc/dashboard/dashboard.component';
+import { DashboardComponent } from './components/academic-report/components/acad-gc/dashboard.component';
 import { AcademicReportComponent } from './components/academic-report/academic-report.component';
 
 

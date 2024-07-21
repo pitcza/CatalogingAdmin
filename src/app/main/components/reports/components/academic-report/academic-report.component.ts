@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../../../../services/data/data.service';
-import { GcComponent } from './components/acad-gc/gc/gc.component';
 import { ViewChild } from '@angular/core';
 
 

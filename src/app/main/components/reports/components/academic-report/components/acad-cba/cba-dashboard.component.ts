@@ -8,15 +8,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TableModule } from '../../../../../../../modules/table.module';
 
 @Component({
-  selector: 'app-ccs',
-  templateUrl: './ccs.component.html',
-  styleUrl: './ccs.component.scss',
+  selector: 'app-cba-dashboard',
+  templateUrl: './cba-dashboard.component.html',
+  styleUrl: './cba-dashboard.component.scss',
   standalone: true, 
   imports: [
     TableModule
   ], 
 })
-export class CcsComponent {
+export class CbaDashboardComponent {
 
   displayedColumns: string[] = ['category', 'author', 'title', 'date_published'];
   dataSource : any;
@@ -35,13 +35,12 @@ export class CcsComponent {
 
   materialCounts = {
     total: 0,
-    research: 0,
-    capstone: 0,
+    cbar: 0,
     thesis: 0
   }
 
   ngOnInit(): void {
-      this.getData();
+    this.getData();
   }
 
   protected getData() {
@@ -50,13 +49,11 @@ export class CcsComponent {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
+  
         for(let project of res) {
           this.materialCounts.total++;
           if(project.category == 'Research') {
-            this.materialCounts.research++;
-          } else if(project.category == 'Capstone') {
-            this.materialCounts.capstone++;
+            this.materialCounts.cbar++;
           } else if(project.category == 'Thesis') {
             this.materialCounts.thesis++;
           }
@@ -64,19 +61,20 @@ export class CcsComponent {
       }
     })
   }
+
   // Filtering 
   applyFilter(event: Event, type: string) {
     const search = (document.getElementById('search-ccs') as HTMLInputElement).value;
 
-    const titleFilterPredicate = (data: CcsComponent, search: string): boolean => {
+    const titleFilterPredicate = (data: CbaDashboardComponent, search: string): boolean => {
       return data.title.toLowerCase().includes(search.toLowerCase());
     }
 
-    const categoryFilterPredicate = (data: CcsComponent, search: string): boolean => {
+    const categoryFilterPredicate = (data: CbaDashboardComponent, search: string): boolean => {
       return data.category.toLowerCase().trim().toLowerCase().includes(search.toLowerCase());
     }
 
-    const authorFilterPredicate = (data: CcsComponent, search: string): boolean => {
+    const authorFilterPredicate = (data: CbaDashboardComponent, search: string): boolean => {
       if(data.authors) {
         return data.authors.some((x: any) => {
           return x.toLowerCase().trim().includes(search.toLowerCase().trim());
@@ -84,7 +82,7 @@ export class CcsComponent {
       } else return false;      
     }
 
-    const publishedFilterPredicate = (data: CcsComponent, search: string): boolean => {
+    const publishedFilterPredicate = (data: CbaDashboardComponent, search: string): boolean => {
       return data.date_published.toLowerCase().includes(search.toLowerCase());
     }
 
@@ -92,19 +90,19 @@ export class CcsComponent {
     const start = (document.getElementById('datepicker-start-ccs') as HTMLInputElement).value;
     const end = (document.getElementById('datepicker-end-ccs') as HTMLInputElement).value;
 
-      const startFilterPredicate = (data: CcsComponent, start: string): boolean => {
+      const startFilterPredicate = (data: CbaDashboardComponent, start: string): boolean => {
         if(start == '')
             return true;
         return Date.parse(data.created_at) >= Date.parse(start + ' 00:00:00');
       }
 
-      const endFilterPredicate = (data: CcsComponent, end: string): boolean => {
+      const endFilterPredicate = (data: CbaDashboardComponent, end: string): boolean => {
         if(end == '')
             return true;
         return Date.parse(data.created_at) <= Date.parse(end + ' 23:59:59');
       }
 
-      const filterPredicate = (data: CcsComponent): boolean => {
+      const filterPredicate = (data: CbaDashboardComponent): boolean => {
         return (titleFilterPredicate(data, search) ||
                 categoryFilterPredicate(data, search) ||
                 authorFilterPredicate(data, search) ||
@@ -122,7 +120,7 @@ export class CcsComponent {
     }
 }
 
-export interface CcsComponent {
+export interface CbaDashboardComponent {
   category: string;
   authors: any;
   title: string;

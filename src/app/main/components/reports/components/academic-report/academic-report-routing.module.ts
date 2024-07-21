@@ -2,16 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AcademicReportComponent } from './academic-report.component';
 
-import { CeasComponent } from './components/acad-ceas/ceas/ceas.component';
-import { CbaComponent } from './components/acad-cba/cba/cba.component';
-import { ChtmComponent } from './components/acad-chtm/chtm/chtm.component';
-import { CahsComponent } from './components/acad-cahs/cahs/cahs.component';
-import { DashboardComponent } from './components/acad-gc/dashboard/dashboard.component';
+import { DashboardComponent } from './components/acad-gc/dashboard.component';
 import { CcsComponent } from './components/acad-ccs/ccs.component';
-import { CeasDashboardComponent } from './components/acad-ceas/ceas-dashboard/ceas-dashboard.component';
-import { CbaDashboardComponent } from './components/acad-cba/cba-dashboard/cba-dashboard.component';
-import { ChtmDashboardComponent } from './components/acad-chtm/chtm-dashboard/chtm-dashboard.component';
-import { CahsDashboardComponent } from './components/acad-cahs/cahs-dashboard/cahs-dashboard.component';
+import { CeasDashboardComponent } from './components/acad-ceas/ceas-dashboard.component';
+import { CbaDashboardComponent } from './components/acad-cba/cba-dashboard.component';
+import { ChtmDashboardComponent } from './components/acad-chtm/chtm-dashboard.component';
+import { CahsDashboardComponent } from './components/acad-cahs/cahs-dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -31,10 +27,10 @@ const routes: Routes = [
 },
   { path: 'ceas-dashboard', 
     component: CeasDashboardComponent, 
-    children: [{
-      path:'', 
-      loadChildren: ()=>import('../academic-report/components/acad-ceas/ceas-dashboard/ceas-dashboard.module').then((m)=>m.CeasDashboardModule)
-    }]
+    // children: [{
+    //   path:'', 
+    //   loadChildren: ()=>import('../academic-report/components/acad-ceas/ceas-dashboard/ceas-dashboard.module').then((m)=>m.CeasDashboardModule)
+    // }]
 },
   { path: 'cba-dashboard', 
     component: CbaDashboardComponent, 

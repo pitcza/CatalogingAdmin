@@ -1,54 +1,58 @@
-import { AfterViewInit, Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { DataService } from '../../../../../../../services/data/data.service';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog } from '@angular/material/dialog';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { ChangeDetectorRef } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { DataService } from '../../../../../../../../services/data/data.service';
-import { filter } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
+import { TableModule } from '../../../../../../../modules/table.module';
 
 @Component({
-  selector: 'app-gc',
-  templateUrl: './gc.component.html',
-  styleUrls: ['./gc.component.scss'],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss',
   standalone: true, 
   imports: [
-    CommonModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatCardModule
+    TableModule
   ], 
 })
-export class GcComponent implements OnInit {
-  displayedColumns: string[] = [ 'department', 'category', 'title', 'date_published', 'created_at'];
+export class DashboardComponent {
+
+  displayedColumns: string[] = [ 'department', 'category', 'author', 'title', 'date_published'];
   dataSource : any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  ngOnInit(): void {
-    // this.dataSource = new MatTableDataSource<GcComponent>(this.ds.getProjects());
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
-    this.getData()
+  constructor (
+    private ds: DataService,
+    private paginatorIntl: MatPaginatorIntl,
+    private changeDetectorRef: ChangeDetectorRef, 
+  ) { 
+    this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
-  constructor(
-    private router: Router,
-    private paginatorIntl: MatPaginatorIntl,
-    private elementRef: ElementRef, 
-    private changeDetectorRef: ChangeDetectorRef, 
-    private dialog: MatDialog,
-    private ds: DataService
-  ) {
-    this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
+  materialCounts = {
+    GC: 0,
+    CCS: 0,
+    CEAS: 0,
+    CHTM: 0,
+    CBA: 0,
+    CAHS: 0,
+  }
+
+  ngOnInit(): void {
+    this.ds.request('GET', 'reports/project-counts', null).subscribe((res: any) => {
+      this.materialCounts = res;
+      this.materialCounts.GC = this.materialCounts.CCS + this.materialCounts.CEAS + this.materialCounts.CHTM + this.materialCounts.CBA + this.materialCounts.CAHS
+    });
+    
+    this.getData();
   }
 
   protected getData() {
@@ -79,12 +83,16 @@ export class GcComponent implements OnInit {
         return data.category.toLowerCase().trim().toLowerCase().includes(search.toLowerCase());
       }
 
-      const publishedFilterPredicate = (data: GcComponent, search: string): boolean => {
-        return data.date_published.toLowerCase().includes(search.toLowerCase());
+      const authorFilterPredicate = (data: GcComponent, search: string): boolean => {
+        if(data.authors) {
+          return data.authors.some((x: any) => {
+            return x.toLowerCase().trim().includes(search.toLowerCase().trim());
+          });
+        } else return false;      
       }
 
-      const addedFilterPredicate = (data: GcComponent, search: string): boolean => {
-        return data.created_at.toLowerCase().includes(search.toLowerCase());
+      const publishedFilterPredicate = (data: GcComponent, search: string): boolean => {
+        return data.date_published.toLowerCase().includes(search.toLowerCase());
       }
 
       // FOR DATE RANGE DATE PICKER
@@ -106,9 +114,9 @@ export class GcComponent implements OnInit {
       const filterPredicate = (data: GcComponent): boolean => {
         return ((departmentFilterPredicate(data, search) ||
                categoryFilterPredicate(data, search)) ||
+               authorFilterPredicate(data, search) ||
                titleFilterPredicate(data, search) ||
-               publishedFilterPredicate(data, search) ||
-               addedFilterPredicate(data, search)) &&
+               publishedFilterPredicate(data, search)) ||
                (startFilterPredicate(data, start) && endFilterPredicate(data, end))
 
       };
@@ -123,9 +131,9 @@ export class GcComponent implements OnInit {
 }
 
 export interface GcComponent {
-  authors: any;
   program: any;
   category: string;
+  authors: any;
   title: string;
   date_published: string;
   created_at: string;
