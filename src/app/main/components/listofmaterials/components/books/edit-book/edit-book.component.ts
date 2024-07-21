@@ -512,9 +512,4 @@ export class EditBookComponent implements OnInit{
       }
     });
   }
-
-  isFieldFilled(fieldName: string): boolean {
-    const control = this.editForm.get(fieldName);
-    return !!control && control.value !== null && control.value !== '';
-  }
 }

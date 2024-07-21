@@ -198,10 +198,11 @@ h1 {
 
 .txt_field .inputtxt:valid ~ .labelline1,
 .txt_field_short .inputtxt:valid ~ .labelline1,
+.txt_field_shorter .inputtxt:valid ~ .labelline1,
 .txt_field .inputtxt-price:valid ~ .labelline1,
 .txt_field_short .inputtxt-price:valid ~ .labelline1,
 .txt_field input[type="date"]:valid ~ .datelabel,
-.txt_field_short input[type="date"]:valid ~ .datelabel { // FOR DATE AND COPYRIGHT LABEL :)
+.txt_field_short input[type="date"]:valid ~ .datelabel {
     top: 9px;
     font-size: 12px;
     letter-spacing: 0.5px;

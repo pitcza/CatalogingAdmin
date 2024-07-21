@@ -17,12 +17,12 @@
                                     <div class="txt_field_shorter">
                                         <input class="inputtxt" type="text" formControlName="accession">
                                         <span [ngClass]="{'errorSpan': isInvalid('accession') }"></span>
-                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('accession'), 'moved-up': isFieldFilled('accession') }"> Accession No. </div>
+                                        <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('accession') }"> Accession No. </div>
                                     </div>
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" formControlName="title">
                                         <span [ngClass]="{'errorSpan': isInvalid('title') }"></span>
-                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('title'), 'moved-up': isFieldFilled('title') }"> Title </div>
+                                        <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('title')  }"> Title </div>
                                     </div>
                                 </div>
                                 
@@ -56,7 +56,7 @@
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" formControlName="publisher">
                                         <span [ngClass]="{'errorSpan': isInvalid('publisher') }"></span>
-                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('publisher'), 'moved-up': isFieldFilled('publisher') }"> Publisher </div>
+                                        <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('publisher') }"> Publisher </div>
                                     </div>
                                     <div class="txt_field_short">
                                         <select class="inputtxt" formControlName="copyright">
@@ -80,12 +80,12 @@
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" formControlName="call_number" >
                                         <span [ngClass]="{'errorSpan': isInvalid('call_number') }"></span>
-                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('call_number'), 'moved-up': isFieldFilled('call_number') }"> Call Number </div>
+                                        <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('call_number') }"> Call Number </div>
                                     </div>
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" formControlName="author_number" >
                                         <span [ngClass]="{ 'errorSpan': isInvalid('author_number') }"></span>
-                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('author_number'), 'moved-up': isFieldFilled('author_number') }"> Author Number </div>
+                                        <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('author_number')  }"> Author Number </div>
                                     </div>
                                 </div>
 
@@ -93,17 +93,17 @@
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text"  formControlName="volume">
                                         <span></span>
-                                        <div class="labelline" [ngClass]="{ 'moved-up': isFieldFilled('volume') }"> Volume </div>
+                                        <div class="labelline1"> Volume </div>
                                     </div>
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" formControlName="edition" >
                                         <span></span>
-                                        <div class="labelline" [ngClass]="{ 'moved-up': isFieldFilled('edition') }"> Edition </div>
+                                        <div class="labelline1"> Edition </div>
                                     </div>
                                     <div class="txt_field">
                                         <input class="inputtxt" type="number" min="0" formControlName="pages" >
                                         <span [ngClass]="{'errorSpan': isInvalid('pages') }"></span>
-                                        <div class="labelline" [ngClass]="{ 'errorLabel': isInvalid('pages'), 'moved-up': isFieldFilled('pages') }"> Pages </div>
+                                        <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('pages') }"> Pages </div>
                                     </div>
                                 </div>
 
@@ -111,7 +111,7 @@
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" min="0" formControlName="remarks" >
                                         <span></span>
-                                        <div class="labelline" [ngClass]="{ 'moved-up': isFieldFilled('remarks') }"> Remarks </div>
+                                        <div class="labelline1"> Remarks </div>
                                     </div>
                                 </div>
                                 
