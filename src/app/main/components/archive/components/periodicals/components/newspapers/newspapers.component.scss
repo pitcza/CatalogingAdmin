@@ -181,6 +181,26 @@ th, td {
     text-align: left;
 }
 
+.title-cell .title-text {
+    display: -webkit-box;
+    display: -moz-box; 
+    display: -ms-box;
+    display: box;
+    -webkit-line-clamp: 3; // naglilimit lines
+    -moz-line-clamp: 3;
+    -ms-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-box-orient: vertical;
+    box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2;
+    max-height: calc(1.2em * 3); /* Adjust the height according to line height and number of lines */
+}
+
 table {
   td:nth-child(1) {
     min-width: 150px;
