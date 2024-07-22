@@ -451,7 +451,7 @@ input[type="file"]::file-selector-button { // CHOOSE FILE BUTTON
 
 // BUTTONS //
 .button-container {
-    margin: -10px 30px 30px 0px;
+    margin: 5px 50px 40px 50px;
     display: flex;
     justify-content: flex-end;
 }
@@ -465,16 +465,7 @@ input[type="file"]::file-selector-button { // CHOOSE FILE BUTTON
     font-weight: 400;
     width: 100px;
     letter-spacing: 1px;
-    box-shadow: 0px 3px 3px rgba(37, 37, 37, 0.322);
     transition: .3s;
-    transform: translate(0px, 0px);
-}
-
-.button-container button:hover {
-    box-shadow: 0px 8px 15px -10px rgb(125, 125, 125);
-    transform: translate(0px, -1px);
-    cursor: pointer;
-    text-decoration: none;
 }
 
 .update-btn {

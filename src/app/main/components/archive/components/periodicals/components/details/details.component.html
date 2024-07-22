@@ -4,10 +4,10 @@
             <div class="details-content">
                 <!-- HEADER -->
                 <div class="detailsheader">
-                    <!-- <h1> Periodical: {{ periodical.periodical_type == 0 ? 'Journal' : 
-                                        periodical.periodical_type == 1 ? 'Magazine' : 'Newspaper' }} 
+                    <!-- <h1> element: {{ element.element_type == 0 ? 'Journal' : 
+                                        element.element_type == 1 ? 'Magazine' : 'Newspaper' }} 
                     </h1> -->
-                    <h1> Periodical {{ type }}
+                    <h1> element {{ type }}
                     </h1>
                     <button class="exit-button" (click)="closepopup('')"> &times; </button>
                 </div>
@@ -18,70 +18,73 @@
                         <div class="details">
                             <!-- MATERIAL IMAGE -->
                             <div class="mat-image">
-                                <img class="cover" alt="periodical image" [src]="element.image_url || errorImage">
+                                <img class="cover" alt="element image" [src]="element.image_url || errorImage">
                             </div>
 
-                            <div class="mat-details">
-                                <!-- TITLE AND PUBLISHER -->
-                                <span class="top-details">
-                                    <h2 class="title"> {{ element.title }} </h2>
-                                    <span class="mat-publisher">
-                                        <h2> Published by </h2> 
-                                        <p> {{ element.publisher }} </p>
-                                    </span>
-                                </span>
-
-                                <!-- AUTHORS -->
-                                <span class="mat-authors">
-                                    <h2> Author(s): </h2> 
-                                    <p>
-                                        <ng-container *ngIf="!element.authors"> N/A </ng-container>
+                            <table class="details-table">
+                                <tr>
+                                    <td class="data"><strong>Accession No.</strong></td>
+                                    <td>{{element.accession}}</td>
+                                  </tr>
+                                <tr>
+                                  <td class="data"><strong>Title</strong></td>
+                                  <td>{{element.title}}</td>
+                                </tr>
+                                <tr>
+                                  <td class="data"><strong>Author(s)</strong></td>
+                                  <td>
+                                    <ng-container *ngIf="!element.authors"> N/A </ng-container>
                                         <ng-container *ngFor="let x of element.authors; let last = last;">
-                                            {{ x     }}{{ !last ? ',' : '' }} <br>
-                                        </ng-container>
-                                    </p>
-                                </span>
-
-                                <!-- VOLUME, ISSUE, AND PAGES -->
-                                <span class="bottom-details">
-                                    <!-- <span> <h2>Volume {{ periodical.volume != null ? periodical.volume : 'N/A' }}, Issue {{ periodical.issue != null ? periodical.issue : 'N/A' }}</h2> </span>
-                                    <span> <h2>{{ periodical.pages }} Pages</h2> </span> -->
-                                    <span> <h2>Volume 1, Issue ewan</h2> </span>
-                                    <span> <h2>{{ element.pages }} Pages</h2> </span>
-                                </span>
-
-                            </div>
+                                        {{ x     }}{{ !last ? ',' : '' }} <br>
+                                    </ng-container>
+                                  </td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Publisher</strong></td>
+                                    <td>{{element.publisher}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Date Published</strong></td>
+                                    <td>{{ element.date_published | date: 'mediumDate' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Volume</strong></td>
+                                    <td>{{ element.volume != null ? element.volume : 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Issue</strong></td>
+                                    <td>{{ element.issue != null ? element.issue : 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Copyright</strong></td>
+                                    <td>{{ element.copyright }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Pages</strong></td>
+                                    <td>{{ element.pages }}</td>
+                                </tr>
+                            </table>
                         </div>
 
+                        <p class="message"> Additional Info </p>
                         <div class="details">
-                            <!-- COPYRIGHT, REMARK, AND DATE RECEIVED -->
-                            <div class="mat-content">
-                                <div class="mat-details">
-                                    <!-- <span>
-                                        <h2> Publication Date: <p> {{ periodical.date_published | date: 'mediumDate' }} </p> </h2>
-                                        <h2> Copyright: <p> {{ periodical.copyright }} </p> </h2>
-                                        <h2> Remark: <p> {{ periodical.remarks != null ? periodical.remarks : 'N/A' }} </p> </h2>
-                                        <h2> Date Received: <p> {{ periodical.acquired_date | date: 'mediumDate' }} </p> </h2>
-                                    </span> -->
-                                    <span>
-                                        <h2> Publication Date: <p> {{ element.date_published | date: 'mediumDate' }} </p> </h2>
-                                        <h2> Copyright: <p> {{ element.copyright }} </p> </h2>
-                                        <h2> Remark: <p> {{ element.remarks }} </p> </h2>
-                                        <h2> Date Received: <p> {{ element.acquired_date | date: 'mediumDate' }} </p> </h2>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- ACCESSION NO. AND LANGUAGE -->
-                            <div class="mat-info">
-                                <span class="info">
-                                    <h2> Accession No. </h2> 
-                                    <p>{{ element.accession }} </p>
-                                </span>
-                                <span class="info">
-                                    <h2> Language </h2> 
-                                    <p>{{ element.language }}</p>
-                                </span>
+                            <div class="additional-info">
+                                <table class="details-table">
+                                    <tr>
+                                        <td class="data"><strong>element Type</strong></td>
+                                        <td class="data2">
+                                            {{ element.element_type == 0 ? 'Journal' : element.element_type == 1 ? 'Magazine' : 'Newspaper' }}
+                                        </td>
+                                        <td class="data"><strong>Date Received</strong></td>
+                                        <td class="data2">{{ element.acquired_date | date: 'mediumDate' }}</td>
+                                      </tr>
+                                    <tr>
+                                      <td class="data"><strong>Language</strong></td>
+                                      <td class="data2">{{element.language}}</td>
+                                      <td class="data"><strong>Remark</strong></td>
+                                      <td class="data2">{{ element.remarks != null ? element.remarks : 'N/A' }}</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
