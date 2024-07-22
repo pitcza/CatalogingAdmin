@@ -115,6 +115,20 @@ input:focus{
 table {
     border-radius: 5px;
     border: 1px solid var(--table-border);
+
+    tr {
+        transition: all 0.3s ease;
+    }
+    tr:hover{
+        background-color: var(--table-hover);
+    }
+
+    th {
+        background-color: var(--main-green) !important;
+        color: white;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+    }
 }
 
 table,
@@ -137,46 +151,33 @@ td {
 
 .tbl-header2 {
     height: 60px;
-    padding-left: 12.5%;
-}
-
-th {
-    background-color: var(--main-green) !important;
-    color: white;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-}
-
-table tr {
-    transition: all 0.3s ease;
-}
-
-table tr:hover{
-    background-color: var(--table-hover);
+    padding-left: 8%;
 }
 
 .left-align {
     text-align: left;
 }
 
-table td:nth-child(1) {
-    min-width: 400px;
-    max-width: 400px;
-}
-
-table td:nth-child(2) {
-    min-width: 300px;
-    max-width: 300px;
-}
-
-table td:nth-child(3) {
-    min-width: 150px;
-    max-width: 150px;
-}
-
-table td:nth-child(4) {
-    max-width: 150px;
-    min-width: 150px;
+table {
+    td:nth-child(1) {
+        min-width: 400px;
+        max-width: 400px;
+    }
+    
+    td:nth-child(2) {
+        min-width: 200px;
+        max-width: 200px;
+    }
+    
+    td:nth-child(3) {
+        min-width: 150px;
+        max-width: 150px;
+    }
+    
+    td:nth-child(4) {
+        max-width: 150px;
+        min-width: 150px;
+    }
 }
 
 // ACTION BUTTONS
@@ -239,7 +240,7 @@ tr {
     position: absolute;
     width: 119px;
     top: 100%;
-    right: 2%;
+    right: 3.2%;
     z-index: 1;
 }
 

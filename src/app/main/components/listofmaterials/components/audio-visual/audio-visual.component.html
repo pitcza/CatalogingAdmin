@@ -33,8 +33,8 @@
             
                 <!-- Author Column -->
                 <ng-container matColumnDef="authors">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header="" class="tbl-header2"> Author/s </th>
-                    <td mat-cell *matCellDef="let element">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="" class="tbl-header2"> Author(s) </th>
+                    <td mat-cell *matCellDef="let element" class="left-align">
                         <ng-container *ngIf="!element.authors"> N/A </ng-container>
                         <ng-container *ngIf="element.authors">
                             <ng-container *ngIf="element.authors.length > 3">

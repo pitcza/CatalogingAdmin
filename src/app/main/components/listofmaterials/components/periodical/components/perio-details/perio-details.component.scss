@@ -85,7 +85,7 @@ h1 {
 
 // BODY DETAILS //
 .detailsbody {
-    padding: 100px 30px 30px 30px;
+    padding: 105px 30px 30px 30px;
     height: auto; /* Adjust the height as needed */
 }
 
@@ -105,117 +105,48 @@ h1 {
     }
 }
 
-.details .mat-details {
+.details-table {
+    margin: 10px;
     flex-basis: 60%;
-    padding: 10px;
+    border-collapse: collapse;
+    height: auto;
+    align-self: start;
+    font-size: 15px;
 
-    .title {
-        font-size: 22px;
-        font-weight: 800;
-        padding-bottom: 15px;
+    .data {
+        width: 145px;
     }
-
-    .mat-authors {
-        display: flex;
-        line-height: 20px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid var(--table-border);
-        margin-bottom: 15px;
-        
-        h2 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-right: 15px;
-        }
-        p {
-            font-size: 15px;
-            font-weight: 400;
-        }
+    td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        align-content: start;
     }
-
-    .mat-publisher {
-        display: block;
-        line-height: 25px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid var(--table-border);
-        margin-bottom: 15px;
-
-        h2 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-right: 15px;
-        }
-        p {
-            font-size: 15px;
-            font-weight: 400;
-        }
-
-        span {
-            display: flex;
-            margin-top: 5px;
-        }
-    }
-
-    .bottom-details {
-        display: flex;
-        justify-content: space-between;
-        
-        h2 {
-            font-size: 15px;
-            font-weight: 700;
-        }
+    strong {
+        display: inline-block;
     }
 }
 
-.details .mat-content {
-    flex-basis: 80%;
-    padding: 10px;
-
-    .mat-details {
-        line-height: 20px;
-        padding-right: 20px;
-        padding-bottom: 20px;
-
-        h2 {
-            display: flex;
-            font-size: 15px;
-            font-weight: 700;
-            padding-bottom: 15px;
-            p {
-                font-weight: 400;
-                padding-left: 10px;
-            }
-        }
-    }
+.message {
+    padding-left: 10px;
+    opacity: 40%;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-.details .mat-info {
-    flex-basis: 40%;
-    padding: 10px;
-    padding-left: 30px;
-    border-left: 1px solid var(--table-border);
+.details .additional-info {
+    flex-basis: 100%;
 
-    .info {
-        line-height: 20px;
-
-        h2 {
-            font-size: 15px;
-            font-weight: 700;
-            padding-bottom: 10px;
-        }
-        p {
-            font-size: 15px;
-            font-weight: 400;
-            padding-bottom: 20px;
-        }
+    .data {
+        width: 190px;
+    }
+    .data2 {
+        width: 400px;
     }
 }
-
-
 
 // BUTTONS
 .button-container {
-    margin-top: 20px;
+    margin: 30px 10px 0 10px;
     display: flex;
     justify-content: flex-end;
 }

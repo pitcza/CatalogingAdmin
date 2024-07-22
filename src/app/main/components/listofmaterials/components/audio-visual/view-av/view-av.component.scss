@@ -85,87 +85,36 @@ h1 {
 
 // BODY DETAILS //
 .detailsbody {
-    padding: 100px 30px 30px 30px;
+    padding: 110px 30px 30px 30px;
     height: auto; /* Adjust the height as needed */
 }
 
-.details {
-    margin-bottom: 30px;
-}
+.details-table {
+    margin: 0 10px 10px 10px;
+    border-collapse: collapse;
+    height: auto;
+    align-self: start;
+    font-size: 15px;
 
-.details .mat-details {
-    padding: 10px;
-
-    .title {
-        font-size: 22px;
-        font-weight: 800;
-        padding-bottom: 15px;
-        padding-top: 15px;
-        margin-top: 15px;
-        border-top: 1px solid var(--table-border);
+    .data {
+        width: 200px;
     }
-
-    .mat-authors {
-        display: flex;
-        line-height: 20px;
-        padding-bottom: 5px;
-        margin-bottom: 15px;
-        
-        h2 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-right: 15px;
-        }
-        p {
-            font-size: 15px;
-            font-weight: 400;
-        }
+    .data2 {
+        width: 700px;
     }
-
-    .mat-callnum {
-        display: block;
-        line-height: 25px;
-        padding: 15px 0;
-        border-top: 1px solid var(--table-border);
-        border-bottom: 1px solid var(--table-border);
-        margin: 15px 0;
-
-        h2 {
-            display: flex;
-            font-size: 15px;
-            font-weight: 700;
-            margin-right: 5px;
-            p {
-                font-size: 15px;
-                font-weight: 400;
-                padding-left: 5px;
-            }
-        }
+    td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        align-content: start;
     }
-
-    .mid-details {
-        display: flex;
-        justify-content: space-between;
-        padding: 5px 0;
-        
-        h2 {
-            display: flex;
-            font-size: 15px;
-            font-weight: 700;
-            margin-right: 5px;
-
-            p {
-                font-size: 15px;
-                font-weight: 400;
-                padding-left: 5px;
-            }
-        }
+    strong {
+        display: inline-block;
     }
 }
 
 // BUTTONS
 .button-container {
-    margin-top: 20px;
+    margin: 30px 10px 0 10px;
     display: flex;
     justify-content: flex-end;
 }

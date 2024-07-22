@@ -28,6 +28,14 @@ export class ArticleDetailsComponent implements OnInit {
     });
   }
 
+  // nadidisplay kasi nang tuloy-tuloy yung maraming paragraphs, nagiging iisang paragraph hehe ito raw solusyon sabi ni tropang chatgpt
+  formatAbstract(abstract: string | null): string {
+    if (!abstract) {
+      return 'N/A';
+    }
+    return abstract.replace(/\n/g, '<br>');
+  }
+
   closepopup() {
     this.ref.close('Closed using function');
   }
