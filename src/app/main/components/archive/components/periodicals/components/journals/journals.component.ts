@@ -142,24 +142,7 @@ export class JournalsComponent implements OnInit {
               timer: 5000
             });
             this.getData();
-          },
-          error: (err: any) => {
-            Swal.fire({
-              title: "Error!",
-              text: err.message,
-              icon: "success",
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-              scrollbarPadding: false,
-              willOpen: () => {
-                document.body.style.overflowY = 'scroll';
-              },
-              willClose: () => {
-                document.body.style.overflowY = 'scroll';
-              },
-              timer: 5000
-            });
-          }          
+          }   
         })
       }
     });

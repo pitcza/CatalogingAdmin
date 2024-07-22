@@ -393,7 +393,7 @@ export class EditBookComponent implements OnInit{
               this.successMessage(form.get('title'));
               this.closepopup('Update');
             },
-            error: (err: any) => this.serverErrors()
+            error: (err: any) => this.editForm.get('accession')?.setErrors({ serverError: err.accession })
           });
         }
       })
@@ -420,10 +420,10 @@ export class EditBookComponent implements OnInit{
     });
   }
 
-  serverErrors() {
+  serverErrors(text: string) {
     Swal.fire({
-      title: 'Oops! Server Side Error!',
-      text: 'Please try again later or contact the developers',
+      title: 'Oops! Encountered Error',
+      text: text,
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",

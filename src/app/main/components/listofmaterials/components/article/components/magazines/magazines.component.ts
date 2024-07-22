@@ -170,15 +170,6 @@ export class MagazinesComponent implements OnInit {
               scrollbarPadding: false,
             });
             this.getData();
-          },
-          error: (err: any) => {
-            Swal.fire({
-              title: "Error",
-              text: "Oops an error occured.",
-              icon: "error",
-              scrollbarPadding: false,
-            });
-            console.log(err);
           }
         });
       };

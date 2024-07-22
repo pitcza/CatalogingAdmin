@@ -212,14 +212,7 @@ export class ListofprojectsComponent implements OnInit {
             });
             this.getData();
           },
-          error: (err: any) => {
-            Swal.fire({
-              title: "Error",
-              text: "Oops an error occured.",
-              icon: "error"
-            });
-            console.log(err);
-          }
+          error: (err: any) => { }
         });
       };
     });

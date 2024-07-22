@@ -93,15 +93,6 @@ export class AudioVisualComponent {
               confirmButtonColor: "#777777",
               scrollbarPadding: false
             }); this.getData();
-          }, error: (err: any) => {
-            Swal.fire({
-              title: "Archiving complete!",
-              text: "Audio-Visual cannot be archived at the moment.",
-              icon: "success",
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-              scrollbarPadding: false
-            });
           }
         })
         

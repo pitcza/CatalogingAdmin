@@ -492,16 +492,6 @@ export class EditdetailsComponent implements OnInit{
               scrollbarPadding: false,
             });
             this.closepopup('Archive')
-          },
-          error: (err: any) => {
-            Swal.fire({
-              title: "Archive Error!",
-              text: "Please try again later.",
-              icon: "error",
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-              scrollbarPadding: false,
-            });
           }
         })
       }
@@ -590,7 +580,7 @@ export class EditdetailsComponent implements OnInit{
         if(result.isConfirmed) {
           this.ds.request('PUT', 'projects/process/' + this.data.details, form).subscribe({
             next: (res: any) => { this.successMessage('Project'); this.closepopup('Update') },
-            error:(err: any) => this.serverErrors()
+            error: (err: any) => this.editForm.get('accession')?.setErrors({ serverError: err.accession })
           });
         }
       })

@@ -22,6 +22,7 @@ import { DataService } from '../../../../../services/data/data.service';
 })
 
 export class AddprojectComponent implements OnInit {
+  submit = false;
   programs: any;
   departments: any;
   departmentFilter = '';
@@ -374,16 +375,48 @@ export class AddprojectComponent implements OnInit {
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
-  // SUBMIT POPUP
-  protected submit() {
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
+
+  invalidMultiInput(type: string, i: number) {
+    let input = '';
+    if(type == 'author') input = this.values[i];
+    else if(type == 'tags') input = this.tags[i];
+
+    return (input.length < 1 || input.length > 50) && this.submit;
+  }
+  
+  validateMultiInput(type: string) {
+    let valid = true, isNull = false, isExceeded = false;
+    let input: any;
+
+    if(type == 'author') input = this.values;
+    else if(type == 'tags') input = this.tags;
+
+    for(let i = 0; i < input.length; i++) {
+      if(!input[i]) valid = false, isNull = true;
+
+      if(input[i].length > 50) valid = false, isExceeded = true;
+    }
+  
+    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
+  }
+
+  // UPDATE POPUP
+  protected submitForm() {
 
     this.form.get('category')?.enable();
-    this.form.patchValue({
-      authors: JSON.stringify(this.values),
-      keywords: JSON.stringify(this.tags)
-    });
 
-    if(this.form.valid) {
+    if(this.form.valid && this.validateMultiInput('author').valid && this.validateMultiInput('tags').valid) {
+      
+      this.form.patchValue({
+        authors: JSON.stringify(this.values),
+        keywords: JSON.stringify(this.tags)
+      });
       let form = new FormData();
 
       Object.entries(this.form.value).forEach(([key, value]: [string, any]) => {
@@ -411,41 +444,129 @@ export class AddprojectComponent implements OnInit {
             timer: 5000
           });
         },
-        error:(err: any) => {
-          console.log(err);
-          Swal.fire({
-            title: 'Error',
-            text: "Oops a server error occured",
-            icon: 'error',
-            confirmButtonText: 'Close',
-            confirmButtonColor: "#777777",
-            scrollbarPadding: false,
-            willOpen: () => {
-              document.body.style.overflowY = 'scroll';
-            },
-            willClose: () => {
-              document.body.style.overflowY = 'scroll';
-            }
-          });
-        }
+        error:(err: any) => this.form.get('accession')?.setErrors({ serverError: err.accession })
       });
     } else {
-      Swal.fire({
-        title: 'Error',
-        text: "Oops an error occured",
-        icon: 'error',
-        confirmButtonText: 'Close',
-        confirmButtonColor: "#777777",
-        scrollbarPadding: false,
-        willOpen: () => {
-          document.body.style.overflowY = 'scroll';
-        },
-        willClose: () => {
-          document.body.style.overflowY = 'scroll';
-        }
-      });
+      this.form.get('category')?.disable();
+      this.markFormGroupTouched(this.form);
+      this.displayErrors();
     }
   }
+
+  successMessage(title: any) {
+    Swal.fire({
+      title: 'Success',
+      text: title + " has been updated successfully",
+      icon: 'success',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#4F6F52",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      timer: 5000
+    });
+  }
+
+  serverErrors() {
+    Swal.fire({
+      title: 'Oops! Server Side Error!',
+      text: 'Please try again later or contact the developers',
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
+    });
+  }
+
+  displayErrors() {
+
+    let maxLengthFields = '';
+    let minIntFields = '';
+    let integerFields = '';
+    let required = false;
+
+    Object.keys(this.form.controls).forEach(key => {
+      const control = this.form.get(key);
+      if (control && control.errors) {
+        const controlErrors = control.errors;
+        Object.keys(controlErrors).forEach(errorKey => {
+          console.log(key)
+          switch (errorKey) {
+            case 'required':
+              required = true;
+              break;
+
+            case 'maxlength':
+              maxLengthFields += `${key}, `;
+              break;
+
+            case 'min':
+              minIntFields += `${key}, `;
+              break;
+
+            case 'pattern':
+              if(controlErrors['pattern']['requiredPattern'] == '^[0-9]+$') {
+                integerFields += `${key}, `;
+              }
+              break;
+
+            default:
+              break;
+          }
+        });
+      }
+    });
+
+    if(this.validateMultiInput('author').null || this.validateMultiInput('tags').null) required = true;
+
+    if(this.validateMultiInput('author').maxLength) maxLengthFields += 'authors, ';
+
+    if(this.validateMultiInput('tags').maxLength) maxLengthFields += 'keywords, ';
+
+    let errorText = '';
+    
+    if(required) {
+      errorText += 'Please fill up required fields <br>'
+    } 
+    
+    if(maxLengthFields.length > 0) {
+      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
+    }
+
+    if(minIntFields.length > 0) {
+      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
+    }
+
+    if(integerFields.length > 0) {
+      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
+    }
+
+    Swal.fire({
+      title: 'Oops! Invalid Form!',
+      html: `<div style="font-weight: 500;">${errorText}</div>`,
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
+    });
+  }
+
 
   // POP UP FUNCTION CONTENT
   showPopup: boolean = false;

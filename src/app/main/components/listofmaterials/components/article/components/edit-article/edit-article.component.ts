@@ -268,7 +268,7 @@ export class EditArticleComponent implements OnInit{
               this.successMessage(form.get('title'));
               this.closepopup('Update');
             },
-            error: (err: any) => this.serverErrors()
+            error: (err: any) => this.editForm.get('accession')?.setErrors({ serverError: err.accession })
           });
         }
       })

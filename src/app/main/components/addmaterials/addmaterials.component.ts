@@ -428,37 +428,25 @@ export class AddmaterialsComponent implements OnInit {
           this.ds.request('POST', 'materials/books/process', form).subscribe({
             next: (res: any) => {
               this.successMessage(formTitle)
-              },
-            error: (err: any) => {
-              this.serverErrors(err.message);
-            }
+              }
           });
         } else if(type == 'periodical') {
           this.ds.request('POST', 'materials/periodicals/process', form).subscribe({
             next: (res: any) => {
               this.successMessage(formTitle)
-              },
-            error: (err: any) => {
-              this.serverErrors(err.message);
-            }
+              }
           });
         } else if(type == 'article') {
           this.ds.request('POST', 'materials/articles/process', form).subscribe({
             next: (res: any) => {
               this.successMessage(formTitle)
-              },
-            error: (err: any) => {
-              this.serverErrors(err.message);
-            } 
+              }
           });
         } else if(type == 'AV') {
           this.ds.request('POST', 'materials/audio-visuals/process', form).subscribe({
             next: (res: any) => {
               this.successMessage(formTitle)
-              },
-            error: (err: any) => {
-              this.serverErrors(err.message);
-            } 
+              }
           });
         } 
       }

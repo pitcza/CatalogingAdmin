@@ -163,17 +163,6 @@ export class NewspapersComponent implements OnInit {
               scrollbarPadding: false,
             });
             this.getData();
-          },
-          error: (err: any) => {
-            console.log(err)
-            Swal.fire({
-              title: "Archive Error!",
-              text: "Please try again later.",
-              icon: "error",
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-              scrollbarPadding: false,
-            });
           }
         })
       }

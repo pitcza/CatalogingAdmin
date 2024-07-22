@@ -249,7 +249,7 @@ export class EditAVComponent implements OnInit {
     
           this.ds.request('PUT', 'materials/audio-visuals/process/' + this.data.accession, form).subscribe({
             next: (res: any) => { this.successMessage('Audio-visual'); this.closepopup('Update'); },
-            error: (err: any) => this.serverErrors()
+            error: (err: any) => this.editForm.get('accession')?.setErrors({ serverError: err.accession })
           });
         } else {
           this.markFormGroupTouched(this.editForm);

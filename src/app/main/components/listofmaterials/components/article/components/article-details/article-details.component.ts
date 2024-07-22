@@ -72,21 +72,6 @@ export class ArticleDetailsComponent implements OnInit {
               timer: 5000
             });
             this.ref.close('Changed Data');
-          },
-          error: (err: any) => {
-            Swal.fire({
-              title: "Error",
-              text: "Oops an error occured.",
-              icon: "error",
-              scrollbarPadding: false,
-              willOpen: () => {
-                document.body.style.overflowY = 'scroll';
-              },
-              willClose: () => {
-                document.body.style.overflowY = 'scroll';
-              },
-            });
-            console.log(err);
           }
         });
       };

@@ -35,7 +35,7 @@ export class ReportsService {
     // Headers to be removed
     let removeHeaders: any = ['created_at'];
 
-    if(fileName == 'Cataloging Academic Projects Report') var headers = ['project_program', 'category', 'authors', 'title', 'date_published'];
+    if(fileName == 'Cataloging Academic Projects Report') var headers = ['project_program', 'category', 'title', 'authors', 'date_published'];
     else if(fileName.toLowerCase().includes('project')) var headers = ['category', 'authors', 'title', 'date_published'];
     else var headers = Object.keys(data[0]).filter(key => !removeHeaders.includes(key));
     
