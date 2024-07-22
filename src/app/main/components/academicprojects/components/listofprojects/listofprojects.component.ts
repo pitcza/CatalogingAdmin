@@ -102,6 +102,10 @@ export class ListofprojectsComponent implements OnInit {
       selectProgram = '';
     }
 
+    const categoryFilterPredicate = (data: Project, search: string): boolean => {
+      return data.category.toLowerCase().trim().includes(search.toLowerCase().trim());
+    } 
+
     const titleFilterPredicate = (data: Project, search: string): boolean => {
       return data.title.toLowerCase().trim().includes(search.toLowerCase().trim());
     } 
@@ -121,7 +125,7 @@ export class ListofprojectsComponent implements OnInit {
     }
 
     const filterPredicate = (data: Project): boolean => {
-      return (titleFilterPredicate(data, search) || authorFilterPredicate(data, search)) &&
+      return (titleFilterPredicate(data, search) || authorFilterPredicate(data, search) || categoryFilterPredicate(data, search)) &&
               departmentFilterPredicate(data, selectDepartment) &&
               programFilterPredicate(data, selectProgram);
     };
