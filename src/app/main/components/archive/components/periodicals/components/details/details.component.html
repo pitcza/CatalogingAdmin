@@ -7,7 +7,7 @@
                     <!-- <h1> element: {{ element.element_type == 0 ? 'Journal' : 
                                         element.element_type == 1 ? 'Magazine' : 'Newspaper' }} 
                     </h1> -->
-                    <h1> element {{ type }}
+                    <h1> Periodical - {{ type }}
                     </h1>
                     <button class="exit-button" (click)="closepopup('')"> &times; </button>
                 </div>
@@ -71,7 +71,7 @@
                             <div class="additional-info">
                                 <table class="details-table">
                                     <tr>
-                                        <td class="data"><strong>element Type</strong></td>
+                                        <td class="data"><strong>Periodical Type</strong></td>
                                         <td class="data2">
                                             {{ element.element_type == 0 ? 'Journal' : element.element_type == 1 ? 'Magazine' : 'Newspaper' }}
                                         </td>

@@ -4,7 +4,7 @@
             <div class="details-content">
                 <!-- HEADER -->
                 <div class="detailsheader">
-                    <h1> {{ type }} element </h1>
+                    <h1> {{ type }} Article </h1>
                     <button class="exit-button" (click)="closepopup('')"> &times; </button>
                 </div>
 
@@ -61,7 +61,7 @@
                                 <tr>
                                     <td class="data"><strong>Volume</strong></td>
                                     <td class="data2">{{ element.volume != null ? element.volume : 'N/A' }}</td>
-                                    <td class="data"><strong>element Type</strong></td>
+                                    <td class="data"><strong>Article Type</strong></td>
                                     <td class="data2">
                                         {{ element.element_type == 0 ? 'Journal' : element.element_type == 1 ? 'Magazine' : 'Newspaper' }}
                                     </td>
