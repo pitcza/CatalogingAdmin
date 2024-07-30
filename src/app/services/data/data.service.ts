@@ -34,13 +34,5 @@ export class DataService {
           throw new Error(`Unsupported request method: ${method}`);
     }
   }
-  
-  public setProjects(data: any) {
-    this.projects = data;
-  }
-
-  public getProjects() {
-    return this.projects;
-  }
 }
 

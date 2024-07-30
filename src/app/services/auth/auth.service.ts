@@ -13,7 +13,8 @@ export class AuthService {
     private headers: HeaderService
   ) { }
 
-  url = 'http://127.0.0.1:8000/api/';
+  // url = 'http://127.0.0.1:8000/api/';
+  url = 'http://192.168.18.185:8000/api/';
   private loggedIn = false;
 
   isLoggedIn(): boolean {

@@ -16,6 +16,15 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           this.router.navigate(['/login']);
+          Swal.fire({
+            title: "Login Error!",
+            text: "Invalid Credentials",
+            icon: "error",
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+            scrollbarPadding: false,
+            timer: 2500
+          });
           return throwError(() => new Error('Unauthenticated'));
         } else if (error.status === 409) {
           Swal.fire({

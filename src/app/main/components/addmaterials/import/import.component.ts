@@ -35,36 +35,74 @@ export class ImportComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         if(this.form.get('excel_file')) {
+          // Show loading popup
+          Swal.fire({
+            title: 'Please wait...',
+            text: 'Importing file...',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+          
           this.ds.request('POST', 'materials/books/import', this.form).subscribe({
             next: (res: any) => {
-              console.log(res);
               this.closepopup()
-              const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 2500,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
-                }
-              });
-              Toast.fire({
-                icon: "success",
-                title: "File Sucessfully Imported!"
-              });
+              Swal.close(); // Close the loading popup
+              if(res.success == 0) {
+                Swal.close(); // Close the loading popup in case of error
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: res.message,
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#777777'
+                });
+              } else {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 2500,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                  }
+                });
+                Toast.fire({
+                  icon: "success",
+                  title: res.message,
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#777777'
+                });
+              }
             },
             error: (err: any) => {
               console.log(err);
+              Swal.close(); // Close the loading popup in case of error
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to import the file. Please try again.',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#777777'
+              });
             }
-          })
+          });
           
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No file submitted',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#777777'
+          });
         }
-        
       }
     });
-  }
+}
 
   cancelBox(){
     Swal.fire({
