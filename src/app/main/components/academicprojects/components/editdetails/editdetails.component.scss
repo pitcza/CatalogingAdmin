@@ -146,21 +146,19 @@ h1 {
 // ----- INPUT HOVER
 .txt_field .inputtxt:hover,
 .txt_field_short .inputtxt:hover,
-.txt_field_shorter .inputtxt:hover {
+.txt_field_shorter .inputtxt:hover,
+.txtarea textarea:hover {
     background-color: var(--input-hover);
 }
 
-// ----- LABEL AND LABEL ANIMATION
-.labelline {
-    font-family: 'Montserrat';
-    position: absolute;
-    top: 50%;
-    left: 10px;
+// ----- LABEL
+.datelabel, .labelline1 {
+    top: 9px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
     color: var(--input-border);
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
+    position: absolute;
+    left: 10px;
 }
 
 .txt_field .inputtxt:focus ~ .labelline,
@@ -173,27 +171,9 @@ h1 {
 .txt_field input[type="date"]:focus ~ .datelabel, 
 .txt_field input[type="file"]:focus ~ .uploadlabel,  
 .txt_field_short .inputtxt-price:focus ~ .labelline1, 
-.txt_field .inputtxt-price:focus ~ .labelline1 {
-    top: 17px;
-    font-size: 12px;
+.txt_field .inputtxt-price:focus ~ .labelline1,
+.txtarea textarea:focus ~ .labelline1 {
     color: var(--main-green); // ----- MAIN GREEN LABEL IF FOCUS
-    letter-spacing: 0.5px;
-}
-
-.labelline.moved-up { // MOVE UP KAPAG MAY BACKEND DATA
-    top: 17px;
-    font-size: 12px;
-    color: var(--main-green);
-    letter-spacing: 0.5px;
-}
-
-.datelabel, .labelline1 { // LABEL IF NAKATAAS NA AGAD
-    top: 7px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: var(--input-border);
-    position: absolute;
-    left: 10px;
 }
 
 .txt_field .inputtxt:valid ~ .labelline1,
@@ -202,7 +182,8 @@ h1 {
 .txt_field .inputtxt-price:valid ~ .labelline1,
 .txt_field_short .inputtxt-price:valid ~ .labelline1,
 .txt_field input[type="date"]:valid ~ .datelabel,
-.txt_field_short input[type="date"]:valid ~ .datelabel {
+.txt_field_short input[type="date"]:valid ~ .datelabel,
+.txtarea textarea:valid ~ .labelline1 {
     top: 9px;
     font-size: 12px;
     letter-spacing: 0.5px;
@@ -224,9 +205,21 @@ h1 {
 .txt_field .inputtxt:focus ~ span::before,
 .txt_field_short .inputtxt:focus ~ span::before, 
 .txt_field_shorter .inputtxt:focus ~ span::before, 
-.txt_field .inputtxt-price:focus ~ span::before {
+.txt_field .inputtxt-price:focus ~ span::before,
+.txtarea textarea:focus ~ span::before {
     width: 100%;
     background: var(--main-green); // MAIN GREEN LINE IF FOCUS
+}
+
+// TEXTAREA SPAN ANIMATION
+.txtarea span::before {
+    content: '';
+    position: absolute;
+    top: 198px;
+    left: 0;
+    width: 100%;
+    height: 2.5px;
+    transition: .3s;
 }
 
 // ----- SHORT INPUT FIELD
@@ -441,41 +434,6 @@ input[type="file"]::file-selector-button { // CHOOSE FILE BUTTON
     outline: none;
     border-bottom: 2px solid var(--input-border);
     resize: none;
-}
-
-.txtarea .labelline1 {
-    font-family: 'Montserrat';
-    position: absolute;
-    top: 60%;
-    left: 10px;
-    color: var(--input-border);
-    transform: translateY(-50%);
-    font-size: 15px;
-    pointer-events: none;
-    transition: .3s;
-}
-
-.txtarea textarea:focus {
-    content: '';
-    border-bottom: 2.5px solid var(--main-green);
-}
-
-.txtarea textarea:hover{
-    background-color: var(--input-hover);
-}
-
-.txtarea textarea:valid ~ .labelline1 {
-    top: 17px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: var(--input-border);
-}
-
-.txtarea textarea:focus ~ .labelline1 {
-    top: 17px;
-    font-size: 12px;
-    color: var(--main-green);
-    letter-spacing: 0.5px;
 }
 
 // KEYWORDS TAG

@@ -38,7 +38,7 @@ export class AddprojectComponent implements OnInit {
     image_url: [''],
     date_published: ['', Validators.required],
     language: ['English', Validators.required],
-    abstract: [''],
+    abstract: ['', Validators.required],
     keywords: ['']
   });
 
@@ -49,16 +49,6 @@ export class AddprojectComponent implements OnInit {
       this.titleTooLong = titleControl.value.length > 255;
     }
   }
-
-  // // check if the field is filled (to move up label)
-  // isFieldFilled(fieldName: string, index?: number): boolean {
-  //   if (fieldName === 'author' && index !== undefined) {
-  //     return this.values[index] !== null && this.values[index] !== '';
-  //   } else {
-  //     const control = this.form.get(fieldName);
-  //     return !!control && control.value !== null && control.value !== '';
-  //   }
-  // }
 
   constructor(
     private router: Router,

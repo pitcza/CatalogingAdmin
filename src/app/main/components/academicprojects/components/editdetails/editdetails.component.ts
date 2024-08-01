@@ -44,7 +44,7 @@ export class EditdetailsComponent implements OnInit{
     image_url: [''],
     date_published: ['', Validators.required],
     language: ['English', Validators.required],
-    abstract: [''],
+    abstract: ['', Validators.required],
     keywords: ['']
   });
 

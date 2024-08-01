@@ -61,8 +61,8 @@
                                         <div class="multiple-author">
                                             <div class="txt_field">
                                                 <input class="inputtxt" type="text" name="author" [value]="x" (keyup)="updateValue($event, i)">
-                                                <span></span>
-                                                <div class="labelline1"> Author </div>
+                                                <span [ngClass]="{'errorSpan': isInvalid('authors') }"></span>
+                                                <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('authors') }"> Author </div>
                                             </div>
                                             <button type="button" class="removebtn" *ngIf="values.length > 1" (click)="removevalue(i)"><i class='bx bx-x'></i></button>
                                         </div>
@@ -95,8 +95,8 @@
                                 <div class="input-row">
                                     <div class="txtarea">
                                         <textarea formControlName="abstract"></textarea>
-                                        <span></span>
-                                        <label class="labelline1"> Abstract </label>
+                                        <span [ngClass]="{'errorSpan': isInvalid('abstract') }"></span>
+                                        <label class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('abstract') }"> Abstract </label>
                                     </div>
                                 </div>
 
