@@ -66,6 +66,48 @@
                                         <div class="labelline1"> Copyright </div>
                                     </div>
                                 </div>
+
+                                <!-- IMAGE CROP AND PREVIEW -->
+                                <div class="img-row" id="no-add-function">
+                                    <div class="img-content">
+                                        <div class="left">
+                                            <div class="txt_field">
+                                                <input class="inputtxt" id="fileInput" type="file" accept=".jpeg, .png, .jpg" (change)="onFileChange($event)" style="padding-left: 110px;">
+                                                <span></span>
+                                                <div class="uploadlabel"> Upload Image </div>
+                                            </div>
+                                            <div class="img-crop">
+                                                <ng-container *ngIf="validFile">
+                                                    <image-cropper
+                                                    [imageChangedEvent]="imgChangeEvt"
+                                                    [aspectRatio]="3/4"
+                                                    [resizeToWidth]="500"
+                                                    [maintainAspectRatio]="true"
+                                                    (imageCropped)="cropImg($event)"
+                                                    (imageLoaded)="imgLoad()"
+                                                    (cropperReady)="initCropper()"
+                                                    (loadImageFailed)="imgFailed()"
+                                                    >
+                                                    </image-cropper>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <div class="right">
+                                            <div class="preview" *ngIf="image">
+                                                <h2> Cropped Image Preview </h2>
+                                            </div>
+                                            <div class="preview" *ngIf="!image">
+                                                <h2> Current Saved Image Preview </h2>
+                                            </div>
+                                            <div class="cropped-image-preview" *ngIf="cropImagePreview">
+                                                <img [src]="cropImagePreview" alt="Cropped Image Preview">
+                                            </div>
+                                            <div class="cropped-image-preview" *ngIf="!cropImagePreview">
+                                                <img [src]="errorImage" alt="Cropped Image Preview">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>

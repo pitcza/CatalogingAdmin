@@ -26,6 +26,7 @@ export class ViewAVComponent implements OnInit {
     private ds: DataService
   ) { }
 
+  errorImage = '../../../../../../assets/images/NoImage.png';
   model: any;
 
   ngOnInit(): void {

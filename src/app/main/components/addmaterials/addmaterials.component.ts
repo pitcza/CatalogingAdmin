@@ -21,8 +21,10 @@ export class AddmaterialsComponent implements OnInit {
 
   bookImage: any = null;
   periodicalImage: any = null;
+  AVImage: any = null;
   bookImageUrl: string | ArrayBuffer | null = null;  // Add this line
   periodicalImageUrl: string | ArrayBuffer | null = null;  // Add this line
+  AVImageUrl: string | ArrayBuffer | null = null;  // Add this line
   isModalOpen: boolean = false;
   dialogRef: MatDialog;
   audioForm: FormGroup = this.formBuilder.group({
@@ -114,9 +116,9 @@ export class AddmaterialsComponent implements OnInit {
   }
 
   // ----- PREVIEW AND CROP IMAGE ----- //
-  validBookImage = false; validPeriodicalImage = false;
-  bookImgChangeEvt: any = ''; periodicalImgChangeEvt: any = '';
-  bookCropImagePreview: SafeUrl | undefined; periodicalCropImagePreview: SafeUrl | undefined;
+  validBookImage = false; validPeriodicalImage = false; validAVImage = false;
+  bookImgChangeEvt: any = ''; periodicalImgChangeEvt: any = ''; AVImgChangeEvt: any = '';
+  bookCropImagePreview: SafeUrl | undefined; periodicalCropImagePreview: SafeUrl | undefined; AVCropImagePreview: SafeUrl | undefined;
 
   onFileChange(event: any, type: string) {
     const input = event.target;
@@ -129,6 +131,7 @@ export class AddmaterialsComponent implements OnInit {
       if (file.type.startsWith('image/')) {
         if(type == 'book') { this.validBookImage = true; this.bookImgChangeEvt = event; this.bookCropImagePreview = ''; }
         else if(type == 'periodical') { this.validPeriodicalImage = true; this.periodicalImgChangeEvt = event; this.periodicalCropImagePreview = ''; }
+        else if(type == 'AV') { this.validAVImage = true; this.AVImgChangeEvt = event; this.AVCropImagePreview = ''; }
 
         this.cd.detectChanges();
       } else {
@@ -155,6 +158,7 @@ export class AddmaterialsComponent implements OnInit {
     if (event?.objectUrl) {
       if (type == 'book') { this.bookCropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl); }
       else if (type == 'periodical') { this.periodicalCropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl); }
+      else if (type == 'AV') { this.AVCropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl); }
       
       this.cd.detectChanges();
       
@@ -165,6 +169,8 @@ export class AddmaterialsComponent implements OnInit {
             this.bookImage = blob;
           } else if (type == 'periodical') {
             this.periodicalImage = blob;
+          } else if (type == 'AV') {
+            this.AVImage = blob;
           }
         }
       }).catch(error => {
@@ -418,6 +424,10 @@ export class AddmaterialsComponent implements OnInit {
         } else if(type == 'periodical') {
           if(this.periodicalImage) {
             form.append('image_url', this.periodicalImage);
+          }
+        } else if(type == 'AV') {
+          if(this.AVImage) {
+            form.append('image_url', this.AVImage);
           }
         }
 

@@ -17,12 +17,14 @@ import { ArticleModule } from './components/article/article.module';
 
 import { ImageCropperComponent } from 'ngx-image-cropper';
 import { EditBookComponent } from './components/books/edit-book/edit-book.component';
+import { EditAVComponent } from './components/audio-visual/edit-av/edit-av.component';
 
 @NgModule({
   declarations: [
     PeriodicalComponent,
     ArticleComponent,
     EditBookComponent,
+    EditAVComponent
   ],
   imports: [
     CommonModule,

@@ -89,8 +89,28 @@ h1 {
     height: auto; /* Adjust the height as needed */
 }
 
+.details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.details .mat-image {
+    flex-basis: 50%;
+    margin: 10px;
+    background-color: var(--container-color);
+    align-content: center;
+    text-align-last: center;
+
+    .cover {
+        width: 100%;
+        height: auto;
+    }
+}
+
 .details-table {
-    margin: 0 10px 10px 10px;
+    margin: 10px;
+    flex-basis: 60%;
     border-collapse: collapse;
     height: auto;
     align-self: start;
@@ -100,7 +120,7 @@ h1 {
         width: 200px;
     }
     .data2 {
-        width: 700px;
+        width: 650px;
     }
     td {
         padding: 8px;

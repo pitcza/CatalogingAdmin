@@ -1,7 +1,8 @@
-import { Component, NgZoneOptions, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZoneOptions, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Inject } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
@@ -13,17 +14,16 @@ import { DataService } from '../../../../../../services/data/data.service';
   selector: 'app-edit-av',
   templateUrl: './edit-av.component.html',
   styleUrl: './edit-av.component.scss',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ],
 })
+
 export class EditAVComponent implements OnInit {
   year: number[] = [];
   values = [''];
+  imageUrl: any;
   currentYear = new Date().getFullYear();
   submit = false;
+  errorImage = '../../../../../../assets/images/NoImage.png';
+
   editForm: FormGroup = this.formBuilder.group({
     accession: ['', [Validators.required, Validators.maxLength(20)]],
     title: ['', [Validators.required, Validators.maxLength(150)]],
@@ -37,6 +37,8 @@ export class EditAVComponent implements OnInit {
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private router: Router,
+    private cd: ChangeDetectorRef,
+    private sanitizer: DomSanitizer,
     private ds: DataService
   ) { 
 
@@ -56,6 +58,7 @@ export class EditAVComponent implements OnInit {
       });
 
       this.values = res.authors;
+      this.cropImagePreview = res.image_url;
     });
   }
 
@@ -84,6 +87,104 @@ export class EditAVComponent implements OnInit {
     return index;
   }
   // ----- END OF AUTHORS ----- //
+
+  // ----- PREVIEW AND CROP IMAGE ----- //
+  validFile = false;
+  imgChangeEvt: any = null;
+  cropImagePreview: SafeUrl | undefined;
+  image: any;
+
+  onFileChange(event: any) {
+    const input = event.target as HTMLInputElement;
+
+    // Check if there are files selected
+    if (input.files && input.files.length) {
+      const file = input.files[0];  // Get the first selected file
+
+      // Check if the selected file is an image
+      if (file.type.startsWith('image/')) {
+        this.validFile = true;
+        this.imgChangeEvt = event;
+        this.image = file;  // Optionally store the file object itself
+
+        // Reset cropImagePreview when a new file is selected
+        this.cropImagePreview = undefined;
+        this.cd.detectChanges();
+      } else {
+        input.value = ''; // removes the file
+        Swal.fire({
+          title: 'File Error',
+          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          icon: 'error',
+          confirmButtonText: 'Close',
+          confirmButtonColor: "#777777",
+          scrollbarPadding: false,
+          willOpen: () => {
+            document.body.style.overflowY = 'scroll';
+          },
+          willClose: () => {
+            document.body.style.overflowY = 'scroll';
+          }
+        });
+      }
+    } 
+  }
+
+  cropImg(event: ImageCroppedEvent) {
+    if (event?.objectUrl) {
+      this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      this.cd.detectChanges();
+      
+      this.getBlobFromObjectUrl(event.objectUrl).then((blob: Blob) => {
+        if (blob) {
+          this.image = blob;
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  }
+
+  async getBlobFromObjectUrl(objectUrl: string): Promise<Blob> {
+    try {
+      const response = await fetch(objectUrl);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const blob = await response.blob();
+      return blob;
+    } catch (error) {
+      console.error('Error fetching or converting to Blob:', error);
+      throw error;
+    }
+  }
+
+  imgLoad() {
+    this.cd.detectChanges();
+  }
+
+  initCropper() {
+    this.cd.detectChanges();
+  }
+
+  imgFailed() {
+    Swal.fire({
+      title: 'Error',
+      text: "Image failed to show. Please try again.",
+      icon: 'error',
+      confirmButtonText: 'Close',
+      confirmButtonColor: "#777777",
+      timer: 2500,
+      scrollbarPadding: false,
+      willOpen: () => {
+        document.body.style.overflowY = 'scroll';
+      },
+      willClose: () => {
+        document.body.style.overflowY = 'scroll';
+      }
+    });
+  }
+  // END OF PREVIEW AND CROP IMAGE //
 
   // RED INPUT FIELD
   isInvalid(controlName: string): boolean {

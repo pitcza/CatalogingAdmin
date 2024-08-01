@@ -11,6 +11,10 @@
                 <div class="detailsbody">
                     <div class="body">
                         <div class="details">
+                            <div class="mat-image">
+                                <img class="cover" alt="audio-visual image" [src]="model.image_url || errorImage">
+                            </div>
+
                             <table class="details-table">
                                 <tr>
                                     <td class="data"><strong>Accession No.</strong></td>
@@ -30,10 +34,12 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                    <td class="data"><strong>Copyright</strong></td>
-                                    <td class="data2">{{model.copyright}}</td>
                                     <td class="data"><strong>Call Number</strong></td>
                                     <td class="data2">{{model.call_number}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data"><strong>Copyright</strong></td>
+                                    <td class="data2">{{model.copyright}}</td>
                                 </tr>
                             </table>
                         </div>

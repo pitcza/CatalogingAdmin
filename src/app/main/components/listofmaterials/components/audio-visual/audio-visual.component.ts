@@ -1,17 +1,17 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
 
 import Swal from 'sweetalert2';
 
 import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ChangeDetectorRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+
 import { EditAVComponent } from './edit-av/edit-av.component';
 import { ViewAVComponent } from './view-av/view-av.component';
 import { DataService } from '../../../../../services/data/data.service';
@@ -28,9 +28,11 @@ import { DataService } from '../../../../../services/data/data.service';
     MatFormFieldModule, 
     MatSortModule,
     DatePipe,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
 })
+
 export class AudioVisualComponent {
   displayedColumns: string[] = ['title', 'authors', 'copyright', 'action'];
 

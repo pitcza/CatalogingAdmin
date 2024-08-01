@@ -567,7 +567,6 @@
                         </div> 
 
                             <!--- Display message based on the number of input fields ---->
-<!--  -->
                             <p *ngIf="aVAuthors.length < 5">Add more AUTHOR if necessary</p>
                             <p *ngIf="aVAuthors.length === 5">Maximum AUTHORS reached</p>
 
@@ -585,6 +584,43 @@
                             </select>
                             <span></span>
                             <div class="labelline8"> Copyright </div>
+                        </div>
+                    </div>
+
+                    <!-- IMAGE CROP AND PREVIEW -->
+                    <div class="img-row" id="no-add-function">
+                        <div class="img-content">
+                            <div class="left">
+                                <div class="entryarea11">
+                                    <input class="inputtxt" type="file" accept=".jpeg, .png, .jpg" (change)="onFileChange($event, 'AV')">
+                                    <span></span>
+                                    <div class="labelline11"> Upload Image </div>
+                                </div>
+                                <div class="av-img-crop" *ngIf="validAVImage">
+                                    <ng-container *ngIf="validAVImage">
+                                        <image-cropper
+                                          [imageChangedEvent]="AVImgChangeEvt"
+                                          [aspectRatio]="3/4"
+                                          [resizeToWidth]="500"
+                                          [maintainAspectRatio]="true"
+                                          (imageCropped)="cropImg($event, 'AV')"
+                                          (imageLoaded)="imgLoad()"
+                                          (cropperReady)="initCropper()"
+                                          (loadImageFailed)="imgFailed()"
+                                        >
+                                        </image-cropper>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="av-right">
+                                <div class="preview" *ngIf="AVCropImagePreview">
+                                    <h2> Cropped Image Preview </h2>
+                                </div>
+                                <div class="cropped-image-preview" *ngIf="AVCropImagePreview">
+                                    <img [src]="AVCropImagePreview" alt="Cropped Image Preview">
+                                    <!-- <input class="inputtxt" type="file" [value]="cropImagePreview" name="image_url" (change)="onFileChange($event)" hidden> -->
+                                </div>
+                            </div>
                         </div>
                     </div>
 
