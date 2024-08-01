@@ -12,6 +12,7 @@ import { DataService } from '../../../../../../../services/data/data.service';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
 import { ReportsService } from '../../../../../../../services/reports/reports.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -127,6 +128,17 @@ export class AudiovisualsComponent implements OnInit {
   }
 
   public export(): void {
+    if(!this.dataSource) {
+      Swal.fire({
+        title: "Export Error",
+        text: "Data is empty! Please wait for the app to load data",
+        icon: "error",
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+        scrollbarPadding: false
+      });
+    }
+    
     // Get the filtered data
     const filteredData = this.dataSource.filteredData;
     this.reportService.exportToExcel(filteredData, 'Cataloging Audio-Visuals Report');

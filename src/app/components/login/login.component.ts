@@ -50,6 +50,15 @@ export class LoginComponent {
           title: "Signed in successfully"
         });
         }
+        //   Swal.fire({
+        //     title: "Login Error!",
+        //     text: "Error contacting server",
+        //     icon: "error",
+        //     confirmButtonText: 'Close',
+        //     confirmButtonColor: "#777777",
+        //     scrollbarPadding: false,
+        //   });
+        // }
       }) 
     } else {
       Swal.fire({

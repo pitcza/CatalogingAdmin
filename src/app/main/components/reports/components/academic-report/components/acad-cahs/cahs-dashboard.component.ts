@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableModule } from '../../../../../../../modules/table.module';
 import { ReportsService } from '../../../../../../../services/reports/reports.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cahs-dashboard',
@@ -121,6 +122,17 @@ export class CahsDashboardComponent {
   }
 
   public export(): void {
+    if(!this.dataSource) {
+      Swal.fire({
+        title: "Export Error",
+        text: "Data is empty! Please wait for the app to load data",
+        icon: "error",
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+        scrollbarPadding: false
+      });
+    }
+    
     // Get the filtered data
     const filteredData = this.dataSource.filteredData;
     this.reportService.exportToExcel(filteredData, 'Cataloging CAHS Academic Projects Report');

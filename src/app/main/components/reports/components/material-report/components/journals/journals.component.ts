@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
 import { ReportsService } from '../../../../../../../services/reports/reports.service';
 import { PeriodicalComponent } from '../../../../../listofmaterials/components/periodical/periodical.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-journals',
@@ -122,6 +123,16 @@ export class JournalsComponent implements OnInit {
   }
 
   export(): void {
+    if(!this.dataSource) {
+      Swal.fire({
+        title: "Export Error",
+        text: "Data is empty! Please wait for the app to load data",
+        icon: "error",
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+        scrollbarPadding: false
+      });
+    }
     // Get the filtered data
     const filteredData = this.dataSource.filteredData;
     this.reportService.exportToExcel(filteredData, 'Cataloging Journals Report');

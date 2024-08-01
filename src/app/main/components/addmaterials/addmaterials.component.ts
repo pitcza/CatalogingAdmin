@@ -59,7 +59,7 @@ export class AddmaterialsComponent implements OnInit {
       source_of_fund: ['Purchased', Validators.required],
       price: ['', [Validators.required, Validators.min(1)]],
       location: ['ABCOMM', Validators.required],
-      call_number: ['', [Validators.required, Validators.maxLength(20)]],
+      call_number: ['', [Validators.maxLength(20)]],
       author_number: ['', [Validators.required, Validators.maxLength(20)]],
       copies: [1, [Validators.required, Validators.min(1)]]
     }));

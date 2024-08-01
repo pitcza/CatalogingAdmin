@@ -8,6 +8,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DataService } from '../../../../../services/data/data.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-addproject',
@@ -411,12 +412,20 @@ export class AddprojectComponent implements OnInit {
 
     this.form.get('category')?.enable();
 
-    if(this.form.valid && this.validateMultiInput('author').valid && this.validateMultiInput('tags').valid) {
-      
+    if(this.validateMultiInput('author').valid) {
       this.form.patchValue({
-        authors: JSON.stringify(this.values),
+        authors: JSON.stringify(this.values)
+      });
+    }
+
+    if(this.validateMultiInput('tags').valid) {
+      this.form.patchValue({
         keywords: JSON.stringify(this.tags)
       });
+    }
+
+    if(this.form.valid) {
+      
       let form = new FormData();
 
       Object.entries(this.form.value).forEach(([key, value]: [string, any]) => {
@@ -500,7 +509,7 @@ export class AddprojectComponent implements OnInit {
       if (control && control.errors) {
         const controlErrors = control.errors;
         Object.keys(controlErrors).forEach(errorKey => {
-          console.log(key)
+          console.log(errorKey)
           switch (errorKey) {
             case 'required':
               required = true;

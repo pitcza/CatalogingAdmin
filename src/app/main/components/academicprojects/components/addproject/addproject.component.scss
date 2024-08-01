@@ -585,6 +585,11 @@ input[type="file"]::file-selector-button {
 .errorSpan::before {
     background-color: red ;
 }
+
+.errAbstract {
+    border-bottom: 2px solid red;
+    background-color: red;
+}
 // ----- END OF FORM INPUT SCSS ----- //
 
 // BUTTONS //
@@ -663,5 +668,3 @@ input[type="file"]::file-selector-button {
         width: 60px;
     }
 }
-
-

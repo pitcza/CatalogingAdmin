@@ -59,7 +59,7 @@
                                 <div class="txt_field">
                                     <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
                                     <span [ngClass]="{'errorSpan': isInvalid('authors') }"></span>
-                                    <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('authors') }"> Author </div>
+                                    <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('values') }"> Author </div>
                                 </div>
                                 <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
                                     <i class='bx bx-x'></i>
@@ -101,7 +101,7 @@
                     </div>
 
                     <!-- TAG KEYWORDS -->
-                    <div class="input-container">
+                    <div class="input-container" [ngClass]="{ 'errAbstract': isInvalid('keywords') }">
                         <label for="chip" class="keywords-label"> Keywords </label>
                         <ul class="chip-bar" (click)="onChipBarClick()">
                             <!-- TAGS DISPLAY -->

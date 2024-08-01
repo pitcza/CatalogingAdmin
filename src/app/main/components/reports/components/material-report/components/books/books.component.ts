@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import Swal from 'sweetalert2';
 
 
 import { get } from 'http';
@@ -137,6 +138,16 @@ export class BooksComponent implements OnInit {
 
   public export(): void {
     // Get the filtered data
+    if(!this.dataSource) {
+      Swal.fire({
+        title: "Export Error",
+        text: "Data is empty! Please wait for the app to load data",
+        icon: "error",
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+        scrollbarPadding: false
+      });
+    }
     const filteredData = this.dataSource.filteredData;
     this.reportService.exportToExcel(filteredData, 'Cataloging Books Report');
   }

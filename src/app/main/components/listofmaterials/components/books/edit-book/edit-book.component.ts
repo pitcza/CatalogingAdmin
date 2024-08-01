@@ -49,14 +49,14 @@ export class EditBookComponent implements OnInit{
       remarks: [''],
       pages: ['', Validators.required],
       copyright: [2024, Validators.required],
-      volume: [''],
-      edition: [''],
+      volume: ['', Validators.maxLength(50)],
+      edition: ['', Validators.maxLength(50)],
       acquired_date: ['', Validators.required],
       source_of_fund: ['Purchased', Validators.required],
       price: [''],
       location: ['ABCOMM', Validators.required],
       call_number: ['', Validators.required],
-      author_number: ['', Validators.required]
+      author_number: ['', Validators.maxLength(20)]
     })
   }
 

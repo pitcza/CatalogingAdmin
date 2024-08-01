@@ -28,6 +28,19 @@ export class ReportsService {
   }
 
   async exportToExcel(data: any[], fileName: string) {
+    
+    if(!data || data.length == 0) { 
+      Swal.fire({
+        title: "Error exporting report",
+        text: "No data available",
+        icon: "error",
+        confirmButtonText: 'Close',
+        confirmButtonColor: "#777777",
+        scrollbarPadding: false
+      });
+
+      return;
+    }
     // Create a workbook and add a worksheet
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet('Report Sheet');
