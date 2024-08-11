@@ -188,6 +188,17 @@ removeAuthor(index: number) {
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
+  isNull(controlName: string, index?: number): boolean {
+    const control = index !== undefined 
+      ? (this.getAuthorsArray.at(index) as FormGroup).get(controlName) 
+      : this.editForm.get(controlName);
+      
+      const value = control?.value;
+
+      // Check if the value is null, undefined, or an empty string after trimming
+      return value === null || value === undefined || value.trim() === '';
+  }
+
   // To stop input/revert if invalid
   deleteIfInvalid(event: Event, controlName: string, index?: number) {
     const control = index !== undefined
@@ -332,6 +343,7 @@ removeAuthor(index: number) {
       title: "Update Audio-Visual",
       text: "Are you sure you want to update the audio-visual details?",
       icon: "question",
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'No',
@@ -362,6 +374,10 @@ removeAuthor(index: number) {
             } else if(value != '' && value != null)
               form.append(key, value);
           });
+
+          if(this.image) {
+            form.append('image_url', this.image);
+          }
     
           this.ds.request('PUT', 'materials/audio-visuals/process/' + this.data.accession, form).subscribe({
             next: (res: any) => { this.successMessage('Audio-visual'); this.closepopup('Update'); },

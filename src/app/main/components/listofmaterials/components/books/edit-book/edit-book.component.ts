@@ -4,10 +4,13 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { numberAndGreaterThanValidator } from '../../../../../../utils/custom-validators';
+import { pastDateValidator } from '../../../../../../utils/custom-validators';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { DataService } from '../../../../../../services/data/data.service';
+import { validateHeaderName } from 'http';
 
 @Component({
   selector: 'app-edit-book',
@@ -41,21 +44,24 @@ export class EditBookComponent implements OnInit{
     }
 
     this.editForm = formBuilder.group({
-      accession: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      title: ['', [Validators.required, Validators.maxLength(255)]],
-      authors: ['dump', Validators.required],
-      publisher: ['', Validators.required],
-      remarks: [''],
-      pages: ['', Validators.required],
-      copyright: [2024, Validators.required],
+      accession: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]+$')]],
+      title: ['', [Validators.required, Validators.maxLength(150)]],
+      publisher: ['', [Validators.required, Validators.maxLength(100)]],
+      remarks: ['', Validators.maxLength(255)],
+      authors: this.formBuilder.array([
+        // this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+      ]),
+      copyright: [this.currentYear, Validators.required],
       volume: ['', Validators.maxLength(50)],
       edition: ['', Validators.maxLength(50)],
-      acquired_date: ['', Validators.required],
+      pages: ['', [Validators.required, numberAndGreaterThanValidator(0)]],
+      acquired_date: ['', [Validators.required, pastDateValidator()]],
       source_of_fund: ['Purchased', Validators.required],
-      price: [''],
+      price: ['', [Validators.required, Validators.pattern('^\\d+\\.\\d{2}$')]],
       location: ['ABCOMM', Validators.required],
-      call_number: ['', Validators.required],
-      author_number: ['', Validators.maxLength(20)]
+      call_number: ['', [Validators.required, Validators.maxLength(20)]],
+      author_number: ['', [Validators.required, Validators.maxLength(20)]],
+      copies: [1, [Validators.required, numberAndGreaterThanValidator(0)]]
     })
   }
 
@@ -79,8 +85,11 @@ export class EditBookComponent implements OnInit{
         price: this.book.price,
       });
 
-      if(this.book.authors) this.values = this.book.authors;
-      else this.values = [''];
+      if(res.authors != null) {
+        res.authors.forEach((author: any) => {
+          this.addAuthor(author)
+        });
+      }
 
       // console.log(URL.createObjectURL(this.book.image_url))
       this.cropImagePreview = this.book.image_url;
@@ -103,6 +112,7 @@ export class EditBookComponent implements OnInit{
     } else {
       this.editForm.get('price')?.disable();
     }
+    this.editForm.updateValueAndValidity();
   }
 
   // ----- PREVIEW AND CROP IMAGE ----- //
@@ -130,18 +140,12 @@ export class EditBookComponent implements OnInit{
       } else {
         input.value = ''; // removes the file
         Swal.fire({
-          title: 'File Error',
-          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          toast: true,
           icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
+          title: 'Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.',
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000
         });
       }
     } 
@@ -155,6 +159,7 @@ export class EditBookComponent implements OnInit{
       this.getBlobFromObjectUrl(event.objectUrl).then((blob: Blob) => {
         if (blob) {
           this.image = blob;
+          console.log(this.image)
         }
       }).catch(error => {
         console.error('Error:', error);
@@ -290,78 +295,112 @@ export class EditBookComponent implements OnInit{
     });
   }
 
-  // ----- AUTHORS ----- //
-  removeValue(i: any) {
-    this.values.splice(i, 1);
-  }
-
-  addValue() {
-    if (this.values.length < 5) {
-      this.values.push('');
-    }
-  }
-
-  updateValue(event: Event, i: number) {
-    let input = event.target as HTMLInputElement;
-    this.values[i] = input.value;
-  }
-
-  isMaxLimitReached(): boolean {
-    return this.values.length >= 5;
-  }
   
-  trackByIndex(index: number): number {
-    return index;
-  }
-  // ----- END OF AUTHORS ----- //
+ // ----- AUTHORS ----- //
+ get getAuthorsArray() {
+  return this.editForm.get('authors') as FormArray;
+}
 
-  isInvalid(controlName: string): boolean {
-    const control = this.editForm.get(controlName);
+addAuthor(value?: string) {
+  const control = this.getAuthorsArray;
+  control.push(this.formBuilder.group({
+    authorName: [value, [Validators.required, Validators.maxLength(40)]]
+  }));
+
+  control.at(control.length - 1).get('authorName')?.markAsTouched();
+}
+
+removeAuthor(index: number) {
+  this.getAuthorsArray.removeAt(index);
+}
+
+// END OF AUTHORS
+
+  /* For error catching */
+  isInvalid(controlName: string, index?: number): boolean {
+    const control = index !== undefined 
+      ? (this.getAuthorsArray.at(index) as FormGroup).get(controlName) 
+      : this.editForm.get(controlName);
+      
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
-  markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((key) => {
-      const control = formGroup.get(key);
-      control?.markAsTouched();
-    });
+  isNull(controlName: string, index?: number): boolean {
+    const control = index !== undefined 
+      ? (this.getAuthorsArray.at(index) as FormGroup).get(controlName) 
+      : this.editForm.get(controlName);
+      
+      const value = control?.value;
+
+      // Check if the value is null, undefined, or an empty string after trimming
+      return (value === null || value === undefined || value.trim() === '') && (control?.invalid || false);
   }
 
-  invalidAuthor(i: number) {
-    let authorInput = this.values[i];
+  // To stop input/revert if invalid
+  deleteIfInvalid(event: Event, controlName: string, index?: number) {
+    const control = index !== undefined
+      ? (this.getAuthorsArray.at(index) as FormGroup).get(controlName) 
+      : this.editForm.get(controlName);
+      
+    if(control) {
+      const errors = control.errors;
+      console.log(errors)
+      let text = '';
+      if (errors) {
+        if (errors['maxlength']) {
+          control.setValue(((event.target as HTMLInputElement).value).substring(0, errors['maxlength'].requiredLength));
+          text += 'Max ' + errors['maxlength'].requiredLength + ' characters reached! ';
+        } if (errors['pattern']) {
+          if(errors['pattern'].requiredPattern == '^\\d+\\.\\d{2}$') {
+            text += 'Only numbers with 2 decimal places are allowed!';
+          } else if(errors['patters'].requiredPattern == '^[0-9]+$') {
+            const numericValue = (event.target as HTMLInputElement).value.replace(/\D/g, '');
+            control.setValue(numericValue);
+            text += 'Only numbers are allowed! ';
+          }
+        } if(errors['greaterThan']) {
+          control.setValue(1);
+          text += 'Only numbers greater than ' + errors['greaterThan'].requiredValue + ' are allowed!';
+        } if(errors['invalidDate']) {
+          control.setValue('');
+          text += 'Invalid date!'
+        } if(errors['notPastDate']) {
+          control.setValue('');
+          text += 'Should be past date!';
+        }
+      }
 
-    return (authorInput.length < 1 || authorInput.length > 50) && this.submit;
-  }
-  
-  validateAuthors() {
-    let valid = true;
-    let isNull = false;
-    let isExceeded = false;
-
-    for(let i = 0; i < this.values.length; i++) {
-      if(!this.values[i]) valid = false, isNull = true;
-
-      if(this.values[i].length > 50) valid = false, isExceeded = true;
+      /* Handle the popup */
+      if(text) {
+        Swal.fire({
+          toast: true,
+          icon: 'error',
+          title: text,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000
+        });
+      }
     }
-  
-    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
   }
 
   protected updateBook() {
 
     this.submit = true;
 
-    if(this.editForm.valid && this.validateAuthors().valid) {
+    if(this.editForm.valid) {
       
-      this.editForm.patchValue({
-        authors: JSON.stringify(this.values)
-      });
-
       // pass datas to formdata to allow sending of files
       let form = new FormData();
-      
+          
       Object.entries(this.editForm.value).forEach(([key, value]: [string, any]) => {
-        if(value != '' && value != null)
+        if(key == 'authors') {
+          let authors = [];
+          for(let i = 0; i < (this.editForm.get('authors') as FormArray).length; i++) {
+            authors.push(((this.editForm.get('authors') as FormArray).at(i) as FormGroup).get('authorName')?.value);
+          }
+          form.append('authors', JSON.stringify(authors));
+        } else if(value != '' && value != null)
           form.append(key, value);
       });
 
@@ -373,6 +412,7 @@ export class EditBookComponent implements OnInit{
         title: "Update Book",
         text: "Are you sure you want to update the book details?",
         icon: "question",
+        reverseButtons: true,
         showCancelButton: true,
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
@@ -396,9 +436,6 @@ export class EditBookComponent implements OnInit{
           });
         }
       })
-    } else {
-      this.markFormGroupTouched(this.editForm);
-      this.displayErrors();
     }
   }
 
@@ -423,82 +460,6 @@ export class EditBookComponent implements OnInit{
     Swal.fire({
       title: 'Oops! Encountered Error',
       text: text,
-      icon: 'error',
-      confirmButtonText: 'Close',
-      confirmButtonColor: "#777777",
-      scrollbarPadding: false,
-      willOpen: () => {
-        document.body.style.overflowY = 'scroll';
-      },
-      willClose: () => {
-        document.body.style.overflowY = 'scroll';
-      }
-    });
-  }
-
-  displayErrors() {
-
-    let maxLengthFields = '';
-    let minIntFields = '';
-    let integerFields = '';
-    let required = false;
-
-    Object.keys(this.editForm.controls).forEach(key => {
-      const control = this.editForm.get(key);
-      if (control && control.errors) {
-        const controlErrors = control.errors;
-        Object.keys(controlErrors).forEach(errorKey => {
-          switch (errorKey) {
-            case 'required':
-              required = true;
-              break;
-
-            case 'maxlength':
-              maxLengthFields += `${key}, `;
-              break;
-
-            case 'min':
-              minIntFields += `${key}, `;
-              break;
-
-            case 'pattern':
-              if(controlErrors['pattern']['requiredPattern'] == '^[0-9]+$') {
-                integerFields += `${key}, `;
-              }
-              break;
-
-            default:
-              break;
-          }
-        });
-      }
-    });
-
-    if(this.validateAuthors().null) required = true;
-
-    if(this.validateAuthors().maxLength) maxLengthFields += 'authors, ';
-
-    let errorText = '';
-    
-    if(required) {
-      errorText += 'Please fill up required fields <br>'
-    } 
-    
-    if(maxLengthFields.length > 0) {
-      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
-    }
-
-    if(minIntFields.length > 0) {
-      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
-    }
-
-    if(integerFields.length > 0) {
-      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
-    }
-
-    Swal.fire({
-      title: 'Oops! Invalid Form!',
-      html: `<div style="font-weight: 500;">${errorText}</div>`,
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",

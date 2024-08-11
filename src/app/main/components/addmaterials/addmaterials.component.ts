@@ -68,7 +68,7 @@ export class AddmaterialsComponent implements OnInit {
       pages: ['', [Validators.required, numberAndGreaterThanValidator(0)]],
       acquired_date: ['', [Validators.required, pastDateValidator()]],
       source_of_fund: ['Purchased', Validators.required],
-      price: ['', [Validators.required, Validators.min(1)]],
+      price: ['', [Validators.required, Validators.pattern('^\\d+\\.\\d{2}$')]],
       location: ['ABCOMM', Validators.required],
       call_number: ['', [Validators.required, Validators.maxLength(20)]],
       author_number: ['', [Validators.required, Validators.maxLength(20)]],
@@ -300,6 +300,17 @@ export class AddmaterialsComponent implements OnInit {
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
+  isNull(controlName: string, type: string, index?: number): boolean {
+    const control = index !== undefined 
+      ? (this.getAuthorsArray(type).at(index) as FormGroup).get(controlName) 
+      :  this.getFormSet(type).get(controlName);
+      
+      const value = control?.value;
+
+      // Check if the value is null, undefined, or an empty string after trimming
+      return (value === null || value === undefined || value.trim() === '') && (control?.invalid || false);
+  }
+
   // To stop input/revert if invalid
   deleteIfInvalid(event: Event, controlName: string, type: string, index?: number) {
     const control = index !== undefined
@@ -318,9 +329,13 @@ export class AddmaterialsComponent implements OnInit {
           control.setValue(((event.target as HTMLInputElement).value).substring(0, errors['maxlength'].requiredLength));
           text += 'Max ' + errors['maxlength'].requiredLength + ' characters reached! ';
         } if (errors['pattern']) {
-          const numericValue = (event.target as HTMLInputElement).value.replace(/\D/g, '');
-          control.setValue(numericValue);
-          text += 'Only numbers are allowed! ';
+          if(errors['pattern'].requiredPattern == '^\\d+\\.\\d{2}$') {
+            text += 'Only numbers with 2 decimal places are allowed!';
+          } else if(errors['pattern'].requiredPattern == '^[0-9]+$') {
+            const numericValue = (event.target as HTMLInputElement).value.replace(/\D/g, '');
+            control.setValue(numericValue);
+            text += 'Only numbers are allowed! ';
+          }
         } if(errors['greaterThan']) {
           control.setValue(1);
           text += 'Only numbers greater than ' + errors['greaterThan'].requiredValue + ' are allowed!';

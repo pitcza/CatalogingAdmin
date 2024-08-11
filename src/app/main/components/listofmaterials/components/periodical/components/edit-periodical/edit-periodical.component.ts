@@ -1,10 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { pastDateValidator } from '../../../../../../../utils/custom-validators';
+import { numberAndGreaterThanValidator } from '../../../../../../../utils/custom-validators';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -40,32 +42,37 @@ export class EditPeriodicalComponent implements OnInit{
     }
 
     this.editForm = formBuilder.group({
-      accession: ['', Validators.required],
-      title: ['', [Validators.required, Validators.maxLength(255)]],
-      authors: ['', Validators.required],
-      publisher: ['', Validators.required],
-      remarks: [''],
-      pages: ['', Validators.required],
+      accession: ['', [Validators.required, Validators.maxLength(20)]],
+      title: ['', [Validators.required, Validators.maxLength(150)]],
+      publisher: ['', [Validators.required, Validators.maxLength(100)]],
+      remarks: ['', Validators.maxLength(255)],
+      authors: this.formBuilder.array([
+        this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+      ]),
       periodical_type: ['0', Validators.required],
-      volume: ['', Validators.required],
-      issue: ['', Validators.required],
+      volume: ['', [Validators.required, Validators.maxLength(50)]],
+      issue: ['', [Validators.required, Validators.maxLength(50)]],
       language: ['English', Validators.required],
-      acquired_date: ['', Validators.required],
-      date_published: ['', Validators.required],
-      copyright: [2024, Validators.required]
+      pages: ['', [Validators.required, numberAndGreaterThanValidator(0)]],
+      acquired_date: ['', [Validators.required, pastDateValidator()]],
+      date_published: ['', [Validators.required, pastDateValidator()]],
+      copyright: [this.currentYear, Validators.required]
     });
    }
 
   ngOnInit(): void {
     this.ds.request('GET', 'material/id/' + this.data.details, null).subscribe((res: any) => {
       this.periodical = res;
-      this.values = this.periodical.authors;
+      if(this.periodical.authors != null) {
+        this.periodical.authors.forEach((author: any) => {
+          this.addAuthor(author)
+        });
+      }
 
       this.editForm.patchValue({
         accession: this.periodical.accession,
         title: this.periodical.title,
         publisher: this.periodical.publisher,
-        authors: this.periodical.authors,
         remarks: this.periodical.remarks,
         pages: this.periodical.pages,
         periodical_type: this.periodical.periodical_type,
@@ -198,18 +205,12 @@ export class EditPeriodicalComponent implements OnInit{
       } else {
         input.value = ''; // removes the file
         Swal.fire({
-          title: 'File Error',
-          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          toast: true,
           icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
+          title: 'Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.',
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000
         });
       }
     } 
@@ -272,81 +273,106 @@ export class EditPeriodicalComponent implements OnInit{
   // END OF PREVIEW AND CROP IMAGE //
 
   // ----- AUTHORS ----- //
-  values = [''];
+ get getAuthorsArray() {
+  return this.editForm.get('authors') as FormArray;
+}
 
-  // Track by function to minimize re-renders
-  trackByIndex(index: number, item: any): number {
-    return index;
-  }
+addAuthor(value?: string) {
+  const control = this.getAuthorsArray;
+  control.push(this.formBuilder.group({
+    authorName: [value, [Validators.required, Validators.maxLength(40)]]
+  }));
 
-  removevalue(i: any){
-    this.values.splice(i, 1);
-  }
+  control.at(control.length - 1).get('authorName')?.markAsTouched();
+}
 
-  addvalue(){
-    if (this.values.length < 5) {
-      this.values.push('');
-    }
-  }
+removeAuthor(index: number) {
+  this.getAuthorsArray.removeAt(index);
+}
 
-  updateValue($event: Event, index: number) {
-    this.values[index] = ($event.target as HTMLInputElement).value;
-  }
+// END OF AUTHORS
 
-  isMaxLimitReached(): boolean {
-    return this.values.length >= 5;
-  }
-  // ----- END OF AUTHORS ----- //
-
-  isInvalid(controlName: string): boolean {
-    const control = this.editForm.get(controlName);
+  /* For error catching */
+  isInvalid(controlName: string, index?: number): boolean {
+    const control = index !== undefined 
+      ? (this.getAuthorsArray.at(index) as FormGroup).get(controlName) 
+      : this.editForm.get(controlName);
+      
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
-  markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((key) => {
-      const control = formGroup.get(key);
-      control?.markAsTouched();
-    });
+  isNull(controlName: string, index?: number): boolean {
+    const control = index !== undefined 
+      ? (this.getAuthorsArray.at(index) as FormGroup).get(controlName) 
+      : this.editForm.get(controlName);
+      
+      const value = control?.value;
+
+      // Check if the value is null, undefined, or an empty string after trimming
+      return value === null || value === undefined || value.trim() === '';
   }
 
-  invalidAuthor(i: number) {
-    let authorInput = this.values[i];
+  // To stop input/revert if invalid
+  deleteIfInvalid(event: Event, controlName: string, index?: number) {
+    const control = index !== undefined
+      ? (this.getAuthorsArray.at(index) as FormGroup).get(controlName) 
+      : this.editForm.get(controlName);
+      
+    let today = new Date();
+    if(control) {
+      const errors = control.errors;
+      let text = '';
+      if (errors) {
+        if (errors['maxlength']) {
+          control.setValue(((event.target as HTMLInputElement).value).substring(0, errors['maxlength'].requiredLength));
+          text += 'Max ' + errors['maxlength'].requiredLength + ' characters reached! ';
+        } if (errors['pattern']) {
+          const numericValue = (event.target as HTMLInputElement).value.replace(/\D/g, '');
+          control.setValue(numericValue);
+          text += 'Only numbers are allowed! ';
+        } if(errors['greaterThan']) {
+          control.setValue(1);
+          text += 'Only numbers greater than ' + errors['greaterThan'].requiredValue + ' are allowed!';
+        } if(errors['invalidDate']) {
+          control.setValue('');
+          text += 'Invalid date!'
+        } if(errors['notPastDate']) {
+          control.setValue('');
+          text += 'Should be past date!';
+        }
+      }
 
-    return (authorInput.length < 1 || authorInput.length > 50) && this.submit;
-  }
-  
-  validateAuthors() {
-    let valid = true;
-    let isNull = false;
-    let isExceeded = false;
-
-    for(let i = 0; i < this.values.length; i++) {
-      if(!this.values[i]) valid = false, isNull = true;
-
-      if(this.values[i].length > 50) valid = false, isExceeded = true;
+      /* Handle the popup */
+      if(text) {
+        Swal.fire({
+          toast: true,
+          icon: 'error',
+          title: text,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000
+        });
+      }
     }
-  
-    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
   }
 
-
-  
   protected updateBox() {
 
     this.submit = true;
 
-    if(this.editForm.valid && this.validateAuthors().valid) {
-
-      this.editForm.patchValue({
-        authors: JSON.stringify(this.values)
-      });
+    if(this.editForm.valid) {
 
       // pass datas to formdata to allow sending of files
       let form = new FormData();
-      
+          
       Object.entries(this.editForm.value).forEach(([key, value]: [string, any]) => {
-        if(value != '' && value != null)
+        if(key == 'authors') {
+          let authors = [];
+          for(let i = 0; i < (this.editForm.get('authors') as FormArray).length; i++) {
+            authors.push(((this.editForm.get('authors') as FormArray).at(i) as FormGroup).get('authorName')?.value);
+          }
+          form.append('authors', JSON.stringify(authors));
+        } else if(value != '' && value != null)
           form.append(key, value);
       });
 
@@ -358,6 +384,7 @@ export class EditPeriodicalComponent implements OnInit{
         title: "Update Periodical",
         text: "Are you sure you want to update the periodical details?",
         icon: "question",
+        reverseButtons: true,
         showCancelButton: true,
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
@@ -381,9 +408,6 @@ export class EditPeriodicalComponent implements OnInit{
           });
         }
       })
-    } else {
-      this.markFormGroupTouched(this.editForm);
-      this.displayErrors();
     }
   }
 
@@ -408,83 +432,6 @@ export class EditPeriodicalComponent implements OnInit{
     Swal.fire({
       title: 'Oops! Server Side Error!',
       text: 'Please try again later or contact the developers',
-      icon: 'error',
-      confirmButtonText: 'Close',
-      confirmButtonColor: "#777777",
-      scrollbarPadding: false,
-      willOpen: () => {
-        document.body.style.overflowY = 'scroll';
-      },
-      willClose: () => {
-        document.body.style.overflowY = 'scroll';
-      }
-    });
-  }
-
-  displayErrors() {
-
-    let maxLengthFields = '';
-    let minIntFields = '';
-    let integerFields = '';
-    let required = false;
-
-    Object.keys(this.editForm.controls).forEach(key => {
-      const control = this.editForm.get(key);
-      if (control && control.errors) {
-        const controlErrors = control.errors;
-        Object.keys(controlErrors).forEach(errorKey => {
-          console.log(key)
-          switch (errorKey) {
-            case 'required':
-              required = true;
-              break;
-
-            case 'maxlength':
-              maxLengthFields += `${key}, `;
-              break;
-
-            case 'min':
-              minIntFields += `${key}, `;
-              break;
-
-            case 'pattern':
-              if(controlErrors['pattern']['requiredPattern'] == '^[0-9]+$') {
-                integerFields += `${key}, `;
-              }
-              break;
-
-            default:
-              break;
-          }
-        });
-      }
-    });
-
-    if(this.validateAuthors().null) required = true;
-
-    if(this.validateAuthors().maxLength) maxLengthFields += 'authors, ';
-
-    let errorText = '';
-    
-    if(required) {
-      errorText += 'Please fill up required fields <br>'
-    } 
-    
-    if(maxLengthFields.length > 0) {
-      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
-    }
-
-    if(minIntFields.length > 0) {
-      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
-    }
-
-    if(integerFields.length > 0) {
-      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
-    }
-
-    Swal.fire({
-      title: 'Oops! Invalid Form!',
-      html: `<div style="font-weight: 500;">${errorText}</div>`,
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",

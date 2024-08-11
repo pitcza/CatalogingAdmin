@@ -115,7 +115,7 @@ export class AudioVisualComponent {
   }
 
   redirectToListPage() {
-    this.router.navigate(['main/listofmaterials/audio-visual']); 
+    this.router.navigate(['main/listofmaterials/audio-visuals']); 
   }
 
   editDetails(data: any) {

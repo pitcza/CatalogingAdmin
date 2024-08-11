@@ -17,12 +17,12 @@
                                     <div class="txt_field_shorter">
                                         <input class="inputtxt" type="text" formControlName="accession" (keyup)="deleteIfInvalid($event, 'accession')">
                                         <span></span>
-                                        <div class="labelline1"> Accession No. <p class="required" *ngIf="isInvalid('accession')">*Required</p> </div>
+                                        <div class="labelline1"> Accession No. <p class="required" *ngIf="isNull('accession')">*Required</p> </div>
                                     </div>
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" formControlName="title" (keyup)="deleteIfInvalid($event, 'title')">
                                         <span></span>
-                                        <div class="labelline1"> Title <p class="required" *ngIf="isInvalid('title')">*Required</p> </div>
+                                        <div class="labelline1"> Title <p class="required" *ngIf="isNull('title')">*Required</p> </div>
                                     </div>
                                 </div>
                                 
@@ -34,7 +34,7 @@
                                                 <div class="txt_field">
                                                     <input class="inputtxt" type="text" [formControlName]="'authorName'" (keyup)="deleteIfInvalid($event, 'authorName', i)">
                                                     <span></span>
-                                                    <div class="labelline1"> Author <p class="required" *ngIf="isInvalid('authorName', i)">*Required</p> </div>
+                                                    <div class="labelline1"> Author <p class="required" *ngIf="isNull('authorName', i)">*Required</p> </div>
                                                 </div>
                                                 <button type="button" class="removebtn" (click)="removeAuthor(i)" *ngIf="getAuthorsArray.length > 1">
                                                     <i class='bx bx-x'></i>
@@ -42,6 +42,13 @@
                                             </div>
                                         </ng-container>
 
+                                        <div class="addbtn">
+                                            <button type="button" class="add-author" (click)="addAuthor()" [disabled]="getAuthorsArray.length >= 5">ADD</button>
+                                        </div>
+                                        
+                                        <!-- Display message based on the number of input fields -->
+                                        <p class="message" *ngIf="getAuthorsArray.length < 5">Add more AUTHOR if necessary</p>
+                                        <p class="message" *ngIf="getAuthorsArray.length >= 5">Maximum AUTHORS reached</p>
                                     </div>
                                 </div>
 
@@ -49,7 +56,7 @@
                                     <div class="txt_field">
                                         <input class="inputtxt" type="text" formControlName="call_number" (keyup)="deleteIfInvalid($event, 'call_number')">
                                         <span></span>
-                                        <div class="labelline1"> Call Number <p class="required" *ngIf="isInvalid('call_number')">*Required</p> </div>
+                                        <div class="labelline1"> Call Number <p class="required" *ngIf="isNull('call_number')">*Required</p> </div>
                                     </div>
                                     <div class="txt_field_short">
                                         <select class="inputtxt" formControlName="copyright">

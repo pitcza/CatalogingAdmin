@@ -389,6 +389,17 @@ export class EditdetailsComponent implements OnInit{
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
+  isNull(controlName: string, index?: number): boolean {
+    const control = index !== undefined 
+      ? (this.authorArray.at(index) as FormGroup).get(controlName) 
+      : this.editForm.get(controlName);
+      
+      const value = control?.value;
+
+      // Check if the value is null, undefined, or an empty string after trimming
+      return value === null || value === undefined || value.trim() === '';
+  }
+
   // To stop input/revert if invalid
   deleteIfInvalid(event: Event, controlName: string, index?: number) {
     const control = index !== undefined

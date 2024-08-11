@@ -37,13 +37,13 @@
                         <div class="entryarea">
                             <input type="text" formControlName="accession" (keyup)="deleteIfInvalid($event, 'accession', 'book')">
                             <span></span>
-                            <div class="labelline"> Accession No. <p class="required" *ngIf="isInvalid('accession', 'book')">*Required</p> </div>
+                            <div class="labelline"> Accession No. <p class="required" *ngIf="isNull('accession', 'book')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea  ">
                             <input type="text" formControlName="title" (keyup)="deleteIfInvalid($event, 'title', 'book')">
                             <span></span>
-                            <div class="labelline"> Title <p class="required" *ngIf="isInvalid('title', 'book')">*Required</p> </div>
+                            <div class="labelline"> Title <p class="required" *ngIf="isNull('title', 'book')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -54,7 +54,7 @@
                                 <div class="entryarea2">
                                   <input class="inputtxt" type="text" formControlName="authorName" (keyup)="deleteIfInvalid($event, 'authorName', 'book', i)">
                                   <span></span>
-                                  <div class="labelline2"> Author <p class="required" *ngIf="isInvalid('authorName', 'book', i)">*Required</p> </div>
+                                  <div class="labelline2"> Author <p class="required" *ngIf="isNull('authorName', 'book', i)">*Required</p> </div>
                                 </div>
                                 <button type="button" class="removebtn" (click)="removeAuthor('book', i)" *ngIf="getAuthorsArray('book').length > 1">
                                   <i class='bx bx-x'></i>
@@ -77,7 +77,7 @@
                         <div class="entryarea9">
                             <input type="text" formControlName="publisher" (keyup)="deleteIfInvalid($event, 'publisher', 'book')">
                             <span></span>
-                            <div class="labelline9"> Publisher <p class="required" *ngIf="isInvalid('publisher', 'book')">*Required</p> </div>
+                            <div class="labelline9"> Publisher <p class="required" *ngIf="isNull('publisher', 'book')">*Required</p> </div>
                         </div>
                         <div class="entryarea8">
                             <select formControlName="copyright">
@@ -102,13 +102,13 @@
                         <div class="entryarea4">
                             <input type="text" formControlName="call_number" (keyup)="deleteIfInvalid($event, 'author_number', 'book')">
                             <span></span>
-                            <div class="labelline4"> Call Number <p class="required" *ngIf="isInvalid('call_number', 'book')">*Required</p> </div>
+                            <div class="labelline4"> Call Number <p class="required" *ngIf="isNull('call_number', 'book')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea4">
                             <input type="text" formControlName="author_number" (keyup)="deleteIfInvalid($event, 'author_number', 'book')">
                             <span></span>
-                            <div class="labelline4"> Author Number <p class="required" *ngIf="isInvalid('author_number', 'book')">*Required</p> </div>
+                            <div class="labelline4"> Author Number <p class="required" *ngIf="isNull('author_number', 'book')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -128,7 +128,7 @@
                         <div class="entryarea4">
                             <input formControlName="pages" (keyup)="deleteIfInvalid($event, 'pages', 'book')">
                             <span></span>
-                            <div class="labelline4"> Pages <p class="required" *ngIf="isInvalid('pages', 'book')">*Required</p> </div>
+                            <div class="labelline4"> Pages <p class="required" *ngIf="isNull('pages', 'book')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -144,7 +144,7 @@
                         <div class="entryarea7">
                             <input type="date" formControlName="acquired_date" (change)="deleteIfInvalid($event, 'acquired_date', 'book')">
                             <span></span>
-                            <div class="labelline7"> Date Purchased/Donated <p class="required" *ngIf="isInvalid('acquired_date', 'book')">*Required</p> </div>
+                            <div class="labelline7"> Date Purchased/Donated <p class="required" *ngIf="isNull('acquired_date', 'book')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea3">
@@ -158,9 +158,9 @@
                         </div>
                         <div class="entryarea5">
                             <span class="peso-sign">₱</span>
-                            <input type="number" formControlName="price" (keyup)="deleteIfInvalid($event, 'price', 'book')">
-                            <span></span>
-                            <div class="labelline5"> Price <p class="required" *ngIf="isInvalid('price', 'book')">*Required</p> </div>
+                            <input formControlName="price" (change)="deleteIfInvalid($event, 'price', 'book')">
+                            <span [ngClass]="{ 'errorSpan': isInvalid('price', 'book')}"></span>
+                            <div class="labelline5"> Price <p class="required" *ngIf="isNull('price', 'book')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -242,13 +242,13 @@
                         <div class="entryarea">
                             <input type="text" formControlName="accession" (keyup)="deleteIfInvalid($event, 'accession', 'periodical')">
                             <span></span>
-                            <div class="labelline"> Accession No. <p class="required" *ngIf="isInvalid('accession', 'periodical')">*Required</p> </div>
+                            <div class="labelline"> Accession No. <p class="required" *ngIf="isNull('accession', 'periodical')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea">
                             <input type="text" formControlName="title" (keyup)="deleteIfInvalid($event, 'title', 'periodical')">
                             <span></span>
-                            <div class="labelline"> Title <p class="required" *ngIf="isInvalid('title', 'periodical')">*Required</p> </div>
+                            <div class="labelline"> Title <p class="required" *ngIf="isNull('title', 'periodical')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -259,7 +259,7 @@
                                     <div class="entryarea2">
                                         <input class="inputtxt" type="text" [formControlName]="'authorName'" (keyup)="deleteIfInvalid($event, 'authorName', 'periodical', i)">
                                         <span></span>
-                                        <div class="labelline2"> Author <p class="required" *ngIf="isInvalid('authorName', 'periodical', i)">*Required</p> </div>
+                                        <div class="labelline2"> Author <p class="required" *ngIf="isNull('authorName', 'periodical', i)">*Required</p> </div>
                                     </div>
                                     <button type="button" class="removebtn" (click)="removeAuthor('periodical', i)" *ngIf="getAuthorsArray('periodical').length > 1">
                                         <i class='bx bx-x'></i>
@@ -282,7 +282,7 @@
                         <div class="entryarea9">
                             <input type="text" formControlName="publisher" (keyup)="deleteIfInvalid($event, 'publisher', 'periodical')">
                             <span></span>
-                            <div class="labelline9"> Publisher <p class="required" *ngIf="isInvalid('publisher', 'periodical')">*Required</p> </div>
+                            <div class="labelline9"> Publisher <p class="required" *ngIf="isNull('publisher', 'periodical')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea8">
@@ -307,19 +307,19 @@
                         <div class="entryarea4">
                             <input type="text" formControlName="volume" (keyup)="deleteIfInvalid($event, 'volume', 'periodical')">
                             <span></span>
-                            <div class="labelline4"> Volume <p class="required" *ngIf="isInvalid('volume', 'periodical')">*Required</p> </div>
+                            <div class="labelline4"> Volume <p class="required" *ngIf="isNull('volume', 'periodical')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea4">
                             <input formControlName="pages" (keyup)="deleteIfInvalid($event, 'pages', 'periodical')">
                             <span class="labelline"></span>
-                            <div class="labelline4"> Pages <p class="required" *ngIf="isInvalid('pages', 'periodical')">*Required</p> </div>
+                            <div class="labelline4"> Pages <p class="required" *ngIf="isNull('pages', 'periodical')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea9">
                             <input type="text" formControlName="issue" (keyup)="deleteIfInvalid($event, 'issue', 'periodical')">
                             <span></span>
-                            <div class="labelline9"> Issue <p class="required" *ngIf="isInvalid('issue', 'periodical')">*Required</p> </div>
+                            <div class="labelline9"> Issue <p class="required" *ngIf="isNull('issue', 'periodical')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -335,13 +335,13 @@
                         <div class="entryarea7">
                             <input type="date" formControlName="acquired_date" (change)="deleteIfInvalid($event, 'acquired_date', 'periodical')">
                             <span></span>
-                            <div class="labelline7"> Date Received <p class="required" *ngIf="isInvalid('acquired_date', 'periodical')">*Required</p> </div>
+                            <div class="labelline7"> Date Received <p class="required" *ngIf="isNull('acquired_date', 'periodical')">*Required</p> </div>
                         </div>
 
                             <div class="entryarea7">
                                 <input type="date" formControlName="date_published" (change)="deleteIfInvalid($event, 'date_published', 'periodical')">
                                 <span></span>
-                            <div class="labelline7"> Publication Date <p class="required" *ngIf="isInvalid('date_published', 'periodical')">*Required</p> </div>
+                            <div class="labelline7"> Publication Date <p class="required" *ngIf="isNull('date_published', 'periodical')">*Required</p> </div>
                         </div>
 
                         <!-- image input field -->
@@ -414,13 +414,13 @@
                     <div class="entryarea">
                         <input type="text" formControlName="accession" (keyup)="deleteIfInvalid($event, 'accession', 'article')">
                         <span></span>
-                        <div class="labelline"> Accession No. <p class="required" *ngIf="isInvalid('accession', 'article')">*Required</p> </div>
+                        <div class="labelline"> Accession No. <p class="required" *ngIf="isNull('accession', 'article')">*Required</p> </div>
                     </div>
 
                     <div class="entryarea">
                         <input type="text" formControlName="title" (keyup)="deleteIfInvalid($event, 'title', 'article')">
                         <span></span>
-                        <div class="labelline"> Title <p class="required" *ngIf="isInvalid('title', 'article')">*Required</p> </div>
+                        <div class="labelline"> Title <p class="required" *ngIf="isNull('title', 'article')">*Required</p> </div>
                     </div>
                 </div>
 
@@ -431,7 +431,7 @@
                                 <div class="entryarea2">
                                     <input class="inputtxt" type="text" [formControlName]="'authorName'" (keyup)="deleteIfInvalid($event, 'authorName', 'article', i)">
                                     <span></span>
-                                    <div class="labelline2"> Author <p class="required" *ngIf="isInvalid('authorName', 'article', i)">*Required</p> </div>
+                                    <div class="labelline2"> Author <p class="required" *ngIf="isNull('authorName', 'article', i)">*Required</p> </div>
                                 </div>
                                 <button type="button" class="removebtn" (click)="removeAuthor('article', i)" *ngIf="getAuthorsArray('article').length > 1">
                                     <i class='bx bx-x'></i>
@@ -454,7 +454,7 @@
                         <div class="entryarea9">
                             <input type="text" formControlName="publisher" (keyup)="deleteIfInvalid($event, 'publisher', 'article')">
                             <span></span>
-                            <div class="labelline9"> Publisher <p class="required" *ngIf="isInvalid('publisher', 'article')">*Required</p> </div>
+                            <div class="labelline9"> Publisher <p class="required" *ngIf="isNull('publisher', 'article')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea8">
@@ -469,7 +469,7 @@
                         <div class="entryarea9">
                             <input type="text" formControlName="volume" (keyup)="deleteIfInvalid($event, 'volume', 'article')">
                             <span></span>
-                            <div class="labelline9"> Volume <p class="required" *ngIf="isInvalid('volume', 'article')">*Required</p> </div>
+                            <div class="labelline9"> Volume <p class="required" *ngIf="isNull('volume', 'article')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -477,7 +477,7 @@
                         <div class="entryarea12">
                             <textarea formControlName="abstract" (keyup)="deleteIfInvalid($event, 'abstract', 'article')"></textarea>
                             <span></span>
-                            <div class="labelline12"> Abstract <p class="required" *ngIf="isInvalid('abstract', 'article')">*Required</p> </div>
+                            <div class="labelline12"> Abstract <p class="required" *ngIf="isNull('abstract', 'article')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -485,13 +485,13 @@
                         <div class="entryarea9">
                             <input type="text" formControlName="issue" (keyup)="deleteIfInvalid($event, 'issue', 'article')">
                             <span></span>
-                            <div class="labelline9"> Issue <p class="required" *ngIf="isInvalid('issue', 'article')">*Required</p> </div>
+                            <div class="labelline9"> Issue <p class="required" *ngIf="isNull('issue', 'article')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea9">
                             <input type="text" formControlName="subject" (keyup)="deleteIfInvalid($event, 'subject', 'article')">
                             <span></span>
-                            <div class="labelline9"> Subject <p class="required" *ngIf="isInvalid('subject', 'article')">*Required</p> </div>
+                            <div class="labelline9"> Subject <p class="required" *ngIf="isNull('subject', 'article')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -499,13 +499,13 @@
                         <div class="entryarea4">
                             <input type="text" formControlName="pages" (keyup)="deleteIfInvalid($event, 'pages', 'article')">
                             <span></span>
-                            <div class="labelline4"> Pages <p class="required" *ngIf="isInvalid('pages', 'article')">*Required</p> </div>
+                            <div class="labelline4"> Pages <p class="required" *ngIf="isNull('pages', 'article')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea7">
                             <input type="date"  formControlName="date_published" (change)="deleteIfInvalid($event, 'date_published', 'article')">
                             <span></span>
-                            <div class="labelline7"> Publication Date <p class="required" *ngIf="isInvalid('date_published', 'article')">*Required</p> </div>
+                            <div class="labelline7"> Publication Date <p class="required" *ngIf="isNull('date_published', 'article')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -536,13 +536,13 @@
                         <div class="entryarea">
                             <input type="text" formControlName="accession" (change)="deleteIfInvalid($event, 'accession', 'AV')">
                             <span></span>
-                            <div class="labelline"> Accession No. <p class="required" *ngIf="isInvalid('accession', 'AV')">*Required</p> </div>
+                            <div class="labelline"> Accession No. <p class="required" *ngIf="isNull('accession', 'AV')">*Required</p> </div>
                         </div>
 
                         <div class="entryarea  ">
                             <input type="text" formControlName="title" (change)="deleteIfInvalid($event, 'title', 'AV')">
                             <span></span>
-                            <div class="labelline"> Title <p class="required" *ngIf="isInvalid('title', 'AV')">*Required</p> </div>
+                            <div class="labelline"> Title <p class="required" *ngIf="isNull('title', 'AV')">*Required</p> </div>
                         </div>
                     </div>
 
@@ -553,7 +553,7 @@
                                     <div class="entryarea2">
                                         <input class="inputtxt" type="text" [formControlName]="'authorName'" (keyup)="deleteIfInvalid($event, 'authorName', 'AV', i)">
                                         <span></span>
-                                        <div class="labelline2"> Author <p class="required" *ngIf="isInvalid('authorName', 'AV', i)">*Required</p> </div>
+                                        <div class="labelline2"> Author <p class="required" *ngIf="isNull('authorName', 'AV', i)">*Required</p> </div>
                                     </div>
                                     <button type="button" class="removebtn" (click)="removeAuthor('AV', i)" *ngIf="getAuthorsArray('AV').length > 1">
                                         <i class='bx bx-x'></i>
@@ -576,7 +576,7 @@
                         <div class="entryarea9">
                             <input type="text" formControlName="call_number" (change)="deleteIfInvalid($event, 'call_number', 'AV')">
                             <span></span>
-                            <div class="labelline9"> Call Number <p class="required" *ngIf="isInvalid('call_number', 'AV')">*Required</p> </div>
+                            <div class="labelline9"> Call Number <p class="required" *ngIf="isNull('call_number', 'AV')">*Required</p> </div>
                         </div>
                         <div class="entryarea8">
                             <select formControlName="copyright">
