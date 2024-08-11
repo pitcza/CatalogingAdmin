@@ -333,7 +333,7 @@ removeAuthor(index: number) {
       const value = control?.value;
 
       // Check if the value is null, undefined, or an empty string after trimming
-      return (value === null || value === undefined || value.trim() === '') && (control?.invalid || false);
+      return (value === null || value === undefined || value === '') && (control?.invalid || false);
   }
 
   // To stop input/revert if invalid
@@ -344,7 +344,6 @@ removeAuthor(index: number) {
       
     if(control) {
       const errors = control.errors;
-      console.log(errors)
       let text = '';
       if (errors) {
         if (errors['maxlength']) {
