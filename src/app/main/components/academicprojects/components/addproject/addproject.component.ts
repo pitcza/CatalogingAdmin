@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, forwardRef } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { text } from 'stream/consumers';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -9,6 +9,8 @@ import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DataService } from '../../../../../services/data/data.service';
 import { error } from 'console';
+import { validateHeaderName } from 'http';
+import { pastDateValidator } from '../../../../../utils/custom-validators';
 
 @Component({
   selector: 'app-addproject',
@@ -30,15 +32,17 @@ export class AddprojectComponent implements OnInit {
   programFilter: any;
   programCategory: any;
   form: FormGroup = this.formBuilder.group({
-    accession: ['', Validators.required],
+    accession: ['', [Validators.required, Validators.maxLength(20)]],
     category: [{value: '', disabled: true}, Validators.required],
     title: ['', [Validators.required, Validators.maxLength(255)]],
-    authors: ['', Validators.required],
+    authors: this.formBuilder.array([
+      this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+    ]),
     program: ['', Validators.required],
     image_url: [''],
-    date_published: ['', Validators.required],
+    date_published: ['', [Validators.required, pastDateValidator()]],
     language: ['English', Validators.required],
-    abstract: ['', Validators.required],
+    abstract: ['', [Validators.required, Validators.maxLength(2048)]],
     keywords: ['']
   });
 
@@ -84,18 +88,12 @@ export class AddprojectComponent implements OnInit {
       } else {
         input.value = ''; // removes the file
         Swal.fire({
-          title: 'File Error',
-          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          toast: true,
           icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
+          title: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000
         });
       }
     } 
@@ -186,53 +184,36 @@ export class AddprojectComponent implements OnInit {
         this.cd.detectChanges();
       }
     });
+
+    this.form.markAllAsTouched();
   }
 
   // ----- MULTIPLE AUTHORS FUNCTION -----//
-  values = [''];
 
-  removevalue(i: any){
-    this.values.splice(i, 1);
-  }
-
-  addvalue(){
-    if (this.values.length < 6) {
-      this.values.push('');
-    }
-    console.log(this.values)
-  }
-
-  updateValue(event: Event, i: number) {
-    let input = event.target as HTMLInputElement;
-    this.values[i] = input.value;
-    console.log(this.values)
-  }
-  
-  isMaxLimitReached(): boolean {
-    return this.values.length >= 6;
-  }
-
-  authors: string[] = ['']; // Initialize with an empty author
+  authorArray = this.form.get('authors') as FormArray;
 
   addAuthor() {
-    this.authors = [...this.authors, '']; // Create a new array with the updated values
+    const control = this.authorArray;
+    control.push(this.formBuilder.group({
+      authorName: ['', [Validators.required, Validators.maxLength(40)]]
+    }));
+
+    control.at(control.length - 1).get('authorName')?.markAsTouched();
   }
 
   removeAuthor(index: number) {
-    this.authors.splice(index, 1);
-    this.authors = [...this.authors]; // Create a new array with the updated values
+    this.authorArray.removeAt(index);
   }
 
-  // Track by function to minimize re-renders
-  trackByIndex(index: number, item: any): number {
-    return index;
-  }
+  // END OF AUTHORS
+
 
   // TAGS KEYWORDS
   tags: string[] = [];
   @Input() placeholder = 'Enter a keyword...';
   @Input() removable = true;
   @Input() maxTags = 5; // hindi ko alam kung ilan max
+  keyword = '';
 
   @ViewChild('inputField') inputField: any;
 
@@ -254,40 +235,47 @@ export class AddprojectComponent implements OnInit {
     this.triggerChange(); // call trigger method
   }
 
-  updateTag($event: Event, index: number) {
-    console.log($event)
-  }
-
   onKeyDown(event: any, value: string): void {
-    switch (event.keyCode) {
-      case 13:
-
-      case 188: {
-        if (value && value.trim() !== '') {
-          if (!this.tags.includes(value) && this.tags.length < this.maxTags) {
-            // this.tags.push();
-            this.tags = [...this.tags, value];
-            this.triggerChange(); // call trigger method
-            this.cd.detectChanges();
+    if(this.form.get('keywords')?.value.length > 20) {
+      this.form.get('keywords')?.setValue(value.substring(0, 20));
+      Swal.fire({
+        toast: true,
+        icon: 'error',
+        title: 'lasjfasolifjsd',
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000
+      });
+    } else {
+      switch (event.keyCode) {
+        case 13: 
+          if (value && value.trim() !== '') {
+            if (!this.tags.includes(value) && this.tags.length < this.maxTags) {
+              this.tags = [...this.tags, value];
+              this.triggerChange(); // call trigger method
+              this.cd.detectChanges();
+            }
+            this.inputField.nativeElement.value = '';
+            event.preventDefault();
           }
-          this.inputField.nativeElement.value = '';
-          event.preventDefault();
-        }
-        break;
-      }
+          break;
 
-      case 8: {
-        if (!value && this.tags.length > 0) {
-          this.tags.pop();
-          this.tags = [...this.tags];
-          this.triggerChange(); // call trigger method
-        }
-        break;
+        case 188:
+          break;
+  
+        case 8:
+          if (!value && this.tags.length > 0) {
+            this.tags.pop();
+            this.tags = [...this.tags];
+            this.triggerChange(); // call trigger method
+          }
+          break;
+  
+        default:
+          break;
       }
-
-      default:
-        break;
     }
+    
   }
 
   writeValue(value: any): void {
@@ -361,40 +349,57 @@ export class AddprojectComponent implements OnInit {
     });
   }
 
-  isInvalid(controlName: string): boolean {
-    const control = this.form.get(controlName);
+  // For red inputs
+  isInvalid(controlName: string, index?: number): boolean {
+    const control = index !== undefined 
+      ? (this.authorArray.at(index) as FormGroup).get(controlName) 
+      : this.form.get(controlName);
+      
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
-  markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((key) => {
-      const control = formGroup.get(key);
-      control?.markAsTouched();
-    });
-  }
+  // To stop input/revert if invalid
+  deleteIfInvalid(event: Event, controlName: string, index?: number) {
+    const control = index !== undefined
+      ? (this.authorArray.at(index) as FormGroup).get(controlName) 
+      : this.form.get(controlName);
+      
+    let today = new Date();
+    if(control) {
+      const errors = control.errors;
+      let text = '';
+      if (errors) {
+        if (errors['maxlength']) {
+          control.setValue(((event.target as HTMLInputElement).value).substring(0, errors['maxlength'].requiredLength));
+          text += 'Max ' + errors['maxlength'].requiredLength + ' characters reached! ';
+        } if (errors['pattern']) {
+          const numericValue = (event.target as HTMLInputElement).value.replace(/\D/g, '');
+          control.setValue(numericValue);
+          text += 'Only numbers are allowed! ';
+        } if(errors['greaterThan']) {
+          control.setValue(1);
+          text += 'Only numbers greater than ' + errors['greaterThan'].requiredValue + ' are allowed!';
+        } if(errors['invalidDate']) {
+          control.setValue('');
+          text += 'Invalid date!'
+        } if(errors['notPastDate']) {
+          control.setValue('');
+          text += 'Should be past date!';
+        }
+      }
 
-  invalidMultiInput(type: string, i: number) {
-    let input = '';
-    if(type == 'author') input = this.values[i];
-    else if(type == 'tags') input = this.tags[i];
-
-    return (input.length < 1 || input.length > 50) && this.submit;
-  }
-  
-  validateMultiInput(type: string) {
-    let valid = true, isNull = false, isExceeded = false;
-    let input: any;
-
-    if(type == 'author') input = this.values;
-    else if(type == 'tags') input = this.tags;
-
-    for(let i = 0; i < input.length; i++) {
-      if(!input[i]) valid = false, isNull = true;
-
-      if(input[i].length > 50) valid = false, isExceeded = true;
+      /* Handle the popup */
+      if(text) {
+        Swal.fire({
+          toast: true,
+          icon: 'error',
+          title: text,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000
+        });
+      }
     }
-  
-    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
   }
 
   // UPDATE POPUP
@@ -402,24 +407,22 @@ export class AddprojectComponent implements OnInit {
 
     this.form.get('category')?.enable();
 
-    if(this.validateMultiInput('author').valid) {
-      this.form.patchValue({
-        authors: JSON.stringify(this.values)
-      });
-    }
-
-    if(this.validateMultiInput('tags').valid) {
-      this.form.patchValue({
-        keywords: JSON.stringify(this.tags)
-      });
-    }
-
     if(this.form.valid) {
       
       let form = new FormData();
 
+      this.form.patchValue({
+        keywords: JSON.stringify(this.tags)
+      });
+
+      let authors = [];
+      for(let i = 0; i < (this.form.get('authors') as FormArray).length; i++) {
+        authors.push(((this.form.get('authors') as FormArray).at(i) as FormGroup).get('authorName')?.value);
+      }
+      form.append('authors', JSON.stringify(authors));
+
       Object.entries(this.form.value).forEach(([key, value]: [string, any]) => {
-        if(value != '' && value != null)
+        if(value != '' && value != null && key != 'authors')
           form.append(key, value);
       });
 
@@ -445,10 +448,6 @@ export class AddprojectComponent implements OnInit {
         },
         error:(err: any) => this.form.get('accession')?.setErrors({ serverError: err.accession })
       });
-    } else {
-      this.form.get('category')?.disable();
-      this.markFormGroupTouched(this.form);
-      this.displayErrors();
     }
   }
 
@@ -486,86 +485,6 @@ export class AddprojectComponent implements OnInit {
       }
     });
   }
-
-  displayErrors() {
-
-    let maxLengthFields = '';
-    let minIntFields = '';
-    let integerFields = '';
-    let required = false;
-
-    Object.keys(this.form.controls).forEach(key => {
-      const control = this.form.get(key);
-      if (control && control.errors) {
-        const controlErrors = control.errors;
-        Object.keys(controlErrors).forEach(errorKey => {
-          console.log(errorKey)
-          switch (errorKey) {
-            case 'required':
-              required = true;
-              break;
-
-            case 'maxlength':
-              maxLengthFields += `${key}, `;
-              break;
-
-            case 'min':
-              minIntFields += `${key}, `;
-              break;
-
-            case 'pattern':
-              if(controlErrors['pattern']['requiredPattern'] == '^[0-9]+$') {
-                integerFields += `${key}, `;
-              }
-              break;
-
-            default:
-              break;
-          }
-        });
-      }
-    });
-
-    if(this.validateMultiInput('author').null || this.validateMultiInput('tags').null) required = true;
-
-    if(this.validateMultiInput('author').maxLength) maxLengthFields += 'authors, ';
-
-    if(this.validateMultiInput('tags').maxLength) maxLengthFields += 'keywords, ';
-
-    let errorText = '';
-    
-    if(required) {
-      errorText += 'Please fill up required fields <br>'
-    } 
-    
-    if(maxLengthFields.length > 0) {
-      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
-    }
-
-    if(minIntFields.length > 0) {
-      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
-    }
-
-    if(integerFields.length > 0) {
-      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
-    }
-
-    Swal.fire({
-      title: 'Oops! Invalid Form!',
-      html: `<div style="font-weight: 500;">${errorText}</div>`,
-      icon: 'error',
-      confirmButtonText: 'Close',
-      confirmButtonColor: "#777777",
-      scrollbarPadding: false,
-      willOpen: () => {
-        document.body.style.overflowY = 'scroll';
-      },
-      willClose: () => {
-        document.body.style.overflowY = 'scroll';
-      }
-    });
-  }
-
 
   // POP UP FUNCTION CONTENT
   showPopup: boolean = false;

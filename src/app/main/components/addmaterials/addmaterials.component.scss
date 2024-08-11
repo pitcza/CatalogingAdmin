@@ -1282,7 +1282,6 @@ input[type="file"]::file-selector-button {
     border-radius: 3px;
     transform: translateX(-50%);
     color: white;
-    background: var(--main-green);
     text-decoration: none;
     height: 50px;
     margin-top: 50px;
@@ -1307,7 +1306,6 @@ input[type="file"]::file-selector-button {
     border-radius: 3px;
     transform: translateX(-50%);
     color: white;
-    background: var(--main-green);
     text-decoration: none;
     height: 50px;
     margin-top: 50px;
@@ -1320,7 +1318,7 @@ input[type="file"]::file-selector-button {
 
 /* Arti Submit Button */
 
-.arti-btn > input {
+.arti-btn .button {
     border: none;
     position: absolute;
     text-align: center;
@@ -1331,7 +1329,6 @@ input[type="file"]::file-selector-button {
     border-radius: 3px;
     transform: translateX(-50%);
     color: white;
-    background: var(--main-green);
     text-decoration: none;
     height: 50px;
     margin-top: 50px;
@@ -1355,7 +1352,6 @@ input[type="file"]::file-selector-button {
     border-radius: 3px;
     transform: translateX(-50%);
     color: white;
-    background: var(--main-green);
     text-decoration: none;
     height: 50px;
     margin-top: 50px;

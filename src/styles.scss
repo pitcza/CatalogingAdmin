@@ -38,3 +38,20 @@ body {
 .is-invalid {
     border-color: red;
 }
+
+.required {
+    color: red;
+    font-size: small;
+}
+
+.validSubmit {
+    background: var(--main-green);
+}
+
+.validSubmit:hover {
+    background-color: var(--green-hover);
+}
+
+.invalidSubmit {
+    background-color: #424949;
+}

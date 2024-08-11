@@ -163,6 +163,9 @@ export class ReportsService {
       });
     });
 
+    worksheet.addRow('');
+    worksheet.addRow(['Total Count', data.length]);
+
     // Generate Excel file
     const buffer = await workbook.xlsx.writeBuffer();
     this.saveExcel(buffer, fileName);

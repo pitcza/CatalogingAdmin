@@ -387,7 +387,7 @@ export class EditBookComponent implements OnInit{
         }
       }).then((result) => {
         if(result.isConfirmed) {
-          this.ds.request('PUT', 'materials/books/process/' + this.data.accession, form).subscribe({
+          this.ds.request('POST', 'materials/books/process/' + this.data.accession, form).subscribe({
             next: (res: any) => {
               this.successMessage(form.get('title'));
               this.closepopup('Update');

@@ -451,7 +451,7 @@ input[type="file"]::file-selector-button { // CHOOSE FILE BUTTON
 }
 
 .update-btn {
-    background: var(--main-green);
+    // background: var(--main-green);
     color: var(--white);
     margin-right: 10px;
 }
@@ -467,9 +467,9 @@ input[type="file"]::file-selector-button { // CHOOSE FILE BUTTON
     margin-left: 10px;
 }
 
-.update-btn:hover {
-    background-color: var(--green-hover);
-}
+// .update-btn:hover {
+//     background-color: var(--green-hover);
+// }
 
 .delete-btn:hover {
     background-color: var(--red-hover);

@@ -15,9 +15,9 @@
                 <div class="input_field">
                     <div class="input-row" id="no-add-function">
                         <div class="txt_field_short">
-                            <input class="inputtxt" type="text" formControlName="accession">
-                            <span [ngClass]="{'errorSpan': isInvalid('accession') }"></span>
-                            <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('accession') }"> Accession No. </div>
+                            <input class="inputtxt" type="text" formControlName="accession" (keyup)="deleteIfInvalid($event, 'accession')">
+                            <span></span>
+                            <div class="labelline1"> Accession No. <p class="required" *ngIf="isInvalid('accession')">*Required</p> </div>
                         </div>
                         <div class="txt_field_short">
                             <select class="inputtxt" id="filter-department" (change)="changedDepartment($event)">
@@ -32,47 +32,49 @@
                                     <option *ngIf="x.department_short == departmentFilter" [value] = "x.program_short">{{ x.program_short }}</option>
                                 </ng-container>
                             </select>
-                            <span [ngClass]="{'errorSpan': isInvalid('program') }"></span>
-                            <label class="labelline1" for="program" [ngClass]="{ 'errorLabel': isInvalid('program')  }"> Program </label>
+                            <span></span>
+                            <label class="labelline1" for="program"> Program </label>
                         </div>
                         <div class="txt_field">
                             <input class="inputtxt" type="text" formControlName="category">
-                            <span [ngClass]="{'errorSpan': isInvalid('program') }"></span>
-                            <label class="labelline1" for="college" [ngClass]="{ 'errorLabel': isInvalid('program') }"> Category </label>
+                            <span></span>
+                            <label class="labelline1" for="college"> Category </label>
                         </div>
                     </div>
 
                     <div class="input-row">
                         <div class="txt_field">
                             <p class="warningMessage" *ngIf="titleTooLong">Title must be 255 characters or less</p>
-                            <input class="inputtxt" type="text" formControlName="title" (input)="checkTitleLength()">
-                            <span [ngClass]="{'errorSpan': isInvalid('title') }"></span>
-                            <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('title') }"> Title </div>
+                            <input class="inputtxt" type="text" formControlName="title" (keyup)="deleteIfInvalid($event, 'title')">
+                            <span></span>
+                            <div class="labelline1"> Title <p class="required" *ngIf="isInvalid('title')">*Required</p> </div>
                         </div>
                     </div>
 
                     <!-- ADD MULTIPLE AUTHORS -->
                     <div class="input-row">
-                        <div class="author-container">
-                        <ng-container *ngFor="let x of values; let i = index; trackBy: trackByIndex">
-                            <div class="multiple-author">
-                                <div class="txt_field">
-                                    <input class="inputtxt" type="text" name="author" (input)="updateValue($event, i)" [value]="x">
-                                    <span [ngClass]="{'errorSpan': isInvalid('authors') }"></span>
-                                    <div class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('authors') }"> Author </div>
+                        <div class="author-container" formArrayName="authors">
+                            <ng-container *ngFor="let x of authorArray.controls; let i = index;" [formGroupName]="i">
+                                <div class="multiple-author">
+                                    <div class="txt_field">
+                                        <input class="inputtxt" type="text" [formControlName]="'authorName'" (keyup)="deleteIfInvalid($event, 'authorName', i)">
+                                        <span></span>
+                                        <div class="labelline1"> Author <p class="required" *ngIf="isInvalid('authorName', i)">*Required</p> </div>
+                                    </div>
+                                    <button type="button" class="removebtn" (click)="removeAuthor(i)" *ngIf="authorArray.length > 1">
+                                        <i class='bx bx-x'></i>
+                                    </button>
                                 </div>
-                                <button type="button" class="removebtn" (click)="removevalue(i)" *ngIf="values.length > 1">
-                                    <i class='bx bx-x'></i>
-                                </button>
-                            </div>
-                        </ng-container>
+                            </ng-container>
+
                         </div>
-                        <div class="addbtn">
-                            <button type="button" class="add-author" (click)="addvalue()" [disabled]="isMaxLimitReached()">ADD</button>
+                            <div class="addbtn">
+                            <button type="button" class="add-author" (click)="addAuthor()" [disabled]="authorArray.length === 5">ADD</button>
                         </div>
-                        <!-- Display message based on the number of input fields -->
-                        <p class="message" *ngIf="!isMaxLimitReached()">Add more AUTHOR if necessary</p>
-                        <p class="message" *ngIf="isMaxLimitReached()">Maximum AUTHORS reached</p>
+
+                            <!--- Display message based on the number of input fields ---->
+                            <p class="message" *ngIf="authorArray.length < 5">Add more AUTHOR if necessary</p>
+                            <p class="message" *ngIf="authorArray.length === 5">Maximum AUTHORS reached</p>
 
                     </div>
 
@@ -86,17 +88,17 @@
                             <label class="labelline1" for="language"> Language </label>
                         </div>
                         <div class="txt_field">
-                            <input class="inputtxt" type="date" id="datepub" formControlName="date_published" >
-                            <span [ngClass]="{'errorSpan': isInvalid('date_published') }"></span>
-                            <div class="datelabel" [ngClass]="{ 'errorLabel': isInvalid('date_published') }"> Date Published </div>
+                            <input class="inputtxt" type="date" id="datepub" formControlName="date_published"  (change)="deleteIfInvalid($event, 'date_published')">
+                            <span></span>
+                            <div class="datelabel"> Date Published <p class="required" *ngIf="isInvalid('date_published')">*Required</p> </div>
                         </div>
                     </div>
 
                     <div class="input-row">
                         <div class="txtarea">
-                            <textarea formControlName="abstract"></textarea>
-                            <span [ngClass]="{'errorSpan': isInvalid('abstract') }"></span>
-                            <label class="labelline1" [ngClass]="{ 'errorLabel': isInvalid('abstract') }"> Abstract </label>
+                            <textarea formControlName="abstract" (keyup)="deleteIfInvalid($event, 'abstract')"></textarea>
+                            <span></span>
+                            <label class="labelline1"> Abstract <p class="required" *ngIf="isInvalid('abstract')">*Required</p> </label>
                         </div>
                     </div>
 
@@ -107,13 +109,13 @@
                             <!-- TAGS DISPLAY -->
                             <li class="chip" *ngFor="let x of tags; let j = index">
                                 <span class="chip-label">{{x}}</span>
-                                <input type="hidden" [value]="x" formControlName="keywords">
+                                <input type="hidden" [value]="x">
                                 <span class="remove ripple1" *ngIf="removable" (click)="removeItem(j)"><i class='bx bx-x'></i></span>
                             </li>
                             <!-- INPUT KEYWORDS -->
                             <li class="input-field">
-                                <input #inputField type="text" class="input"
-                                autocomplete="off" [placeholder]="placeholder" (keydown)="onKeyDown($event, inputField.value)"
+                                <input #inputField type="text" class="input" formControlName="keywords"
+                                autocomplete="off" [placeholder]="placeholder" (keyup)="onKeyDown($event, inputField.value)"
                                 *ngIf="!isMaxTagsReached()">
                             </li>
                         </ul>
@@ -169,7 +171,9 @@
                 <!-- BUTTONS -->
                 <div class="buttons">
                     <!-- <a class="add" (click)="addBox()">  -->
-                        <input id="submit-button" class="add" type="submit" value="Add">
+                        <input class= "submit-button" type="submit" value="Add" id="submit" 
+                            [ngClass]="{ 'validSubmit': form.valid, 'invalidSubmit': form.invalid }" [disabled]="form.invalid">
+                    
                     <!-- </a> -->
 
                     <a class="cancel" (click)="cancelBox()">

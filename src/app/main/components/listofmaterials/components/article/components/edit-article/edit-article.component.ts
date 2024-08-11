@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -27,7 +27,9 @@ export class EditArticleComponent implements OnInit{
     this.editForm = formBuilder.group({
       accession: ['', [Validators.required, Validators.maxLength(20)]],
       title: ['', [Validators.required, Validators.maxLength(255)]],
-      authors: ['dump', [Validators.required, Validators.maxLength(255)]],
+      authors: this.formBuilder.array([
+        // this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+      ]),
       publisher: ['', [Validators.required, Validators.maxLength(100)]],
       remarks: ['', Validators.maxLength(255)],
       pages: ['', [Validators.required, Validators.maxLength(20)]],
@@ -49,7 +51,11 @@ export class EditArticleComponent implements OnInit{
   ngOnInit(): void {
     this.ds.request('GET', 'material/id/' + this.data.details, null).subscribe((res: any) => {
       this.article = res;
-      this.values = this.article.authors;
+      if(this.article.authors != null) {
+        this.article.authors.forEach((author: any) => {
+          this.addAuthor(author)
+        });
+      }
 
       this.editForm.patchValue({
         accession: this.article.accession,
@@ -72,8 +78,6 @@ export class EditArticleComponent implements OnInit{
     this.ref.close(text);
   }
 
-
-  
   // ARCHIVE POPUP
   archiveBox(){
     Swal.fire({
@@ -163,85 +167,93 @@ export class EditArticleComponent implements OnInit{
   }
 
   // ----- AUTHORS ----- //
-  values = [''];
-
-  // Track by function to minimize re-renders
-  trackByIndex(index: number, item: any): number {
-    return index;
+  get getAuthorsArray() {
+    return this.editForm.get('authors') as FormArray;
   }
 
-  removeAuthor(event: Event) {
-    let targetElement = event.target;
+  addAuthor(value?: string) {
+    const control = this.getAuthorsArray;
+    control.push(this.formBuilder.group({
+      authorName: [value, [Validators.required, Validators.maxLength(40)]]
+    }));
 
-    // Get the author div
-    let element = ((targetElement as HTMLElement).parentNode)?.parentNode;
-    element?.parentNode?.removeChild(element);
+    control.at(control.length - 1).get('authorName')?.markAsTouched();
   }
 
-  removevalue(i: any){
-    this.values.splice(i, 1);
+  removeAuthor(index: number) {
+    this.getAuthorsArray.removeAt(index);
   }
 
-  addvalue(){
-    if (this.values.length < 5) {
-      this.values.push('');
-    }
-  }
-
-  updateValue($event: Event, index: number) {
-    this.values[index] = ($event.target as HTMLInputElement).value;
-  }
-
-  isMaxLimitReached(): boolean {
-    return this.values.length >= 5;
-  }
-  // ----- END OF AUTHORS ----- //
+  // END OF AUTHORS
   
-  isInvalid(controlName: string): boolean {
-    const control = this.editForm.get(controlName);
+  /* For error catching */
+  isInvalid(controlName: string, index?: number): boolean {
+    const control = index !== undefined 
+      ? (this.getAuthorsArray.at(index) as FormGroup).get(controlName) 
+      : this.editForm.get(controlName);
+      
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
-  markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((key) => {
-      const control = formGroup.get(key);
-      control?.markAsTouched();
-    });
-  }
+  // To stop input/revert if invalid
+  deleteIfInvalid(event: Event, controlName: string, index?: number) {
+    const control = index !== undefined
+      ? (this.getAuthorsArray.at(index) as FormGroup).get(controlName) 
+      : this.editForm.get(controlName);
+      
+    let today = new Date();
+    if(control) {
+      const errors = control.errors;
+      let text = '';
+      if (errors) {
+        if (errors['maxlength']) {
+          control.setValue(((event.target as HTMLInputElement).value).substring(0, errors['maxlength'].requiredLength));
+          text += 'Max ' + errors['maxlength'].requiredLength + ' characters reached! ';
+        } if (errors['pattern']) {
+          const numericValue = (event.target as HTMLInputElement).value.replace(/\D/g, '');
+          control.setValue(numericValue);
+          text += 'Only numbers are allowed! ';
+        } if(errors['greaterThan']) {
+          control.setValue(1);
+          text += 'Only numbers greater than ' + errors['greaterThan'].requiredValue + ' are allowed!';
+        } if(errors['invalidDate']) {
+          control.setValue('');
+          text += 'Invalid date!'
+        } if(errors['notPastDate']) {
+          control.setValue('');
+          text += 'Should be past date!';
+        }
+      }
 
-  invalidAuthor(i: number) {
-    let authorInput = this.values[i];
-
-    return (authorInput.length < 1 || authorInput.length > 50) && this.submit;
-  }
-  
-  validateAuthors() {
-    let valid = true;
-    let isNull = false;
-    let isExceeded = false;
-
-    for(let i = 0; i < this.values.length; i++) {
-      if(!this.values[i]) valid = false, isNull = true;
-
-      if(this.values[i].length > 50) valid = false, isExceeded = true;
+      /* Handle the popup */
+      if(text) {
+        Swal.fire({
+          toast: true,
+          icon: 'error',
+          title: text,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000
+        });
+      }
     }
-  
-    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
   }
 
   protected updateBox() {
 
-    if(this.editForm.valid && this.validateAuthors().valid) {
+    if(this.editForm.valid) {
       
-      this.editForm.patchValue({
-        authors: JSON.stringify(this.values)
-      });
-
       // pass datas to formdata to allow sending of files
       let form = new FormData();
-      
+
+      let authors = [];
+      for(let i = 0; i < (this.editForm.get('authors') as FormArray).length; i++) {
+        authors.push(((this.editForm.get('authors') as FormArray).at(i) as FormGroup).get('authorName')?.value);
+      }
+      form.append('authors', JSON.stringify(authors));
+
       Object.entries(this.editForm.value).forEach(([key, value]: [string, any]) => {
-        if(value != '' && value != null)
+        if(value != '' && value != null && key != 'authors')
           form.append(key, value);
       });
 
@@ -249,6 +261,7 @@ export class EditArticleComponent implements OnInit{
         title: "Update Article",
         text: "Are you sure you want to update the article details?",
         icon: "question",
+        reverseButtons: true,
         showCancelButton: true,
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
@@ -268,13 +281,10 @@ export class EditArticleComponent implements OnInit{
               this.successMessage(form.get('title'));
               this.closepopup('Update');
             },
-            error: (err: any) => this.editForm.get('accession')?.setErrors({ serverError: err.accession })
+            error: (err: any) => console.log(err)
           });
         }
       })
-    } else {
-      this.markFormGroupTouched(this.editForm);
-      this.displayErrors();
     }
   }
 
@@ -299,76 +309,6 @@ export class EditArticleComponent implements OnInit{
     Swal.fire({
       title: 'Oops! Server Side Error!',
       text: 'Please try again later or contact the developers',
-      icon: 'error',
-      confirmButtonText: 'Close',
-      confirmButtonColor: "#777777",
-      scrollbarPadding: false,
-      willOpen: () => {
-        document.body.style.overflowY = 'scroll';
-      },
-      willClose: () => {
-        document.body.style.overflowY = 'scroll';
-      }
-    });
-  }
-
-  displayErrors() {
-
-    let maxLengthFields = '';
-    let minIntFields = '';
-    let integerFields = '';
-    let required = false;
-
-    Object.keys(this.editForm.controls).forEach(key => {
-      const control = this.editForm.get(key);
-      if (control && control.errors) {
-        const controlErrors = control.errors;
-        Object.keys(controlErrors).forEach(errorKey => {
-          switch (errorKey) {
-            case 'required':
-              required = true;
-              break;
-
-            case 'maxlength':
-              maxLengthFields += `${key}, `;
-              break;
-
-            case 'min':
-              minIntFields += `${key}, `;
-              break;
-
-            default:
-              break;
-          }
-        });
-      }
-    });
-
-    if(this.validateAuthors().null) required = true;
-
-    if(this.validateAuthors().maxLength) maxLengthFields += 'authors, ';
-
-    let errorText = '';
-    
-    if(required) {
-      errorText += 'Please fill up required fields <br>'
-    }
-    
-    if(maxLengthFields.length > 0) {
-      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
-    }
-
-    if(minIntFields.length > 0) {
-      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
-    }
-
-    if(integerFields.length > 0) {
-      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
-    }
-
-    Swal.fire({
-      title: 'Oops! Invalid Form!',
-      html: `<div style="font-weight: 500;">${errorText}</div>`,
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",

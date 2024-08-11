@@ -24,7 +24,7 @@ export class DataService {
         return this.http.post(apiUrl + url, form, { headers: this.headers.get() });
 
       case 'PUT':
-        form.append('_method', 'PUT');
+        // form.append('_method', 'PUT');
         return this.http.post(apiUrl + url, form, { headers: this.headers.get() });
       
       case 'DELETE':

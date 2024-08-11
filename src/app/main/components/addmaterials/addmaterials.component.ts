@@ -1,12 +1,13 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
-import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidationErrors, FormArray } from '@angular/forms';
 import { ImportComponent } from './import/import.component';
 
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { DataService } from '../../../services/data/data.service';
+import { numberAndGreaterThanValidator, pastDateValidator } from '../../../utils/custom-validators';
 
 @Component({
   selector: 'app-addmaterials',
@@ -18,6 +19,8 @@ export class AddmaterialsComponent implements OnInit {
   bookSubmit = false; periodicalSubmit = false; articleSubmit = false; aVSubmit = false;
   bookForm: FormGroup;
   periodicalForm: FormGroup; articleForm: FormGroup;
+  currentYear = new Date().getFullYear();
+  year: number[] = [];
 
   bookImage: any = null;
   periodicalImage: any = null;
@@ -30,9 +33,11 @@ export class AddmaterialsComponent implements OnInit {
   audioForm: FormGroup = this.formBuilder.group({
     accession: ['', [Validators.required, Validators.maxLength(20)]],
     title: ['', [Validators.required, Validators.maxLength(150)]],
-    authors: ['', [Validators.required, Validators.maxLength(255)]],
+    authors: this.formBuilder.array([
+      this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+    ]),
     call_number: ['', [Validators.required, Validators.maxLength(20)]],
-    copyright: [2024, Validators.required],
+    copyright: [this.currentYear, Validators.required],
   });
 
   constructor(
@@ -43,70 +48,76 @@ export class AddmaterialsComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) {
     this.dialogRef = dialog;
+    for (let i = 1991; i <= this.currentYear; i++) { this.year.push(i); }
 
     let sharedFields = {
       accession: ['', [Validators.required, Validators.maxLength(20)]],
       title: ['', [Validators.required, Validators.maxLength(150)]],
-      authors: ['', [Validators.required, Validators.maxLength(255)]],
       publisher: ['', [Validators.required, Validators.maxLength(100)]],
       remarks: ['', Validators.maxLength(255)],
-      pages: ['', [Validators.required, Validators.maxLength(20)]],
     };
 
-    this.bookForm = formBuilder.group(Object.assign({}, sharedFields, {
-      copyright: [2024, Validators.required],
+    this.bookForm = this.formBuilder.group({
+      ...sharedFields,
+      authors: this.formBuilder.array([
+        this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+      ]),
+      copyright: [this.currentYear, Validators.required],
       volume: ['', Validators.maxLength(50)],
       edition: ['', Validators.maxLength(50)],
-      acquired_date: ['', Validators.required],
+      pages: ['', [Validators.required, numberAndGreaterThanValidator(0)]],
+      acquired_date: ['', [Validators.required, pastDateValidator()]],
       source_of_fund: ['Purchased', Validators.required],
       price: ['', [Validators.required, Validators.min(1)]],
       location: ['ABCOMM', Validators.required],
-      call_number: ['', [Validators.maxLength(20)]],
+      call_number: ['', [Validators.required, Validators.maxLength(20)]],
       author_number: ['', [Validators.required, Validators.maxLength(20)]],
-      copies: [1, [Validators.required, Validators.min(1)]]
-    }));
+      copies: [1, [Validators.required, numberAndGreaterThanValidator(0)]]
+    });
     
     this.bookForm.get('accession')?.addValidators(Validators.pattern('^[0-9]+$'));
     this.bookForm.updateValueAndValidity();
 
-    this.periodicalForm = formBuilder.group(Object.assign({}, sharedFields, {
+    this.periodicalForm = this.formBuilder.group({
+      ...sharedFields,
+      authors: this.formBuilder.array([
+        this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+      ]),
       periodical_type: ['0', Validators.required],
       volume: ['', [Validators.required, Validators.maxLength(50)]],
       issue: ['', [Validators.required, Validators.maxLength(50)]],
       language: ['English', Validators.required],
-      acquired_date: ['', Validators.required],
-      date_published: ['', Validators.required],
-      copyright: [2024, Validators.required]
-    }));
+      pages: ['', [Validators.required, numberAndGreaterThanValidator(0)]],
+      acquired_date: ['', [Validators.required, pastDateValidator()]],
+      date_published: ['', [Validators.required, pastDateValidator()]],
+      copyright: [this.currentYear, Validators.required]
+    });
 
-    this.articleForm = formBuilder.group(Object.assign({}, sharedFields, {
+    this.articleForm = this.formBuilder.group({
+      ...sharedFields,
+      authors: this.formBuilder.array([
+        this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+      ]),
       periodical_type: ['0', Validators.required],
       abstract: ['', [Validators.required, Validators.maxLength(4096)]],
       volume: ['', [Validators.required, Validators.maxLength(50)]],
       issue: ['', [Validators.required, Validators.maxLength(50)]],
       language: ['English', Validators.required],
+      pages: ['', [Validators.required, Validators.maxLength(20)]],
       subject: ['', [Validators.required, Validators.maxLength(255)]],
-      date_published: ['', Validators.required]
-    }));
+      date_published: ['', [Validators.required, pastDateValidator()]]
+    });
   }
 
   // form select initializers
   protected locations: any = null;
-  currentYear = new Date().getFullYear();
-  year: number[] = [];
-
-  bookAuthors = [''];
-  periodicalAuthors = [''];
-  articleAuthors = [''];
-  aVAuthors = [''];
-
 
   ngOnInit(): void {
     this.getLocations();
-
-    for (let i = 1991; i <= this.currentYear; i++) {
-      this.year.push(i);
-    }
+    this.bookForm.markAllAsTouched();
+    this.periodicalForm.markAllAsTouched();
+    this.articleForm.markAllAsTouched();
+    this.audioForm.markAllAsTouched();
   }
 
   protected getLocations() {
@@ -114,7 +125,7 @@ export class AddmaterialsComponent implements OnInit {
       this.locations = res;
     });
   }
-
+  
   // ----- PREVIEW AND CROP IMAGE ----- //
   validBookImage = false; validPeriodicalImage = false; validAVImage = false;
   bookImgChangeEvt: any = ''; periodicalImgChangeEvt: any = ''; AVImgChangeEvt: any = '';
@@ -137,18 +148,12 @@ export class AddmaterialsComponent implements OnInit {
       } else {
         input.value = ''; // removes the file
         Swal.fire({
-          title: 'File Error',
-          text: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          toast: true,
           icon: 'error',
-          confirmButtonText: 'Close',
-          confirmButtonColor: "#777777",
-          scrollbarPadding: false,
-          willOpen: () => {
-            document.body.style.overflowY = 'scroll';
-          },
-          willClose: () => {
-            document.body.style.overflowY = 'scroll';
-          }
+          title: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000
         });
       }
     } 
@@ -203,72 +208,53 @@ export class AddmaterialsComponent implements OnInit {
 
   imgFailed() {
     Swal.fire({
-      title: 'Error',
-      text: "Image failed to show. Please try again.",
+      toast: true,
       icon: 'error',
-      confirmButtonText: 'Close',
-      confirmButtonColor: "#777777",
-      timer: 2500,
-      scrollbarPadding: false,
-      willOpen: () => {
-        document.body.style.overflowY = 'scroll';
-      },
-      willClose: () => {
-        document.body.style.overflowY = 'scroll';
-      }
+      title: 'Image failed to show',
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
     });
   }
   // END OF PREVIEW AND CROP IMAGE //
 
   // MULTIPLE AUTHORS FUNCTION     
 
-  removevalue(i: any, type: string) {
-    this.getAuthorSet(type).splice(i, 1);
-  }
-
-  addvalue(type: string) {
-    if (this.getAuthorSet(type).length < 5) {
-      this.getAuthorSet(type).push('');
-    }
-  }
-
-  updateValue(event: Event, i: number, type: string) {
-    let input = event.target as HTMLInputElement;
-    this.getAuthorSet(type)[i] = input.value;
-  }
-
-  isMaxLimitReached(type: string): boolean {
-    return this.getAuthorSet(type).length >= 5;
-  }
-  
-  trackByIndex(index: number, item: any): number {
-    return index;
-  }
-
-  emptyValues() {}
-
-  getAuthorSet(type: string) {
-
-    switch(type){
+  getAuthorsArray(type: string) {
+    switch(type) {
       case 'book':
-        return this.bookAuthors;
+        return this.bookForm.get('authors') as FormArray;
 
       case 'periodical':
-        return this.periodicalAuthors;
+        return this.periodicalForm.get('authors') as FormArray;
 
       case 'article':
-        return this.articleAuthors;
+        return this.articleForm.get('authors') as FormArray;
 
       case 'AV':
-        return this.aVAuthors;
+        return this.audioForm.get('authors') as FormArray;
 
-      default:
-        return [];
+      default: // default is book form to avoid errors
+        return this.bookForm.get('authors') as FormArray;
     }
+  }
+
+  addAuthor(type: string) {
+    const control = this.getAuthorsArray(type);
+    control.push(this.formBuilder.group({
+      authorName: ['', [Validators.required, Validators.maxLength(40)]]
+    }));
+
+    control.at(control.length - 1).get('authorName')?.markAsTouched();
+  }
+
+  removeAuthor(type: string, index: number) {
+    this.getAuthorsArray(type).removeAt(index);
   }
 
   // END OF AUTHORS
 
+  /* enable price if book is purchased, disable otherwise */
   changedFunds(event: Event) {
     let price = (event?.target as HTMLInputElement).value;
     let priceControl = this.bookForm.get('price');
@@ -305,60 +291,60 @@ export class AddmaterialsComponent implements OnInit {
     }
   }
 
-  isInvalid(controlName: string, type: string): boolean {
-    const control = this.getFormSet(type).get(controlName);
+  // For red inputs
+  isInvalid(controlName: string, type: string, index?: number): boolean {
+    const control = index !== undefined 
+      ? (this.getAuthorsArray(type).at(index) as FormGroup).get(controlName) 
+      : this.getFormSet(type).get(controlName);
+      
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
-  markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((key) => {
-      const control = formGroup.get(key);
-      control?.markAsTouched();
-    });
-  }
-
-  invalidAuthor(i: number, type: string) {
-    let authorInput = this.getAuthorSet(type)[i];
-    let submit = false;
-    switch(type) {
-      case 'book':
-        submit = this.bookSubmit;
-        break;
-
-      case 'periodical':
-        submit = this.periodicalSubmit;
-        break;
-
-      case 'article':
-        submit = this.articleSubmit;
-        break;
-
-      case 'AV':
-        submit = this.aVSubmit;
-        break;
-    }
-
-    return (authorInput.length < 1 || authorInput.length > 50) && submit;
-  }
-
-  validateAuthors(type: string) {
-    let valid = true;
-    let isNull = false;
-    let isExceeded = false;
-
-    this.getAuthorSet(type).forEach(author => {
-      if(author.length > 50) {
-        valid = false;
-        isExceeded = true;
-      }
+  // To stop input/revert if invalid
+  deleteIfInvalid(event: Event, controlName: string, type: string, index?: number) {
+    const control = index !== undefined
+      ? (this.getAuthorsArray(type).at(index) as FormGroup).get(controlName) 
+      : this.getFormSet(type).get(controlName);
       
-      if(author.length < 1) {
-        valid = false;
-        isNull = true;
+    console.log('Value: ' + control?.value)
+    let today = new Date();
+    console.log('Today: ' + today)
+    if(control) {
+      const errors = control.errors;
+      let text = '';
+      if (errors) {
+        console.log(errors)
+        if (errors['maxlength']) {
+          control.setValue(((event.target as HTMLInputElement).value).substring(0, errors['maxlength'].requiredLength));
+          text += 'Max ' + errors['maxlength'].requiredLength + ' characters reached! ';
+        } if (errors['pattern']) {
+          const numericValue = (event.target as HTMLInputElement).value.replace(/\D/g, '');
+          control.setValue(numericValue);
+          text += 'Only numbers are allowed! ';
+        } if(errors['greaterThan']) {
+          control.setValue(1);
+          text += 'Only numbers greater than ' + errors['greaterThan'].requiredValue + ' are allowed!';
+        } if(errors['invalidDate']) {
+          control.setValue('');
+          text += 'Invalid date!'
+        } if(errors['notPastDate']) {
+          control.setValue('');
+          text += 'Should be past date!';
+        }
       }
-    });
 
-    return {'valid': valid, 'null': isNull, 'maxLength': isExceeded};
+      /* Handle the popup */
+      if(text) {
+        Swal.fire({
+          toast: true,
+          icon: 'error',
+          title: text,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000
+        });
+      }
+    }
   }
 
   protected materialSubmit(type: string) {
@@ -381,12 +367,6 @@ export class AddmaterialsComponent implements OnInit {
       case 'AV':
         this.aVSubmit = true;
         break;
-    }
-
-    if(this.validateAuthors(type).valid) {
-      addForm.patchValue({
-        authors: JSON.stringify(this.getAuthorSet(type))
-      });
     }
 
     if(addForm.valid) {
@@ -413,7 +393,15 @@ export class AddmaterialsComponent implements OnInit {
         let form = new FormData();
 
         Object.entries(addForm.value).forEach(([key, value]: [string, any]) => {
-          if(value != '' && value != null)
+          if(key == 'authors') {
+            let authors = [];
+            for(let i = 0; i < (addForm.get('authors') as FormArray).length; i++) {
+              authors.push(((addForm.get('authors') as FormArray).at(i) as FormGroup).get('authorName')?.value);
+            }
+            form.append('authors', JSON.stringify(authors));
+          }
+
+          else if(value != '' && value != null)
             form.append(key, value);
         });
 
@@ -461,9 +449,6 @@ export class AddmaterialsComponent implements OnInit {
         } 
       }
     });
-    } else {
-      this.markFormGroupTouched(addForm);
-      this.displayErrors(type);
     }
   }
 
@@ -490,93 +475,6 @@ export class AddmaterialsComponent implements OnInit {
     Swal.fire({
       title: 'Oops! Error adding material!',
       text: text,
-      icon: 'error',
-      confirmButtonText: 'Close',
-      confirmButtonColor: "#777777",
-      scrollbarPadding: false,
-      willOpen: () => {
-        document.body.style.overflowY = 'scroll';
-      },
-      willClose: () => {
-        document.body.style.overflowY = 'scroll';
-      },
-    });
-  }
-
-  displayErrors(type: string) {
-    if(type == 'book') {
-      var form = this.bookForm;
-    } else if(type == 'periodical') {
-      var form = this.periodicalForm;
-    } else if(type == 'article') {
-      var form = this.articleForm;
-    } else if(type == 'AV') {
-      var form = this.audioForm;
-    } else {
-      return;
-    }
-
-    let maxLengthFields = '';
-    let minIntFields = '';
-    let integerFields = '';
-    let required = false;
-
-    Object.keys(form.controls).forEach(key => {
-      const control = form.get(key);
-      if (control && control.errors) {
-        const controlErrors = control.errors;
-        Object.keys(controlErrors).forEach(errorKey => {
-          switch (errorKey) {
-            case 'required':
-              required = true;
-              break;
-
-            case 'maxlength':
-              maxLengthFields += `${key}, `;
-              break;
-
-            case 'min':
-              minIntFields += `${key}, `;
-              break;
-
-            case 'pattern':
-              if(controlErrors['pattern']['requiredPattern'] == '^[0-9]+$') {
-                integerFields += `${key}, `;
-              }
-              break;
-
-            default:
-              break;
-          }
-        });
-      }
-    });
-
-    if(this.validateAuthors(type).maxLength) {
-      maxLengthFields += 'authors, '
-    }
-
-    let errorText = '';
-    
-    if(required) {
-      errorText += 'Please fill up required fields <br>'
-    } 
-    
-    if(maxLengthFields.length > 0) {
-      errorText += 'Exceeds max length: ' + maxLengthFields.substring(0, maxLengthFields.length - 2) + '<br>';
-    }
-
-    if(minIntFields.length > 0) {
-      errorText += 'Lower than minimum: ' + minIntFields.substring(0, minIntFields.length - 2) + '<br>';
-    }
-
-    if(integerFields.length > 0) {
-      errorText += 'Should be number type: ' + integerFields.substring(0, integerFields.length - 2) + '<br>';
-    }
-
-    Swal.fire({
-      title: 'Oops! Invalid Form!',
-      html: `<div style="font-weight: 500;">${errorText}</div>`,
       icon: 'error',
       confirmButtonText: 'Close',
       confirmButtonColor: "#777777",

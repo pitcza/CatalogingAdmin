@@ -28,8 +28,30 @@ export class AuthInterceptor implements HttpInterceptor {
           return throwError(() => new Error('Unauthenticated'));
         } else if (error.status === 409) {
           Swal.fire({
-            title: 'Oops! Error Encountered',
+            title: 'Oops! Duplicate accession detected!',
             text: error.error.message,
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            }
+          });
+        } else if (error.status === 500) {
+          let title = 'Oops! Server side error!';
+          let text = 'Please contact the developers'; 
+          if(error.error.message.includes('Duplicate entry')) {
+            title = 'Invalid accession';
+            text = 'Duplicate accession detected!'
+          } 
+          
+          Swal.fire({
+            title: title,
+            text: text,
             icon: 'error',
             confirmButtonText: 'Close',
             confirmButtonColor: "#777777",
