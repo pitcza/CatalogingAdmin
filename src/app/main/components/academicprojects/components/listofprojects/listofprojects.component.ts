@@ -77,8 +77,6 @@ export class ListofprojectsComponent implements OnInit {
 
       // Convert the Set back to an array
       this.departments = Array.from(uniqueDepartments);
-
-      console.log(this.departments)
     })
   }
 

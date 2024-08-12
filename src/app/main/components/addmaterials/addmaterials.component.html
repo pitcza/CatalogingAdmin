@@ -159,7 +159,7 @@
                         <div class="entryarea5">
                             <span class="peso-sign">₱</span>
                             <input formControlName="price" (change)="deleteIfInvalid($event, 'price', 'book')">
-                            <span [ngClass]="{ 'errorSpan': isInvalid('price', 'book')}"></span>
+                            <span></span>
                             <div class="labelline5"> Price <p class="required" *ngIf="isNull('price', 'book')">*Required</p> </div>
                         </div>
                     </div>

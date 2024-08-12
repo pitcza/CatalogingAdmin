@@ -26,7 +26,6 @@ export class DetailsComponent implements OnInit {
     this.ds.request('GET', 'archives/material/id/' + this.data, null).subscribe({
       next: (res: any) => {
         this.element = res;
-        console.log(res)
       }
     })
   }

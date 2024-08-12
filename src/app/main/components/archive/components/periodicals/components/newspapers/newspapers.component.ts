@@ -46,7 +46,6 @@ export class NewspapersComponent {
     this.ds.request('GET', 'archives/materials/periodicals/type/2' , null).subscribe((res:any) => {
       this.dataSource = new MatTableDataSource<PeriodicElement>(res);
       this.dataSource.paginator = this.paginator;
-      console.log(res)
     })
   }
 

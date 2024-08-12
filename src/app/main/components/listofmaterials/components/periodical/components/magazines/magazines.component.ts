@@ -113,7 +113,6 @@ export class MagazinesComponent implements OnInit {
   }
 
   detailsPopup(code: any) {
-    console.log(code)
     this.Openpopup(code, 'Periodical Details', PerioDetailsComponent);
   }
 

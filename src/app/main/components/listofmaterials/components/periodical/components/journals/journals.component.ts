@@ -45,7 +45,6 @@ export class JournalsComponent implements OnInit {
   getData() {
     this.ds.request('GET', 'materials/periodicals/type/0', null).subscribe({
       next: (res: any) => {
-        console.log(res)
         this.dataSource = new MatTableDataSource<PeriodicalElement>(res)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -118,7 +117,6 @@ export class JournalsComponent implements OnInit {
   }
 
   Openpopup(code: any, title: any,component:any) {
-    console.log(code)
     var _popup = this.dialog.open(component, {
       width: '40%',
       enterAnimationDuration: '100ms',

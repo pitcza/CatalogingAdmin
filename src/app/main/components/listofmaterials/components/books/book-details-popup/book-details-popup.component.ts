@@ -34,9 +34,7 @@ export class BookDetailsPopupComponent {
     this.ds.request('GET', 'material/id/' + this.data.accession, null).subscribe({
       next: (res: any) =>  {
         this.book = res
-        console.log(this.book)
-      },
-      error: (err: any) => console.log(err)
+      }
     })
   }
 

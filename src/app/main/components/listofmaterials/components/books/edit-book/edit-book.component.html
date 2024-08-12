@@ -134,7 +134,7 @@
                                     <div class="txt_field">
                                         <span class="peso-sign">₱</span>
                                         <input class="inputtxt-price" formControlName="price" (change)="deleteIfInvalid($event, 'price')">
-                                        <span [ngClass]="{'errorSpan': isInvalid('price')}"></span>
+                                        <span></span>
                                         <div class="labelline1"> Price <p class="required" *ngIf="isNull('price')">*Required</p> </div>
                                     </div>
                                 </div>

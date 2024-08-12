@@ -27,7 +27,6 @@ export class PerioDetailsComponent implements OnInit {
   ngOnInit(): void {
      this.ds.request('GET', 'material/id/' + this.data.details, null).subscribe((res: any) => {
         this.periodical = res;
-        console.log(this.periodical)
      })
   }
 

@@ -26,7 +26,7 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-    // Refresh user token every 55 minutes (under construction)
+    // Refresh user token every 55 minutes
   //   this.timer = setInterval(() => {
   //     let currentTime = new Date();
   //     let newCurrentTime = currentTime.toISOString();
@@ -45,8 +45,7 @@ export class MainComponent implements OnInit, OnDestroy {
   //       let time = new Date();
   //       time.setMinutes(time.getMinutes() + 55);
   //       sessionStorage.setItem('request-token', time.toISOString());
-  //     },
-  //     error: (err: any) => console.log(err)
+  //     }
   //   });
   // }
 

@@ -79,7 +79,6 @@ export class ImportComponent {
               }
             },
             error: (err: any) => {
-              console.log(err);
               Swal.close(); // Close the loading popup in case of error
               Swal.fire({
                 icon: 'error',

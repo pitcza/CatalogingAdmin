@@ -57,7 +57,7 @@ export class EditBookComponent implements OnInit{
       pages: ['', [Validators.required, numberAndGreaterThanValidator(0)]],
       acquired_date: ['', [Validators.required, pastDateValidator()]],
       source_of_fund: ['Purchased', Validators.required],
-      price: ['', [Validators.required, Validators.pattern('^\\d+\\.\\d{2}$')]],
+      price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       location: ['ABCOMM', Validators.required],
       call_number: ['', [Validators.required, Validators.maxLength(20)]],
       author_number: ['', [Validators.required, Validators.maxLength(20)]],
@@ -91,7 +91,6 @@ export class EditBookComponent implements OnInit{
         });
       }
 
-      // console.log(URL.createObjectURL(this.book.image_url))
       this.cropImagePreview = this.book.image_url;
     });
 
@@ -159,7 +158,6 @@ export class EditBookComponent implements OnInit{
       this.getBlobFromObjectUrl(event.objectUrl).then((blob: Blob) => {
         if (blob) {
           this.image = blob;
-          console.log(this.image)
         }
       }).catch(error => {
         console.error('Error:', error);
@@ -350,8 +348,9 @@ removeAuthor(index: number) {
           control.setValue(((event.target as HTMLInputElement).value).substring(0, errors['maxlength'].requiredLength));
           text += 'Max ' + errors['maxlength'].requiredLength + ' characters reached! ';
         } if (errors['pattern']) {
-          if(errors['pattern'].requiredPattern == '^\\d+\\.\\d{2}$') {
-            text += 'Only numbers with 2 decimal places are allowed!';
+          if(errors['pattern'].requiredPattern == '/^\\d+(\\.\\d{1,2})?$/') {
+            control.setValue('');
+            text += 'Only numbers up to 2 decimal places are allowed!';
           } else if(errors['patters'].requiredPattern == '^[0-9]+$') {
             const numericValue = (event.target as HTMLInputElement).value.replace(/\D/g, '');
             control.setValue(numericValue);

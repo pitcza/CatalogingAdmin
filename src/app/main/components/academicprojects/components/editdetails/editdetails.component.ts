@@ -75,7 +75,6 @@ export class EditdetailsComponent implements OnInit{
   ngOnInit() {
     this.ds.request('GET', 'project/id/' + this.data.details, null).subscribe((res: any) => {
       this.project = res;
-      console.log(this.project)
       if(this.project.authors != null) {
         this.project.authors.forEach((author: any) => {
           this.addAuthor(author)
@@ -309,7 +308,6 @@ export class EditdetailsComponent implements OnInit{
 
   updateTag($event: Event, index: number) {
     // this.values[index] = $event.target.value;
-    console.log($event)
   }
 
   onKeyDown(event: any, value: string): void {

@@ -125,7 +125,6 @@ export class EditPeriodicalComponent implements OnInit{
             this.closepopup('Archive')
           },
           error: (err: any) => {
-            console.log(err)
             Swal.fire({
               title: "Archive Error!",
               text: "Please try again later.",
