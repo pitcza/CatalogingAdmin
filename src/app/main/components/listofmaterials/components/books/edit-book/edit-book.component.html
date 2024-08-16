@@ -79,7 +79,7 @@
                                         <div class="labelline1"> Location </div>
                                     </div>
                                     <div class="txt_field">
-                                        <input class="inputtxt" type="text" formControlName="call_number"  (keyup)="deleteIfInvalid($event, 'call_number')">
+                                        <input class="inputtxt" type="text" formControlName="call_number"  (keyup)="deleteIfInvalid($event, 'call_number')" placeholder="XXXX.X.XXX">
                                         <span></span>
                                         <div class="labelline1"> Call Number <p class="required" *ngIf="isNull('call_number')">*Required</p> </div>
                                     </div>
