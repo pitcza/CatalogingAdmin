@@ -60,16 +60,13 @@
                                                 </button>
                                             </div>
                                         </ng-container>
-
                                     </div>
-                                        <div class="addbtn">
+                                    <div class="addbtn">
                                         <button type="button" class="add-author" (click)="addAuthor()" [disabled]="getAuthorsArray.length === 5">ADD</button>
                                     </div>
-
                                         <!--- Display message based on the number of input fields ---->
                                         <p class="message" *ngIf="getAuthorsArray.length < 5">Add more AUTHOR if necessary</p>
                                         <p class="message" *ngIf="getAuthorsArray.length === 5">Maximum AUTHORS reached</p>
-
                                 </div>
 
                                 <div class="input-row">
