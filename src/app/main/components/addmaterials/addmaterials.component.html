@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="entryarea4">
-                            <input type="text" formControlName="call_number" (keyup)="deleteIfInvalid($event, 'author_number', 'book')">
+                            <input type="text" formControlName="call_number" (keyup)="deleteIfInvalid($event, 'author_number', 'book')" placeholder="XXXX.X.XXX">
                             <span></span>
                             <div class="labelline4"> Call Number <p class="required" *ngIf="isNull('call_number', 'book')">*Required</p> </div>
                         </div>
@@ -120,7 +120,7 @@
                         </div>
 
                         <div class="entryarea4">
-                            <input type="text" formControlName="edition" (keyup)="deleteIfInvalid($event, 'edition', 'book')">
+                            <input type="text" formControlName="edition" (keyup)="deleteIfInvalid($event, 'edition', 'book')" >
                             <span></span>
                             <div class="labelline4"> Edition </div>
                         </div>
@@ -574,7 +574,7 @@
 
                     <div class="input-row1">
                         <div class="entryarea9">
-                            <input type="text" formControlName="call_number" (change)="deleteIfInvalid($event, 'call_number', 'AV')">
+                            <input type="text" formControlName="call_number" (change)="deleteIfInvalid($event, 'call_number', 'AV')" placeholder="XXXX.X.XXX">
                             <span></span>
                             <div class="labelline9"> Call Number <p class="required" *ngIf="isNull('call_number', 'AV')">*Required</p> </div>
                         </div>
