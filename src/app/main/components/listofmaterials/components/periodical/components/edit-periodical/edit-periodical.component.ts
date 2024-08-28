@@ -43,20 +43,20 @@ export class EditPeriodicalComponent implements OnInit{
 
     this.editForm = formBuilder.group({
       accession: ['', [Validators.required, Validators.maxLength(20)]],
-      title: ['', [Validators.required, Validators.maxLength(150)]],
-      publisher: ['', [Validators.required, Validators.maxLength(100)]],
+      title: ['', [Validators.maxLength(150)]],
+      publisher: ['', [Validators.maxLength(100)]],
       remarks: ['', Validators.maxLength(255)],
       authors: this.formBuilder.array([
-        this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+        // this.formBuilder.group({ authorName: ['', [Validators.maxLength(40)]]})
       ]),
       periodical_type: ['0', Validators.required],
-      volume: ['', [Validators.required, Validators.maxLength(50)]],
-      issue: ['', [Validators.required, Validators.maxLength(50)]],
+      volume: ['', [Validators.maxLength(50)]],
+      issue: ['', [Validators.maxLength(50)]],
       language: ['English', Validators.required],
       pages: ['', [Validators.required, numberAndGreaterThanValidator(0)]],
       acquired_date: ['', [Validators.required, pastDateValidator()]],
       date_published: ['', [Validators.required, pastDateValidator()]],
-      copyright: [this.currentYear, Validators.required]
+      copyright: [this.currentYear]
     });
    }
 
@@ -81,7 +81,7 @@ export class EditPeriodicalComponent implements OnInit{
         language: this.periodical.language,
         acquired_date: this.periodical.acquired_date,
         date_published: this.periodical.date_published,
-        copyright: this.periodical.copyright
+        copyright: this.periodical.copyright || ''
       });
 
       this.cropImagePreview = this.periodical.image_url;
@@ -279,7 +279,7 @@ export class EditPeriodicalComponent implements OnInit{
 addAuthor(value?: string) {
   const control = this.getAuthorsArray;
   control.push(this.formBuilder.group({
-    authorName: [value, [Validators.required, Validators.maxLength(40)]]
+    authorName: [value, [Validators.maxLength(40)]]
   }));
 
   control.at(control.length - 1).get('authorName')?.markAsTouched();
@@ -308,7 +308,7 @@ removeAuthor(index: number) {
       const value = control?.value;
 
       // Check if the value is null, undefined, or an empty string after trimming
-      return value === null || value === undefined || value.trim() === '';
+      return value === null || value === undefined || value === '';
   }
 
   // To stop input/revert if invalid
@@ -371,8 +371,10 @@ removeAuthor(index: number) {
             authors.push(((this.editForm.get('authors') as FormArray).at(i) as FormGroup).get('authorName')?.value);
           }
           form.append('authors', JSON.stringify(authors));
-        } else if(value != '' && value != null)
-          form.append(key, value);
+        } else if(value || key == 'periodical_type')
+            form.append(key, value);
+          else 
+            form.append(key, '');
       });
 
       if(this.image) {
@@ -400,7 +402,7 @@ removeAuthor(index: number) {
         if(result.isConfirmed) {
           this.ds.request('PUT', 'materials/periodicals/process/' + this.data.details, form).subscribe({
             next: (res: any) => {
-              this.successMessage(form.get('title'));
+              this.successMessage(form.get('title') || 'Periodical');
               this.closepopup('Update');
             },
             error: (err: any) => this.editForm.get('accession')?.setErrors({ serverError: err.accession })

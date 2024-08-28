@@ -45,13 +45,13 @@ export class EditBookComponent implements OnInit{
 
     this.editForm = formBuilder.group({
       accession: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]+$')]],
-      title: ['', [Validators.required, Validators.maxLength(150)]],
-      publisher: ['', [Validators.required, Validators.maxLength(100)]],
+      title: ['', [Validators.maxLength(150)]],
+      publisher: ['', [Validators.maxLength(100)]],
       remarks: ['', Validators.maxLength(255)],
       authors: this.formBuilder.array([
         // this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
       ]),
-      copyright: [this.currentYear, Validators.required],
+      copyright: [],
       volume: ['', Validators.maxLength(50)],
       edition: ['', Validators.maxLength(50)],
       pages: ['', [Validators.required, numberAndGreaterThanValidator(0)]],
@@ -60,8 +60,7 @@ export class EditBookComponent implements OnInit{
       price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       location: ['ABCOMM', Validators.required],
       call_number: ['', [Validators.required, Validators.maxLength(20)]],
-      author_number: ['', [Validators.required, Validators.maxLength(20)]],
-      copies: [1, [Validators.required, numberAndGreaterThanValidator(0)]]
+      author_number: ['', [Validators.required, Validators.maxLength(20)]]
     })
   }
 
@@ -72,7 +71,7 @@ export class EditBookComponent implements OnInit{
         accession: this.book.accession,
         title: this.book.title,
         publisher: this.book.publisher,
-        copyright: this.book.copyright,
+        copyright: this.book.copyright || '',
         location: this.book.location,
         call_number: this.book.call_number,
         author_number: this.book.author_number,
@@ -302,7 +301,7 @@ export class EditBookComponent implements OnInit{
 addAuthor(value?: string) {
   const control = this.getAuthorsArray;
   control.push(this.formBuilder.group({
-    authorName: [value, [Validators.required, Validators.maxLength(40)]]
+    authorName: [value, [Validators.maxLength(40)]]
   }));
 
   control.at(control.length - 1).get('authorName')?.markAsTouched();
@@ -398,8 +397,10 @@ removeAuthor(index: number) {
             authors.push(((this.editForm.get('authors') as FormArray).at(i) as FormGroup).get('authorName')?.value);
           }
           form.append('authors', JSON.stringify(authors));
-        } else if(value != '' && value != null)
+        } else if(value)
           form.append(key, value);
+          else 
+          form.append(key, '');
       });
 
       if(this.image) {
@@ -427,7 +428,7 @@ removeAuthor(index: number) {
         if(result.isConfirmed) {
           this.ds.request('POST', 'materials/books/process/' + this.data.accession, form).subscribe({
             next: (res: any) => {
-              this.successMessage(form.get('title'));
+              this.successMessage(form.get('title') || 'Book');
               this.closepopup('Update');
             },
             error: (err: any) => this.editForm.get('accession')?.setErrors({ serverError: err.accession })

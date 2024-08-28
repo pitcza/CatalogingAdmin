@@ -21,12 +21,12 @@
                                 </tr>
                                 <tr>
                                   <td class="data"><strong>Title</strong></td>
-                                  <td class="data2">{{article.title}}</td>
+                                  <td class="data2">{{article.title || 'Untitled'}}</td>
                                 </tr>
                                 <tr>
                                   <td class="data"><strong>Author(s)</strong></td>
                                   <td class="data2">
-                                    <ng-container *ngIf="!article.authors"> N/A </ng-container>
+                                    <ng-container *ngIf="article.authors == ''"> N/A </ng-container>
                                         <ng-container *ngFor="let x of article.authors; let last = last;">
                                         {{ x     }}{{ !last ? ',' : '' }} <br>
                                     </ng-container>
@@ -34,7 +34,7 @@
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Publisher</strong></td>
-                                    <td class="data2">{{article.publisher}}</td>
+                                    <td class="data2">{{article.publisher || 'N/A'}}</td>
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Publication Date</strong></td>
@@ -79,7 +79,7 @@
                                     <td class="data"><strong>Pages</strong></td>
                                     <td class="data2">{{article.pages}}</td>
                                     <td class="data"><strong>Remark</strong></td>
-                                    <td class="data2">{{ article.remarks != null ? article.remarks : 'N/A' }}</td>
+                                    <td class="data2">{{ article.remarks || 'N/A' }}</td>
                                 </tr>
                             </table>
                         </div>

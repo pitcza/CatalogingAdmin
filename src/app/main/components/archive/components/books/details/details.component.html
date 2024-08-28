@@ -24,16 +24,16 @@
                                   </tr>
                                 <tr>
                                   <td class="data"><strong>Title</strong></td>
-                                  <td>{{element.title}}</td>
+                                  <td>{{element.title || 'Untitled'}}</td>
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Publisher</strong></td>
-                                    <td>{{element.publisher}}</td>
+                                    <td>{{element.publisher || 'N/A'}}</td>
                                 </tr>
                                 <tr>
                                   <td class="data"><strong>Author(s)</strong></td>
                                   <td>
-                                    <ng-container *ngIf="!element.authors"> N/A </ng-container>
+                                    <ng-container *ngIf="element.authors == ''"> N/A </ng-container>
                                         <ng-container *ngFor="let x of element.authors; let last = last;">
                                         {{ x     }}{{ !last ? ',' : '' }} <br>
                                     </ng-container>
@@ -49,7 +49,7 @@
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Copyright</strong></td>
-                                    <td>{{ element.copyright }}</td>
+                                    <td>{{ element.copyright || 'N.D.' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Call Number</strong></td>

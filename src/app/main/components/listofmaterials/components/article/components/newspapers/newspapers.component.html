@@ -30,7 +30,7 @@
             <th mat-header-cell *matHeaderCellDef> Newspaper Title </th>
             <td mat-cell *matCellDef="let element" class="left-align title-cell">
                 <div class="title-text">
-                    {{ element.title }}
+                    {{ element.title || 'Untitled' }}
                 </div>
             </td>
         </ng-container>
@@ -39,7 +39,7 @@
         <ng-container matColumnDef="author">
             <th mat-header-cell *matHeaderCellDef> Author(s) </th>
             <td mat-cell *matCellDef="let element" class="left-align"> 
-                <ng-container *ngIf="!element.authors"> N/A </ng-container>
+                <ng-container *ngIf="element.authors == ''"> N/A </ng-container>
                 <ng-container *ngIf="element.authors">
                     <ng-container *ngIf="element.authors.length > 3">
                         <ng-container *ngFor="let x of element.authors.slice(0, 3); let last = last">

@@ -22,12 +22,12 @@
                                 </tr>
                                 <tr>
                                   <td class="data"><strong>Title</strong></td>
-                                  <td class="data2" colspan="3">{{element.title}}</td>
+                                  <td class="data2" colspan="3">{{element.title || 'Untitled'}}</td>
                                 </tr>
                                 <tr>
                                   <td class="data"><strong>Author(s)</strong></td>
                                   <td class="data2" colspan="3">
-                                    <ng-container *ngIf="!element.authors"> N/A </ng-container>
+                                    <ng-container *ngIf="element.authors == ''"> N/A </ng-container>
                                         <ng-container *ngFor="let x of element.authors; let last = last;">
                                         {{ x     }}{{ !last ? ',' : '' }} <br>
                                     </ng-container>
@@ -39,7 +39,7 @@
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Copyright</strong></td>
-                                    <td class="data2">{{element.copyright}}</td>
+                                    <td class="data2">{{element.copyright || 'N.D.'}}</td>
                                 </tr>
                             </table>
                         </div>

@@ -63,6 +63,21 @@ export class AuthInterceptor implements HttpInterceptor {
               document.body.style.overflowY = 'scroll';
             }
           });
+        } else {
+          Swal.fire({
+            title: 'Oops! An error has occured',
+            text: error.error.message,
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: "#777777",
+            scrollbarPadding: false,
+            willOpen: () => {
+              document.body.style.overflowY = 'scroll';
+            },
+            willClose: () => {
+              document.body.style.overflowY = 'scroll';
+            }
+          });
         }
         
         return throwError(() => new Error(error.error.message));

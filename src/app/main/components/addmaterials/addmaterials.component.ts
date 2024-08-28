@@ -32,12 +32,12 @@ export class AddmaterialsComponent implements OnInit {
   dialogRef: MatDialog;
   audioForm: FormGroup = this.formBuilder.group({
     accession: ['', [Validators.required, Validators.maxLength(20)]],
-    title: ['', [Validators.required, Validators.maxLength(150)]],
+    title: ['', [Validators.maxLength(150)]],
     authors: this.formBuilder.array([
-      this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+      this.formBuilder.group({ authorName: ['', [Validators.maxLength(40)]]})
     ]),
     call_number: ['', [Validators.required, Validators.maxLength(20)]],
-    copyright: [this.currentYear, Validators.required],
+    copyright: [this.currentYear],
   });
 
   constructor(
@@ -52,17 +52,17 @@ export class AddmaterialsComponent implements OnInit {
 
     let sharedFields = {
       accession: ['', [Validators.required, Validators.maxLength(20)]],
-      title: ['', [Validators.required, Validators.maxLength(150)]],
-      publisher: ['', [Validators.required, Validators.maxLength(100)]],
+      title: ['', [Validators.maxLength(150)]],
+      publisher: ['', [Validators.maxLength(100)]],
       remarks: ['', Validators.maxLength(255)],
     };
 
     this.bookForm = this.formBuilder.group({
       ...sharedFields,
       authors: this.formBuilder.array([
-        this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+        this.formBuilder.group({ authorName: ['', [Validators.maxLength(40)]]})
       ]),
-      copyright: [this.currentYear, Validators.required],
+      copyright: [this.currentYear],
       volume: ['', Validators.maxLength(50)],
       edition: ['', Validators.maxLength(50)],
       pages: ['', [Validators.required, numberAndGreaterThanValidator(0)]],
@@ -81,27 +81,27 @@ export class AddmaterialsComponent implements OnInit {
     this.periodicalForm = this.formBuilder.group({
       ...sharedFields,
       authors: this.formBuilder.array([
-        this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+        this.formBuilder.group({ authorName: ['', [Validators.maxLength(40)]]})
       ]),
       periodical_type: ['0', Validators.required],
-      volume: ['', [Validators.required, Validators.maxLength(50)]],
-      issue: ['', [Validators.required, Validators.maxLength(50)]],
+      volume: ['', [Validators.maxLength(50)]],
+      issue: ['', [Validators.maxLength(50)]],
       language: ['English', Validators.required],
       pages: ['', [Validators.required, numberAndGreaterThanValidator(0)]],
       acquired_date: ['', [Validators.required, pastDateValidator()]],
       date_published: ['', [Validators.required, pastDateValidator()]],
-      copyright: [this.currentYear, Validators.required]
+      copyright: [this.currentYear]
     });
 
     this.articleForm = this.formBuilder.group({
       ...sharedFields,
       authors: this.formBuilder.array([
-        this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
+        this.formBuilder.group({ authorName: ['', [Validators.maxLength(40)]]})
       ]),
       periodical_type: ['0', Validators.required],
       abstract: ['', [Validators.required, Validators.maxLength(4096)]],
-      volume: ['', [Validators.required, Validators.maxLength(50)]],
-      issue: ['', [Validators.required, Validators.maxLength(50)]],
+      volume: ['', [Validators.maxLength(50)]],
+      issue: ['', [Validators.maxLength(50)]],
       language: ['English', Validators.required],
       pages: ['', [Validators.required, Validators.maxLength(20)]],
       subject: ['', [Validators.required, Validators.maxLength(255)]],
@@ -308,7 +308,7 @@ export class AddmaterialsComponent implements OnInit {
       const value = control?.value;
 
       // Check if the value is null, undefined, or an empty string after trimming
-      return (value === null || value === undefined || value.trim() === '') && (control?.invalid || false);
+      return (value === null || value === undefined || value === '') && (control?.invalid || false);
   }
 
   // To stop input/revert if invalid
@@ -431,8 +431,8 @@ export class AddmaterialsComponent implements OnInit {
           }
         }
 
-        let formTitle = '';
-        formTitle += form.get('title');
+        let formTitle: any;
+        formTitle = form.get('title') ? form.get('title') : 'Material';
 
         if(type == 'book') {
           this.ds.request('POST', 'materials/books/process', form).subscribe({

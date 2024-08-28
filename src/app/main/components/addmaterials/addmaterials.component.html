@@ -82,6 +82,7 @@
                         <div class="entryarea8">
                             <select formControlName="copyright">
                                 <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
+                                <option value=""> N.D. </option>
                             </select>
                             <span></span>
                             <div class="labelline8"> Copyright </div>
@@ -174,7 +175,7 @@
                         </div>
 
                         <div class="entryarea10">
-                            <input type="text" formControlName="copies" (keyup)="deleteIfInvalid($event, 'copies', 'book')">
+                            <input type="text" formControlName="copies" (change)="deleteIfInvalid($event, 'copies', 'book')">
                             <span [ngClass]="{'errorSpan': isInvalid('copies', 'book') }"></span>
                             <div class="labelline10" [ngClass]="{ 'errorLabel': isInvalid('copies', 'book') }"> Copies </div>
                         </div>
@@ -288,6 +289,7 @@
                         <div class="entryarea8">
                             <select formControlName="copyright">
                                 <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
+                                <option value=""> N.D. </option>
                             </select>
                             <span></span>
                             <div class="labelline8"> Copyright </div>
@@ -581,6 +583,7 @@
                         <div class="entryarea8">
                             <select formControlName="copyright">
                                 <option *ngFor="let x of year" [value]="x" [selected]="x === currentYear"> {{ x }} </option>
+                                <option value=""> N.D. </option>
                             </select>
                             <span></span>
                             <div class="labelline8"> Copyright </div>

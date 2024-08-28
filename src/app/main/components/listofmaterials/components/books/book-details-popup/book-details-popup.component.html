@@ -24,16 +24,16 @@
                                   </tr>
                                 <tr>
                                   <td class="data"><strong>Title</strong></td>
-                                  <td>{{book.title}}</td>
+                                  <td>{{book.title || 'Untitled'}}</td>
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Publisher</strong></td>
-                                    <td>{{book.publisher}}</td>
+                                    <td>{{book.publisher || 'N/A'}}</td>
                                 </tr>
                                 <tr>
                                   <td class="data"><strong>Author(s)</strong></td>
                                   <td>
-                                    <ng-container *ngIf="!book.authors"> N/A </ng-container>
+                                    <ng-container *ngIf="book.authors == ''"> N/A </ng-container>
                                         <ng-container *ngFor="let x of book.authors; let last = last;">
                                         {{ x     }}{{ !last ? ',' : '' }} <br>
                                     </ng-container>
@@ -41,15 +41,15 @@
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Volume</strong></td>
-                                    <td>{{ book.volume != null ? book.volume : 'N/A' }}</td>
+                                    <td>{{ book.volume || 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Edition</strong></td>
-                                    <td>{{ book.edition != null ? book.edition : 'N/A' }}</td>
+                                    <td>{{ book.edition || 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Copyright</strong></td>
-                                    <td>{{ book.copyright }}</td>
+                                    <td>{{ book.copyright || 'N.D.' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="data"><strong>Call Number</strong></td>
@@ -85,7 +85,7 @@
                                       <td class="data"><strong>Price</strong></td>
                                       <td class="data2">{{ book.price ? '₱ ' + book.price : 'N/A' }}</td>
                                       <td class="data"><strong>Remark</strong></td>
-                                      <td class="data2">{{ book.remarks != null ? book.remarks : 'N/A' }}</td>
+                                      <td class="data2">{{ book.remarks || 'N/A' }}</td>
                                     </tr>
                                 </table>
                             </div>

@@ -26,12 +26,12 @@ export class EditAVComponent implements OnInit {
 
   editForm: FormGroup = this.formBuilder.group({
     accession: ['', [Validators.required, Validators.maxLength(20)]],
-    title: ['', [Validators.required, Validators.maxLength(150)]],
+    title: ['', [Validators.maxLength(150)]],
     authors: this.formBuilder.array([
       // this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
     ]),
     call_number: ['', [Validators.required, Validators.maxLength(20)]],
-    copyright: [2024, Validators.required],
+    copyright: [this.currentYear],
   });
 
   constructor(
@@ -75,7 +75,7 @@ export class EditAVComponent implements OnInit {
 addAuthor(value?: string) {
   const control = this.getAuthorsArray;
   control.push(this.formBuilder.group({
-    authorName: [value, [Validators.required, Validators.maxLength(40)]]
+    authorName: [value, [Validators.maxLength(40)]]
   }));
 
   control.at(control.length - 1).get('authorName')?.markAsTouched();
@@ -196,7 +196,7 @@ removeAuthor(index: number) {
       const value = control?.value;
 
       // Check if the value is null, undefined, or an empty string after trimming
-      return value === null || value === undefined || value.trim() === '';
+      return value === null || value === undefined || value === '';
   }
 
   // To stop input/revert if invalid
@@ -371,8 +371,9 @@ removeAuthor(index: number) {
                 authors.push(((this.editForm.get('authors') as FormArray).at(i) as FormGroup).get('authorName')?.value);
               }
               form.append('authors', JSON.stringify(authors));
-            } else if(value != '' && value != null)
+            } else if(value)
               form.append(key, value);
+              else form.append(key, '');
           });
 
           if(this.image) {

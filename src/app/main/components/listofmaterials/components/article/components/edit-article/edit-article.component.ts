@@ -26,17 +26,17 @@ export class EditArticleComponent implements OnInit{
   ) { 
     this.editForm = formBuilder.group({
       accession: ['', [Validators.required, Validators.maxLength(20)]],
-      title: ['', [Validators.required, Validators.maxLength(255)]],
+      title: ['', [Validators.maxLength(255)]],
       authors: this.formBuilder.array([
         // this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
       ]),
-      publisher: ['', [Validators.required, Validators.maxLength(100)]],
+      publisher: ['', Validators.maxLength(100)],
       remarks: ['', Validators.maxLength(255)],
       pages: ['', [Validators.required, Validators.maxLength(20)]],
       periodical_type: ['0', Validators.required],
       abstract: ['', [Validators.required, Validators.maxLength(4096)]],
-      volume: ['', [Validators.required, Validators.maxLength(50)]],
-      issue: ['', [Validators.required, Validators.maxLength(50)]],
+      volume: ['', [Validators.maxLength(50)]],
+      issue: ['', [Validators.maxLength(50)]],
       language: ['English', Validators.required],
       subject: ['', [Validators.required, Validators.maxLength(255)]],
       date_published: ['', Validators.required]
@@ -173,7 +173,7 @@ export class EditArticleComponent implements OnInit{
   addAuthor(value?: string) {
     const control = this.getAuthorsArray;
     control.push(this.formBuilder.group({
-      authorName: [value, [Validators.required, Validators.maxLength(40)]]
+      authorName: [value, [Validators.maxLength(40)]]
     }));
 
     control.at(control.length - 1).get('authorName')?.markAsTouched();
@@ -202,7 +202,7 @@ export class EditArticleComponent implements OnInit{
       const value = control?.value;
 
       // Check if the value is null, undefined, or an empty string after trimming
-      return value === null || value === undefined || value.trim() === '';
+      return value === null || value === undefined || value === '';
   }
 
   // To stop input/revert if invalid
@@ -255,15 +255,17 @@ export class EditArticleComponent implements OnInit{
       
       // pass datas to formdata to allow sending of files
       let form = new FormData();
+      const editAuthors = this.editForm.get('authors') as FormArray;
 
       let authors = [];
-      for(let i = 0; i < (this.editForm.get('authors') as FormArray).length; i++) {
-        authors.push(((this.editForm.get('authors') as FormArray).at(i) as FormGroup).get('authorName')?.value);
+      for(let i = 0; i < editAuthors.length; i++) {
+        if((editAuthors.at(i) as FormGroup).get('authorName')?.value)
+        authors.push((editAuthors.at(i) as FormGroup).get('authorName')?.value);
       }
       form.append('authors', JSON.stringify(authors));
 
       Object.entries(this.editForm.value).forEach(([key, value]: [string, any]) => {
-        if(value != '' && value != null && key != 'authors')
+        if(key != 'authors')
           form.append(key, value);
       });
 
@@ -288,7 +290,7 @@ export class EditArticleComponent implements OnInit{
         if(result.isConfirmed) {
           this.ds.request('PUT', 'materials/articles/process/' + this.data.details, form).subscribe({
             next: (res: any) => {
-              this.successMessage(form.get('title'));
+              this.successMessage(form.get('title') || 'Article');
               this.closepopup('Update');
             }
           });
