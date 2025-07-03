@@ -189,7 +189,7 @@ export class BooksComponent implements OnInit {
       }
     });
     _popup.afterClosed().subscribe(result => {
-      console.log(result)
+      // console.log(result)  
       this.redirectToListPage();
       if(result == 'Update' || result == 'Archive') {
         this.getData()

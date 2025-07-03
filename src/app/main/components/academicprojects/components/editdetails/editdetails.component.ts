@@ -1,5 +1,19 @@
-import { ChangeDetectionStrategy, Component, OnInit, forwardRef,  Input, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, NG_VALUE_ACCESSOR, FormArray } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  forwardRef,
+  Input,
+  ViewChild,
+  ChangeDetectorRef,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  NG_VALUE_ACCESSOR,
+  FormArray,
+} from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Inject } from '@angular/core';
@@ -14,17 +28,17 @@ import { DataService } from '../../../../../services/data/data.service';
   selector: 'app-editdetails',
   templateUrl: './editdetails.component.html',
   styleUrl: './editdetails.component.scss',
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => EditdetailsComponent),
-    multi: true
-  }],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => EditdetailsComponent),
+      multi: true,
+    },
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
-export class EditdetailsComponent implements OnInit{
-
-  errorImage = '../../../../../../assets/images/NoImage.png';
+export class EditdetailsComponent implements OnInit {
+  errorImage = 'assets/images/NoImage.png';
   programs: any;
   departments: any;
   departmentFilter = '';
@@ -37,7 +51,7 @@ export class EditdetailsComponent implements OnInit{
   submit = false;
   editForm: FormGroup = this.formBuilder.group({
     accession: ['', Validators.required],
-    category: [{value: '', disabled: true}, Validators.required],
+    category: [{ value: '', disabled: true }, Validators.required],
     title: ['', [Validators.required, Validators.maxLength(255)]],
     authors: this.formBuilder.array([
       // this.formBuilder.group({ authorName: ['', [Validators.required, Validators.maxLength(40)]]})
@@ -47,10 +61,10 @@ export class EditdetailsComponent implements OnInit{
     date_published: ['', Validators.required],
     language: ['English', Validators.required],
     abstract: ['', Validators.required],
-    keywords: ['']
+    keywords: [''],
   });
 
-  titleTooLong: boolean = false;  
+  titleTooLong: boolean = false;
   checkTitleLength() {
     const titleControl = this.editForm.get('title');
     if (titleControl) {
@@ -59,52 +73,54 @@ export class EditdetailsComponent implements OnInit{
   }
 
   constructor(
-    private router: Router, 
-    private ref: MatDialogRef<EditdetailsComponent>, 
+    private router: Router,
+    private ref: MatDialogRef<EditdetailsComponent>,
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ds: DataService,
     private cd: ChangeDetectorRef,
     private sanitizer: DomSanitizer
-  ) { }
+  ) {}
 
   ngAfterViewInit(): void {
     this.cd.detectChanges();
   }
 
   ngOnInit() {
-    this.ds.request('GET', 'project/id/' + this.data.details, null).subscribe((res: any) => {
-      this.project = res;
-      if(this.project.authors != null) {
-        this.project.authors.forEach((author: any) => {
-          this.addAuthor(author)
-        });
-      }
+    this.ds
+      .request('GET', 'project/id/' + this.data.details, null)
+      .subscribe((res: any) => {
+        this.project = res;
+        if (this.project.authors != null) {
+          this.project.authors.forEach((author: any) => {
+            this.addAuthor(author);
+          });
+        }
 
-      if(this.project.keywords) {
-        this.tags.splice(0, 1);
+        if (this.project.keywords) {
+          this.tags.splice(0, 1);
           this.project.keywords.forEach((keyword: any) => {
-            this.tags.push(keyword)
-        }); 
-      }
-      
-      this.editForm.patchValue({
-        accession: this.project.accession,
-        category: this.project.category,
-        title: this.project.title,
-        program: this.project.program,
-        date_published: this.project.date_published,
-        language: this.project.language,
-        abstract: this.project.abstract,
-        keywords: ''
+            this.tags.push(keyword);
+          });
+        }
+
+        this.editForm.patchValue({
+          accession: this.project.accession,
+          category: this.project.category,
+          title: this.project.title,
+          program: this.project.program,
+          date_published: this.project.date_published,
+          language: this.project.language,
+          abstract: this.project.abstract,
+          keywords: '',
+        });
+
+        this.programFilter = this.project.program;
+        this.programCategory = this.project.category;
+        this.departmentFilter = this.project.project_program.department_short;
+
+        this.cropImagePreview = this.project.image_url;
       });
-
-      this.programFilter = this.project.program;
-      this.programCategory = this.project.category;
-      this.departmentFilter = this.project.project_program.department_short;
-
-      this.cropImagePreview = this.project.image_url;
-    });
 
     this.ds.request('GET', 'programs', null).subscribe({
       next: (res: any) => {
@@ -113,7 +129,7 @@ export class EditdetailsComponent implements OnInit{
         // Extract unique department names from programs
         const uniqueDepartments = new Set<string>();
         this.programs.forEach((program: any) => {
-            uniqueDepartments.add(program.department_short);
+          uniqueDepartments.add(program.department_short);
         });
 
         // Convert the Set back to an array
@@ -121,7 +137,7 @@ export class EditdetailsComponent implements OnInit{
 
         // Manually trigger change detection after setting values
         this.cd.detectChanges();
-      }
+      },
     });
   }
 
@@ -136,13 +152,13 @@ export class EditdetailsComponent implements OnInit{
 
     // Check if there are files selected
     if (input.files && input.files.length) {
-      const file = input.files[0];  // Get the first selected file
+      const file = input.files[0]; // Get the first selected file
 
       // Check if the selected file is an image
       if (file.type.startsWith('image/')) {
         this.validFile = true;
         this.imgChangeEvt = event;
-        this.image = file;  // Optionally store the file object itself
+        this.image = file; // Optionally store the file object itself
 
         // Reset cropImagePreview when a new file is selected
         this.cropImagePreview = undefined;
@@ -152,28 +168,33 @@ export class EditdetailsComponent implements OnInit{
         Swal.fire({
           toast: true,
           position: 'top-end',
-          title: "Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.",
+          title:
+            'Invalid File! Only files with extensions .png, .jpg, .jpeg are allowed.',
           icon: 'error',
           timerProgressBar: true,
           showConfirmButton: false,
           timer: 5000,
         });
       }
-    } 
+    }
   }
 
   cropImg(event: ImageCroppedEvent) {
     if (event?.objectUrl) {
-      this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      this.cropImagePreview = this.sanitizer.bypassSecurityTrustUrl(
+        event.objectUrl
+      );
       this.cd.detectChanges();
-      
-      this.getBlobFromObjectUrl(event.objectUrl).then((blob: Blob) => {
-        if (blob) {
-          this.image = blob;
-        }
-      }).catch(error => {
-        console.error('Error:', error);
-      });
+
+      this.getBlobFromObjectUrl(event.objectUrl)
+        .then((blob: Blob) => {
+          if (blob) {
+            this.image = blob;
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     }
   }
 
@@ -202,10 +223,10 @@ export class EditdetailsComponent implements OnInit{
   imgFailed() {
     Swal.fire({
       title: 'Error',
-      text: "Image failed to show. Please try again.",
+      text: 'Image failed to show. Please try again.',
       icon: 'error',
       confirmButtonText: 'Close',
-      confirmButtonColor: "#777777",
+      confirmButtonColor: '#777777',
       timer: 2500,
       scrollbarPadding: false,
       willOpen: () => {
@@ -213,7 +234,7 @@ export class EditdetailsComponent implements OnInit{
       },
       willClose: () => {
         document.body.style.overflowY = 'scroll';
-      }
+      },
     });
   }
   // END OF PREVIEW AND CROP IMAGE //
@@ -223,16 +244,16 @@ export class EditdetailsComponent implements OnInit{
     this.departmentFilter = (event.target as HTMLSelectElement).value;
 
     this.programs.some((x: any) => {
-      if(x.department_short == this.departmentFilter) {
+      if (x.department_short == this.departmentFilter) {
         this.programCategory = x.category;
         this.programFilter = x.program_short;
         this.editForm.patchValue({
           program: this.programFilter,
-          category: this.programCategory
+          category: this.programCategory,
         });
-        return true; 
+        return true;
       }
-      return false; 
+      return false;
     });
   }
 
@@ -240,25 +261,24 @@ export class EditdetailsComponent implements OnInit{
     this.programFilter = (event.target as HTMLSelectElement).value;
 
     this.programs.some((x: any) => {
-      if(x.program_short == this.programFilter) {
+      if (x.program_short == this.programFilter) {
         this.programCategory = x.category;
         this.editForm.patchValue({
-          category: this.programCategory
+          category: this.programCategory,
         });
-        return true; 
+        return true;
       }
-      return false; 
+      return false;
     });
   }
 
-  changeCategory(){
-
+  changeCategory() {
     this.programs.some((x: any) => {
-      if(x.id == this.programFilter) {
+      if (x.id == this.programFilter) {
         this.programCategory = x.category;
-        return true; 
+        return true;
       }
-      return false; 
+      return false;
     });
   }
 
@@ -268,11 +288,16 @@ export class EditdetailsComponent implements OnInit{
 
   addAuthor(value?: string) {
     const control = this.authorArray;
-    control.push(this.formBuilder.group({
-      authorName: [value, [Validators.required, Validators.maxLength(40)]]
-    }));
+    control.push(
+      this.formBuilder.group({
+        authorName: [value, [Validators.required, Validators.maxLength(40)]],
+      })
+    );
 
-    control.at(control.length - 1).get('authorName')?.markAsTouched();
+    control
+      .at(control.length - 1)
+      .get('authorName')
+      ?.markAsTouched();
   }
 
   removeAuthor(index: number) {
@@ -311,7 +336,7 @@ export class EditdetailsComponent implements OnInit{
   }
 
   onKeyDown(event: any, value: string): void {
-    if(this.editForm.get('keywords')?.value.length > 20) {
+    if (this.editForm.get('keywords')?.value.length > 20) {
       this.editForm.get('keywords')?.setValue(value.substring(0, 20));
       Swal.fire({
         toast: true,
@@ -319,11 +344,11 @@ export class EditdetailsComponent implements OnInit{
         title: 'Max 20 characters reacheds!',
         position: 'top-end',
         showConfirmButton: false,
-        timer: 5000
+        timer: 5000,
       });
     } else {
       switch (event.keyCode) {
-        case 13: 
+        case 13:
           if (value && value.trim() !== '') {
             if (!this.tags.includes(value) && this.tags.length < this.maxTags) {
               this.tags = [...this.tags, value];
@@ -337,7 +362,7 @@ export class EditdetailsComponent implements OnInit{
 
         case 188:
           break;
-  
+
         case 8:
           if (!value && this.tags.length > 0) {
             this.tags.pop();
@@ -345,7 +370,7 @@ export class EditdetailsComponent implements OnInit{
             this.triggerChange(); // call trigger method
           }
           break;
-  
+
         default:
           break;
       }
@@ -377,210 +402,251 @@ export class EditdetailsComponent implements OnInit{
   closepopup(text: string) {
     this.ref.close(text);
   }
-  
+
   /* For error catching */
   isInvalid(controlName: string, index?: number): boolean {
-    const control = index !== undefined 
-      ? (this.authorArray.at(index) as FormGroup).get(controlName) 
-      : this.editForm.get(controlName);
-      
-    return control ? control.invalid && (control.dirty || control.touched) : false;
+    const control =
+      index !== undefined
+        ? (this.authorArray.at(index) as FormGroup).get(controlName)
+        : this.editForm.get(controlName);
+
+    return control
+      ? control.invalid && (control.dirty || control.touched)
+      : false;
   }
 
   isNull(controlName: string, index?: number): boolean {
-    const control = index !== undefined 
-      ? (this.authorArray.at(index) as FormGroup).get(controlName) 
-      : this.editForm.get(controlName);
-      
-      const value = control?.value;
+    const control =
+      index !== undefined
+        ? (this.authorArray.at(index) as FormGroup).get(controlName)
+        : this.editForm.get(controlName);
 
-      // Check if the value is null, undefined, or an empty string after trimming
-      return value === null || value === undefined || value.trim() === '';
+    const value = control?.value;
+
+    // Check if the value is null, undefined, or an empty string after trimming
+    return value === null || value === undefined || value.trim() === '';
   }
 
   // To stop input/revert if invalid
   deleteIfInvalid(event: Event, controlName: string, index?: number) {
-    const control = index !== undefined
-      ? (this.authorArray.at(index) as FormGroup).get(controlName) 
-      : this.editForm.get(controlName);
-      
+    const control =
+      index !== undefined
+        ? (this.authorArray.at(index) as FormGroup).get(controlName)
+        : this.editForm.get(controlName);
+
     let today = new Date();
-    if(control) {
+    if (control) {
       const errors = control.errors;
       let text = '';
       if (errors) {
         if (errors['maxlength']) {
-          control.setValue(((event.target as HTMLInputElement).value).substring(0, errors['maxlength'].requiredLength));
-          text += 'Max ' + errors['maxlength'].requiredLength + ' characters reached! ';
-        } if (errors['pattern']) {
-          const numericValue = (event.target as HTMLInputElement).value.replace(/\D/g, '');
+          control.setValue(
+            (event.target as HTMLInputElement).value.substring(
+              0,
+              errors['maxlength'].requiredLength
+            )
+          );
+          text +=
+            'Max ' +
+            errors['maxlength'].requiredLength +
+            ' characters reached! ';
+        }
+        if (errors['pattern']) {
+          const numericValue = (event.target as HTMLInputElement).value.replace(
+            /\D/g,
+            ''
+          );
           control.setValue(numericValue);
           text += 'Only numbers are allowed! ';
-        } if(errors['greaterThan']) {
+        }
+        if (errors['greaterThan']) {
           control.setValue(1);
-          text += 'Only numbers greater than ' + errors['greaterThan'].requiredValue + ' are allowed!';
-        } if(errors['invalidDate']) {
+          text +=
+            'Only numbers greater than ' +
+            errors['greaterThan'].requiredValue +
+            ' are allowed!';
+        }
+        if (errors['invalidDate']) {
           control.setValue('');
-          text += 'Invalid date!'
-        } if(errors['notPastDate']) {
+          text += 'Invalid date!';
+        }
+        if (errors['notPastDate']) {
           control.setValue('');
           text += 'Should be past date!';
         }
       }
 
       /* Handle the popup */
-      if(text) {
+      if (text) {
         Swal.fire({
           toast: true,
           icon: 'error',
           title: text,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 5000
+          timer: 5000,
         });
       }
     }
   }
 
   // ARCHIVE POPUP
-  archiveBox(){
+  archiveBox() {
     Swal.fire({
-      title: "Archive Project",
-      text: "Are you sure you want to archive this project?",
-      icon: "warning",
+      title: 'Archive Project',
+      text: 'Are you sure you want to archive this project?',
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'Cancel',
-      confirmButtonColor: "#AB0E0E",
-      cancelButtonColor: "#777777",
+      confirmButtonColor: '#AB0E0E',
+      cancelButtonColor: '#777777',
       scrollbarPadding: false,
       willOpen: () => {
         document.body.style.overflowY = 'scroll';
       },
       willClose: () => {
         document.body.style.overflowY = 'scroll';
-      }
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.request('DELETE', 'projects/archive/' + this.data.details, null).subscribe({
-          next: (res: any) => {
-            Swal.fire({
-              title: "Archiving complete!",
-              text: "Project has been successfully archived.",
-              icon: "success",
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-              scrollbarPadding: false,
-            });
-            this.closepopup('Archive')
-          }
-        })
+        this.ds
+          .request('DELETE', 'projects/archive/' + this.data.details, null)
+          .subscribe({
+            next: (res: any) => {
+              Swal.fire({
+                title: 'Archiving complete!',
+                text: 'Project has been successfully archived.',
+                icon: 'success',
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#777777',
+                scrollbarPadding: false,
+              });
+              this.closepopup('Archive');
+            },
+          });
       }
     });
   }
 
   // CANCEL EDITING POPUP
-  cancelBox(){
+  cancelBox() {
     Swal.fire({
-      title: "Are you sure you want to cancel editing details?",
-      text: "Your changes will not be saved.",
-      icon: "question",
+      title: 'Are you sure you want to cancel editing details?',
+      text: 'Your changes will not be saved.',
+      icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'No',
-      confirmButtonColor: "#AB0E0E",
-      cancelButtonColor: "#777777",
+      confirmButtonColor: '#AB0E0E',
+      cancelButtonColor: '#777777',
       scrollbarPadding: false,
       willOpen: () => {
         document.body.style.overflowY = 'scroll';
       },
       willClose: () => {
         document.body.style.overflowY = 'scroll';
-      }
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-          this.ref.close('Closed using function');
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 2500,
-            timerProgressBar: true,
-            scrollbarPadding: false,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            }
-          });
-          Toast.fire({
-            icon: "error",
-            title: "Changes not saved.",
-          });
+        this.ref.close('Closed using function');
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
+          scrollbarPadding: false,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: 'error',
+          title: 'Changes not saved.',
+        });
       }
     });
   }
 
   // UPDATE POPUP
   protected update() {
-
     this.editForm.get('category')?.enable();
 
-    if(this.editForm.valid) {
+    if (this.editForm.valid) {
       let form = new FormData();
 
       let authors = [];
-      for(let i = 0; i < (this.editForm.get('authors') as FormArray).length; i++) {
-        authors.push(((this.editForm.get('authors') as FormArray).at(i) as FormGroup).get('authorName')?.value);
+      for (
+        let i = 0;
+        i < (this.editForm.get('authors') as FormArray).length;
+        i++
+      ) {
+        authors.push(
+          ((this.editForm.get('authors') as FormArray).at(i) as FormGroup).get(
+            'authorName'
+          )?.value
+        );
       }
       form.append('authors', JSON.stringify(authors));
 
       this.editForm.patchValue({
-        keywords: JSON.stringify(this.tags)
+        keywords: JSON.stringify(this.tags),
       });
 
-      Object.entries(this.editForm.value).forEach(([key, value]: [string, any]) => {
-        if(value != '' && value != null && key != 'authors')
-          form.append(key, value);
-      });
+      Object.entries(this.editForm.value).forEach(
+        ([key, value]: [string, any]) => {
+          if (value != '' && value != null && key != 'authors')
+            form.append(key, value);
+        }
+      );
 
-      if(this.image)
-        form.append('image_url', this.image);
+      if (this.image) form.append('image_url', this.image);
 
       Swal.fire({
-        title: "Update Project",
-        text: "Are you sure you want to update the project details?",
-        icon: "question",
+        title: 'Update Project',
+        text: 'Are you sure you want to update the project details?',
+        icon: 'question',
         reverseButtons: true,
         showCancelButton: true,
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
-        confirmButtonColor: "#4F6F52",
-        cancelButtonColor: "#777777",
+        confirmButtonColor: '#4F6F52',
+        cancelButtonColor: '#777777',
         scrollbarPadding: false,
         willOpen: () => {
           document.body.style.overflowY = 'scroll';
         },
         willClose: () => {
           document.body.style.overflowY = 'scroll';
-        }
+        },
       }).then((result) => {
-        if(result.isConfirmed) {
-          this.ds.request('PUT', 'projects/process/' + this.data.details, form).subscribe({
-            next: (res: any) => { this.successMessage('Project'); this.closepopup('Update') },
-            error: (err: any) => this.editForm.get('accession')?.setErrors({ serverError: err.accession })
-          });
+        if (result.isConfirmed) {
+          this.ds
+            .request('PUT', 'projects/process/' + this.data.details, form)
+            .subscribe({
+              next: (res: any) => {
+                this.successMessage('Project');
+                this.closepopup('Update');
+              },
+              error: (err: any) =>
+                this.editForm
+                  .get('accession')
+                  ?.setErrors({ serverError: err.accession }),
+            });
         }
-      })
+      });
     }
   }
 
   successMessage(title: any) {
     Swal.fire({
       title: 'Success',
-      text: title + " has been updated successfully",
+      text: title + ' has been updated successfully',
       icon: 'success',
       confirmButtonText: 'Close',
-      confirmButtonColor: "#4F6F52",
+      confirmButtonColor: '#4F6F52',
       scrollbarPadding: false,
       willOpen: () => {
         document.body.style.overflowY = 'scroll';
@@ -588,7 +654,7 @@ export class EditdetailsComponent implements OnInit{
       willClose: () => {
         document.body.style.overflowY = 'scroll';
       },
-      timer: 5000
+      timer: 5000,
     });
   }
 
@@ -598,14 +664,14 @@ export class EditdetailsComponent implements OnInit{
       text: 'Please try again later or contact the developers',
       icon: 'error',
       confirmButtonText: 'Close',
-      confirmButtonColor: "#777777",
+      confirmButtonColor: '#777777',
       scrollbarPadding: false,
       willOpen: () => {
         document.body.style.overflowY = 'scroll';
       },
       willClose: () => {
         document.body.style.overflowY = 'scroll';
-      }
+      },
     });
   }
 }

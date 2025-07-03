@@ -14,28 +14,28 @@ import { DataService } from '../../../../../../services/data/data.service';
   templateUrl: './book-details-popup.component.html',
   styleUrl: './book-details-popup.component.scss',
   standalone: true,
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
 })
 export class BookDetailsPopupComponent {
   constructor(
-    private ref: MatDialogRef<BookDetailsPopupComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private ref: MatDialogRef<BookDetailsPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private buildr: FormBuilder,
     private ds: DataService,
     private router: Router
-  ) { }
+  ) {}
 
-  errorImage = '../../../../../../assets/images/NoImage.png';
+  errorImage = 'assets/images/NoImage.png';
   book: any;
 
   ngOnInit(): void {
-    this.ds.request('GET', 'material/id/' + this.data.accession, null).subscribe({
-      next: (res: any) =>  {
-        this.book = res
-      }
-    })
+    this.ds
+      .request('GET', 'material/id/' + this.data.accession, null)
+      .subscribe({
+        next: (res: any) => {
+          this.book = res;
+        },
+      });
   }
 
   closepopup(text: string) {
@@ -43,16 +43,16 @@ export class BookDetailsPopupComponent {
   }
 
   // SWEETALERT ARCHIVE POP UP
-  archiveBox(){
+  archiveBox() {
     Swal.fire({
-      title: "Archive Book",
-      text: "Are you sure you want to archive this book?",
-      icon: "warning",
+      title: 'Archive Book',
+      text: 'Are you sure you want to archive this book?',
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'Cancel',
-      confirmButtonColor: "#AB0E0E",
-      cancelButtonColor: "#777777",
+      confirmButtonColor: '#AB0E0E',
+      cancelButtonColor: '#777777',
       scrollbarPadding: false,
       willOpen: () => {
         document.body.style.overflowY = 'scroll';
@@ -62,32 +62,33 @@ export class BookDetailsPopupComponent {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.request('DELETE', 'materials/archive/' + this.book.accession, null).subscribe({
-          next: (res: any) => {
-            Swal.fire({
-              title: "Archiving complete!",
-              text: "Book has been safely archived.",
-              icon: "success",
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-              scrollbarPadding: false,
-              timer: 5000
-            });
-            this.closepopup('Archive');
-          },
-          error: (err: any) => {
-            Swal.fire({
-              title: "Error",
-              text: err.error.message,
-              icon: "error",
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-              scrollbarPadding: false
-            });
-          }
-        });
-      };
+        this.ds
+          .request('DELETE', 'materials/archive/' + this.book.accession, null)
+          .subscribe({
+            next: (res: any) => {
+              Swal.fire({
+                title: 'Archiving complete!',
+                text: 'Book has been safely archived.',
+                icon: 'success',
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#777777',
+                scrollbarPadding: false,
+                timer: 5000,
+              });
+              this.closepopup('Archive');
+            },
+            error: (err: any) => {
+              Swal.fire({
+                title: 'Error',
+                text: err.error.message,
+                icon: 'error',
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#777777',
+                scrollbarPadding: false,
+              });
+            },
+          });
+      }
     });
   }
-
 }

@@ -11,45 +11,44 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  backgroundImageUrl = 'path/to/image.jpg'; // Add the background image URL here
   loginForm: FormGroup = this.fb.group({
     username: ['', [Validators.required, Validators.maxLength(30)]],
-    password: ['', [Validators.required, Validators.maxLength(30)]]
-  })
-  
+    password: ['', [Validators.required, Validators.maxLength(30)]],
+  });
+
   constructor(
     private as: AuthService,
     private router: Router,
     private fb: FormBuilder
-  ) { }
+  ) {}
 
   showpassword = false;
 
   toggleShow() {
-    this.showpassword = !this.showpassword
+    this.showpassword = !this.showpassword;
   }
 
   login() {
-    if(this.loginForm.valid) {
+    if (this.loginForm.valid) {
       this.as.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           this.router.navigate(['main']);
           const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2500,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          }
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Signed in successfully"
-        });
-        }
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            },
+          });
+          Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully',
+          });
+        },
         //   Swal.fire({
         //     title: "Login Error!",
         //     text: "Error contacting server",
@@ -59,14 +58,14 @@ export class LoginComponent {
         //     scrollbarPadding: false,
         //   });
         // }
-      }) 
+      });
     } else {
       Swal.fire({
-        title: "Login Error!",
-        text: "Please check input fields.",
-        icon: "error",
+        title: 'Login Error!',
+        text: 'Please check input fields.',
+        icon: 'error',
         confirmButtonText: 'Close',
-        confirmButtonColor: "#777777",
+        confirmButtonColor: '#777777',
         scrollbarPadding: false,
       });
     }

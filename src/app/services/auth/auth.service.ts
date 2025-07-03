@@ -4,30 +4,27 @@ import { HeaderService } from '../header/header.service';
 import { tap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  constructor(private http: HttpClient, private headers: HeaderService) {}
 
-  constructor(
-    private http: HttpClient,
-    private headers: HeaderService
-  ) { }
-
-  url = 'http://127.0.0.1:8000/api/';
-  // url = 'http://192.168.18.185:8000/api/';
+  // url = 'http://127.0.0.1:8000/api/'; /* local */
+  url = 'http://26.68.32.39:8000/api/'; /* radmin */
   private loggedIn = false;
 
   isLoggedIn(): boolean {
     return !!sessionStorage.getItem('auth-token');
   }
-  
+
   public login(formData: FormData) {
     return this.http.post(this.url + 'login/cataloging', formData).pipe(
       tap((res: any) => {
-        if(res.token) {
+        if (res.token) {
           sessionStorage.setItem('auth-token', res.token);
           sessionStorage.setItem('name', res.displayName);
           sessionStorage.setItem('role', res.role);
+          this.loggedIn = true;
 
           // token refresh if has token refresh
           let time = new Date();
@@ -39,10 +36,12 @@ export class AuthService {
   }
 
   public logout() {
-    return this.http.post(this.url + 'logout', {}, { headers: this.headers.get() }).pipe(
-      tap((res: any) => {
-        this.loggedIn = false;
-      })
-    );
+    return this.http
+      .post(this.url + 'logout', {}, { headers: this.headers.get() })
+      .pipe(
+        tap((res: any) => {
+          this.loggedIn = false;
+        })
+      );
   }
 }

@@ -9,25 +9,26 @@ import { DataService } from '../../../../../services/data/data.service';
 @Component({
   selector: 'app-details-popup',
   templateUrl: './details-popup.component.html',
-  styleUrl: './details-popup.component.scss'
+  styleUrl: './details-popup.component.scss',
 })
-export class DetailsPopupComponent implements OnInit{
-
-  errorImage = '../../../../../../assets/images/NoImage.png';
+export class DetailsPopupComponent implements OnInit {
+  errorImage = 'assets/images/NoImage.png';
   project: any;
 
   constructor(
-    private ref: MatDialogRef<DetailsPopupComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private ref: MatDialogRef<DetailsPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private buildr: FormBuilder,
     private ds: DataService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.ds.request('GET', 'project/id/' + this.data.details, null).subscribe((res:any) => {
-      this.project = res;
-      console.log(this.project)
-    })
+    this.ds
+      .request('GET', 'project/id/' + this.data.details, null)
+      .subscribe((res: any) => {
+        this.project = res;
+        console.log(this.project);
+      });
   }
 
   // nadidisplay kasi nang tuloy-tuloy yung maraming paragraphs, nagiging iisang paragraph hehe ito raw solusyon sabi ni tropang chatgpt
@@ -42,38 +43,40 @@ export class DetailsPopupComponent implements OnInit{
     this.ref.close(text);
   }
 
-  archiveBox(){
+  archiveBox() {
     Swal.fire({
-      title: "Archive Project",
-      text: "Are you sure you want to archive this project?",
-      icon: "warning",
+      title: 'Archive Project',
+      text: 'Are you sure you want to archive this project?',
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'Cancel',
-      confirmButtonColor: "#AB0E0E",
-      cancelButtonColor: "#777777",
+      confirmButtonColor: '#AB0E0E',
+      cancelButtonColor: '#777777',
       scrollbarPadding: false,
       willOpen: () => {
         document.body.style.overflowY = 'scroll';
       },
       willClose: () => {
         document.body.style.overflowY = 'scroll';
-      }
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ds.request('DELETE', 'projects/archive/' + this.data.details, null).subscribe({
-          next: (res: any) => {
-            Swal.fire({
-              title: "Archiving complete!",
-              text: "Project has been successfully archived.",
-              icon: "success",
-              confirmButtonText: 'Close',
-              confirmButtonColor: "#777777",
-              scrollbarPadding: false,
-            });
-            this.closepopup('Archive')
-          }
-        })
+        this.ds
+          .request('DELETE', 'projects/archive/' + this.data.details, null)
+          .subscribe({
+            next: (res: any) => {
+              Swal.fire({
+                title: 'Archiving complete!',
+                text: 'Project has been successfully archived.',
+                icon: 'success',
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#777777',
+                scrollbarPadding: false,
+              });
+              this.closepopup('Archive');
+            },
+          });
       }
     });
   }
