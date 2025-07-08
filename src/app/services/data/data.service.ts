@@ -15,9 +15,12 @@ export class DataService {
   ) {}
 
   projects: any;
-  options: any = { headers: this.headers.get(), withCredentials: false };
 
   public request(method: string, url: string, form: any) {
+    const options: any = {
+      headers: this.headers.get(),
+      withCredentials: false,
+    };
     let bodyToSend = form;
 
     if (form instanceof FormData) {
@@ -46,21 +49,21 @@ export class DataService {
 
     switch (method) {
       case 'GET':
-        return this.http.get(appSettings.apiUrlSystem + url, this.options);
+        return this.http.get(appSettings.apiUrlSystem + url, options);
       case 'POST':
         return this.http.post(
           appSettings.apiUrlSystem + url,
           bodyToSend,
-          this.options,
+          options,
         );
       case 'PUT':
         return this.http.post(
           appSettings.apiUrlSystem + url,
           bodyToSend,
-          this.options,
+          options,
         );
       case 'DELETE':
-        return this.http.delete(appSettings.apiUrlSystem + url, this.options);
+        return this.http.delete(appSettings.apiUrlSystem + url, options);
       default:
         throw new Error(`Unsupported request method: ${method}`);
     }

@@ -3,16 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { HeaderService } from '../header/header.service';
 import { tap } from 'rxjs';
 import { appSettings } from '../../../config/app.settings';
+import { UserService } from '../user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private headers: HeaderService) {}
+  constructor(
+    private http: HttpClient,
+    private headers: HeaderService,
+    private us: UserService,
+  ) {}
   private loggedIn = false;
 
   isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('auth-token');
+    if (this.us.savedAuth.authToken) return true;
+    else return false;
   }
 
   public login(formData: FormData) {
@@ -21,9 +27,14 @@ export class AuthService {
       .pipe(
         tap((res: any) => {
           if (res.token) {
-            sessionStorage.setItem('auth-token', res.token);
-            sessionStorage.setItem('name', res.displayName);
-            sessionStorage.setItem('role', res.role);
+            const details = {
+              authToken: res.token,
+              name: res.displayName,
+              role: res.position,
+            };
+            const encrypted = this.us.encryptPayload(details);
+            sessionStorage.setItem('xs', encrypted);
+
             this.loggedIn = true;
 
             // token refresh if has token refresh
@@ -31,7 +42,7 @@ export class AuthService {
             time.setMinutes(time.getMinutes() + 55);
             sessionStorage.setItem('request-token', time.toISOString());
           }
-        })
+        }),
       );
   }
 
@@ -40,12 +51,12 @@ export class AuthService {
       .post(
         appSettings.apiUrlBase + 'logout',
         {},
-        { headers: this.headers.get() }
+        { headers: this.headers.get() },
       )
       .pipe(
         tap((res: any) => {
           this.loggedIn = false;
-        })
+        }),
       );
   }
 }

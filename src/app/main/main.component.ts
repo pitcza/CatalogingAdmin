@@ -4,39 +4,43 @@ import { AuthService } from '../services/auth/auth.service';
 
 import Swal from 'sweetalert2';
 import { deepStrictEqual } from 'assert';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styleUrl: './main.component.scss',
 })
 export class MainComponent implements OnInit, OnDestroy {
-
   constructor(
     private router: Router,
-    private as: AuthService
+    private as: AuthService,
+    private us: UserService,
   ) {
     this.checkScreenWidth();
   }
 
   timer: any;
-  name = sessionStorage.getItem('name');
-  role = sessionStorage.getItem('role');
+  // name = sessionStorage.getItem('name');
+  // role = sessionStorage.getItem('role');
+  name = this.us.savedAuth.name;
+  role = this.us.savedAuth.role;
 
   ngOnInit(): void {
+    console.log(this.us.savedAuth);
   }
 
-    // Refresh user token every 55 minutes
+  // Refresh user token every 55 minutes
   //   this.timer = setInterval(() => {
   //     let currentTime = new Date();
   //     let newCurrentTime = currentTime.toISOString();
 
   //     if (Date.parse(sessionStorage.getItem('request-token') || '0') <= Date.parse(newCurrentTime)) {
   //       this.refreshToken();
-  //     } 
+  //     }
   //   }, 60 * 1000)
   // }
-  
+
   // protected refreshToken() {
   //   this.as.refresh().subscribe({
   //     next: (res: any) => {
@@ -59,33 +63,33 @@ export class MainComponent implements OnInit, OnDestroy {
     this.showPopup = this.showPopup;
   }
 
- protected logout() {
+  protected logout() {
     this.as.logout().subscribe({
       next: (res: any) => {
         sessionStorage.clear();
-        this.router.navigate(['login']); 
+        this.router.navigate(['login']);
         const Toast = Swal.mixin({
           toast: true,
-          position: "top-end",
+          position: 'top-end',
           showConfirmButton: false,
           timer: 2500,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
-          }
+          },
         });
         Toast.fire({
-          icon: "success",
-          title: "Logged out successfully"
+          icon: 'success',
+          title: 'Logged out successfully',
         });
-      }
+      },
     });
-  } 
+  }
 
   // Destroys the timer
   ngOnDestroy(): void {
-      clearInterval(this.timer)
+    clearInterval(this.timer);
   }
 
   isSidebarCollapsed = false;

@@ -37,6 +37,32 @@ export class UserService {
     return btoa(payload);
   }
 
+  decryptPayload(encrypted: string): any {
+    const hexPayload = atob(encrypted);
+
+    const prefixLength = 12;
+    const ivHex = hexPayload.slice(prefixLength, prefixLength + 32);
+    const keyHex = hexPayload.slice(prefixLength + 32, prefixLength + 96);
+    const cipherTextHex = hexPayload.slice(prefixLength + 96);
+
+    const iv = CryptoJS.enc.Hex.parse(ivHex);
+    const key = CryptoJS.enc.Hex.parse(keyHex);
+
+    const cipherParams = CryptoJS.lib.CipherParams.create({
+      ciphertext: CryptoJS.enc.Hex.parse(cipherTextHex),
+    });
+
+    const decrypted = CryptoJS.AES.decrypt(cipherParams, key, {
+      iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+    });
+
+    const decryptedStr = decrypted.toString(CryptoJS.enc.Utf8);
+
+    return JSON.parse(decryptedStr);
+  }
+
   recover(data: any) {
     const decodedData = JSON.parse(
       CryptoJS.enc.Base64.parse(data).toString(CryptoJS.enc.Utf8),
@@ -64,5 +90,23 @@ export class UserService {
 
     data = bytes.toString(CryptoJS.enc.Utf8);
     return JSON.parse(data);
+  }
+
+  public get savedAuth() {
+    return this.decryptPayload(sessionStorage.getItem('xs') || '');
+  }
+
+  // public set savedAuth(auth: any) {
+  //   this.user.authToken = auth.authToken || '';
+  //   this.user.name = auth.name || '';
+  //   this.user.role = auth.role || '';
+  // }
+
+  public clearSavedAuth() {
+    // this.user = {
+    //   authToken: '',
+    //   name: '',
+    //   role: '',
+    // };
   }
 }
