@@ -30,7 +30,7 @@ export class AuthService {
             const details = {
               authToken: res.token,
               name: res.displayName,
-              role: res.position,
+              position: res.position,
             };
             const encrypted = this.us.encryptPayload(details);
             sessionStorage.setItem('xs', encrypted);

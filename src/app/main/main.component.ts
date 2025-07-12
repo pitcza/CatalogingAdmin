@@ -24,7 +24,7 @@ export class MainComponent implements OnInit, OnDestroy {
   // name = sessionStorage.getItem('name');
   // role = sessionStorage.getItem('role');
   name = this.us.savedAuth.name;
-  role = this.us.savedAuth.role;
+  position = this.us.savedAuth.position;
 
   ngOnInit(): void {
     console.log(this.us.savedAuth);
