@@ -21,6 +21,12 @@ export class AuthService {
     else return false;
   }
 
+  public changePassword(form: object) {
+    return this.http.post(appSettings.apiUrlBase + 'change-password', form, {
+      headers: this.headers.get(),
+    });
+  }
+
   public login(formData: FormData) {
     return this.http
       .post(appSettings.apiUrlBase + 'login/cataloging', formData)

@@ -1,315 +1,335 @@
 .content {
-    display: flex;
-    transition: all 0.3s ease;
+  display: flex;
+  transition: all 0.3s ease;
 }
 
 .main-content {
-    width: 100%;
-    transition: all 0.3s ease;
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
 /* HEADER */
 .header {
-    position: fixed;
-    top: 0;
-    margin-left: 220px;
-    width: calc(100% - 220px);
-    background-color: var(--green-header);
-    height: 70px;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
-    padding: 15px 20px;
-    font-size: 30px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--bg-color);
-    z-index: 2;
-    transition: all 0.3s ease;
+  position: fixed;
+  top: 0;
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  background-color: var(--green-header);
+  height: 70px;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+  padding: 15px 20px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--bg-color);
+  z-index: 2;
+  transition: all 0.3s ease;
 }
 
 .header {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 /* MENU */
 .menu-icon-button {
-    position: absolute;
-    background: none;
-    border: none;
-    font-size: 24px;
-    padding: 5px;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-    color: var(--white);
+  position: absolute;
+  background: none;
+  border: none;
+  font-size: 24px;
+  padding: 5px;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  color: var(--white);
 }
 
 .menu-icon-button:hover {
-    color: var(--container-color);
+  color: var(--container-color);
 }
 
 /* MAIN CONTENT */
 .body-content {
-    margin-left: 220px;
-    padding-top: 90px;
-    width: calc(100% - 220px);
-    transition: all 0.3s ease;
+  margin-left: 220px;
+  padding-top: 90px;
+  width: calc(100% - 220px);
+  transition: all 0.3s ease;
 }
 
 /* SIDEBAR CONTENTS */
 .logo img {
-    height: 130px;
-    width: 130px;
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    transition: all 0.3s ease;
+  height: 130px;
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  transition: all 0.3s ease;
 }
 
 .systemname h1 {
-    text-align: center;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 5px;
-    transition: all 0.3s ease;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 5px;
+  transition: all 0.3s ease;
 }
 
 .systemname h2 {
-    text-align: center;
-    margin-top: 3px;
-    font-size: 14px;
-    opacity: 50%;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
+  text-align: center;
+  margin-top: 3px;
+  font-size: 14px;
+  opacity: 50%;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
 }
 
 .logo-title {
-    padding-bottom: 10%;
-    border-bottom: 1px solid #33333348;
+  padding-bottom: 10%;
+  border-bottom: 1px solid #33333348;
 }
 
-
 .sidebar-content {
-    position: relative;
-    background-color: var(--main-green);
-    color: var(--white);
-    width: 220px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    padding: 30px 0px;
-    z-index: 100;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
-    transition: transform 0.3s ease, width 0.3s ease;
+  position: relative;
+  background-color: var(--main-green);
+  color: var(--white);
+  width: 220px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 30px 0px;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  transition:
+    transform 0.3s ease,
+    width 0.3s ease;
 }
 
 .sidebar-content::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .sidebar-content a {
-    color: var(--white);
-    transition: all 0.3s ease;
+  color: var(--white);
+  transition: all 0.3s ease;
 }
 
 .sidebar-content-tabs {
-    position: relative;
+  position: relative;
 }
 
 .admin-tabs {
-    padding: 0;
-    list-style: none;
+  padding: 0;
+  list-style: none;
 }
 
 .admin-tab a {
-    display: flex;
-    font-weight: 500;
-    font-size: 14px;
-    padding: 15px 15px;
-    text-decoration: none;
-    border-bottom: 1px solid #33333348;
-    transition: 0.3s ease;
+  display: flex;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 15px 15px;
+  text-decoration: none;
+  border-bottom: 1px solid #33333348;
+  transition: 0.3s ease;
 }
 
 .admin-tab a:hover {
-    background-color: var(--dark-green);
+  background-color: var(--dark-green);
 }
 
 .admin-tab a.active-link {
-    font-weight: 700;
-    background-color: var(--dark-green);
-    border-right: 4px solid var(--main-green);
+  font-weight: 700;
+  background-color: var(--dark-green);
+  border-right: 4px solid var(--main-green);
 }
 
 .tab-link .tab-link-name {
-    padding-left: 10px;
-    padding-top: 2px;
+  padding-left: 10px;
+  padding-top: 2px;
 }
 
 .admin-tabs .tab-link-icon {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 ul ul {
-    list-style: none;
+  list-style: none;
+}
+
+.logoutbtn .btn {
+  width: 100%;
+  height: 50px;
+  color: var(--white);
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid #33333348;
+  transition: all 0.3s ease;
+  margin: 0;
+}
+
+.logoutbtn .btn:hover {
+  background-color: var(--dark-green);
+  color: var(--white);
 }
 
 .logoutbtn .logout {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
 }
 
 .logout i {
-    padding: 10px 10px 10px 10px;
-    transition: all 0.3s ease;
+  padding: 10px 10px 10px 10px;
+  transition: all 0.3s ease;
 }
 
 .logout i:hover {
-    border-radius: 5px;
-    background-color: var(--dark-green);
+  border-radius: 5px;
+  background-color: var(--dark-green);
 }
 
 .logoutbtn {
-    position: fixed;
-    bottom: 25px;
-    left: 0;
-    width: 220px;
-    cursor: pointer;
-    transition: all 0.5s ease;
+  position: fixed;
+  bottom: 25px;
+  left: 0;
+  width: 220px;
+  cursor: pointer;
+  transition: all 0.5s ease;
 }
 
-// RESPONSIVE SIDEBAR SIZE 
+// RESPONSIVE SIDEBAR SIZE
 @media (max-width: 1320px) {
-    .sidebar-content.collapsed {
-        width: 80px;
-    }
-  
-    .header {
-        margin-left: 220px;
-        width: 100%;
-    }
+  .sidebar-content.collapsed {
+    width: 80px;
+  }
 
-    .body-content {
-        margin-left: 220px;
-        width: calc(100% - 220px);
-    }
+  .header {
+    margin-left: 220px;
+    width: 100%;
+  }
 
-} 
+  .body-content {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+  }
+}
 
-// FOR MINIMIZING SIDEBAR 
+// FOR MINIMIZING SIDEBAR
 .sidebar-content.collapsed {
-    width: 70px; 
+  width: 70px;
 }
 
 .sidebar-content.collapsed .menu-icon-button {
-    position: absolute;
-    font-size: 24px;
-    padding: 5px;
-    align-self: center;
-    margin-top: 5px;
-    left: 0;
-    cursor: pointer;
-    color: var(--white);
+  position: absolute;
+  font-size: 24px;
+  padding: 5px;
+  align-self: center;
+  margin-top: 5px;
+  left: 0;
+  cursor: pointer;
+  color: var(--white);
 }
 
 .sidebar-content.collapsed .logo img {
-    height: 40px;
-    width: 40px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  height: 40px;
+  width: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .sidebar-content.collapsed .tab-link-icon {
-    padding-left: 10px;
+  padding-left: 10px;
 }
 
-.sidebar-content.collapsed .systemname, 
+.sidebar-content.collapsed .systemname,
 .sidebar-content.collapsed .tab-link-name {
-    display: none;
+  display: none;
 }
 
 .sidebar-content.collapsed .logoutbtn {
-    bottom: 20px;
-    width: 70px;
+  bottom: 20px;
+  width: 70px;
 }
 
 .main-content.collapsed .header {
-    margin-left: 70px;
-    transition: margin-left 0.3s;
-    width: calc(100% - 70px);
+  margin-left: 70px;
+  transition: margin-left 0.3s;
+  width: calc(100% - 70px);
 }
 
 .main-content.collapsed .body-content {
-    margin-left: 70px;
-    transition: margin-left 0.3s;
-    width: calc(100% - 70px);
+  margin-left: 70px;
+  transition: margin-left 0.3s;
+  width: calc(100% - 70px);
 }
 
 .sidebar-content.collapsed .tab-link-name,
 .sidebar-content.collapsed .systemname {
-    display: none;
+  display: none;
 }
 
 .sidebar-content.collapsed .tab-link-icon {
-    text-align: center;
-    display: block;
+  text-align: center;
+  display: block;
 }
 
 /* Overlay sidebar styles */
 .sidebar-content.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 220px;
-    height: 100%;
-    z-index: 200;
-    transform: translateX(0);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100%;
+  z-index: 200;
+  transform: translateX(0);
 }
 
-.main-content.overlay .header, 
+.main-content.overlay .header,
 .main-content.overlay .body-content {
-    margin-left: 70px;
-    width: calc(100% - 70px);
+  margin-left: 70px;
+  width: calc(100% - 70px);
 }
 
 @media (max-width: 768px) {
-    .sidebar-content {
+  .sidebar-content {
     transform: translateX(-100%);
-    }
+  }
 
-    .content.collapsed .sidebar-content.collapsed {
+  .content.collapsed .sidebar-content.collapsed {
     transform: translateX(0);
     width: 70px;
-    }
+  }
 
-    .sidebar-content.overlay {
+  .sidebar-content.overlay {
     width: 220px;
-    }
+  }
 
-    .main-content.overlay .header, 
-    .main-content.overlay .body-content {
+  .main-content.overlay .header,
+  .main-content.overlay .body-content {
     margin-left: 70px;
     width: calc(100% - 70px);
-    }
+  }
 
-    .sidebar-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 50;
-        display: none;
-        transition: opacity 0.3s ease;
-    }
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    display: none;
+    transition: opacity 0.3s ease;
+  }
 
-    .sidebar-overlay.visible {
-        display: block;
-    }
+  .sidebar-overlay.visible {
+    display: block;
+  }
 }

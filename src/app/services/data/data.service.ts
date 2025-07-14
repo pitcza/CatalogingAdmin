@@ -63,7 +63,8 @@ export class DataService {
           options,
         );
       case 'DELETE':
-        return this.http.delete(appSettings.apiUrlSystem + url, options);
+        /* DELETE is replaced with POST, DELETE is not supported by all browsers */
+        return this.http.post(appSettings.apiUrlSystem + url, {}, options);
       default:
         throw new Error(`Unsupported request method: ${method}`);
     }

@@ -21,6 +21,7 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { ArchiveModule } from './components/archive/archive.module';
 import { ReportsComponent } from './components/reports/reports.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ReportsComponent } from './components/reports/reports.component';
     ReportsComponent,
     ArchiveComponent,
     LoadingComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -41,11 +43,8 @@ import { ReportsComponent } from './components/reports/reports.component';
     FormsModule,
     RouterModule,
     MaterialModule,
-    ImageCropperComponent
+    ImageCropperComponent,
   ],
-  exports: [
-    MaterialModule,
-    LoadingComponent
-  ]
+  exports: [MaterialModule, LoadingComponent],
 })
-export class MainModule { }
+export class MainModule {}

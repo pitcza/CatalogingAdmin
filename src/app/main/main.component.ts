@@ -5,6 +5,8 @@ import { AuthService } from '../services/auth/auth.service';
 import Swal from 'sweetalert2';
 import { deepStrictEqual } from 'assert';
 import { UserService } from '../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @Component({
   selector: 'app-main',
@@ -16,6 +18,7 @@ export class MainComponent implements OnInit, OnDestroy {
     private router: Router,
     private as: AuthService,
     private us: UserService,
+    private dialog: MatDialog,
   ) {
     this.checkScreenWidth();
   }
@@ -25,9 +28,23 @@ export class MainComponent implements OnInit, OnDestroy {
   // role = sessionStorage.getItem('role');
   name = this.us.savedAuth.name;
   position = this.us.savedAuth.position;
+  showChangePasswordModal = false;
 
   ngOnInit(): void {
     console.log(this.us.savedAuth);
+  }
+
+  openChangePassword() {
+    this.showChangePasswordModal = true;
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      width: '700px',
+      disableClose: true,
+    });
+
+    dialogRef.componentInstance.closed.subscribe(() => {
+      this.showChangePasswordModal = false;
+      dialogRef.close();
+    });
   }
 
   // Refresh user token every 55 minutes
