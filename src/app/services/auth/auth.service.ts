@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HeaderService } from '../header/header.service';
 import { tap } from 'rxjs';
-import { appSettings } from '../../../config/app.settings';
+import { appSettings } from '../../../environments/environment';
 import { UserService } from '../user.service';
 
 @Injectable({

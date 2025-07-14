@@ -100,14 +100,16 @@
 
       <!-- LOGOUT BUTTON -->
       <div class="logoutbtn">
-        <button
-          class="btn tab-link-name"
-          type="button"
-          (click)="openChangePassword()"
-          [disabled]="showChangePasswordModal"
-        >
-          Change Password
-        </button>
+        <li class="admin-tab">
+          <a
+            class="tab-link"
+            (click)="openChangePassword()"
+            style="border-top: 1px solid rgba(51, 51, 51, 0.2823529412)"
+          >
+            <mat-icon> password </mat-icon>
+            <span class="tab-link-name">Change Password</span>
+          </a>
+        </li>
         <div class="logout" (click)="togglePopup()">
           <span>
             <i class="bx bx-log-out bx-rotate-180"></i>

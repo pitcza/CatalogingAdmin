@@ -3,14 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { HeaderService } from '../header/header.service';
 import { Workbook } from 'exceljs';
 import Swal from 'sweetalert2';
-import * as fs from 'fs';
-import { appSettings } from '../../../config/app.settings';
+import { appSettings } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportsService {
-  constructor(private http: HttpClient, private headers: HeaderService) {}
+  constructor(
+    private http: HttpClient,
+    private headers: HeaderService,
+  ) {}
 
   url = appSettings.apiUrlSystem + 'reports/';
   data: any;
@@ -57,7 +59,7 @@ export class ReportsService {
       var headers = ['category', 'authors', 'title', 'date_published'];
     else
       var headers = Object.keys(data[0]).filter(
-        (key) => !removeHeaders.includes(key)
+        (key) => !removeHeaders.includes(key),
       );
 
     // Setup header and page
@@ -161,7 +163,7 @@ export class ReportsService {
           };
           const formattedDate = new Intl.DateTimeFormat(
             'en-US',
-            options
+            options,
           ).format(date);
 
           row.push(formattedDate);
@@ -238,7 +240,7 @@ export class ReportsService {
     workbook: any,
     worksheet: any,
     headers: any,
-    removeHeaders: any
+    removeHeaders: any,
   ) {
     worksheet.pageSetup.paperSize = 9; // A4 paper size
     worksheet.pageSetup.orientation = 'landscape'; // Landscape orientation
@@ -282,7 +284,7 @@ export class ReportsService {
     try {
       // Load image as base64-encoded string
       const GCLibraryImage = await this.loadBase64Image(
-        'assets/images/GC-LIBRARY.png'
+        'assets/images/GC-LIBRARY.png',
       );
       const GCImage = await this.loadBase64Image('assets/images/GC.png');
 

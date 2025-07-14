@@ -1,146 +1,146 @@
 /* CONTAINER */
 .container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3); 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .details-content {
-    width: 900px;
-    position: relative;
-    background: white;
-    border-radius: 5px;
-    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
-    max-height: 600px;
-    overflow-y: auto;
+  width: 900px;
+  position: relative;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 // SCROLLBAR //
 .details-content::-webkit-scrollbar {
-    width: 7px;
+  width: 7px;
 }
 
 .details-content::-webkit-scrollbar-thumb {
-    background-color: var(--table-border);
-    border-radius: 5px;
+  background-color: var(--table-border);
+  border-radius: 5px;
 }
 
 .details-content::-webkit-scrollbar-track {
-    background-color: var(--white); 
-    margin-top: 90px;
-    margin-bottom: 10px;
+  background-color: var(--white);
+  margin-top: 90px;
+  margin-bottom: 10px;
 }
 
 .details-content::-webkit-scrollbar-thumb:hover {
-    background-color: var(--table-darkhover);
+  background-color: var(--table-darkhover);
 }
 // END OF SCROLLBAR //
 
 .detailsbody {
-    height: auto; /* Adjust the height as needed */
-    justify-content: center; 
+  height: auto; /* Adjust the height as needed */
+  justify-content: center;
 }
 
 .details {
-    padding: 100px 50px 30px 55px;
-    padding-bottom: 10px;
+  padding: 100px 50px 30px 55px;
+  padding-bottom: 10px;
 }
 
 // POPUP HEADER //
 .detailsheader {
-    display: flex;
-    padding: 20px 30px 30px;
-    position: fixed;
-    width: 900px;
-    background-color: var(--main-green);
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    z-index: 2;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.192);
-    padding-bottom: 15px;
+  display: flex;
+  padding: 20px 30px 30px;
+  position: fixed;
+  width: 900px;
+  background-color: var(--main-green);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  z-index: 2;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.192);
+  padding-bottom: 15px;
 }
 
 // EXIT BUTTON
 .exit-button {
-    position: relative;
-    top: 0;
-    right: 0;
-    background-color: transparent;
-    border: none;
-    font-size: 40px;
-    cursor: pointer;
-    color: var(--white);
+  position: relative;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 40px;
+  cursor: pointer;
+  color: var(--white);
 }
 
 .exit-button:hover {
-    color: var(--container-color);
+  color: var(--container-color);
 }
 
 // HEADER TITLE
 h1 {
-    color: var(--white);
-    padding-top: 5px;
-    width: 880px;
-    font-weight: 700;
-    font-size: 25px;
-    text-align: left;
+  color: var(--white);
+  padding-top: 5px;
+  width: 880px;
+  font-weight: 700;
+  font-size: 25px;
+  text-align: left;
 }
 // END OF POPUP HEADER //
 
 // ----- FORMS INPUT CONTENT ----- //
 .input_field {
-    padding-bottom: 30px;
+  padding-bottom: 30px;
 }
 
 .input-row {
-    gap: 1.5rem;
-    display: flex;
-    justify-content: space-between;
+  gap: 1.5rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .img-row {
-    gap: 1.5rem;
-    justify-content: space-between;
+  gap: 1.5rem;
+  justify-content: space-between;
 }
 
 .input-row .txt_field,
 .img-row .txt_field {
-    flex-basis: 100%;
+  flex-basis: 100%;
 }
 
 // MAIN INPUT STYLE
 .img-row .txt_field,
-.input-row .txt_field, 
+.input-row .txt_field,
 .input-row .txt_field_short,
 .input-row .txt_field_shorter {
-    position: relative;
-    margin: 1.3rem 0;
+  position: relative;
+  margin: 1.3rem 0;
 }
 
 // ----- INPUT
 .txt_field .inputtxt,
 .txt_field_short .inputtxt,
 .txt_field_shorter .inputtxt {
-    font-family: 'Montserrat';
-    width: 100%;
-    padding-top: 19px;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 60px;
-    font-size: 15px;
-    border: none;
-    background-color: var(--input);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-    border-bottom: 2px solid var(--cancel-btn);
+  font-family: "Montserrat";
+  width: 100%;
+  padding-top: 19px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 60px;
+  font-size: 15px;
+  border: none;
+  background-color: var(--input);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  outline: none;
+  border-bottom: 2px solid var(--cancel-btn);
 }
 
 // ----- INPUT HOVER
@@ -148,32 +148,33 @@ h1 {
 .txt_field_short .inputtxt:hover,
 .txt_field_shorter .inputtxt:hover,
 .txtarea textarea:hover {
-    background-color: var(--input-hover);
+  background-color: var(--input-hover);
 }
 
 // ----- LABEL
-.datelabel, .labelline1 {
-    top: 9px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: var(--input-border);
-    position: absolute;
-    left: 10px;
+.datelabel,
+.labelline1 {
+  top: 9px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--input-border);
+  position: absolute;
+  left: 10px;
 }
 
 .txt_field .inputtxt:focus ~ .labelline,
 .txt_field .inputtxt:focus ~ .labelline1,
-.txt_field_short .inputtxt:focus ~ .labelline, 
+.txt_field_short .inputtxt:focus ~ .labelline,
 .txt_field_short .inputtxt:focus ~ .labelline1,
 .txt_field_shorter .inputtxt:focus ~ .labelline,
 .txt_field_shorter .inputtxt:focus ~ .labelline1,
-.txt_field_short input[type="date"]:focus ~ .datelabel, 
-.txt_field input[type="date"]:focus ~ .datelabel, 
-.txt_field input[type="file"]:focus ~ .uploadlabel,  
-.txt_field_short .inputtxt-price:focus ~ .labelline1, 
+.txt_field_short input[type="date"]:focus ~ .datelabel,
+.txt_field input[type="date"]:focus ~ .datelabel,
+.txt_field input[type="file"]:focus ~ .uploadlabel,
+.txt_field_short .inputtxt-price:focus ~ .labelline1,
 .txt_field .inputtxt-price:focus ~ .labelline1,
 .txtarea textarea:focus ~ .labelline1 {
-    color: var(--main-green); // ----- MAIN GREEN LABEL IF FOCUS
+  color: var(--main-green); // ----- MAIN GREEN LABEL IF FOCUS
 }
 
 .txt_field .inputtxt:valid ~ .labelline1,
@@ -184,433 +185,444 @@ h1 {
 .txt_field input[type="date"]:valid ~ .datelabel,
 .txt_field_short input[type="date"]:valid ~ .datelabel,
 .txtarea textarea:valid ~ .labelline1 {
-    top: 9px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
+  top: 9px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
 }
 
 // ----- SPAN ANIMATION
 .txt_field span::before,
 .txt_field_short span::before,
 .txt_field_shorter span::before {
-    content: '';
-    position: absolute;
-    top: 58px;
-    left: 0;
-    width: 100%;
-    height: 2.5px;
-    transition: .3s;
+  content: "";
+  position: absolute;
+  top: 58px;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  transition: 0.3s;
 }
 
 .txt_field .inputtxt:focus ~ span::before,
-.txt_field_short .inputtxt:focus ~ span::before, 
-.txt_field_shorter .inputtxt:focus ~ span::before, 
+.txt_field_short .inputtxt:focus ~ span::before,
+.txt_field_shorter .inputtxt:focus ~ span::before,
 .txt_field .inputtxt-price:focus ~ span::before,
 .txtarea textarea:focus ~ span::before {
-    width: 100%;
-    background: var(--main-green); // MAIN GREEN LINE IF FOCUS
+  width: 100%;
+  background: var(--main-green); // MAIN GREEN LINE IF FOCUS
 }
 
 // TEXTAREA SPAN ANIMATION
 .txtarea span::before {
-    content: '';
-    position: absolute;
-    top: 198px;
-    left: 0;
-    width: 100%;
-    height: 2.5px;
-    transition: .3s;
+  content: "";
+  position: absolute;
+  top: 198px;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  transition: 0.3s;
 }
 
 // ----- SHORT INPUT FIELD
 .input-row .txt_field_short {
-    flex-basis: 47%;
+  flex-basis: 47%;
 }
 
 .input-row .txt_field_shorter {
-    flex-basis: 25%;
+  flex-basis: 25%;
 }
 
 // ----- ADD MULTIPLE AUTHOR STYLE CONTENTS
 .author-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    column-gap: 1.5rem;
-    width: 100%;
-    z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  column-gap: 1.5rem;
+  width: 100%;
+  z-index: 1;
 }
 
-.input-row .message { // YUNG MESSAGE
-    position: absolute;
-    padding-top: 3px;
-    font-size: 12px;
-    font-weight: 500;
-    margin-bottom: -18px;
-    padding-left: 5px;
-    opacity: 70%;
+.input-row .message {
+  // YUNG MESSAGE
+  position: absolute;
+  padding-top: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: -18px;
+  padding-left: 5px;
+  opacity: 70%;
 }
 
 .input-row .multiple-author {
-    position: relative;
-    flex-basis: 100%;
+  position: relative;
+  flex-basis: 100%;
 }
 
-.input-row .add-author { // ADD AUTHOR BUTTON
-    font-family: 'Montserrat';
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    margin-top: 1.3rem;
-    height: 60px;
-    width: 70px;
-    background-color: var(--main-green);
-    color: var(--white);
+.input-row .add-author {
+  // ADD AUTHOR BUTTON
+  font-family: "Montserrat";
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  margin-top: 1.3rem;
+  height: 60px;
+  width: 70px;
+  background-color: var(--main-green);
+  color: var(--white);
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.input-row .add-author:hover {
+  // BUTTON HOVER
+  background-color: var(--green-hover);
+}
+
+.input-row .removebtn {
+  display: none;
+}
+
+.input-row .multiple-author:hover {
+  // REMOVE OR X BUTTON SA AUTHOR
+  .removebtn {
+    display: flex;
+    position: absolute;
+    font-size: 30px;
+    color: var(--cancel-btn);
+    background-color: transparent;
     outline: none;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
+    top: 0;
+    right: 0;
+    margin: 35px 10px 0 0;
     cursor: pointer;
-}
-
-.input-row .add-author:hover { // BUTTON HOVER
-    background-color: var(--green-hover);
-}
-
-.input-row .removebtn { 
-    display: none;
-}
-
-.input-row .multiple-author:hover { // REMOVE OR X BUTTON SA AUTHOR
-    .removebtn {
-        display: flex;
-        position: absolute;
-        font-size: 30px;
-        color: var(--cancel-btn);
-        background-color: transparent;
-        outline: none;
-        border: none;
-        border-radius: 5px;
-        top: 0;
-        right: 0;
-        margin: 35px 10px 0 0;
-        cursor: pointer;
-    }
+  }
 }
 
 // ----- SELECT OPTION ARROW DOWN STYLE
 select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding-right: 20px;
-    background-image: url('../../../../../../assets/icons/down.png');
-    background-repeat: no-repeat;
-    background-position: center right 7px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 20px;
+  background-image: url("/assets/icons/down.png");
+  background-repeat: no-repeat;
+  background-position: center right 7px;
 }
 
 option {
-    background-color: var(--input);
+  background-color: var(--input);
 }
 
 // INPUT FILE LABEL
 .uploadlabel {
-    position: absolute;
-    top: 0;
-    margin-top: -20px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: var(--input-border);
-    position: absolute;
-    left: 10px;
+  position: absolute;
+  top: 0;
+  margin-top: -20px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--input-border);
+  position: absolute;
+  left: 10px;
 }
 
-input[type="file"]::file-selector-button { // CHOOSE FILE BUTTON
-    border-top-left-radius: 5px;
-    font-family: 'Montserrat';
-    color: var(--white);
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-left: -0px;
-    width: 100px;
-    height: 58.5px;
-    cursor: pointer;
-    background-color: var(--main-green);
-    border: none;
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
-    transition: background-color 200ms;
+input[type="file"]::file-selector-button {
+  // CHOOSE FILE BUTTON
+  border-top-left-radius: 5px;
+  font-family: "Montserrat";
+  color: var(--white);
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: -0px;
+  width: 100px;
+  height: 58.5px;
+  cursor: pointer;
+  background-color: var(--main-green);
+  border: none;
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  transition: background-color 200ms;
 }
 
-// FOR IMAGE 
+// FOR IMAGE
 .img-content {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
 
-    .left {
-        flex: 1;
-        flex-basis: 100%;
-        .img-crop {
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-sizing: border-box;
-            box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.322);
-        }
+  .left {
+    flex: 1;
+    flex-basis: 100%;
+    .img-crop {
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+      box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.322);
+    }
+  }
+
+  .right {
+    flex: 1;
+    flex-basis: 100%;
+    margin-top: 20px;
+    .preview {
+      align-items: center;
+      h2 {
+        font-size: 18px;
+        font-weight: 700;
+        border-bottom: 2px solid var(--main-green);
+        color: var(--main-green);
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        align-items: center;
+        height: 60px;
+      }
+    }
+    .cropped-image-preview {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      object-fit: contain;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
+      img {
+        width: 300px;
+      }
     }
 
-    .right {
-        flex: 1;
-        flex-basis: 100%;
-        margin-top: 20px;
-        .preview {
-            align-items: center;
-            h2 {
-                font-size: 18px;
-                font-weight: 700;
-                border-bottom: 2px solid var(--main-green);
-                color: var(--main-green);
-                padding: 20px;
-                margin-bottom: 20px;
-                text-align: center;
-                align-items: center;
-                height: 60px;
-            }
-        }
-        .cropped-image-preview {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            object-fit: contain;
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-sizing: border-box;
-            box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.322);
-            img {
-                width: 300px;
-            }
-        }
-
-        .display {
-            align-items: center;
-            h2 {
-                font-size: 16px;
-                font-weight: 400;
-                border-bottom: 2px solid var(--input-border);
-                color: var(--input-border);
-                padding: 22px;
-                margin-bottom: 20px;
-                text-align: center;
-                align-items: center;
-                height: 60px;
-                background-color: var(--input);
-                border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
-                cursor: default;
-            }
-        }
+    .display {
+      align-items: center;
+      h2 {
+        font-size: 16px;
+        font-weight: 400;
+        border-bottom: 2px solid var(--input-border);
+        color: var(--input-border);
+        padding: 22px;
+        margin-bottom: 20px;
+        text-align: center;
+        align-items: center;
+        height: 60px;
+        background-color: var(--input);
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        cursor: default;
+      }
     }
+  }
 }
 
-// TEXTAREA 
+// TEXTAREA
 .input-row .txtarea {
-    flex-basis: 100%;
-    position: relative;
-    margin-top: 1.5rem;
-    margin-bottom: 1.3rem;
+  flex-basis: 100%;
+  position: relative;
+  margin-top: 1.5rem;
+  margin-bottom: 1.3rem;
 }
 
 .txtarea textarea {
-    font-family: 'Montserrat';
-    width: 100%;
-    height: 200px;
-    padding-top: 29px;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 15px;
-    border: none;
-    background-color: var(--input);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: none;
-    border-bottom: 2px solid var(--input-border);
-    resize: none;
+  font-family: "Montserrat";
+  width: 100%;
+  height: 200px;
+  padding-top: 29px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  border: none;
+  background-color: var(--input);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  outline: none;
+  border-bottom: 2px solid var(--input-border);
+  resize: none;
 }
 
 // KEYWORDS TAG
 .input-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: var(--input);
+  border-bottom: 2px solid var(--input-border);
+
+  .keywords-label {
+    position: absolute;
+    padding-top: 0;
+    margin-top: -20px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--input-border);
+    padding-left: 10px;
+  }
+
+  .chip-bar {
+    cursor: text;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-top: 1.5rem;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background-color: var(--input);
-    border-bottom: 2px solid var(--input-border);
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 5px 5px;
+    width: 100%;
 
-    .keywords-label {
-        position: absolute;
-        padding-top: 0;
-        margin-top: -20px;
-        font-size: 12px;
-        letter-spacing: 0.5px;
-        color: var(--input-border);
-        padding-left: 10px;
+    .chip {
+      cursor: default;
+      list-style: none;
+      padding: 5px 10px 6px 15px;
+      margin: 5px;
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+      border-radius: 50px;
+      color: var(--input-border);
+      border: 1px solid var(--input-border);
+      background-color: var(--input-hover);
+
+      .remove {
+        margin-top: 4px;
+        margin-left: 2px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 2px 5px;
+        border-radius: 50px;
+      }
     }
 
-    .chip-bar {
-        cursor: text;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        overflow: hidden;
+    .input-field {
+      cursor: default;
+      flex: 1 1 auto;
+      display: inline-flex;
+      margin: 3px;
+      padding: 5px 10px;
+      border: 1px solid transparent;
+
+      .input {
+        outline: 0;
+        border: 0;
+        border-radius: 0;
+        min-width: 200px;
+        height: 40px;
+        flex: 1;
+        font-family: "Montserrat";
         font-size: 15px;
-        font-weight: 500;
-        padding: 5px 5px;
-        width: 100%;
-
-        .chip {
-            cursor: default;
-            list-style: none;
-            padding: 5px 10px 6px 15px;
-            margin: 5px;
-            display: inline-flex;
-            align-items: center;
-            flex: 0 0 auto;
-            border-radius: 50px;
-            color: var(--input-border);
-            border: 1px solid var(--input-border);
-            background-color: var(--input-hover);
-
-            .remove {
-                margin-top: 4px;
-                margin-left: 2px;
-                cursor: pointer;
-                font-size: 18px;
-                font-weight: 600;
-                padding: 2px 5px;
-                border-radius: 50px;
-            }
-        }
-
-        .input-field {
-            cursor: default;
-            flex: 1 1 auto;
-            display: inline-flex;
-            margin: 3px;
-            padding: 5px 10px;
-            border: 1px solid transparent;
-    
-            .input {
-                outline: 0;
-                border: 0;
-                border-radius: 0;
-                min-width: 200px;
-                height: 40px;
-                flex: 1;
-                font-family: 'Montserrat';
-                font-size: 15px;
-                background-color: transparent;
-            }
-        }
+        background-color: transparent;
+      }
     }
+  }
 
-    .action-btn {
-        padding: 5px 0;
-        margin: 10px 0;
+  .action-btn {
+    padding: 5px 0;
+    margin: 10px 0;
 
-        .clear {
-            cursor: pointer;
-            margin: 5px;
-            padding: 5px 10px;
-            border-radius: 50px;
-            font-size: 30px;
-        }
+    .clear {
+      cursor: pointer;
+      margin: 5px;
+      padding: 5px 10px;
+      border-radius: 50px;
+      font-size: 30px;
     }
+  }
 }
 
 .input-container:hover {
-    background-color: var(--input-hover);
+  background-color: var(--input-hover);
 }
 
 .chip-footer {
-    font-size: 12px;
-    font-weight: 500;
-    padding-top: 5px;
-    padding-left: 10px;
-    opacity: 70%;
-    margin-bottom: 1.2rem;
+  font-size: 12px;
+  font-weight: 500;
+  padding-top: 5px;
+  padding-left: 10px;
+  opacity: 70%;
+  margin-bottom: 1.2rem;
 }
 
-.ripple1, .ripple2 {
-    background-position: center;
-    background-color: transparent;
-    transition: background 0.3s;
+.ripple1,
+.ripple2 {
+  background-position: center;
+  background-color: transparent;
+  transition: background 0.3s;
 }
 
-.ripple1:hover, .ripple1:focus, .ripple2:hover, .ripple2:focus {
-    background: #e2e2e2 radial-gradient(circle, transparent 1%, #d9d9d9 1%) center/15000%;
+.ripple1:hover,
+.ripple1:focus,
+.ripple2:hover,
+.ripple2:focus {
+  background: #e2e2e2 radial-gradient(circle, transparent 1%, #d9d9d9 1%)
+    center/15000%;
 }
 
-.ripple1:active, .ripple2:active {
-    background-color: #e2e2e2;
-    background-size: 100%;
-    transition: background 0s;
+.ripple1:active,
+.ripple2:active {
+  background-color: #e2e2e2;
+  background-size: 100%;
+  transition: background 0s;
 }
 
 .warningMessage {
-    color: red;
-    position: absolute;
-    margin-top: -18px;
-    font-size: 12px;
-    font-weight: 500;
-    padding-left: 5px;
-    opacity: 70%;
+  color: red;
+  position: absolute;
+  margin-top: -18px;
+  font-size: 12px;
+  font-weight: 500;
+  padding-left: 5px;
+  opacity: 70%;
 }
 
 // RED FIELD
 .errorLabel {
-    color: red;
+  color: red;
 }
 
 .errorSpan::before {
-    background-color: red ;
+  background-color: red;
 }
 // ----- END OF FORMS INPUT CONTENT ----- //
 
 // BUTTONS //
 .button-container {
-    margin: 5px 50px 40px 50px;
-    display: flex;
-    justify-content: flex-end;
+  margin: 5px 50px 40px 50px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .button-container button {
-    font-family: 'Montserrat';
-    padding: 10px 20px;
-    cursor: pointer;
-    border: none;
-    border-radius: 3px;
-    font-weight: 400;
-    width: 100px;
-    letter-spacing: 1px;
-    transition: .3s;
+  font-family: "Montserrat";
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  font-weight: 400;
+  width: 100px;
+  letter-spacing: 1px;
+  transition: 0.3s;
 }
 
 .update-btn {
-    background: var(--main-green);
-    color: var(--white);
-    margin-right: 10px;
+  background: var(--main-green);
+  color: var(--white);
+  margin-right: 10px;
 }
 
 .delete-btn {
-    background: var(--red);
-    color: var(--white);
+  background: var(--red);
+  color: var(--white);
 }
 
 .cancel-btn {
-    background: var(--cancel-btn);
-    color: var(--white);
-    margin-left: 10px;
+  background: var(--cancel-btn);
+  color: var(--white);
+  margin-left: 10px;
 }
 
 // .update-btn:hover {
@@ -618,10 +630,10 @@ input[type="file"]::file-selector-button { // CHOOSE FILE BUTTON
 // }
 
 .delete-btn:hover {
-    background-color: var(--red-hover);
+  background-color: var(--red-hover);
 }
 
 .cancel-btn:hover {
-    background-color: var(--cancel-hover);
+  background-color: var(--cancel-hover);
 }
 // END OF BUTTONS //

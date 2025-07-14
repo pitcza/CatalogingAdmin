@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../../services/auth/auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-change-password',
@@ -12,6 +13,7 @@ export class ChangePasswordComponent implements OnDestroy {
   constructor(
     private fb: FormBuilder,
     private as: AuthService,
+    private ref: MatDialogRef<ChangePasswordComponent>,
   ) {}
   @Output() closed = new EventEmitter<void>();
 
@@ -76,7 +78,7 @@ export class ChangePasswordComponent implements OnDestroy {
           });
           this.close();
         },
-        error: (err) => {
+        error: (err: any) => {
           Swal.fire({
             title: 'Error',
             text: err.message || 'Failed to change password',

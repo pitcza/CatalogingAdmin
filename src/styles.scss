@@ -1,58 +1,90 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+// hue. Available color palettes: https://material.io/design/color/
+$Admin-primary: mat.define-palette(mat.$green-palette, 800);
+$Admin-accent: mat.define-palette(mat.$blue-palette, A200, A100, A400);
+
+$Admin-warn: mat.define-palette(mat.$red-palette);
+
+$Admin-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $Admin-primary,
+      accent: $Admin-accent,
+      warn: $Admin-warn,
+    ),
+    //   typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($Admin-theme);
+
 :root {
-    --bg-color: #F5EFE6;
-    --container-color: #F4F4F4;
-    --container-hover: #EFEFEF;
-    --main-green: #4F6F52;
-    --green-hover: #446247;
-    --dark-green: #294B37;
-    --green-header: #294B37;
-    --darker-green: #264834;
-    --table-border: #BFBFBF;
-    --table-hover: #E9E9E9;
-    --table-darkhover: #B6B6B6;
-    --white: #FFFFFF;
-    --black: #000000;
-    --red: #AB0E0E;
-    --red-hover: #8F0C0C;
-    --cancel-btn: #777777;
-    --cancel-hover: #6B6B6B;
-    --input: #F6F6F6;
-    --input-hover: #ECECEC;
-    --input-border: #44474E;
+  --bg-color: #f5efe6;
+  --container-color: #f4f4f4;
+  --container-hover: #efefef;
+  --main-green: #4f6f52;
+  --green-hover: #446247;
+  --dark-green: #294b37;
+  --green-header: #294b37;
+  --darker-green: #264834;
+  --table-border: #bfbfbf;
+  --table-hover: #e9e9e9;
+  --table-darkhover: #b6b6b6;
+  --white: #ffffff;
+  --black: #000000;
+  --red: #ab0e0e;
+  --red-hover: #8f0c0c;
+  --cancel-btn: #777777;
+  --cancel-hover: #6b6b6b;
+  --input: #f6f6f6;
+  --input-hover: #ececec;
+  --input-border: #44474e;
 }
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    list-style-type: none;
-    text-decoration: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
 }
 
 body {
-    background-color: var(--bg-color);
-    font-family: "Montserrat";
-    transition: all 0.5s ease;
+  background-color: var(--bg-color);
+  font-family: "Montserrat";
+  transition: all 0.5s ease;
 }
 
 .is-invalid {
-    border-color: red;
+  border-color: red;
 }
 
 .required {
-    color: red;
-    font-size: small;
-    display: contents;
+  color: red;
+  font-size: small;
+  display: contents;
 }
 
 .validSubmit {
-    background: var(--main-green);
+  background: var(--main-green);
 }
 
 .validSubmit:hover {
-    background-color: var(--green-hover);
+  background-color: var(--green-hover);
 }
 
 .invalidSubmit {
-    background-color: #424949;
+  background-color: #424949;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
