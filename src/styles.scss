@@ -23,7 +23,6 @@ $custom-typography: mat.define-typography-config(
   $overline: mat.define-typography-level(10px, 16px, 400),
 );
 
-// ✅ include it in the theme
 $Admin-theme: mat.define-light-theme(
   (
     color: (
