@@ -1,13 +1,29 @@
 @use "@angular/material" as mat;
 
-@include mat.core();
+@include mat.core(); // no arguments allowed here
 
-// hue. Available color palettes: https://material.io/design/color/
 $Admin-primary: mat.define-palette(mat.$green-palette, 800);
 $Admin-accent: mat.define-palette(mat.$blue-palette, A200, A100, A400);
-
 $Admin-warn: mat.define-palette(mat.$red-palette);
 
+$custom-typography: mat.define-typography-config(
+  $font-family: "Montserrat, sans-serif",
+  $headline-1: mat.define-typography-level(96px, 96px, 300),
+  $headline-2: mat.define-typography-level(60px, 60px, 300),
+  $headline-3: mat.define-typography-level(48px, 48px, 400),
+  $headline-4: mat.define-typography-level(34px, 34px, 400),
+  $headline-5: mat.define-typography-level(24px, 24px, 400),
+  $headline-6: mat.define-typography-level(20px, 20px, 500),
+  $subtitle-1: mat.define-typography-level(16px, 24px, 400),
+  $subtitle-2: mat.define-typography-level(14px, 24px, 500),
+  $body-1: mat.define-typography-level(16px, 24px, 400),
+  $body-2: mat.define-typography-level(14px, 20px, 400),
+  $button: mat.define-typography-level(14px, 14px, 500),
+  $caption: mat.define-typography-level(12px, 20px, 400),
+  $overline: mat.define-typography-level(10px, 16px, 400),
+);
+
+// ✅ include it in the theme
 $Admin-theme: mat.define-light-theme(
   (
     color: (
@@ -15,7 +31,7 @@ $Admin-theme: mat.define-light-theme(
       accent: $Admin-accent,
       warn: $Admin-warn,
     ),
-    //   typography: mat.define-typography-config(),
+    typography: $custom-typography,
     density: 0,
   )
 );
@@ -79,12 +95,4 @@ body {
 
 .invalidSubmit {
   background-color: #424949;
-}
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

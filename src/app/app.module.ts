@@ -3,9 +3,12 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { provideHttpClient, withFetch } from '@angular/common/http';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClientModule,
+  provideHttpClient,
+  withFetch,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,12 +16,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutPopupComponent } from './components/logout-popup/logout-popup.component';
 import { MainComponent } from './main/main.component';
-import { MainModule } from './main/main.module';
 import { MaterialModule } from './modules/material/material.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { RouterModule } from '@angular/router';
 import { AuthInterceptor } from './http.interceptor';
 import { ResponseInterceptor } from './response.interceptor';
+
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -41,6 +45,7 @@ import { ResponseInterceptor } from './response.interceptor';
     provideHttpClient(withFetch()),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })
