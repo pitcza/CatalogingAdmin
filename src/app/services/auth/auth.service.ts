@@ -17,8 +17,10 @@ export class AuthService {
   private loggedIn = false;
 
   isLoggedIn(): boolean {
-    if (this.us.savedAuth.authToken) return true;
-    else return false;
+    if (this.us.savedAuth) {
+      if (this.us.savedAuth.authToken) return true;
+    }
+    return false;
   }
 
   public changePassword(form: object) {

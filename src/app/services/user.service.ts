@@ -93,20 +93,9 @@ export class UserService {
   }
 
   public get savedAuth() {
+    if (!sessionStorage.getItem('xs')) {
+      return null;
+    }
     return this.decryptPayload(sessionStorage.getItem('xs') || '');
-  }
-
-  // public set savedAuth(auth: any) {
-  //   this.user.authToken = auth.authToken || '';
-  //   this.user.name = auth.name || '';
-  //   this.user.role = auth.role || '';
-  // }
-
-  public clearSavedAuth() {
-    // this.user = {
-    //   authToken: '',
-    //   name: '',
-    //   role: '',
-    // };
   }
 }

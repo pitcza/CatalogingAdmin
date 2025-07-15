@@ -19,7 +19,7 @@ export class LoginComponent {
   constructor(
     private as: AuthService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {}
 
   showpassword = false;
@@ -49,15 +49,17 @@ export class LoginComponent {
             title: 'Signed in successfully',
           });
         },
-        //   Swal.fire({
-        //     title: "Login Error!",
-        //     text: "Error contacting server",
-        //     icon: "error",
-        //     confirmButtonText: 'Close',
-        //     confirmButtonColor: "#777777",
-        //     scrollbarPadding: false,
-        //   });
-        // }
+        error: (err) => {
+          console.error(err);
+          Swal.fire({
+            title: 'Login Error!',
+            text: err.message || 'An error occurred during login.',
+            icon: 'error',
+            confirmButtonText: 'Close',
+            confirmButtonColor: '#777777',
+            scrollbarPadding: false,
+          });
+        },
       });
     } else {
       Swal.fire({
