@@ -254,3 +254,48 @@ table td:nth-child(5) {
     min-width: 150px;
     max-width: 150px;
 }
+
+
+.location-filter-container,
+ .copyright-filter-container{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem; /* space below the filter */
+
+  label {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    user-select: none;
+    color: #333;
+  }
+
+  select {
+    background: #fff;
+    font-family: "Montserrat", sans-serif;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    width: 13em;
+    height: 2.8em;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+
+    /* Remove default arrow and add custom */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+    background-size: 16px 16px;
+  }
+
+  select:focus {
+    border-color: #2e7d32; /* example green */
+    box-shadow: 0 0 4px rgba(46, 125, 50, 0.4);
+  }
+}

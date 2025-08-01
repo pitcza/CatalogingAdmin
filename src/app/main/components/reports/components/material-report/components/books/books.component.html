@@ -28,12 +28,21 @@
               
                 <!----------- SEARCH BAR ----------->
                 
-                <div class="search-container">
-                    <form>
-                    <input id="search" type="text" placeholder="Search..." name="search" (keyup)="applyFilter($event, 'search')">
-                    <button ><i class="fa fa-search"></i></button>
-                    </form>
+                    <div class="location-filter-container">
+  <label for="locationFilter">Filter by Location:</label>
+  <select id="locationFilter" (change)="applyFilter($event, 'location')">
+    <option value="">All Locations</option>
+    <option *ngFor="let loc of uniqueLocations" [value]="loc">{{ loc }}</option>
+  </select>
                 </div>
+
+                <div class="copyright-filter-container">
+  <label for="copyrightFilter">Filter by Copyright:</label>
+  <input list="copyrightOptions" id="copyrightFilter" (input)="applyFilter($event, 'copyright')" placeholder="Search or select year">
+  <datalist id="copyrightOptions">
+    <option *ngFor="let year of uniqueCopyrights" [value]="year">{{ year }}</option>
+  </datalist>
+</div>
 
             </div>
               

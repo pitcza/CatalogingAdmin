@@ -41,6 +41,8 @@ export class BooksComponent implements OnInit {
   displayedColumns: string[] = ['id', 'booktitle', 'author', 'location', 'copyright'];
   dataSource : any = null;
   searchInput: string = ''; datepickerStart: string = ''; datepickerEnd: string = '';
+uniqueLocations: string[] = [];
+uniqueCopyrights: string[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort !: MatSort;
@@ -61,19 +63,62 @@ export class BooksComponent implements OnInit {
     this.paginator = new MatPaginator(this.paginatorIntl, this.changeDetectorRef);
   }
 
-  protected getData() {
-    this.ds.request('GET', 'materials/books', null).subscribe({
-      next: (res: any) => {       
-        this.dataSource = new MatTableDataSource<PeriodicElement, MatPaginator>(res);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+ protected getData() {
+  this.ds.request('GET', 'materials/books', null).subscribe({
+    next: (res: any) => {
+      this.dataSource = new MatTableDataSource<PeriodicElement>(res);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
 
-      }
-    })
-  }
+      // Extract unique locations for the dropdown filter
+this.uniqueLocations = Array.from(new Set(res.map((d: PeriodicElement) => d.location))) as string[];
+this.uniqueLocations.sort();
+
+this.uniqueCopyrights = Array.from(
+  new Set(res.map((d: PeriodicElement) => d.copyright || 'N.D.'))
+) as string[];
+
+this.uniqueCopyrights.sort();
+
+      // Trigger change detection if needed
+      this.changeDetectorRef.detectChanges();
+    }
+  })
+}
 
   // Filtering 
   applyFilter(event: Event, type: string) {
+      if (type === 'location') {
+    const selectedLocation = (event.target as HTMLSelectElement).value;
+    
+   this.dataSource.filterPredicate = (data: PeriodicElement, filter: string) => {
+  if (!filter) return true; // no filter means show all
+  return data.location.toLowerCase() === filter.toLowerCase();
+};
+    
+    this.dataSource.filter = selectedLocation.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+if (type === 'copyright') {
+  const selectedCopyright = (event.target as HTMLInputElement).value;
+
+  this.dataSource.filterPredicate = (data: PeriodicElement, filter: string) => {
+    if (!filter) return true;
+    return data.copyright?.toLowerCase() === filter.toLowerCase();
+  };
+
+  this.dataSource.filter = selectedCopyright.trim().toLowerCase();
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+
+  return; // prevent applying other filters again
+}
+
     if(type == 'start') this.datepickerStart = (event.target as HTMLInputElement).value;
     else if(type == 'end') this.datepickerEnd = (event.target as HTMLInputElement).value;
     else if(type == 'search') this.searchInput = (event.target as HTMLInputElement).value;
