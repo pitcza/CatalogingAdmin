@@ -33,6 +33,7 @@ export class AudiovisualsComponent implements OnInit {
   displayedColumns: string[] = ['id','title', 'authors', 'copyright'];
   dataSource : any;
   searchInput: string = ''; datepickerStart: string = ''; datepickerEnd: string = '';
+  uniqueCopyrights: string[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
@@ -65,6 +66,14 @@ export class AudiovisualsComponent implements OnInit {
         this.dataSource = new MatTableDataSource<PeriodicElement>(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.uniqueCopyrights = Array.from(
+          new Set(res.map((d: PeriodicElement) => d.copyright || 'N.D.'))
+        ) as string[];
+        
+        this.uniqueCopyrights.sort();
+        
+        // Trigger change detection if needed
+        this.changeDetectorRef.detectChanges();
       }
     })
   }

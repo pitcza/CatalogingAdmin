@@ -33,6 +33,7 @@ export class NewspapersComponent implements OnInit {
   displayedColumns: string[] = ['accession','title', 'author', 'copyright', 'received'];
   dataSource : any;
   searchInput: string = ''; datepickerStart: string = ''; datepickerEnd: string = '';
+  uniqueCopyrights: string[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
@@ -71,7 +72,15 @@ export class NewspapersComponent implements OnInit {
         this.dataSource = new MatTableDataSource<NewspapersComponent>(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      }
+        this.uniqueCopyrights = Array.from(
+            new Set(res.map((d: NewspapersComponent) => d.copyright || 'N.D.'))
+          ) as string[];
+          
+          this.uniqueCopyrights.sort();
+          
+          // Trigger change detection if needed
+          this.changeDetectorRef.detectChanges();
+        }
     })
   }
 

@@ -28,6 +28,7 @@ export class DashboardComponent {
   displayedColumns: string[] = [ 'department', 'category', 'author', 'title', 'date_published'];
   dataSource : any;
   datepickerStart = ''; datepickerEnd = ''; searchInput = '';
+  uniqueCategories: string[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;

@@ -34,6 +34,7 @@ export class JournalsComponent implements OnInit {
   displayedColumns: string[] = ['accession', 'title', 'authors', 'copyright', 'received' ];
   dataSource : any;
   searchInput: string = ''; datepickerStart: string = ''; datepickerEnd: string = '';
+  uniqueCopyrights: string[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -60,6 +61,15 @@ export class JournalsComponent implements OnInit {
         this.dataSource = new MatTableDataSource<PeriodicElement>(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
+        this.uniqueCopyrights = Array.from(
+          new Set(res.map((d: PeriodicElement) => d.copyright || 'N.D.'))
+        ) as string[];
+        
+        this.uniqueCopyrights.sort();
+        
+        // Trigger change detection if needed
+        this.changeDetectorRef.detectChanges();
       }
     })
   }

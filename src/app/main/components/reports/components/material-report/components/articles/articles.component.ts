@@ -30,7 +30,7 @@ import Swal from 'sweetalert2';
   ],
 })
 export class ArticlesComponent implements OnInit {
-  displayedColumns: string[] = ['accession', 'title', 'authors', 'publication'];
+  displayedColumns: string[] = ['accession', 'title', 'authors', 'publisher', 'publication'];
   dataSource : any;
   searchInput: string = ''; datepickerStart: string = ''; datepickerEnd: string = '';
 

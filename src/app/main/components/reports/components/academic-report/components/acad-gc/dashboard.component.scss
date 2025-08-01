@@ -347,162 +347,121 @@ hr {
 }
 
 
-/********************************** DATE PICKER ***********************************/
 
-.input-row {
-    display: flex;
-    justify-content: center;
-    column-gap: 1rem;
-    margin-top: 5px;
+
+
+
+
+
+
+
+
+
+.table-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+  overflow-x: auto;
 }
 
-.input-row .txt_field {
-    flex-basis: 100%;
-}
-
-.input-row .txt_field {
-    
-    position: relative;
-    margin: 0.1rem 0;
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  width: 100%;
 }
 
 .txt_field {
-	font-size: 14px;
-	font-weight: 400;
-	display: block;
-	margin-bottom: 0.2rem;
-    height: 2.5rem;
-	color: black;
-	border: 1px solid var(--table-border);
-	padding: 0.5rem 0.75rem;
-	border-radius: 7px;
-    display: flex;
-}
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  border: 1px solid var(--table-border);
+  border-radius: 7px;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--white);
+  font-size: 14px;
 
-label {
+  label {
+    width: 80px;
+    height: 2.4rem;
+    background-color: var(--main-green);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     font-family: 'Montserrat';
-    color: var(--white);
+    font-size: 14px;
     position: absolute;
-    top: 0;
     left: 0;
-    margin-left: -0px;
-    width: 80px;
-    height: 2.4rem;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    cursor: default;
-    background-color: var(--main-green);
-    border: none;
-    transition: background-color 200ms;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+  }
 
-input {
-	font-family: 'Montserrat';
-	border: none;
-	border-radius: 0.25rem;
-    background-color: transparent;
-	border: 1px solid transparent;
-	line-height: 1.5rem;
-    padding-left: 75px;
-	font-size: 1rem;
-	color: black;
-	width: 100%;
-}
-
-input:focus {outline: none;}
-#ui-datepicker-div {
-	box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
-	margin-top: 0.25rem;
-	border-radius: 0.5rem;
-	padding: 0.5rem;
-}
-
-/********************************** SEARCH ****************************************/
-
-.table-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.table-head input[type=text] {
+  input,
+  select {
+    padding-left: 85px;
     font-family: 'Montserrat';
-    padding: 5px;
     font-size: 14px;
-    font-weight: 400;
-    width: 250px;
-    padding: 12px 16px;
-    height: 2.3em;
     border: none;
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
-}
-
-input:focus{
     outline: none;
-}
+    width: 14rem;
+    height: 2.4rem;
+    background: transparent;
+    color: black;
+    border-radius: 6px;
+  }
 
-.table-head .search-container {
-    display: flex;
-    align-items: center;
-    border-radius: 7px;
-    height: 2.5em;
-    border: 1px solid var(--table-border);
-    background-color: var(--white);
-}
-
-.table-head .date-picker {
-    display: flex;
-    align-items: center;
-    border-radius: 7px;
-    height: 2.5em;
-    border: 1px solid var(--table-border);
-    background-color: var(--white);
-}
-
-.table-head .search-container button {
-    height: 2.5em;
-    width: 2.5em;
-    border: 1px solid var(--table-border);
-    background: var(--main-green);
-    color: var(--white);
-    border-top-right-radius: 7px;
-    border-bottom-right-radius: 7px;
-    font-size: 16px;
-    cursor: default;
-}
-
-.tbl-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
-    padding-left:30px;
-}
-
-@media screen and (max-width: 600px) {
-    .table-head .search-container {
-    float: none;
+    input:focus,
+    select:focus {
+        border-color: #2e7d32;
     }
-    .table-head a, .table-head input[type=text], .topnav .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+    background-size: 16px 16px;
+  }
+}
+
+/* Responsive tweaks */
+@media screen and (max-width: 768px) {
+  .filter-row {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .txt_field {
     width: 100%;
-    margin: 0;
-    padding: 14px;
+
+    input,
+    select {
+      width: 100%;
     }
-    .table-head input[type=text] {
-    border: 1px solid #ccc;  
+  }
+
+  .search-container {
+    width: 100%;
+
+    input {
+      width: 100%;
+      border-radius: 7px 7px 0 0;
     }
+
+    button {
+      width: 100%;
+      border-radius: 0 0 7px 7px;
+    }
+  }
 }
+
 
 .table-content {
     border-radius: 5px;

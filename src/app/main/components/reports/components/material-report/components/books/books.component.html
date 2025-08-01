@@ -4,48 +4,35 @@
         <div class="table-content">
 
             <div class="table-head">
-                
-                <!----------- DATE PICKER ----------->
-               
-                <div class="input-row">
-                    <div class="txt_field">
-                        <label for="datepicker"> From: </label>
-                            <input type="date" autocomplete="off" (change)="applyFilter($event, 'start')">
-                    </div>
-                    <div class="txt_field">
-                        <label for="datepicker"> To: </label>
-                            <input type="date" autocomplete="off" (change)="applyFilter($event, 'end')">
-                    </div>
-
-                <!----------- EXPORT ----------------> 
-
-                    <div class="txt_field">
-                        <div class="export_field">
-                            <button class="export" (click)="export()">Export</button>
-                        </div>
-                    </div>
-                </div>
-              
-                <!----------- SEARCH BAR ----------->
-                
-                    <div class="location-filter-container">
-  <label for="locationFilter">Filter by Location:</label>
-  <select id="locationFilter" (change)="applyFilter($event, 'location')">
-    <option value="">All Locations</option>
-    <option *ngFor="let loc of uniqueLocations" [value]="loc">{{ loc }}</option>
-  </select>
-                </div>
-
-                <div class="copyright-filter-container">
-  <label for="copyrightFilter">Filter by Copyright:</label>
-  <input list="copyrightOptions" id="copyrightFilter" (input)="applyFilter($event, 'copyright')" placeholder="Search or select year">
-  <datalist id="copyrightOptions">
-    <option *ngFor="let year of uniqueCopyrights" [value]="year">{{ year }}</option>
-  </datalist>
-</div>
-
+            <div class="filter-group">
+                <label for="fromDate">From:</label>
+                <input type="date" id="fromDate" (change)="applyFilter($event, 'start')" />
             </div>
-              
+
+            <div class="filter-group">
+                <label for="toDate">To:</label>
+                <input type="date" id="toDate" (change)="applyFilter($event, 'end')" />
+            </div>
+
+            <div class="filter-group">
+                <label for="locationFilter">Location:</label>
+                <select id="locationFilter" (change)="applyFilter($event, 'location')">
+                <option value="">All</option>
+                <option *ngFor="let loc of uniqueLocations" [value]="loc">{{ loc }}</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="copyrightFilter">Copyright:</label>
+                <input list="copyrightOptions" id="copyrightFilter" (input)="applyFilter($event, 'copyright')" placeholder="Search or select year" />
+                <datalist id="copyrightOptions">
+                <option *ngFor="let year of uniqueCopyrights" [value]="year">{{ year }}</option>
+                </datalist>
+            </div>
+
+            <button class="export" (click)="export()">Export</button>
+            </div>
+
             <div class="mat-elevation-z8">
                 <table mat-table [dataSource]="dataSource" matSort>
             
