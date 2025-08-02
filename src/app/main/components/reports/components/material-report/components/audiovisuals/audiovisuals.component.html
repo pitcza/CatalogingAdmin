@@ -1,10 +1,8 @@
 <main>
-    <div class="content">
-        
-        <div class="table-content">
-
-            <div class="table-head">
-                <div class="filter-group">
+  <div class="content">
+    <div class="table-content">
+      <div class="table-head">
+        <!-- <div class="filter-group">
                     <label for="datepicker"> From: </label>
                     <input type="date" autocomplete="off" (change)="applyFilter($event, 'start')" />
                 </div>
@@ -12,68 +10,89 @@
                 <div class="filter-group">
                     <label for="datepicker"> To:</label>
                     <input type="date" autocomplete="off" (change)="applyFilter($event, 'end')" />
-                </div>
+                </div> -->
 
-                <div class="filter-group">
-                    <label for="copyrightFilter">Copyright:</label>
-                    <input list="copyrightOptions" id="copyrightFilter" (input)="applyFilter($event, 'copyright')" placeholder="Search or select year" />
-                    <datalist id="copyrightOptions">
-                    <option *ngFor="let year of uniqueCopyrights" [value]="year">{{ year }}</option>
-                    </datalist>
-                </div>
-
-                <button class="export" (click)="export()">Export</button>
-            </div>
-              
-            <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="dataSource">
-            
-                <!-- Accession Column -->
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef> Audio Visual Accession </th>
-                    <td mat-cell *matCellDef="let element"> {{element.accession}} </td>
-                </ng-container>
-
-                <!-- Title Column -->
-                <ng-container matColumnDef="title">
-                    <th mat-header-cell *matHeaderCellDef> Title </th>
-                    <td mat-cell *matCellDef="let element"> {{element.title || 'Untitled'}} </td>
-                </ng-container>
-
-                <!-- Author Column -->
-                <ng-container matColumnDef="authors">
-                    <th mat-header-cell *matHeaderCellDef> Author/s </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <ng-container *ngIf="element.authors == ''"> N/A </ng-container>
-                        <ng-container *ngIf="element.authors">
-                            <ng-container *ngIf="element.authors.length > 3">
-                                <ng-container *ngFor="let x of element.authors.slice(0, 3); let last = last">
-                                    {{ x }}{{ ', ' }} <br>
-                                </ng-container> [et al.]
-                            </ng-container>
-                            <ng-container *ngIf="element.authors.length <= 3">
-                                <ng-container *ngFor="let x of element.authors; let last = last">
-                                    {{ x }}{{ !last ? ', ' : '' }} <br>
-                                </ng-container>
-                            </ng-container>
-                        </ng-container>
-                    </td>
-                </ng-container>
-            
-                <!-- Copyright Column -->
-                <ng-container matColumnDef="copyright">
-                    <th mat-header-cell *matHeaderCellDef> Copyright </th>
-                    <td mat-cell *matCellDef="let element"> {{element.copyright || 'N.D.'}} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-
-                <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons
-                    aria-label="Select page of periodic elements">
-                </mat-paginator>
-            </div>   
+        <div class="filter-group">
+          <label for="copyrightFilter">Copyright:</label>
+          <input
+            list="copyrightOptions"
+            id="copyrightFilter"
+            (input)="applyFilter($event)"
+            placeholder="Search or select year"
+          />
+          <datalist id="copyrightOptions">
+            <option *ngFor="let year of uniqueCopyrights" [value]="year">
+              {{ year }}
+            </option>
+          </datalist>
         </div>
+
+        <button class="export" (click)="export()">Export</button>
+      </div>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+          <!-- Accession Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Audio Visual Accession</th>
+            <td mat-cell *matCellDef="let element">{{ element.accession }}</td>
+          </ng-container>
+
+          <!-- Title Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Title</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.title || "Untitled" }}
+            </td>
+          </ng-container>
+
+          <!-- Author Column -->
+          <ng-container matColumnDef="authors">
+            <th mat-header-cell *matHeaderCellDef>Author/s</th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="element.authors == ''"> N/A </ng-container>
+              <ng-container *ngIf="element.authors">
+                <ng-container *ngIf="element.authors.length > 3">
+                  <ng-container
+                    *ngFor="
+                      let x of element.authors.slice(0, 3);
+                      let last = last
+                    "
+                  >
+                    {{ x }}{{ ", " }} <br />
+                  </ng-container>
+                  [et al.]
+                </ng-container>
+                <ng-container *ngIf="element.authors.length <= 3">
+                  <ng-container
+                    *ngFor="let x of element.authors; let last = last"
+                  >
+                    {{ x }}{{ !last ? ", " : "" }} <br />
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </td>
+          </ng-container>
+
+          <!-- Copyright Column -->
+          <ng-container matColumnDef="copyright">
+            <th mat-header-cell *matHeaderCellDef>Copyright</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.copyright || "N.D." }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[15]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator>
+      </div>
     </div>
+  </div>
 </main>

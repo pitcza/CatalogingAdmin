@@ -290,7 +290,7 @@ export class ReportsService {
 
       // Add image to workbook
       const addLogo1 = await workbook.addImage({
-        base64: GCLibraryImage,
+        base64: GCImage,
         extension: 'png',
       });
 
@@ -302,7 +302,7 @@ export class ReportsService {
 
       // Add image to workbook
       const addLogo2 = await workbook.addImage({
-        base64: GCImage,
+        base64: GCLibraryImage,
         extension: 'png',
       });
 
